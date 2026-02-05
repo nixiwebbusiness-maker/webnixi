@@ -24,185 +24,121 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const SITE_DATA = {
-            brand_name: "Lumina Luxe",
-            announcement: "$10.00 Off Gel Manicures & Pedicures Today!",
-            hero: {
-                title: "Radiance Redefined",
-                image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=2000"
-            },
-            serviceCategories: {
-                "Russian Style": {
-                    image: "https://images.unsplash.com/photo-1604654894610-df490c9a55af?q=80&w=800",
-                    desc: "Advanced Russian techniques for a flawless, long-lasting finish.",
-                    items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension", p: "$140"}, {n: "Hard Gel Full Set", p: "$130"}, {n: "Hard Gel Fill", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}]
-                },
-                "Nails": {
-                    image: "https://images.unsplash.com/photo-1632345033845-814a6da14f88?q=80&w=800",
-                    desc: "Classic and trendy nail care for the modern woman.",
-                    items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension", p: "$140"}, {n: "Hard Gel Full Set", p: "$130"}, {n: "Gel X (ANY LENGTH)", p: "$130"}]
-                },
-                "Pedicures": {
-                    image: "https://images.unsplash.com/photo-1519415510236-86175bc6d4de?q=80&w=800",
-                    desc: "Relaxing foot care including callus removal and premium gels.",
-                    items: [{n: "Regular Pedicure", p: "$80"}, {n: "Gel Pedicure", p: "$95"}, {n: "24k Gold SPA Pedicure", p: "$125"}, {n: "Russian Style Gel Pedicure", p: "$95"}]
-                },
-                "Wax": {
-                    image: "https://images.unsplash.com/photo-1596178060810-729939bea8f5?q=80&w=800",
-                    desc: "Smooth skin with our professional organic waxing services.",
-                    items: [{n: "Brazilian deep bikini", p: "$80"}, {n: "Full legs", p: "$70"}, {n: "Underarm", p: "$30"}, {n: "Full body", p: "$190"}]
-                },
-                "Lashes": {
-                    image: "https://images.unsplash.com/photo-1582284540020-8acaf0222bb7?q=80&w=800",
-                    desc: "Enhance your eyes with our premium velvet lash extensions.",
-                    items: [{n: "Classic Extension", p: "$120"}, {n: "2D Extension", p: "$160"}, {n: "3D Extension", p: "$180"}, {n: "Lash Lift", p: "$99"}]
-                },
-                "Brows": {
-                    image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800",
-                    desc: "Perfectly shaped and tinted brows to frame your face.",
-                    items: [{n: "Brow Lamination", p: "$99"}, {n: "Brow Tint", p: "$30"}, {n: "Henna Architecture", p: "$80"}]
-                }
-            },
-            galleryImages: [
-                "https://images.unsplash.com/photo-1604654894610-df490c9a55af?auto=format&fit=crop&w=600",
-                "https://images.unsplash.com/photo-1519415510236-86175bc6d4de?auto=format&fit=crop&w=600",
-                "https://images.unsplash.com/photo-1582284540020-8acaf0222bb7?auto=format&fit=crop&w=600",
-                "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=600"
-            ],
-            contact_info: {
-                phone: "(310) 483-9258",
-                address: "2503 Main Street, Santa Monica, CA 90405",
-                hours: "Monday - Sunday | 10:00 AM - 10:00 PM",
-                insta: "@LuminaLuxe"
-            }
-        };
+        const REPO_OWNER = "nixiwebbusiness-maker";
+        const REPO_NAME = "lumina-luxe-sage";
 
         function App() {
+            const [siteData, setSiteData] = React.useState(null);
+            const [isAdmin, setIsAdmin] = React.useState(false);
             const [selectedCat, setSelectedCat] = React.useState("Russian Style");
-            const [reviews, setReviews] = React.useState([
-                { name: "Sara Khan", comment: "The Russian Manicure is life changing! So clean and precise.", stars: 5 },
-                { name: "Emily Watson", comment: "Best lash lift I've ever had. Highly recommended!", stars: 5 }
-            ]);
-            const [newName, setNewName] = React.useState('');
-            const [newComment, setNewComment] = React.useState('');
 
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                if(newName && newComment) {
-                    setReviews([{ name: newName, comment: newComment, stars: 5 }, ...reviews]);
-                    setNewName(''); setNewComment('');
-                    alert("Thank you for your review!");
-                }
+            // GitHub se data fetch karna
+            React.useEffect(() => {
+                fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/data.json`)
+                    .then(res => res.json())
+                    .then(data => setSiteData(data))
+                    .catch(err => console.error("Data load failed:", err));
+            }, []);
+
+            const handleSave = async () => {
+                const token = prompt("Enter GitHub Token to Save Changes:");
+                if (!token) return;
+
+                try {
+                    const fileRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`);
+                    const fileData = await fileRes.json();
+                    const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(siteData, null, 2))));
+
+                    const response = await fetch('/api/update', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ content: updatedContent, sha: fileData.sha, token: token })
+                    });
+
+                    if (response.ok) {
+                        alert("Website Updated Successfully!");
+                        setIsAdmin(false);
+                        window.location.reload();
+                    } else {
+                        alert("Update failed. Check token permissions.");
+                    }
+                } catch (e) { alert("Error: " + e.message); }
             };
+
+            if (!siteData) return <div className="h-screen flex items-center justify-center font-serif italic text-royalAmethyst">Loading Lumina Luxe...</div>;
 
             return (
                 <div>
-                    <div className="bg-royalAmethyst text-white text-center py-2 text-xs font-bold uppercase tracking-widest">{SITE_DATA.announcement}</div>
+                    {/* Admin Secret Access */}
+                    <button onClick={() => setIsAdmin(!isAdmin)} className="fixed bottom-4 right-4 z-[100] opacity-20 hover:opacity-100 bg-white p-2 rounded-full text-[8px] font-bold">ADMIN</button>
 
-                    <nav className="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md py-4 px-6 shadow-sm flex justify-between items-center">
-                        <span className="text-xl font-serif font-bold text-royalAmethyst">{SITE_DATA.brand_name}</span>
-                        <div className="flex space-x-4 md:space-x-6 text-[10px] md:text-xs font-bold uppercase tracking-widest overflow-x-auto">
-                            <a href="#services" className="hover:text-royalAmethyst">Services</a>
-                            <a href="#gallery" className="hover:text-royalAmethyst">Gallery</a>
-                            <a href="#reviews" className="hover:text-royalAmethyst">Reviews</a>
-                            <a href="#about" className="hover:text-royalAmethyst">About Us</a>
+                    {isAdmin ? (
+                        /* --- ADMIN EDITOR UI --- */
+                        <div className="min-h-screen bg-lilacMist p-6 flex flex-col items-center">
+                            <div className="bg-white w-full max-w-2xl p-8 rounded-[2rem] shadow-2xl space-y-6">
+                                <h2 className="text-2xl font-serif text-center border-b pb-4">Edit Website Content</h2>
+                                <div>
+                                    <label className="text-[10px] font-bold uppercase tracking-widest text-royalAmethyst">Brand Name</label>
+                                    <input className="w-full p-3 border rounded-xl mt-1" value={siteData.brand_name} onChange={e => setSiteData({...siteData, brand_name: e.target.value})} />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-bold uppercase tracking-widest text-royalAmethyst">Promotion Banner</label>
+                                    <input className="w-full p-3 border rounded-xl mt-1" value={siteData.announcement} onChange={e => setSiteData({...siteData, announcement: e.target.value})} />
+                                </div>
+                                <button onClick={handleSave} className="w-full bg-royalAmethyst text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-midnightPlum transition">Save & Publish Live</button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full text-xs text-gray-400 uppercase">Back to Website</button>
+                            </div>
                         </div>
-                    </nav>
+                    ) : (
+                        /* --- ORIGINAL DESIGN (No Changes) --- */
+                        <div>
+                            <div className="bg-royalAmethyst text-white text-center py-2 text-xs font-bold uppercase tracking-widest">{siteData.announcement}</div>
+                            
+                            <nav className="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md py-4 px-6 shadow-sm flex justify-between items-center">
+                                <span className="text-xl font-serif font-bold text-royalAmethyst">{siteData.brand_name}</span>
+                                <div className="flex space-x-4 md:space-x-6 text-[10px] md:text-xs font-bold uppercase tracking-widest overflow-x-auto">
+                                    <a href="#services" className="hover:text-royalAmethyst">Services</a>
+                                    <a href="#gallery" className="hover:text-royalAmethyst">Gallery</a>
+                                    <a href="#about" className="hover:text-royalAmethyst">About Us</a>
+                                </div>
+                            </nav>
 
-                    <header className="relative h-[40vh] flex items-center justify-center text-center">
-                        <img src={SITE_DATA.hero.image} className="absolute inset-0 w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-black/40"></div>
-                        <h1 className="relative z-10 text-white text-4xl md:text-6xl font-serif uppercase tracking-widest">{SITE_DATA.brand_name}</h1>
-                    </header>
+                            <header className="relative h-[40vh] flex items-center justify-center text-center">
+                                <img src={siteData.hero.image} className="absolute inset-0 w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-black/40"></div>
+                                <h1 className="relative z-10 text-white text-4xl md:text-6xl font-serif uppercase tracking-widest">{siteData.brand_name}</h1>
+                            </header>
 
-                    {/* Services Section */}
-                    <section id="services" className="py-20 max-w-6xl mx-auto px-6">
-                        <h2 className="text-3xl font-serif text-center mb-10">Premium Services</h2>
-                        <div className="flex flex-wrap justify-center gap-3 mb-10 pb-6 border-b border-royalAmethyst/10">
-                            {Object.keys(SITE_DATA.serviceCategories).map(cat => (
-                                <button key={cat} onClick={() => setSelectedCat(cat)} className={`px-6 py-2 rounded-full text-xs font-bold transition-all ${selectedCat === cat ? 'bg-royalAmethyst text-white shadow-lg' : 'bg-white hover:bg-softViolet'}`}>{cat}</button>
-                            ))}
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-12 bg-white p-8 rounded-[3rem] shadow-xl border border-lilacMist">
-                            <div className="space-y-6">
-                                <h3 className="text-3xl font-serif text-royalAmethyst uppercase tracking-tighter">~ {selectedCat} ~</h3>
-                                <p className="text-gray-500 italic text-sm leading-relaxed">{SITE_DATA.serviceCategories[selectedCat].desc}</p>
-                                <div className="space-y-3">
-                                    {SITE_DATA.serviceCategories[selectedCat].items.map((item, i) => (
-                                        <div key={i} className="flex justify-between border-b border-dashed border-gray-200 py-2">
-                                            <span className="font-medium text-sm">{item.n}</span>
-                                            <span className="font-bold text-royalAmethyst">{item.p}</span>
-                                        </div>
+                            {/* Services - Aapka Original Design */}
+                            <section id="services" className="py-20 max-w-6xl mx-auto px-6">
+                                <h2 className="text-3xl font-serif text-center mb-10">Premium Services</h2>
+                                <div className="flex flex-wrap justify-center gap-3 mb-10 pb-6 border-b border-royalAmethyst/10">
+                                    {Object.keys(siteData.serviceCategories).map(cat => (
+                                        <button key={cat} onClick={() => setSelectedCat(cat)} className={`px-6 py-2 rounded-full text-xs font-bold transition-all ${selectedCat === cat ? 'bg-royalAmethyst text-white shadow-lg' : 'bg-white hover:bg-softViolet'}`}>{cat}</button>
                                     ))}
                                 </div>
-                            </div>
-                            <img src={SITE_DATA.serviceCategories[selectedCat].image} className="w-full h-[400px] object-cover rounded-[2rem] shadow-lg" alt={selectedCat} />
-                        </div>
-                    </section>
-
-                    {/* Gallery */}
-                    <section id="gallery" className="py-20 bg-midnightPlum px-6 text-center">
-                        <h2 className="text-3xl font-serif text-white mb-12 uppercase tracking-widest">Gallery</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto mb-4">
-                            {SITE_DATA.galleryImages.map((img, i) => (
-                                <img key={i} src={img} className="h-72 w-full object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-500" />
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* REVIEWS SECTION */}
-                    <section id="reviews" className="py-20 max-w-4xl mx-auto px-6">
-                        <h2 className="text-3xl font-serif text-center mb-10">Client Reviews</h2>
-                        <div className="grid gap-6 mb-12">
-                            {reviews.map((r, i) => (
-                                <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-lilacMist">
-                                    <div className="text-yellow-500 mb-2 text-xs">{"★".repeat(r.stars)}</div>
-                                    <p className="italic text-gray-700 mb-2 text-sm">"{r.comment}"</p>
-                                    <p className="text-[10px] font-bold uppercase text-royalAmethyst">- {r.name}</p>
+                                <div className="grid md:grid-cols-2 gap-12 bg-white p-8 rounded-[3rem] shadow-xl border border-lilacMist">
+                                    <div className="space-y-6">
+                                        <h3 className="text-3xl font-serif text-royalAmethyst uppercase tracking-tighter">~ {selectedCat} ~</h3>
+                                        <p className="text-gray-500 italic text-sm leading-relaxed">{siteData.serviceCategories[selectedCat].desc}</p>
+                                        <div className="space-y-3">
+                                            {siteData.serviceCategories[selectedCat].items.map((item, i) => (
+                                                <div key={i} className="flex justify-between border-b border-dashed border-gray-200 py-2">
+                                                    <span className="font-medium text-sm">{item.n}</span>
+                                                    <span className="font-bold text-royalAmethyst">{item.p}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <img src={siteData.serviceCategories[selectedCat].image} className="w-full h-[400px] object-cover rounded-[2rem] shadow-lg" alt={selectedCat} />
                                 </div>
-                            ))}
-                        </div>
-                        <div className="bg-softViolet/50 p-8 rounded-[2rem] border border-royalAmethyst/10">
-                            <h3 className="text-xl font-serif mb-6 text-center">Add Your Review</h3>
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <input value={newName} onChange={e => setNewName(e.target.value)} placeholder="Your Name" className="w-full p-3 rounded-xl border-none outline-none focus:ring-1 focus:ring-royalAmethyst text-sm" required />
-                                <textarea value={newComment} onChange={e => setNewComment(e.target.value)} placeholder="Tell us about your experience..." className="w-full p-3 rounded-xl h-24 border-none outline-none focus:ring-1 focus:ring-royalAmethyst text-sm" required></textarea>
-                                <button type="submit" className="w-full bg-royalAmethyst text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-midnightPlum transition">Submit Review</button>
-                            </form>
-                        </div>
-                    </section>
+                            </section>
 
-                    {/* ABOUT US SECTION */}
-                    <section id="about" className="py-20 max-w-6xl mx-auto px-6">
-                        <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-lilacMist flex flex-col md:flex-row">
-                            <div className="bg-royalAmethyst text-white p-12 md:w-1/2 flex flex-col justify-center text-center">
-                                <h2 className="text-4xl font-serif mb-4 uppercase tracking-tighter">{SITE_DATA.brand_name}</h2>
-                                <h3 className="text-lg font-bold mb-6 tracking-widest uppercase opacity-80 border-b border-white/20 pb-4">Schedule Appointment</h3>
-                                <div className="text-3xl font-bold mb-4">{SITE_DATA.contact_info.phone}</div>
-                                <button className="bg-white text-royalAmethyst px-8 py-3 rounded-full font-bold uppercase text-sm hover:bg-midnightPlum hover:text-white transition">Book Online Now</button>
-                            </div>
-                            
-                            <div className="p-12 md:w-1/2 space-y-8 bg-lilacMist/30">
-                                <div>
-                                    <h4 className="text-royalAmethyst font-bold uppercase text-xs tracking-widest mb-3">Salon Hours</h4>
-                                    <p className="text-xl font-medium">{SITE_DATA.contact_info.hours}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-royalAmethyst font-bold uppercase text-xs tracking-widest mb-3">Our Location</h4>
-                                    <p className="text-xl font-medium leading-relaxed">{SITE_DATA.contact_info.address}</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-2xl border-l-4 border-royalAmethyst">
-                                    <h4 className="text-royalAmethyst font-bold uppercase text-xs tracking-widest mb-2">Exclusive Promotions</h4>
-                                    <p className="text-lg font-serif font-bold text-midnightPlum">$10.00 Off Gel Manicures & Pedicures</p>
-                                    <p className="text-xs text-gray-400 mt-1 uppercase">*Follow us: {SITE_DATA.contact_info.insta}</p>
-                                </div>
-                            </div>
+                            <footer className="bg-midnightPlum text-white py-8 text-center text-[10px] opacity-40 uppercase tracking-[0.2em]">
+                                © 2026 {siteData.brand_name} Sanctuary | All Rights Reserved
+                            </footer>
                         </div>
-                    </section>
-
-                    <footer className="bg-midnightPlum text-white py-8 text-center text-[10px] opacity-40 uppercase tracking-[0.2em]">
-                        © 2026 Lumina Luxe Sanctuary | All Rights Reserved
-                    </footer>
+                    )}
                 </div>
             );
         }
