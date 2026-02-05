@@ -1,9 +1,7 @@
 {
-  "brand_name": "Lumina Luxe",
-  "announcement": "✨ Premium Aesthetics - Booking 2026 Now",
+  "brand_name": "Rich Angel Salon",
+  "announcement": "✨ Book your Luxury Session - Exclusive 2026 Openings",
   "hero": {
-    "title": "Lumina Luxe",
-    "subtitle": "Where Elegance Meets Artistry",
     "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600"
   },
   "gallery": [
@@ -11,5 +9,10 @@
     "https://images.unsplash.com/photo-1527799822367-3188572f8817?auto=format&fit=crop&w=800",
     "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800"
   ],
-  "footer_text": "Curated with elegance by Lumina Luxe © 2026"
+  "services": [
+    { "name": "Signature Haircut", "price": "$120" },
+    { "name": "Premium Balayage", "price": "$250" },
+    { "name": "Silk Protein Treatment", "price": "$85" },
+    { "name": "Royal Manicure", "price": "$65" }
+  ]
 }
