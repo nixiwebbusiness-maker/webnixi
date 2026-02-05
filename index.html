@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Sanctuary</title>
+    <title>Lumina Luxe | Premium Sanctuary</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;600&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #F5F3FF; color: #2E1065; }
+        body { font-family: 'Inter', sans-serif; background: #F5F3FF; }
         .serif { font-family: 'Playfair Display', serif; }
     </style>
 </head>
@@ -19,14 +19,24 @@
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
-            const [loading, setLoading] = React.useState(true);
+            const ADMIN_PASSWORD = "admin123"; // Ise aap apni marzi se badal sakte hain
 
             React.useEffect(() => {
-                fetch('data.json').then(res => res.json()).then(d => { setData(d); setLoading(false); });
+                fetch('data.json').then(res => res.json()).then(d => setData(d));
             }, []);
 
+            const handleAdminLogin = (e) => {
+                if (e.shiftKey) {
+                    const pass = prompt("Enter Admin Password to Unlock Editor:");
+                    if (pass === ADMIN_PASSWORD) {
+                        setIsAdmin(true);
+                    } else {
+                        alert("Wrong Password! Access Denied.");
+                    }
+                }
+            };
+
             const saveChanges = async () => {
-                setLoading(true);
                 try {
                     const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/lumina-luxe-sage/contents/data.json');
                     const fileData = await fileRes.json();
@@ -38,61 +48,74 @@
                         body: JSON.stringify({ content: b64, sha: fileData.sha })
                     });
 
-                    if (res.ok) { window.location.reload(); }
-                    else { alert("Error! Check Vercel Settings."); setLoading(false); }
-                } catch (e) { alert("Failed"); setLoading(false); }
+                    if (res.ok) { 
+                        alert("Successfully Saved & Published!"); 
+                        window.location.reload(); 
+                    } else { 
+                        alert("Update Failed. Check Server Settings."); 
+                    }
+                } catch (e) { alert("Error connecting to server."); }
             };
 
-            if (loading || !data) return <div className="h-screen flex items-center justify-center serif text-2xl">Lumina Luxe...</div>;
+            if (!data) return null;
 
             return (
                 <div>
                     {isAdmin ? (
-                        <div className="min-h-screen p-8 bg-white max-w-2xl mx-auto rounded-[3rem] my-10 shadow-2xl">
-                            <h2 className="serif text-3xl mb-8 border-b pb-4">Editor Panel</h2>
-                            <div className="space-y-4">
-                                <label className="text-xs font-bold uppercase">Brand Name</label>
-                                <input className="w-full p-4 bg-gray-50 rounded-2xl" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                <label className="text-xs font-bold uppercase">Announcement</label>
-                                <input className="w-full p-4 bg-gray-50 rounded-2xl" value={data.announcement} onChange={e => setData({...data, announcement: e.target.value})} />
-                                <div className="grid grid-cols-1 gap-2">
-                                    <label className="text-xs font-bold uppercase">Gallery Links</label>
-                                    {data.gallery.map((img, i) => (
-                                        <input key={i} className="p-2 text-xs border rounded-lg" value={img} onChange={e => {
-                                            const newG = [...data.gallery]; newG[i] = e.target.value; setData({...data, gallery: newG});
-                                        }} />
-                                    ))}
+                        <div className="min-h-screen p-6 bg-white max-w-2xl mx-auto rounded-[3rem] my-10 shadow-2xl border-t-8 border-purple-600">
+                            <h2 className="serif text-3xl mb-8 text-center text-purple-700">Studio Admin Panel</h2>
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-gray-400">Website Name</label>
+                                    <input className="w-full p-4 bg-gray-50 rounded-2xl border-none shadow-inner" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
                                 </div>
-                                <button onClick={saveChanges} className="w-full bg-[#7C3AED] text-white py-5 rounded-3xl font-bold shadow-lg mt-6">SAVE & PUBLISH</button>
-                                <button onClick={() => setIsAdmin(false)} className="w-full text-gray-400 text-xs mt-2 text-center">EXIT</button>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-gray-400">Announcement Bar</label>
+                                    <input className="w-full p-4 bg-gray-50 rounded-2xl border-none shadow-inner" value={data.announcement} onChange={e => setData({...data, announcement: e.target.value})} />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-purple-400">Gallery Links (URLs)</label>
+                                    <div className="grid grid-cols-1 gap-3 mt-2">
+                                        {data.gallery.map((img, i) => (
+                                            <input key={i} className="p-3 text-xs border rounded-xl" value={img} onChange={e => {
+                                                const newG = [...data.gallery]; newG[i] = e.target.value; setData({...data, gallery: newG});
+                                            }} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <button onClick={saveChanges} className="w-full bg-purple-600 text-white py-5 rounded-3xl font-bold shadow-lg hover:bg-purple-800 transition-all uppercase tracking-widest">Update Live Site</button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full text-gray-300 text-xs mt-4">Close Editor</button>
                             </div>
                         </div>
                     ) : (
                         <div>
-                            <div className="bg-[#7C3AED] text-white text-center py-2 text-[10px] font-bold uppercase tracking-widest">{data.announcement}</div>
-                            <nav className="p-6 flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
-                                <span className="serif text-2xl text-[#7C3AED] cursor-pointer" onClick={(e) => e.shiftKey && setIsAdmin(true)}>{data.brand_name}</span>
-                                <div className="flex space-x-4 text-[10px] font-bold uppercase tracking-widest">
-                                    <a href="#gallery">Gallery</a>
+                            <div className="bg-purple-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-widest">{data.announcement}</div>
+                            <nav className="p-6 flex justify-between bg-white/90 backdrop-blur-md sticky top-0 z-50">
+                                <span className="serif text-2xl text-purple-700 cursor-pointer select-none" onClick={handleAdminLogin}>{data.brand_name}</span>
+                                <div className="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest">
+                                    <a href="#gallery" className="hover:text-purple-700">Portfolio</a>
+                                    <a href="#" className="opacity-30">Contact</a>
                                 </div>
                             </nav>
-                            <header className="h-[40vh] relative flex items-center justify-center">
+                            <header className="h-[45vh] relative flex items-center justify-center overflow-hidden">
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
-                                <h1 className="relative text-white text-5xl serif uppercase tracking-widest text-center">{data.brand_name}</h1>
+                                <div className="absolute inset-0 bg-black/20"></div>
+                                <h1 className="relative text-white text-5xl md:text-7xl serif uppercase drop-shadow-2xl text-center">{data.brand_name}</h1>
                             </header>
-                            <section id="gallery" className="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+                            <section id="gallery" className="py-24 px-6 grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
                                 {data.gallery.map((img, i) => (
-                                    <img key={i} src={img} className="w-full h-80 object-cover rounded-[2.5rem] shadow-xl hover:scale-105 transition-transform" />
+                                    <div key={i} className="rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group">
+                                        <img src={img} className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700" />
+                                    </div>
                                 ))}
                             </section>
-                            <footer className="py-10 text-center opacity-30 text-[9px] tracking-[0.4em] uppercase">{data.footer_text}</footer>
+                            <footer className="py-16 text-center opacity-20 text-[9px] uppercase tracking-[0.5em]">{data.brand_name} | Premium Experience</footer>
                         </div>
                     )}
                 </div>
             );
         }
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
