@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Salon | Admin Control</title>
+    <title>Lumina Luxe | Sasha's Salon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -13,7 +13,8 @@
         .serif { font-family: 'Cormorant Garamond', serif; }
         .gold-text { color: #C5A059; }
         .gold-bg { background: #C5A059; }
-        .gold-border { border-color: #C5A059; }
+        .nav-link { font-size: 10px; uppercase; tracking-widest; cursor: pointer; transition: color 0.3s; }
+        .nav-link:hover { color: #C5A059; }
     </style>
 </head>
 <body>
@@ -29,82 +30,62 @@
             }, []);
 
             const saveChanges = async () => {
-                try {
-                    // Exact Repo Link for fetch
-                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
-                    const fileData = await fileRes.json();
-                    
-                    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-                    
-                    const res = await fetch('/api/update', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ content: b64, sha: fileData.sha })
-                    });
-
-                    if (res.ok) {
-                        alert("Success! Site updated.");
-                        window.location.reload();
-                    } else {
-                        alert("Update failed. Please check GH_TOKEN permissions and Repo name.");
-                    }
-                } catch (e) {
-                    alert("Connection Error.");
-                }
+                const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                const fileData = await fileRes.json();
+                const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                await fetch('/api/update', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: b64, sha: fileData.sha })
+                });
+                window.location.reload();
             };
 
-            const updateService = (idx, field, val) => {
-                const newServices = [...data.services];
-                newServices[idx][field] = val;
-                setData({...data, services: newServices});
-            };
-
-            if (!data) return <div className="p-10 text-center gold-text serif italic text-3xl">Lumina Luxe...</div>;
+            if (!data) return null;
 
             return (
                 <div>
                     {isAdmin ? (
-                        <div className="p-8 max-w-2xl mx-auto bg-white shadow-2xl rounded-[2rem] my-10 border-t-8 gold-border">
-                            <h2 className="serif text-3xl gold-text text-center mb-6 italic">Salon Management</h2>
-                            <div className="space-y-6">
-                                <div>
-                                    <label className="text-[10px] font-bold uppercase opacity-40">Brand Name</label>
-                                    <input className="w-full p-4 border rounded-xl mt-1" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                </div>
-                                <div>
-                                    <label className="text-[10px] font-bold uppercase opacity-40">Pricing Editor</label>
-                                    {data.services.map((s, i) => (
-                                        <div key={i} className="flex gap-2 mt-2">
-                                            <input className="w-2/3 p-2 border text-xs" value={s.name} onChange={e => updateService(i, 'name', e.target.value)} />
-                                            <input className="w-1/3 p-2 border text-xs text-right gold-text font-bold" value={s.price} onChange={e => updateService(i, 'price', e.target.value)} />
-                                        </div>
-                                    ))}
-                                </div>
-                                <button onClick={saveChanges} className="w-full gold-bg text-white py-5 rounded-2xl font-bold uppercase tracking-widest shadow-lg">Publish Updates</button>
-                                <button onClick={() => setIsAdmin(false)} className="w-full text-gray-400 text-xs mt-2 uppercase">Close Editor</button>
-                            </div>
+                        <div className="p-8 max-w-2xl mx-auto bg-white shadow-2xl rounded-3xl my-10 border-t-8 border-[#C5A059]">
+                            <h2 className="serif text-3xl gold-text text-center mb-6 italic">Admin Dashboard</h2>
+                            <textarea className="w-full p-4 border rounded-xl mb-4" value={data.announcement} onChange={e => setData({...data, announcement: e.target.value})} />
+                            <button onClick={saveChanges} className="w-full gold-bg text-white py-4 rounded-xl font-bold uppercase tracking-widest">Publish Changes</button>
+                            <button onClick={() => setIsAdmin(false)} className="w-full text-gray-400 text-xs mt-4">Exit</button>
                         </div>
                     ) : (
                         <div>
-                            <div className="bg-black text-white text-[9px] py-2 text-center uppercase tracking-[0.3em]">{data.announcement}</div>
-                            <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm">
-                                <span className="serif text-4xl gold-text cursor-pointer select-none" onClick={(e) => e.shiftKey && prompt("Password:") === ADMIN_PASSWORD && setIsAdmin(true)}>{data.brand_name}</span>
-                                <button className="gold-bg text-white px-8 py-3 text-[10px] uppercase font-bold tracking-widest">Book Now</button>
+                            {/* Announcement */}
+                            <div className="bg-black text-white text-[9px] py-2 text-center uppercase tracking-[0.3em] font-bold">{data.announcement}</div>
+                            
+                            {/* Navigation */}
+                            <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 border-b border-gray-50">
+                                <span className="serif text-4xl gold-text cursor-pointer select-none" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASSWORD && setIsAdmin(true)}>{data.brand_name}</span>
+                                <div className="hidden md:flex space-x-6 items-center uppercase tracking-widest text-[10px] font-bold">
+                                    <a href="#gallery" className="nav-link">Service Gallery</a>
+                                    <a href="#pricing" className="nav-link">Prices</a>
+                                    <a href="#contact" className="nav-link">Contact</a>
+                                    <a href="#reviews" className="nav-link">Reviews</a>
+                                    <a href="#about" className="nav-link">About Us</a>
+                                    <button className="gold-bg text-white px-6 py-2 ml-4 hover:bg-black transition-all">Book Now</button>
+                                </div>
                             </nav>
-                            <header className="h-[80vh] relative flex items-center justify-center">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover grayscale-[20%]" />
-                                <div className="absolute inset-0 bg-black/30"></div>
+
+                            {/* Hero */}
+                            <header className="h-[75vh] relative flex items-center justify-center">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover grayscale-[10%]" />
+                                <div className="absolute inset-0 bg-black/40"></div>
                                 <div className="relative text-center text-white px-4">
-                                    <h1 className="serif text-7xl md:text-[9rem] mb-4 italic leading-none">{data.brand_name}</h1>
-                                    <p className="uppercase tracking-[0.6em] text-[10px]">Pure Artistry. Pure Luxury.</p>
+                                    <h1 className="serif text-7xl md:text-[8rem] mb-4 italic leading-none">{data.brand_name}</h1>
+                                    <p className="uppercase tracking-[0.5em] text-[10px] font-light">Luxury Russian Beauty Artistry</p>
                                 </div>
                             </header>
-                            <section className="py-32 bg-[#fafafa]">
-                                <div className="max-w-4xl mx-auto px-6">
-                                    <h2 className="serif text-6xl gold-text mb-20 text-center italic">Service Menu</h2>
-                                    <div className="space-y-12">
+
+                            {/* Pricing Section */}
+                            <section id="pricing" className="py-24 bg-white">
+                                <div className="max-w-4xl mx-auto px-6 text-center">
+                                    <h2 className="serif text-5xl gold-text mb-16 italic font-light">Pricing</h2>
+                                    <div className="space-y-8 text-left">
                                         {data.services.map((item, idx) => (
-                                            <div key={idx} className="flex justify-between items-end border-b border-gray-200 pb-4">
+                                            <div key={idx} className="flex justify-between items-end border-b border-gray-100 pb-4">
                                                 <span className="serif text-2xl uppercase tracking-tighter">{item.name}</span>
                                                 <span className="gold-text font-bold tracking-widest ml-4">{item.price}</span>
                                             </div>
@@ -112,8 +93,74 @@
                                     </div>
                                 </div>
                             </section>
-                            <footer className="py-20 bg-black text-white/30 text-center uppercase text-[8px] tracking-[0.5em]">
-                                {data.brand_name} Salon Studio © 2026
+
+                            {/* Reviews Section */}
+                            <section id="reviews" className="py-24 bg-[#fafafa]">
+                                <div className="max-w-5xl mx-auto px-6 text-center">
+                                    <h2 className="serif text-5xl gold-text mb-16 italic">Customer Reviews</h2>
+                                    <div className="grid md:grid-cols-3 gap-10">
+                                        {[
+                                            {name: "Emily R.", text: "The best Russian manicure I've ever had! Attention to detail is incredible."},
+                                            {name: "Sarah M.", text: "Sasha is a magician with brows. The atmosphere is so welcoming."},
+                                            {name: "Jessica L.", text: "Tea and champagne while getting pampered? Truly a luxury experience."}
+                                        ].map((rev, i) => (
+                                            <div key={i} className="bg-white p-8 shadow-sm border-t-2 gold-border italic text-gray-600">
+                                                <p className="mb-4">"{rev.text}"</p>
+                                                <span className="font-bold gold-text uppercase text-[10px] tracking-widest">— {rev.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Gallery Section */}
+                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-5xl gold-text mb-16 italic text-center">Service Gallery</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    {data.gallery.map((img, i) => (
+                                        <img key={i} src={img} className="w-full h-80 object-cover hover:opacity-90 transition-opacity" />
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* About Us Section */}
+                            <section id="about" className="py-24 bg-white">
+                                <div className="max-w-3xl mx-auto px-6 text-center">
+                                    <h2 className="serif text-5xl gold-text mb-10 italic">About Us</h2>
+                                    <h3 className="gold-text font-bold uppercase tracking-widest text-xs mb-6">Book Your Appointment Now</h3>
+                                    <p className="text-gray-700 leading-relaxed space-y-4 text-sm md:text-base">
+                                        Hi, I’m Sasha. I founded this salon in Santa Monica to bring the best of beauty services to the area. <br/><br/>
+                                        As a Russian nail technician with over 15 years of experience, I’m passionate about delivering top-quality, detail-oriented services. Our salon offers not only the best Russian manicures but also premium treatments for hair, brows, brow lamination, eyelash extensions, and spray tan. <br/><br/>
+                                        Our goal is to ensure every client experiences exceptional care in a cozy, welcoming atmosphere. We treat our guests to tea, coffee, or champagne to make every visit truly special and memorable.
+                                    </p>
+                                </div>
+                            </section>
+
+                            {/* Footer / Contact */}
+                            <footer id="contact" className="py-20 bg-black text-white px-6">
+                                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
+                                    <div className="space-y-4">
+                                        <h4 className="serif text-3xl gold-text italic">{data.brand_name}</h4>
+                                        <button className="border border-white/20 px-8 py-3 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black">Schedule Appointment</button>
+                                        <p className="gold-text font-bold text-xl mt-4">(310) 493-9255</p>
+                                        <p className="text-[10px] underline tracking-widest cursor-pointer hover:gold-text">Book Online Now</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h5 className="gold-text uppercase tracking-widest text-[10px] font-bold mb-4">Salon Hours</h5>
+                                        <p className="text-sm opacity-70 italic font-serif">Monday - Sunday</p>
+                                        <p className="text-sm font-bold tracking-widest">10:00 AM - 10:00 PM</p>
+                                        <p className="mt-6 text-sm opacity-70 italic font-serif">2503 Main Street,</p>
+                                        <p className="text-sm tracking-widest font-bold">Attock, CA 90405</p>
+                                    </div>
+                                    <div className="bg-zinc-900 p-8 border border-white/5 shadow-2xl">
+                                        <h5 className="gold-text uppercase tracking-widest text-[10px] font-bold mb-4">Exclusive Promotions</h5>
+                                        <p className="serif text-3xl italic mb-2">$10.00 Off</p>
+                                        <p className="text-[10px] uppercase tracking-[0.2em] leading-loose">Gel Manicures & Pedicures</p>
+                                    </div>
+                                </div>
+                                <div className="mt-20 pt-8 border-t border-white/5 text-center text-[8px] uppercase tracking-[0.5em] opacity-30">
+                                    {data.brand_name} | Premium Artistry © 2026
+                                </div>
                             </footer>
                         </div>
                     )}
