@@ -32,7 +32,6 @@
             const [isAdmin, setIsAdmin] = React.useState(false);
             const [selectedCat, setSelectedCat] = React.useState("Russian Style");
 
-            // GitHub se data fetch karna
             React.useEffect(() => {
                 fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/data.json`)
                     .then(res => res.json())
@@ -65,86 +64,30 @@
                 } catch (e) { alert("Error: " + e.message); }
             };
 
-            if (!siteData) return <div className="h-screen flex items-center justify-center font-serif italic text-royalAmethyst">Loading Lumina Luxe...</div>;
+            const updateGallery = (index, newUrl) => {
+                const newGallery = [...siteData.gallery];
+                newGallery[index] = newUrl;
+                setSiteData({...siteData, gallery: newGallery});
+            };
+
+            if (!siteData) return <div className="h-screen flex items-center justify-center font-serif italic text-royalAmethyst text-2xl animate-pulse">Lumina Luxe...</div>;
 
             return (
                 <div>
-                    {/* Admin Secret Access */}
-                    <button onClick={() => setIsAdmin(!isAdmin)} className="fixed bottom-4 right-4 z-[100] opacity-20 hover:opacity-100 bg-white p-2 rounded-full text-[8px] font-bold">ADMIN</button>
+                    <button onClick={() => setIsAdmin(!isAdmin)} className="fixed bottom-4 right-4 z-[100] opacity-30 hover:opacity-100 bg-royalAmethyst text-white px-3 py-1 rounded-full text-[10px] font-bold shadow-lg transition-all">
+                        {isAdmin ? "EXIT EDITOR" : "ADMIN"}
+                    </button>
 
                     {isAdmin ? (
                         /* --- ADMIN EDITOR UI --- */
-                        <div className="min-h-screen bg-lilacMist p-6 flex flex-col items-center">
-                            <div className="bg-white w-full max-w-2xl p-8 rounded-[2rem] shadow-2xl space-y-6">
-                                <h2 className="text-2xl font-serif text-center border-b pb-4">Edit Website Content</h2>
-                                <div>
-                                    <label className="text-[10px] font-bold uppercase tracking-widest text-royalAmethyst">Brand Name</label>
-                                    <input className="w-full p-3 border rounded-xl mt-1" value={siteData.brand_name} onChange={e => setSiteData({...siteData, brand_name: e.target.value})} />
+                        <div className="min-h-screen bg-lilacMist p-4 md:p-10 flex flex-col items-center">
+                            <div className="bg-white w-full max-w-3xl p-6 md:p-10 rounded-[3rem] shadow-2xl space-y-8 border border-white">
+                                <h2 className="text-3xl font-serif text-center text-royalAmethyst">Lumina Live Editor</h2>
+                                
+                                <div className="space-y-4">
+                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Header & Branding</h3>
+                                    <input className="w-full p-4 bg-softViolet/30 rounded-2xl border-none focus:ring-2 focus:ring-royalAmethyst transition-all" placeholder="Brand Name" value={siteData.brand_name} onChange={e => setSiteData({...siteData, brand_name: e.target.value})} />
+                                    <input className="w-full p-4 bg-softViolet/30 rounded-2xl border-none focus:ring-2 focus:ring-royalAmethyst transition-all" placeholder="Promo Banner" value={siteData.announcement} onChange={e => setSiteData({...siteData, announcement: e.target.value})} />
                                 </div>
-                                <div>
-                                    <label className="text-[10px] font-bold uppercase tracking-widest text-royalAmethyst">Promotion Banner</label>
-                                    <input className="w-full p-3 border rounded-xl mt-1" value={siteData.announcement} onChange={e => setSiteData({...siteData, announcement: e.target.value})} />
-                                </div>
-                                <button onClick={handleSave} className="w-full bg-royalAmethyst text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-midnightPlum transition">Save & Publish Live</button>
-                                <button onClick={() => setIsAdmin(false)} className="w-full text-xs text-gray-400 uppercase">Back to Website</button>
-                            </div>
-                        </div>
-                    ) : (
-                        /* --- ORIGINAL DESIGN (No Changes) --- */
-                        <div>
-                            <div className="bg-royalAmethyst text-white text-center py-2 text-xs font-bold uppercase tracking-widest">{siteData.announcement}</div>
-                            
-                            <nav className="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md py-4 px-6 shadow-sm flex justify-between items-center">
-                                <span className="text-xl font-serif font-bold text-royalAmethyst">{siteData.brand_name}</span>
-                                <div className="flex space-x-4 md:space-x-6 text-[10px] md:text-xs font-bold uppercase tracking-widest overflow-x-auto">
-                                    <a href="#services" className="hover:text-royalAmethyst">Services</a>
-                                    <a href="#gallery" className="hover:text-royalAmethyst">Gallery</a>
-                                    <a href="#about" className="hover:text-royalAmethyst">About Us</a>
-                                </div>
-                            </nav>
 
-                            <header className="relative h-[40vh] flex items-center justify-center text-center">
-                                <img src={siteData.hero.image} className="absolute inset-0 w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-black/40"></div>
-                                <h1 className="relative z-10 text-white text-4xl md:text-6xl font-serif uppercase tracking-widest">{siteData.brand_name}</h1>
-                            </header>
-
-                            {/* Services - Aapka Original Design */}
-                            <section id="services" className="py-20 max-w-6xl mx-auto px-6">
-                                <h2 className="text-3xl font-serif text-center mb-10">Premium Services</h2>
-                                <div className="flex flex-wrap justify-center gap-3 mb-10 pb-6 border-b border-royalAmethyst/10">
-                                    {Object.keys(siteData.serviceCategories).map(cat => (
-                                        <button key={cat} onClick={() => setSelectedCat(cat)} className={`px-6 py-2 rounded-full text-xs font-bold transition-all ${selectedCat === cat ? 'bg-royalAmethyst text-white shadow-lg' : 'bg-white hover:bg-softViolet'}`}>{cat}</button>
-                                    ))}
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-12 bg-white p-8 rounded-[3rem] shadow-xl border border-lilacMist">
-                                    <div className="space-y-6">
-                                        <h3 className="text-3xl font-serif text-royalAmethyst uppercase tracking-tighter">~ {selectedCat} ~</h3>
-                                        <p className="text-gray-500 italic text-sm leading-relaxed">{siteData.serviceCategories[selectedCat].desc}</p>
-                                        <div className="space-y-3">
-                                            {siteData.serviceCategories[selectedCat].items.map((item, i) => (
-                                                <div key={i} className="flex justify-between border-b border-dashed border-gray-200 py-2">
-                                                    <span className="font-medium text-sm">{item.n}</span>
-                                                    <span className="font-bold text-royalAmethyst">{item.p}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <img src={siteData.serviceCategories[selectedCat].image} className="w-full h-[400px] object-cover rounded-[2rem] shadow-lg" alt={selectedCat} />
-                                </div>
-                            </section>
-
-                            <footer className="bg-midnightPlum text-white py-8 text-center text-[10px] opacity-40 uppercase tracking-[0.2em]">
-                                © 2026 {siteData.brand_name} Sanctuary | All Rights Reserved
-                            </footer>
-                        </div>
-                    )}
-                </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+                                <div className="space-y
