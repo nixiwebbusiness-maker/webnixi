@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Premium Sanctuary</title>
+    <title>Premium Salon & Spa | Elite Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;600&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #F5F3FF; }
-        .serif { font-family: 'Playfair Display', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Montserrat:wght@300;400;600&display=swap');
+        body { font-family: 'Montserrat', sans-serif; background: #ffffff; color: #1a1a1a; scroll-behavior: smooth; }
+        .serif { font-family: 'Cormorant Garamond', serif; }
+        .gold-text { color: #C5A059; }
+        .gold-bg { background: #C5A059; }
+        .gold-border { border-color: #C5A059; }
+        .nav-link { font-[10px] uppercase tracking-[0.2em] hover:text-[#C5A059] transition-all; }
     </style>
 </head>
 <body>
@@ -19,7 +23,7 @@
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
-            const ADMIN_PASSWORD = "admin123"; // Ise aap apni marzi se badal sakte hain
+            const ADMIN_PASSWORD = "admin123";
 
             React.useEffect(() => {
                 fetch('data.json').then(res => res.json()).then(d => setData(d));
@@ -27,34 +31,21 @@
 
             const handleAdminLogin = (e) => {
                 if (e.shiftKey) {
-                    const pass = prompt("Enter Admin Password to Unlock Editor:");
-                    if (pass === ADMIN_PASSWORD) {
-                        setIsAdmin(true);
-                    } else {
-                        alert("Wrong Password! Access Denied.");
-                    }
+                    const pass = prompt("Admin Access:");
+                    if (pass === ADMIN_PASSWORD) setIsAdmin(true);
                 }
             };
 
             const saveChanges = async () => {
-                try {
-                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/lumina-luxe-sage/contents/data.json');
-                    const fileData = await fileRes.json();
-                    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-
-                    const res = await fetch('/api/update', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ content: b64, sha: fileData.sha })
-                    });
-
-                    if (res.ok) { 
-                        alert("Successfully Saved & Published!"); 
-                        window.location.reload(); 
-                    } else { 
-                        alert("Update Failed. Check Server Settings."); 
-                    }
-                } catch (e) { alert("Error connecting to server."); }
+                const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/lumina-luxe-sage/contents/data.json');
+                const fileData = await fileRes.json();
+                const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                const res = await fetch('/api/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: b64, sha: fileData.sha })
+                });
+                if (res.ok) window.location.reload();
             };
 
             if (!data) return null;
@@ -62,54 +53,117 @@
             return (
                 <div>
                     {isAdmin ? (
-                        <div className="min-h-screen p-6 bg-white max-w-2xl mx-auto rounded-[3rem] my-10 shadow-2xl border-t-8 border-purple-600">
-                            <h2 className="serif text-3xl mb-8 text-center text-purple-700">Studio Admin Panel</h2>
-                            <div className="space-y-6">
-                                <div>
-                                    <label className="text-xs font-bold uppercase text-gray-400">Website Name</label>
-                                    <input className="w-full p-4 bg-gray-50 rounded-2xl border-none shadow-inner" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                </div>
-                                <div>
-                                    <label className="text-xs font-bold uppercase text-gray-400">Announcement Bar</label>
-                                    <input className="w-full p-4 bg-gray-50 rounded-2xl border-none shadow-inner" value={data.announcement} onChange={e => setData({...data, announcement: e.target.value})} />
-                                </div>
-                                <div>
-                                    <label className="text-xs font-bold uppercase text-purple-400">Gallery Links (URLs)</label>
-                                    <div className="grid grid-cols-1 gap-3 mt-2">
-                                        {data.gallery.map((img, i) => (
-                                            <input key={i} className="p-3 text-xs border rounded-xl" value={img} onChange={e => {
-                                                const newG = [...data.gallery]; newG[i] = e.target.value; setData({...data, gallery: newG});
-                                            }} />
-                                        ))}
-                                    </div>
-                                </div>
-                                <button onClick={saveChanges} className="w-full bg-purple-600 text-white py-5 rounded-3xl font-bold shadow-lg hover:bg-purple-800 transition-all uppercase tracking-widest">Update Live Site</button>
-                                <button onClick={() => setIsAdmin(false)} className="w-full text-gray-300 text-xs mt-4">Close Editor</button>
+                        <div className="p-10 max-w-2xl mx-auto bg-gray-50 rounded-3xl mt-10 shadow-xl border-t-4 gold-border">
+                            <h2 className="serif text-3xl mb-6 gold-text italic text-center">Control Center</h2>
+                            <div className="space-y-4">
+                                <label className="text-[10px] uppercase font-bold opacity-50">Brand Name</label>
+                                <input className="w-full p-4 border rounded-xl" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
+                                <label className="text-[10px] uppercase font-bold opacity-50">Banner Message</label>
+                                <textarea className="w-full p-4 border rounded-xl" value={data.announcement} onChange={e => setData({...data, announcement: e.target.value})} />
+                                <button onClick={saveChanges} className="w-full gold-bg text-white py-5 rounded-xl font-bold uppercase tracking-widest hover:opacity-90">Push Updates Live</button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full text-gray-400 mt-2 text-xs">Close Panel</button>
                             </div>
                         </div>
                     ) : (
                         <div>
-                            <div className="bg-purple-700 text-white text-center py-2 text-[10px] font-bold uppercase tracking-widest">{data.announcement}</div>
-                            <nav className="p-6 flex justify-between bg-white/90 backdrop-blur-md sticky top-0 z-50">
-                                <span className="serif text-2xl text-purple-700 cursor-pointer select-none" onClick={handleAdminLogin}>{data.brand_name}</span>
-                                <div className="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest">
-                                    <a href="#gallery" className="hover:text-purple-700">Portfolio</a>
-                                    <a href="#" className="opacity-30">Contact</a>
+                            {/* Announcement */}
+                            <div className="bg-black text-white text-[9px] py-2.5 text-center uppercase tracking-[0.3em]">{data.announcement}</div>
+                            
+                            {/* Navigation */}
+                            <nav className="px-10 py-6 flex justify-between items-center bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+                                <div className="hidden md:flex space-x-8">
+                                    <a href="#services" className="nav-link">Services</a>
+                                    <a href="#pricing" className="nav-link">Pricing</a>
+                                </div>
+                                <span className="serif text-4xl gold-text cursor-pointer select-none tracking-tight px-4" onClick={handleAdminLogin}>{data.brand_name}</span>
+                                <div className="hidden md:flex space-x-8 items-center">
+                                    <a href="#contact" className="nav-link">Contact</a>
+                                    <button className="gold-bg text-white px-8 py-3 text-[10px] uppercase font-bold tracking-widest hover:bg-black transition-all">Book Now</button>
                                 </div>
                             </nav>
-                            <header className="h-[45vh] relative flex items-center justify-center overflow-hidden">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-black/20"></div>
-                                <h1 className="relative text-white text-5xl md:text-7xl serif uppercase drop-shadow-2xl text-center">{data.brand_name}</h1>
+
+                            {/* Hero */}
+                            <header className="h-[85vh] relative flex items-center justify-center">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover grayscale-[30%] opacity-90" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent"></div>
+                                <div className="relative text-center text-white px-4">
+                                    <p className="uppercase tracking-[0.6em] text-[10px] mb-6">Welcome to Pure Luxury</p>
+                                    <h1 className="serif text-7xl md:text-[10rem] mb-8 leading-none drop-shadow-2xl">{data.brand_name}</h1>
+                                    <a href="#services" className="inline-block border border-white px-10 py-4 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all">Discover More</a>
+                                </div>
                             </header>
-                            <section id="gallery" className="py-24 px-6 grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
-                                {data.gallery.map((img, i) => (
-                                    <div key={i} className="rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group">
-                                        <img src={img} className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700" />
-                                    </div>
-                                ))}
+
+                            {/* Services / Gallery */}
+                            <section id="services" className="py-32 px-10 max-w-7xl mx-auto">
+                                <div className="text-center mb-24">
+                                    <h2 className="serif text-6xl gold-text mb-4 italic">Our Signature Services</h2>
+                                    <div className="h-[1px] w-24 gold-bg mx-auto"></div>
+                                </div>
+                                <div className="grid md:grid-cols-3 gap-16">
+                                    {data.gallery.map((img, i) => (
+                                        <div key={i} className="group">
+                                            <div className="overflow-hidden mb-8 aspect-[3/4] shadow-2xl">
+                                                <img src={img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+                                            </div>
+                                            <h3 className="serif text-3xl gold-text mb-2 italic">Exquisite Treatment</h3>
+                                            <p className="text-xs text-gray-400 uppercase tracking-widest leading-loose">Premium care designed for your specific needs and lifestyle.</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </section>
-                            <footer className="py-16 text-center opacity-20 text-[9px] uppercase tracking-[0.5em]">{data.brand_name} | Premium Experience</footer>
+
+                            {/* Pricing Section */}
+                            <section id="pricing" className="py-32 bg-[#fafafa]">
+                                <div className="max-w-4xl mx-auto px-6">
+                                    <h2 className="serif text-6xl gold-text mb-20 text-center italic font-light">Service Menu</h2>
+                                    <div className="space-y-12">
+                                        {[
+                                            {name: "Signature Haircut & Style", price: "$120"},
+                                            {name: "Premium Balayage Art", price: "$250"},
+                                            {name: "Silk Protein Treatment", price: "$85"},
+                                            {name: "Royal Manicure & Spa", price: "$65"}
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="flex justify-between items-end border-b border-gray-200 pb-4 group">
+                                                <span className="serif text-2xl group-hover:gold-text transition-colors">{item.name}</span>
+                                                <span className="gold-text font-bold tracking-widest ml-4">{item.price}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="mt-20 text-center">
+                                        <p className="serif text-xl italic text-gray-400">*All prices are subject to consultation.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Contact & Map */}
+                            <section id="contact" className="py-32 px-10 max-w-7xl mx-auto">
+                                <div className="grid md:grid-cols-2 gap-20 items-center">
+                                    <div>
+                                        <h2 className="serif text-6xl gold-text mb-8 italic">Visit the Sanctuary</h2>
+                                        <div className="space-y-8 text-sm tracking-widest leading-loose">
+                                            <p>123 Luxury Avenue, Fashion District<br/>New York, NY 10012</p>
+                                            <p>Monday - Saturday: 10:00 AM - 8:00 PM<br/>Sunday: By Appointment</p>
+                                            <p className="gold-text font-bold text-lg">+1 (555) 000-8888</p>
+                                        </div>
+                                    </div>
+                                    <div className="h-[400px] bg-gray-200 grayscale shadow-2xl overflow-hidden">
+                                        <iframe 
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.4221991261!2d-73.9878160242544!3d40.75135117138767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a147!2sEmpire%20State%20Building!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
+                                            width="100%" height="100%" style={{border:0}} allowFullScreen="" loading="lazy">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <footer className="py-20 bg-black text-white/40 text-center border-t border-white/5">
+                                <h4 className="serif text-3xl gold-text mb-6 tracking-tighter opacity-100 italic">{data.brand_name}</h4>
+                                <div className="flex justify-center space-x-8 mb-10 text-[10px] tracking-[0.3em]">
+                                    <a href="#" className="hover:text-white transition-colors">Instagram</a>
+                                    <a href="#" className="hover:text-white transition-colors">Facebook</a>
+                                    <a href="#" className="hover:text-white transition-colors">Twitter</a>
+                                </div>
+                                <p className="text-[9px] uppercase tracking-[0.5em]">Curated by Lumina Systems © 2026</p>
+                            </footer>
                         </div>
                     )}
                 </div>
