@@ -1,5 +1,5 @@
 {
-  "brand_name": "Rich Angel Salon",
+  "brand_name": "LUMINA",
   "announcement": "✨ Book your Luxury Session - Exclusive 2026 Openings",
   "hero": {
     "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600"
@@ -10,9 +10,21 @@
     "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800"
   ],
   "services": [
-    { "name": "Signature Haircut", "price": "$120" },
-    { "name": "Premium Balayage", "price": "$250" },
-    { "name": "Silk Protein Treatment", "price": "$85" },
-    { "name": "Royal Manicure", "price": "$65" }
+    {
+      "name": "Signature Haircut",
+      "price": "$120"
+    },
+    {
+      "name": "Premium Balayage",
+      "price": "$250"
+    },
+    {
+      "name": "Silk Protein Treatment",
+      "price": "$85"
+    },
+    {
+      "name": "Royal Manicure",
+      "price": "$65"
+    }
   ]
 }
