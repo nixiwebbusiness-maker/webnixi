@@ -5,8 +5,9 @@ export default async function handler(req, res) {
 
     const { content, sha } = req.body;
     const GITHUB_TOKEN = process.env.GH_TOKEN;
-    // Sahi Repo Path: lumina-luxe
-    const REPO_PATH = 'nixiwebbusiness-maker/lumina-luxe'; 
+    
+    // Exact Repo Path from your screenshot
+    const REPO_PATH = 'nixiwebbusiness-maker/LUMINA-_LUXE'; 
 
     try {
         const response = await fetch(`https://api.github.com/repos/${REPO_PATH}/contents/data.json`, {
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                message: "Site content updated via Admin Panel",
+                message: "Content updated via Admin Panel",
                 content: content,
                 sha: sha
             }),
