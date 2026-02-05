@@ -1,0 +1,29 @@
+{
+  "brand_name": "Lumina Luxe",
+  "hero": {
+    "title": "Radiance Redefined",
+    "subtitle": "Indulge in a world of elegance and premium care.",
+    "image": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=2000"
+  },
+  "services": [
+    {
+      "category": "Nails",
+      "name": "Silk Gel Manicure",
+      "description": "Long-lasting high-shine finish.",
+      "price": "$55",
+      "image": "https://images.unsplash.com/photo-1632345033845-814a6da14f88?q=80&w=800"
+    },
+    {
+      "category": "Lashes",
+      "name": "Classic Velvet Sets",
+      "description": "Natural look enhancements.",
+      "price": "$120",
+      "image": "https://images.unsplash.com/photo-1582284540020-8acaf0222bb7?q=80&w=800"
+    }
+  ],
+  "contact": {
+    "address": "123 Elegance Blvd, Beverly Hills",
+    "phone": "+1 (555) LUMA-LUXE"
+  },
+  "footer_text": "© 2026 Lumina Luxe. All Rights Reserved."
+}
