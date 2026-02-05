@@ -1,29 +1,15 @@
 {
   "brand_name": "Lumina Luxe",
+  "announcement": "✨ Premium Aesthetics - Booking 2026 Now",
   "hero": {
-    "title": "Radiance Redefined",
-    "subtitle": "Indulge in a world of elegance and premium care.",
-    "image": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=2000"
+    "title": "Lumina Luxe",
+    "subtitle": "Where Elegance Meets Artistry",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600"
   },
-  "services": [
-    {
-      "category": "Nails",
-      "name": "Silk Gel Manicure",
-      "description": "Long-lasting high-shine finish.",
-      "price": "$55",
-      "image": "https://images.unsplash.com/photo-1632345033845-814a6da14f88?q=80&w=800"
-    },
-    {
-      "category": "Lashes",
-      "name": "Classic Velvet Sets",
-      "description": "Natural look enhancements.",
-      "price": "$120",
-      "image": "https://images.unsplash.com/photo-1582284540020-8acaf0222bb7?q=80&w=800"
-    }
+  "gallery": [
+    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800",
+    "https://images.unsplash.com/photo-1527799822367-3188572f8817?auto=format&fit=crop&w=800",
+    "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800"
   ],
-  "contact": {
-    "address": "123 Elegance Blvd, Beverly Hills",
-    "phone": "+1 (555) LUMA-LUXE"
-  },
-  "footer_text": "© 2026 Lumina Luxe. All Rights Reserved."
+  "footer_text": "Curated with elegance by Lumina Luxe © 2026"
 }
