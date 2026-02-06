@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Signature Experience</title>
+    <title>Lumina Luxe | Signature Salon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Montserrat:wght@300;400;600&display=swap');
-        :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; --rose-gradient: linear-gradient(to right, #B76E79, #8E5A63); }
+        :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; --dark-mahogany: #2D0808; --rose-gradient: linear-gradient(to right, #B76E79, #8E5A63); }
         body { font-family: 'Montserrat', sans-serif; background-color: #FFF9F9; color: var(--mahogany); scroll-behavior: smooth; }
         .serif { font-family: 'Cormorant Garamond', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -43,26 +43,6 @@
                 }).catch(() => console.error("Load Failed"));
             }, []);
 
-            const handleUpload = async (e, type, index = null, cat = null) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                setUploading(true);
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("upload_preset", UPLOAD_PRESET);
-                try {
-                    const res = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
-                    const fileData = await res.json();
-                    let newData = { ...data };
-                    if (type === 'hero') newData.hero.image = fileData.secure_url;
-                    if (type === 'gallery') newData.gallery.push(fileData.secure_url);
-                    if (type === 'service-img') newData.services[cat][index].img = fileData.secure_url;
-                    setData(newData);
-                    alert("Image Uploaded!");
-                } catch (err) { alert("Upload Failed!"); }
-                setUploading(false);
-            };
-
             const saveChanges = async () => {
                 try {
                     const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
@@ -91,10 +71,8 @@
                                     <label className="text-[10px] font-bold">About Text</label>
                                     <textarea className="input-style h-24 mb-4" value={data.about_text} onChange={e => setData({...data, about_text: e.target.value})} />
                                 </div>
-                                <button onClick={saveChanges} className="btn-premium w-full py-4 rounded-xl font-bold uppercase tracking-widest shadow-xl">
-                                    {uploading ? "Processing..." : "Save & Publish Site"}
-                                </button>
-                                <button onClick={() => setIsAdmin(false)} className="w-full mt-4 text-[10px] opacity-40 uppercase font-bold tracking-widest">Exit Admin</button>
+                                <button onClick={saveChanges} className="btn-premium w-full py-4 rounded-xl font-bold uppercase tracking-widest shadow-xl">Save & Publish Site</button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full mt-4 text-[10px] opacity-40 uppercase font-bold tracking-widest text-center">Exit Admin</button>
                             </div>
                         </div>
                     ) : (
@@ -122,7 +100,7 @@
                                 <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
                             </header>
 
-                            {/* Service Details Section */}
+                            {/* Service Details */}
                             <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
                                 <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Details</h2>
                                 <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
@@ -178,47 +156,21 @@
                                 </div>
                             </section>
 
-                            {/* Gallery Section */}
-                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Gallery</h2>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {data.gallery.map((img, i) => <img key={i} src={img} className="aspect-[4/5] object-cover rounded-lg shadow-md grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer" />)}
-                                </div>
-                            </section>
-
-                            {/* Reviews Section */}
-                            <section id="reviews" className="py-24 bg-blush/20 overflow-hidden">
-                                <div className="max-w-7xl mx-auto px-6">
-                                    <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Customer Love</h2>
-                                    <div className="flex gap-8 overflow-x-auto no-scrollbar pb-8">
-                                        {data.reviews.map((rev, i) => (
-                                            <div key={i} className="min-w-[320px] bg-white p-10 rounded-2xl shadow-sm border-b-4 border-rose-gold italic">
-                                                <p className="mb-6 text-gray-700">"{rev.text}"</p>
-                                                <span className="font-bold text-rose-gold uppercase text-[10px] tracking-widest">— {rev.name}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </section>
-
-                            {/* About Section */}
-                            <section id="about" className="py-24 bg-white text-center px-6">
-                                <h2 className="serif text-5xl text-mahogany mb-8 italic">About Us</h2>
-                                <p className="max-w-2xl mx-auto text-gray-700 leading-relaxed italic mb-10">{data.about_text}</p>
-                                <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=300" className="w-40 h-40 rounded-full mx-auto shadow-2xl border-4 border-blush" />
-                            </section>
-
-                            {/* Footer */}
-                            <footer id="contact" className="bg-mahogany text-white pt-24 pb-12 px-10">
+                            {/* --- DARK MAHOGANY FOOTER --- */}
+                            <footer id="contact" className="bg-[#2D0808] text-white pt-24 pb-12 px-10">
                                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+                                    
+                                    {/* Column 1: Brand & Appointment */}
                                     <div className="space-y-6 text-center md:text-left">
                                         <h4 className="serif text-5xl text-rose-gold italic font-bold tracking-tighter">lumina</h4>
                                         <div className="space-y-1">
                                             <p className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em]">Schedule Appointment</p>
-                                            <p className="text-3xl font-light underline decoration-1 underline-offset-8">(310) 493-9222</p>
+                                            <p className="text-3xl font-light underline decoration-1 underline-offset-8 decoration-rose-gold/30">(310) 493-9222</p>
                                         </div>
-                                        <p className="text-xs uppercase tracking-[0.3em] opacity-60">Book Online Now</p>
+                                        <p className="text-[10px] uppercase tracking-[0.3em] opacity-60">Book Online Now</p>
                                     </div>
+
+                                    {/* Column 2: Hours */}
                                     <div className="text-center md:text-left">
                                         <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Salon Hours</h5>
                                         <div className="space-y-2">
@@ -226,19 +178,25 @@
                                             <p className="serif text-2xl italic">10:00 AM - 10:00 PM</p>
                                         </div>
                                     </div>
+
+                                    {/* Column 3: Location (Karachi) */}
                                     <div className="text-center md:text-left">
                                         <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Our Location</h5>
                                         <div className="space-y-2 opacity-80">
-                                            <p className="text-lg serif">2503 Main Street,</p>
-                                            <p className="text-lg serif">Karachi, CA 90405</p>
+                                            <p className="text-lg serif italic leading-tight">2503 Main Street,</p>
+                                            <p className="text-lg serif italic">Karachi, CA 90405</p>
                                         </div>
                                     </div>
-                                    <div className="bg-[#3A0C0C] p-8 rounded-2xl border border-rose-gold/20 text-center flex flex-col justify-center shadow-2xl">
+
+                                    {/* Column 4: Promotions */}
+                                    <div className="bg-[#3D0A0A] p-8 rounded-2xl border border-rose-gold/20 text-center flex flex-col justify-center shadow-2xl">
                                         <h5 className="text-rose-gold uppercase text-[10px] font-bold tracking-[0.2em] mb-4">Exclusive Promotions</h5>
                                         <p className="serif text-3xl italic leading-tight text-white">$10.00 Off Gel</p>
                                         <p className="text-[10px] uppercase tracking-widest opacity-70 mt-2">Manicures & Pedicures</p>
                                     </div>
                                 </div>
+
+                                {/* Copyright */}
                                 <div className="max-w-7xl mx-auto mt-12 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.3em] opacity-40 text-center space-y-4 md:space-y-0">
                                     <p>©2026 LUMINA LUXE, ALL RIGHTS RESERVED</p>
                                     <p>BY SALON MARKETER</p>
