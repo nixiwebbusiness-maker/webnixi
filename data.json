@@ -31,22 +31,39 @@
         "desc": "Precision cuticle work using electric file for a clean look.",
         "img": "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=600"
       }
-    ]
+    ],
+    "NEW CATEGOR": []
   },
   "full_menu": [
     {
       "cat": "Nails",
       "items": [
-        { "n": "Regular Manicure", "p": "$60" },
-        { "n": "Gel Manicure", "p": "$80" },
-        { "n": "Acrylic Full Set", "p": "$140" }
+        {
+          "n": "Regular Manicure",
+          "p": "$60"
+        },
+        {
+          "n": "Gel Manicure",
+          "p": "$80"
+        },
+        {
+          "n": "Acrylic Full Set",
+          "p": "$140"
+        }
       ]
     },
     {
       "cat": "Pedicures",
       "items": [
-        { "n": "Regular Pedicure", "p": "$80", "d": "*Callus removal included" },
-        { "n": "Gel Pedicure", "p": "$95" }
+        {
+          "n": "Regular Pedicure",
+          "p": "$80",
+          "d": "*Callus removal included"
+        },
+        {
+          "n": "Gel Pedicure",
+          "p": "$95"
+        }
       ]
     }
   ],
