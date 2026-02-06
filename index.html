@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Full Admin CMS</title>
+    <title>Lumina Luxe | Signature Salon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -12,8 +12,11 @@
         :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; --rose-gradient: linear-gradient(to right, #B76E79, #8E5A63); }
         body { font-family: 'Montserrat', sans-serif; background-color: #FFF9F9; color: var(--mahogany); scroll-behavior: smooth; }
         .serif { font-family: 'Cormorant Garamond', serif; }
-        .btn-premium { background: var(--rose-gradient); color: white; border: none; cursor: pointer; transition: 0.3s; }
-        .btn-premium:hover { opacity: 0.9; transform: translateY(-2px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .active-tab { border-color: var(--rose-gold); color: var(--rose-gold); font-weight: 700; border-bottom: 2px solid var(--rose-gold); }
+        .active-item-row { background-color: var(--blush); border-left: 4px solid var(--rose-gold); }
+        .btn-premium { background: var(--rose-gradient); color: white; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(183,110,121,0.3); }
+        .btn-premium:hover { transform: scale(1.02); opacity: 0.9; }
         .admin-card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #eee; }
         .input-style { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-top: 8px; font-size: 14px; }
     </style>
@@ -46,17 +49,13 @@
                 const formData = new FormData();
                 formData.append("file", file);
                 formData.append("upload_preset", UPLOAD_PRESET);
-
                 try {
                     const res = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
                     const fileData = await res.json();
-                    const url = fileData.secure_url;
-
                     let newData = { ...data };
-                    if (type === 'hero') newData.hero.image = url;
-                    if (type === 'gallery') newData.gallery.push(url);
-                    if (type === 'service-img') newData.services[cat][index].img = url;
-                    
+                    if (type === 'hero') newData.hero.image = fileData.secure_url;
+                    if (type === 'gallery') newData.gallery.push(fileData.secure_url);
+                    if (type === 'service-img') newData.services[cat][index].img = fileData.secure_url;
                     setData(newData);
                     alert("Image Uploaded!");
                 } catch (err) { alert("Upload Failed!"); }
@@ -68,158 +67,140 @@
                     const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
                     const fileResData = await fileRes.json();
                     const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-                    const response = await fetch('/api/update', {
+                    await fetch('/api/update', {
                         method: 'POST', headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ content: b64, sha: fileResData.sha })
                     });
-                    if(response.ok) { alert("Site Successfully Updated!"); window.location.reload(); }
-                } catch (e) { alert("Error saving. Check Token."); }
+                    alert("Updated!"); window.location.reload();
+                } catch (e) { alert("Save Error!"); }
             };
 
-            if (!data) return <div className="h-screen flex items-center justify-center">Loading Lumina...</div>;
+            if (!data) return <div className="h-screen flex items-center justify-center italic">Loading Lumina Luxe...</div>;
 
             return (
                 <div>
                     {isAdmin ? (
-                        <div className="bg-[#fcfcfc] min-h-screen p-4 md:p-10">
-                            <div className="max-w-5xl mx-auto">
-                                <div className="flex justify-between items-center mb-10">
-                                    <h1 className="serif text-4xl">Lumina CMS Dashboard</h1>
-                                    <button onClick={() => setIsAdmin(false)} className="text-sm uppercase tracking-widest opacity-50">Exit</button>
-                                </div>
-
-                                {/* 1. Brand & Hero Control */}
+                        <div className="bg-[#fcfcfc] min-h-screen p-6">
+                            <div className="max-w-4xl mx-auto">
+                                <h1 className="serif text-4xl mb-8">Admin Dashboard</h1>
+                                
                                 <div className="admin-card">
-                                    <h3 className="font-bold text-rose-gold uppercase text-xs mb-4 tracking-widest">General Settings</h3>
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="text-xs font-semibold">Brand Name</label>
-                                            <input className="input-style" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                        </div>
-                                        <div>
-                                            <label className="text-xs font-semibold">Hero Background Image</label>
-                                            <input type="file" className="block mt-2 text-xs" onChange={e => handleUpload(e, 'hero')} />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 2. Services Control */}
-                                <div className="admin-card">
-                                    <h3 className="font-bold text-rose-gold uppercase text-xs mb-4 tracking-widest">Services Management</h3>
-                                    {Object.keys(data.services).map(cat => (
-                                        <div key={cat} className="mb-6 p-4 border rounded-xl">
-                                            <h4 className="font-bold mb-3">{cat}</h4>
-                                            {data.services[cat].map((item, i) => (
-                                                <div key={i} className="grid md:grid-cols-3 gap-2 mb-4 border-b pb-2">
-                                                    <input className="input-style" value={item.name} onChange={e => {
-                                                        let d = {...data}; d.services[cat][i].name = e.target.value; setData(d);
-                                                    }} />
-                                                    <input className="input-style" value={item.price} onChange={e => {
-                                                        let d = {...data}; d.services[cat][i].price = e.target.value; setData(d);
-                                                    }} />
-                                                    <input type="file" className="text-[10px]" onChange={e => handleUpload(e, 'service-img', i, cat)} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* 3. Reviews & About Control */}
-                                <div className="admin-card">
-                                    <h3 className="font-bold text-rose-gold uppercase text-xs mb-4 tracking-widest">Reviews & About</h3>
-                                    <label className="text-xs font-semibold">About Text</label>
-                                    <textarea className="input-style h-24 mb-6" value={data.about_text} onChange={e => setData({...data, about_text: e.target.value})} />
+                                    <h3 className="font-bold text-rose-gold text-xs uppercase tracking-widest mb-4">Edit Content</h3>
+                                    <label className="text-xs">Brand Name</label>
+                                    <input className="input-style mb-4" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
                                     
-                                    <h4 className="text-xs font-bold mb-2">Customer Reviews</h4>
-                                    {data.reviews.map((rev, i) => (
-                                        <div key={i} className="flex gap-2 mb-2">
-                                            <input className="input-style" value={rev.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
-                                            <input className="input-style flex-[2]" value={rev.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}} />
-                                        </div>
-                                    ))}
+                                    <label className="text-xs">About Text</label>
+                                    <textarea className="input-style mb-4 h-24" value={data.about_text} onChange={e => setData({...data, about_text: e.target.value})} />
                                 </div>
 
-                                {/* 4. Gallery Control */}
-                                <div className="admin-card">
-                                    <h3 className="font-bold text-rose-gold uppercase text-xs mb-4 tracking-widest">Gallery Control</h3>
-                                    <input type="file" onChange={e => handleUpload(e, 'gallery')} />
-                                    <div className="flex gap-2 mt-4 overflow-x-auto">
-                                        {data.gallery.map((img, i) => (
-                                            <img key={i} src={img} className="w-12 h-12 rounded object-cover" />
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <button onClick={saveChanges} disabled={uploading} className="btn-premium w-full py-5 rounded-2xl font-bold uppercase tracking-widest shadow-xl">
-                                    {uploading ? "Uploading Image..." : "Save All Changes Permanently"}
+                                <button onClick={saveChanges} className="btn-premium w-full py-4 rounded-xl font-bold uppercase tracking-widest">
+                                    {uploading ? "Uploading..." : "Publish Changes"}
                                 </button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full mt-4 text-xs opacity-40">Cancel</button>
                             </div>
                         </div>
                     ) : (
                         <div>
-                            {/* Website UI - (Keep your original nav and sections here) */}
+                            {/* Navigation */}
                             <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 shadow-sm border-b border-rose-gold/10">
                                 <span className="serif text-4xl text-mahogany font-bold uppercase tracking-tighter cursor-pointer" 
                                       onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASSWORD && setIsAdmin(true)}>
                                     {data.brand_name}
                                 </span>
                                 <div className="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-widest items-center">
-                                    <a href="#gallery">Gallery</a><a href="#exclusive-services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#about">About</a>
-                                    <button className="btn-premium px-8 py-3 rounded-full ml-4 font-bold border border-white/20">Book Now</button>
+                                    <a href="#gallery" className="hover:text-rose-gold">Gallery</a>
+                                    <a href="#exclusive-services" className="hover:text-rose-gold">Services</a>
+                                    <a href="#prices" className="hover:text-rose-gold">Prices</a>
+                                    <a href="#reviews" className="hover:text-rose-gold">Reviews</a>
+                                    <a href="#about" className="hover:text-rose-gold">About</a>
+                                    <button className="btn-premium px-8 py-3 rounded-full ml-4 font-bold">Book Now</button>
                                 </div>
                             </nav>
 
-                            <header className="h-[65vh] relative flex items-center justify-center">
+                            {/* Hero */}
+                            <header className="h-[60vh] relative flex items-center justify-center">
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/40"></div>
-                                <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
+                                <h1 className="relative serif text-7xl md:text-[8rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
                             </header>
 
-                            {/* Service Details Section */}
-                            <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Details</h2>
-                                <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
+                            {/* Main Sections (Services, Pricing, etc - Keep as they were) */}
+                            <section id="exclusive-services" className="py-20 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-5xl text-center mb-12 italic">Signature Services</h2>
+                                <div className="flex overflow-x-auto no-scrollbar justify-center border-b mb-8">
                                     {Object.keys(data.services).map(cat => (
                                         <button key={cat} onClick={() => {setActiveCat(cat); setSelectedItem(data.services[cat][0]);}} 
-                                        className={`px-8 py-4 text-[10px] font-bold tracking-widest ${activeCat === cat ? 'active-tab' : 'opacity-30'}`}>{cat}</button>
+                                        className={`px-6 py-4 text-[10px] font-bold tracking-widest ${activeCat === cat ? 'active-tab' : 'opacity-30'}`}>{cat}</button>
                                     ))}
                                 </div>
-                                <div className="grid md:grid-cols-12 gap-8 bg-white p-8 rounded-[2rem] shadow-xl min-h-[500px]">
-                                    <div className="md:col-span-4 border-r border-gray-50 pr-4">
-                                        {data.services[activeCat]?.map((item, i) => (
-                                            <div key={i} onClick={() => setSelectedItem(item)} className={`p-4 cursor-pointer rounded-xl mb-2 transition-all ${selectedItem?.name === item.name ? 'active-item-row' : ''}`}>
-                                                <h4 className="serif text-lg font-bold uppercase tracking-tighter">{item.name}</h4>
+                                <div className="grid md:grid-cols-2 gap-10 bg-white p-10 rounded-3xl shadow-lg">
+                                    {selectedItem && (
+                                        <React.Fragment>
+                                            <img src={selectedItem.img} className="rounded-2xl aspect-square object-cover shadow-md" />
+                                            <div className="flex flex-col justify-center">
+                                                <h3 className="serif text-5xl mb-4">{selectedItem.name}</h3>
+                                                <div className="text-3xl font-bold text-rose-gold mb-4">{selectedItem.price}</div>
+                                                <p className="text-sm leading-loose opacity-60 mb-8">{selectedItem.desc}</p>
+                                                <button className="btn-premium px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase">Book Appointment</button>
                                             </div>
-                                        ))}
-                                    </div>
-                                    <div className="md:col-span-8">
-                                        {selectedItem && (
-                                            <div className="flex flex-col md:flex-row gap-10">
-                                                <img src={selectedItem.img} className="md:w-1/2 aspect-square object-cover rounded-3xl shadow-lg" />
-                                                <div className="md:w-1/2 flex flex-col justify-center">
-                                                    <h3 className="serif text-5xl text-mahogany mb-4 leading-tight">{selectedItem.name}</h3>
-                                                    <div className="text-3xl font-bold text-rose-gold mb-4">{selectedItem.price}</div>
-                                                    <p className="text-xs uppercase tracking-widest leading-loose opacity-60 mb-8">{selectedItem.desc}</p>
-                                                    <button className="btn-premium px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase">Book This Service</button>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
+                                        </React.Fragment>
+                                    )}
                                 </div>
                             </section>
 
-                            {/* (Prices, Gallery, Reviews, About sectors remain same as previous code) */}
-                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Gallery</h2>
+                            <section id="gallery" className="py-20 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-5xl text-center mb-12 italic">Our Work</h2>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {data.gallery.map((img, i) => <img key={i} src={img} className="aspect-[4/5] object-cover rounded-lg shadow-md" />)}
+                                    {data.gallery.map((img, i) => <img key={i} src={img} className="aspect-[3/4] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500" />)}
                                 </div>
                             </section>
 
-                            <section id="about" className="py-24 bg-white text-center px-6">
-                                <h2 className="serif text-5xl text-mahogany mb-8 italic">About Us</h2>
-                                <p className="max-w-2xl mx-auto text-gray-700 leading-relaxed italic">{data.about_text}</p>
-                            </section>
+                            {/* --- UPDATED FOOTER SECTION --- */}
+                            <footer id="contact" className="bg-mahogany text-white pt-24 pb-12 px-10">
+                                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+                                    
+                                    {/* 1. Brand & Booking */}
+                                    <div className="space-y-6 text-center md:text-left">
+                                        <h4 className="serif text-5xl text-rose-gold italic font-bold tracking-tighter">lumina</h4>
+                                        <div className="space-y-1">
+                                            <p className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em]">Schedule Appointment</p>
+                                            <p className="text-3xl font-light underline decoration-1 underline-offset-8">(310) 493-9222</p>
+                                        </div>
+                                        <button className="btn-premium px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Book Online Now</button>
+                                    </div>
+
+                                    {/* 2. Salon Hours */}
+                                    <div className="text-center md:text-left">
+                                        <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Salon Hours</h5>
+                                        <div className="space-y-2">
+                                            <p className="text-sm font-light">Monday - Sunday</p>
+                                            <p className="serif text-2xl italic">10:00 AM - 10:00 PM</p>
+                                        </div>
+                                    </div>
+
+                                    {/* 3. Location */}
+                                    <div className="text-center md:text-left">
+                                        <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Our Location</h5>
+                                        <div className="space-y-2 opacity-80">
+                                            <p className="text-lg serif">2503 Main Street,</p>
+                                            <p className="text-lg serif">Karachi, CA 90405</p>
+                                        </div>
+                                    </div>
+
+                                    {/* 4. Exclusive Promotions */}
+                                    <div className="bg-[#3A0C0C] p-8 rounded-2xl border border-rose-gold/20 text-center">
+                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold tracking-[0.2em] mb-4">Exclusive Promotions</h5>
+                                        <p className="serif text-2xl italic leading-tight">$10.00 Off Gel</p>
+                                        <p className="text-xs uppercase tracking-widest opacity-70 mt-1">Manicures & Pedicures</p>
+                                    </div>
+                                </div>
+
+                                {/* Copyright Area */}
+                                <div className="max-w-7xl mx-auto mt-12 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.3em] opacity-40 text-center space-y-4 md:space-y-0">
+                                    <p>©2026 LUMINA LUXE, ALL RIGHTS RESERVED</p>
+                                    <p>BY SALON MARKETER</p>
+                                </div>
+                            </footer>
                         </div>
                     )}
                 </div>
