@@ -1,8 +1,9 @@
 {
   "brand_name": "LUMINA",
   "hero": {
-    "image": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=1600",
-    "subtitle": "WELCOME TO LUMINA"
+    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770389651/ips58e7amcd34sxy2a1h.png",
+    "subtitle": "WELCOME TO LUMINA",
+    "title": "LUMINA you"
   },
   "services": {
     "NAILS": [
@@ -93,5 +94,15 @@
     }
   ],
   "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics.",
-  "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770385779/svckytrbetbnnlavjqgl.png"
+  "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770385779/svckytrbetbnnlavjqgl.png",
+  "about": {
+    "text": "",
+    "image": ""
+  },
+  "footer": {
+    "whatsapp": "03155075343",
+    "hours": "10;00am to 10;00pm",
+    "address": "attock city ",
+    "copyright": "you are lucky "
+  }
 }
