@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Interactive Salon Experience</title>
+    <title>Lumina Luxe | Sasha's Full Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -14,7 +14,8 @@
         .serif { font-family: 'Cormorant Garamond', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .active-tab { border-color: var(--rose-gold); color: var(--rose-gold); font-weight: 700; }
-        .active-item { background-color: var(--blush); border-left: 4px solid var(--rose-gold); padding-left: 1rem; }
+        .active-item-row { background-color: var(--blush); border-left: 4px solid var(--rose-gold); }
+        .service-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(183, 110, 121, 0.15); margin-bottom: 0.8rem; }
     </style>
 </head>
 <body>
@@ -28,130 +29,167 @@
 
             const allServices = {
                 "NAILS": [
-                    { name: "Regular Manicure", price: "$60", desc: "Classic nail care, shaping, and polish for a natural look.", img: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600" },
-                    { name: "Gel Manicure", price: "$80", desc: "Long-lasting gel polish cured under UV for a 2-week chip-free finish.", img: "https://images.unsplash.com/photo-1604654894610-df490c81726a?w=600" },
-                    { name: "Acrylic Powder Extension", price: "$140", desc: "Full set extensions using premium acrylic powder for length and strength.", img: "https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=600" },
-                    { name: "Hard Gel Full Set", price: "$130", desc: "Durable, flexible hard gel extensions. *Removal Extra $10", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" },
-                    { name: "Hard Gel Fill", price: "$110", desc: "Maintenance fill for your hard gel extensions. *Removal Extra $10", img: "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=600" },
-                    { name: "Gel X (ANY LENGTH)", price: "$130", desc: "Soft gel extensions for a natural feel and easy removal.", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600" }
-                ],
-                "RUSSIAN STYLE": [
-                    { name: "Russian Manicure", price: "$90", desc: "Dry manicure technique for perfect cuticles and clean look.", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" }
-                ],
-                "PEDICURES": [
-                    { name: "Regular Pedicure", price: "$80", desc: "Classic foot soak and care. Callus removal included.", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" }
+                    { name: "Regular Manicure", price: "$60", desc: "Classic nail care, shaping, and polish.", img: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600" },
+                    { name: "Gel Manicure", price: "$80", desc: "Long-lasting gel polish cured under UV.", img: "https://images.unsplash.com/photo-1604654894610-df490c81726a?w=600" },
+                    { name: "Acrylic Powder Extension", price: "$140", desc: "Full set extensions for length and strength.", img: "https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=600" },
+                    { name: "Hard Gel Full Set", price: "$130", desc: "Durable, flexible hard gel extensions.", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" },
+                    { name: "Hard Gel Fill", price: "$110", desc: "Maintenance fill for hard gel.", img: "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=600" },
+                    { name: "Gel X (ANY LENGTH)", price: "$130", desc: "Soft gel extensions for easy removal.", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600" }
                 ]
             };
+
+            const fullMenu = [
+                { cat: "Nails", items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension", p: "$140"}, {n: "Hard Gel Full Set", p: "$130"}, {n: "Hard Gel Fill", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}] },
+                { cat: "Russian Style", items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension", p: "$140"}, {n: "Hard Gel Full Set", p: "$130"}, {n: "Hard Gel Fill", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}] },
+                { cat: "Pedicures", items: [{n: "Regular Pedicure", p: "$80", d: "*Callus removal included"}, {n: "Gel Pedicure", p: "$95", d: "*Callus removal included"}, {n: "24k Gold SPA Pedicure", p: "$125"}, {n: "Russian Style Gel Pedicure", p: "$95"}] },
+                { cat: "Add On", items: [{n: "Gel Removal", p: "$10"}, {n: "Hard Gel/Extension Removal", p: "$20"}, {n: "French / Chrome / Design", p: "$20"}] },
+                { cat: "Wax", items: [{n: "Brazilian deep bikini", p: "$80"}, {n: "Full legs", p: "$70"}, {n: "Full hands", p: "$60"}, {n: "Half legs", p: "$40"}, {n: "Half hands", p: "$35"}, {n: "Underarm", p: "$30"}, {n: "Face (any zone)", p: "$30"}, {n: "Full body", p: "$190"}] },
+                { cat: "Lashes", items: [{n: "Lash Extension Classic", p: "$120"}, {n: "Lash Extension 1.5D", p: "$140"}, {n: "Lash Extension 2D", p: "$160"}, {n: "Lash Extension 3D", p: "$180"}, {n: "Lash Extension 4D", p: "$190"}, {n: "Lash Extension 5D", p: "$220"}, {n: "Lash Lift", p: "$99"}] },
+                { cat: "Brows", items: [{n: "Brow Lamination", p: "$99"}, {n: "Brow Tint", p: "$30"}, {n: "Brow Design Full Set", p: "$120"}, {n: "Brow Architecture (Henna)", p: "$80"}] }
+            ];
 
             React.useEffect(() => {
                 fetch('data.json').then(res => res.json()).then(d => {
                     setData(d);
-                    setSelectedItem(allServices["NAILS"][0]); // Default selection
+                    setSelectedItem(allServices["NAILS"][0]);
                 });
             }, []);
-
-            const changeCategory = (cat) => {
-                setActiveCat(cat);
-                if(allServices[cat]) setSelectedItem(allServices[cat][0]);
-                else setSelectedItem(null);
-            };
 
             if (!data) return null;
 
             return (
                 <div>
                     {/* Navigation */}
-                    <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 shadow-sm border-b border-rose-gold/10">
-                        <span className="serif text-4xl text-mahogany font-bold tracking-tighter">LUMINA</span>
-                        <div className="hidden lg:flex space-x-6 text-[10px] font-bold uppercase tracking-widest">
-                            <a href="#gallery" className="hover:text-rose-gold transition-colors">Service Gallery</a>
-                            <a href="#services-menu" className="hover:text-rose-gold transition-colors">Services</a>
-                            <a href="#prices" className="hover:text-rose-gold transition-colors">Prices</a>
-                            <a href="#reviews" className="hover:text-rose-gold transition-colors">Reviews</a>
-                            <a href="#about" className="hover:text-rose-gold transition-colors">About Us</a>
-                            <a href="#contact" className="hover:text-rose-gold transition-colors">Contact</a>
-                            <button className="bg-[#B76E79] text-white px-6 py-2 rounded-full hover:bg-[#4A0E0E] transition-all">Book Now</button>
+                    <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 shadow-sm">
+                        <span className="serif text-4xl text-mahogany font-bold uppercase tracking-tighter">LUMINA</span>
+                        <div className="hidden lg:flex space-x-6 text-[10px] font-bold uppercase tracking-widest items-center">
+                            <a href="#gallery" className="hover:text-rose-gold">Service Gallery</a>
+                            <a href="#exclusive-services" className="hover:text-rose-gold">Services</a>
+                            <a href="#prices" className="hover:text-rose-gold">Prices</a>
+                            <a href="#reviews" className="hover:text-rose-gold">Reviews</a>
+                            <a href="#about" className="hover:text-rose-gold">About Us</a>
+                            <a href="#contact" className="hover:text-rose-gold">Contact</a>
+                            <button className="bg-rose-gold text-white px-6 py-2 rounded-full ml-4">Book Now</button>
                         </div>
                     </nav>
 
-                    {/* Interactive Services Section */}
-                    <section id="services-menu" className="py-24 px-6 max-w-7xl mx-auto">
-                        <h2 className="serif text-6xl text-center text-mahogany mb-16 italic">Exclusive Services</h2>
-                        
-                        {/* Horizontal Category Bar */}
-                        <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-200 mb-12">
-                            {["NAILS", "RUSSIAN STYLE", "PEDICURES", "ADD ON", "WAX", "LASHES", "BROWS"].map(cat => (
-                                <button key={cat} onClick={() => changeCategory(cat)} 
-                                className={`px-8 py-4 text-[11px] font-bold tracking-[0.2em] transition-all border-b-2 border-transparent ${activeCat === cat ? 'active-tab' : 'opacity-40'}`}>
-                                    {cat}
-                                </button>
+                    {/* Hero */}
+                    <header className="h-[70vh] relative flex items-center justify-center">
+                        <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40"></div>
+                        <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
+                    </header>
+
+                    {/* 1. Exclusive Services Section (Interactive) */}
+                    <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
+                        <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Interactive Menu</h2>
+                        <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
+                            {["NAILS", "RUSSIAN STYLE", "PEDICURES", "WAX", "LASHES", "BROWS"].map(cat => (
+                                <button key={cat} onClick={() => {setActiveCat(cat); if(allServices[cat]) setSelectedItem(allServices[cat][0]); else setSelectedItem(null);}} 
+                                className={`px-8 py-4 text-[10px] font-bold tracking-widest ${activeCat === cat ? 'active-tab' : 'opacity-30'}`}>{cat}</button>
                             ))}
                         </div>
-
-                        {/* Interactive Menu Container */}
-                        <div className="grid md:grid-cols-12 gap-10 bg-white p-8 rounded-[2rem] shadow-2xl min-h-[500px]">
-                            {/* Left Side: Name List */}
-                            <div className="md:col-span-4 border-r border-gray-100 pr-6">
-                                <div className="space-y-4">
-                                    {allServices[activeCat] ? allServices[activeCat].map((item, i) => (
-                                        <div key={i} 
-                                            onClick={() => setSelectedItem(item)}
-                                            className={`p-4 cursor-pointer rounded-xl transition-all hover:bg-rose-50 ${selectedItem?.name === item.name ? 'active-item' : ''}`}>
-                                            <h4 className="serif text-xl font-bold uppercase tracking-tighter">{item.name}</h4>
-                                        </div>
-                                    )) : <p className="italic opacity-30 p-10">Coming soon...</p>}
-                                </div>
+                        <div className="grid md:grid-cols-12 gap-8 bg-white p-8 rounded-[2rem] shadow-xl min-h-[500px]">
+                            <div className="md:col-span-4 border-r border-gray-50 pr-4">
+                                {allServices[activeCat] ? allServices[activeCat].map((item, i) => (
+                                    <div key={i} onClick={() => setSelectedItem(item)} className={`p-4 cursor-pointer rounded-xl mb-2 transition-all ${selectedItem?.name === item.name ? 'active-item-row' : ''}`}>
+                                        <h4 className="serif text-lg font-bold uppercase tracking-tighter">{item.name}</h4>
+                                    </div>
+                                )) : <p className="p-10 opacity-30 italic">Details coming soon...</p>}
                             </div>
-
-                            {/* Right Side: Details View */}
                             <div className="md:col-span-8">
-                                {selectedItem ? (
-                                    <div className="flex flex-col md:flex-row gap-10 animate-fade-in">
-                                        <div className="md:w-1/2 aspect-square rounded-3xl overflow-hidden shadow-xl">
-                                            <img src={selectedItem.img} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                                        </div>
+                                {selectedItem && (
+                                    <div className="flex flex-col md:flex-row gap-10">
+                                        <img src={selectedItem.img} className="md:w-1/2 aspect-square object-cover rounded-3xl shadow-lg" />
                                         <div className="md:w-1/2 flex flex-col justify-center">
-                                            <h3 className="serif text-5xl text-mahogany mb-4 italic">{selectedItem.name}</h3>
-                                            <div className="text-3xl font-bold text-rose-gold mb-6">{selectedItem.price}</div>
-                                            <p className="text-gray-600 leading-relaxed mb-8 uppercase text-xs tracking-widest">{selectedItem.desc}</p>
-                                            <button className="bg-mahogany text-white py-4 px-10 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-rose-gold transition-all self-start shadow-lg">Schedule This Service</button>
+                                            <h3 className="serif text-5xl text-mahogany mb-4">{selectedItem.name}</h3>
+                                            <div className="text-3xl font-bold text-rose-gold mb-4">{selectedItem.price}</div>
+                                            <p className="text-xs uppercase tracking-widest leading-loose opacity-60 mb-6">{selectedItem.desc}</p>
+                                            <button className="bg-mahogany text-white px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase">Book This Service</button>
                                         </div>
                                     </div>
-                                ) : (
-                                    <div className="h-full flex items-center justify-center opacity-20 serif text-3xl italic">Select a service to view details</div>
                                 )}
                             </div>
                         </div>
                     </section>
 
-                    {/* About Us Section */}
-                    <section id="about" className="py-24 bg-white">
-                        <div className="max-w-4xl mx-auto px-6 text-center">
-                            <h2 className="serif text-5xl text-mahogany mb-10 italic">About Sasha</h2>
-                            <p className="text-gray-700 leading-relaxed mb-8">
-                                Hi, I’m Sasha. I founded this salon in Santa Monica to bring the best of beauty services to the area. 
-                                As a Russian nail technician with over 15 years of experience, I’m passionate about delivering top-quality services.
-                            </p>
-                            <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=400" className="w-32 h-32 rounded-full mx-auto border-4 border-blush shadow-lg mb-4" />
-                            <p className="serif italic text-2xl text-rose-gold">Founder & Master Artist</p>
+                    {/* 2. Full Pricing Section */}
+                    <section id="prices" className="py-24 bg-white border-y border-blush/30">
+                        <div className="max-w-6xl mx-auto px-6">
+                            <h2 className="serif text-6xl text-center text-mahogany mb-20 italic">Full Price List</h2>
+                            <div className="grid md:grid-cols-2 gap-x-20 gap-y-12">
+                                {fullMenu.map((sec, idx) => (
+                                    <div key={idx} className="mb-4">
+                                        <h3 className="serif text-3xl text-rose-gold mb-6 italic">~ {sec.cat} ~</h3>
+                                        {sec.items.map((item, i) => (
+                                            <div key={i} className="mb-4">
+                                                <div className="service-row">
+                                                    <span className="serif text-xl uppercase">{item.n}</span>
+                                                    <span className="font-bold text-rose-gold">{item.p}</span>
+                                                </div>
+                                                {item.d && <p className="text-[10px] uppercase opacity-40 -mt-2">{item.d}</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </section>
 
-                    {/* Footer */}
-                    <footer id="contact" className="py-20 bg-mahogany text-white px-10">
+                    {/* 3. Service Gallery Section */}
+                    <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
+                        <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Gallery</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {data.gallery.map((img, i) => (
+                                <img key={i} src={img} className="aspect-[4/5] object-cover rounded-lg shadow-md hover:opacity-80 transition-all cursor-pointer" />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* 4. Customer Reviews Section */}
+                    <section id="reviews" className="py-24 bg-blush/20">
+                        <div className="max-w-5xl mx-auto px-6 text-center">
+                            <h2 className="serif text-6xl text-mahogany mb-16 italic">Client Reviews</h2>
+                            <div className="grid md:grid-cols-3 gap-8">
+                                {["The best Russian manicure in Santa Monica!", "Sasha's attention to detail is unmatched.", "Luxury experience with tea and champagne."].map((text, i) => (
+                                    <div key={i} className="bg-white p-10 rounded-2xl shadow-sm italic text-gray-600 border-b-4 border-rose-gold">
+                                        <p className="mb-4">"{text}"</p>
+                                        <span className="font-bold text-rose-gold uppercase text-[10px]">Verified Client</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* 5. About Us Section */}
+                    <section id="about" className="py-24 bg-white">
+                        <div className="max-w-3xl mx-auto px-6 text-center">
+                            <h2 className="serif text-5xl text-mahogany mb-8 italic">About Sasha</h2>
+                            <p className="text-gray-700 leading-relaxed mb-10">
+                                Hi, I’m Sasha. I founded this salon in Santa Monica to bring the best of beauty services to the area. 
+                                As a Russian nail technician with over 15 years of experience...
+                            </p>
+                            <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=300" className="w-40 h-40 rounded-full mx-auto shadow-2xl border-4 border-blush" />
+                        </div>
+                    </section>
+
+                    {/* 6. Contact / Footer */}
+                    <footer id="contact" className="py-24 bg-mahogany text-white px-10">
                         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16 text-center md:text-left">
-                            <div>
-                                <h4 className="serif text-4xl text-rose-gold italic mb-4">lumina</h4>
+                            <div className="space-y-6">
+                                <h4 className="serif text-5xl text-rose-gold italic font-bold tracking-tighter">lumina</h4>
                                 <p className="text-2xl font-light">(310) 493-9255</p>
+                                <p className="text-[10px] uppercase tracking-widest opacity-50">2503 Main Street, Attock, CA 90405</p>
                             </div>
                             <div>
-                                <h5 className="text-rose-gold uppercase tracking-widest text-[11px] font-bold mb-6 italic">Salon Hours</h5>
+                                <h5 className="text-rose-gold uppercase tracking-widest text-[11px] font-bold mb-6">Hours</h5>
                                 <p className="text-sm">Monday - Sunday</p>
                                 <p className="text-xl serif italic">10:00 AM - 10:00 PM</p>
                             </div>
-                            <div className="opacity-70">
-                                <h5 className="text-rose-gold uppercase tracking-widest text-[11px] font-bold mb-6 italic">Location</h5>
-                                <p className="text-sm font-bold tracking-widest">2503 Main Street, Attock, CA 90405</p>
+                            <div className="bg-[#3A0C0C] p-8 rounded-2xl border border-rose-gold/20">
+                                <h5 className="text-rose-gold text-[10px] font-bold uppercase mb-4">Special Promo</h5>
+                                <p className="serif text-4xl italic mb-2">$10.00 Off</p>
+                                <p className="text-[10px] uppercase opacity-60">Gel Manicures & Pedicures</p>
                             </div>
                         </div>
                     </footer>
