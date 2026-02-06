@@ -2,24 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | The Masterpiece CMS</title>
+    <title>Lumina Luxe | Full Business Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Montserrat:wght@300;400;600&display=swap');
-        :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; --dark-m: #2D0808; }
+        :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; }
         body { font-family: 'Montserrat', sans-serif; background-color: #FFF9F9; color: var(--mahogany); scroll-behavior: smooth; }
         .serif { font-family: 'Cormorant Garamond', serif; }
         .btn-premium { background: linear-gradient(to right, #B76E79, #8E5A63); color: white; transition: 0.3s; cursor:pointer; border:none; }
-        .admin-box { background: white; border-radius: 20px; padding: 30px; border: 1px solid #eee; margin-bottom: 30px; shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .admin-box { background: white; border-radius: 20px; padding: 25px; border: 1px solid #eee; margin-bottom: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
         .input-f { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-top: 5px; font-size: 13px; color: black; outline: none; }
-        .input-f:focus { border-color: var(--rose-gold); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .service-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(183, 110, 121, 0.1); margin-bottom: 1rem; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade { animation: fadeIn 0.8s ease-out forwards; }
     </style>
 </head>
 <body>
@@ -55,15 +52,8 @@
                     const res = await fetch(CLOUDINARY_URL, { method: "POST", body: fd });
                     const json = await res.json();
                     callback(json.secure_url);
-                    alert("Image Sync Complete!");
+                    alert("Image Uploaded Successfully!");
                 } catch(err) { alert("Upload Failed!"); }
-            };
-
-            const handleWhatsAppBooking = () => {
-                const phone = data.footer?.whatsapp || "923104939222";
-                const items = cart.map(i => `• ${i.name} (${i.price})`).join('%0A');
-                const msg = `*New Booking Request*%0A%0A${items}%0A%0A*Total Items:* ${cart.length}`;
-                window.open(`https://wa.me/${phone.replace(/\D/g,'')}?text=${msg}`, '_blank');
             };
 
             const saveToGithub = async () => {
@@ -74,152 +64,140 @@
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ content: b64, sha: fileData.sha })
                 });
-                alert("Website Updated Live!"); window.location.reload();
+                alert("Site Published!"); window.location.reload();
             };
 
-            if (!data) return <div className="p-20 text-center serif text-2xl italic">Lumina is waking up...</div>;
+            if (!data) return <div className="p-20 text-center italic">Loading Complete System...</div>;
 
             return (
-                <div id="home-top">
+                <div id="home">
                     {isAdmin ? (
-                        <div className="bg-gray-50 min-h-screen p-6 md:p-16">
-                            <button onClick={() => setIsAdmin(false)} className="fixed top-8 right-8 bg-black text-white w-12 h-12 rounded-full z-[100] shadow-2xl">✕</button>
-                            <div className="max-w-5xl mx-auto">
-                                <h1 className="serif text-5xl font-bold mb-2">Master Control</h1>
-                                <p className="text-xs uppercase tracking-widest text-gray-400 mb-12">Total Business Management System</p>
+                        <div className="bg-gray-100 min-h-screen p-6 md:p-12 relative">
+                            <button onClick={() => setIsAdmin(false)} className="fixed top-5 right-5 bg-red-600 text-white w-12 h-12 rounded-full font-bold shadow-2xl z-[100]">✕</button>
+                            <div className="max-w-5xl mx-auto pb-32">
+                                <h1 className="serif text-5xl font-bold mb-10">Lumina Master Admin</h1>
 
-                                {/* 1. LOGO & BRANDING */}
-                                <div className="admin-box border-l-4 border-rose-gold">
-                                    <h3 className="text-[10px] font-bold tracking-widest mb-6 uppercase">Branding & Logo</h3>
-                                    <div className="grid md:grid-cols-3 gap-6 items-center">
-                                        <div className="h-24 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed">
-                                            {data.logo ? <img src={data.logo} className="h-full object-contain p-2" /> : "No Logo"}
-                                        </div>
-                                        <div className="col-span-2">
-                                            <label className="text-[10px] font-bold">Update Logo Image</label>
-                                            <input type="file" className="block text-xs mt-2" onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} />
-                                            <input className="input-f mt-4" placeholder="Business Name" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 2. NAVIGATION & LINKS */}
-                                <div className="admin-box border-l-4 border-blue-400">
-                                    <h3 className="text-[10px] font-bold tracking-widest mb-6 uppercase">Navigation & Socials</h3>
+                                {/* LOGO & HERO CONTROL */}
+                                <div className="admin-box border-l-8 border-rose-gold">
+                                    <h3 className="font-bold text-xs tracking-widest mb-4 uppercase">Identity & Hero</h3>
                                     <div className="grid md:grid-cols-2 gap-4">
-                                        <div><label className="text-[10px]">Instagram URL</label><input className="input-f" value={data.socials?.instagram} onChange={e => setData({...data, socials: {...data.socials, instagram: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">Facebook URL</label><input className="input-f" value={data.socials?.facebook} onChange={e => setData({...data, socials: {...data.socials, facebook: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">WhatsApp Phone</label><input className="input-f" value={data.footer?.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">Booking Button Text</label><input className="input-f" value={data.booking_btn_text || "Book Now"} onChange={e => setData({...data, booking_btn_text: e.target.value})} /></div>
-                                    </div>
-                                </div>
-
-                                {/* 3. HERO & FOOTER (MANDATORY) */}
-                                <div className="admin-box border-l-4 border-black">
-                                    <h3 className="text-[10px] font-bold tracking-widest mb-6 uppercase">Hero & Footer Content</h3>
-                                    <div className="space-y-4">
+                                        <div><label className="text-[10px] font-bold">Logo</label><input type="file" className="block text-xs" onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} /></div>
+                                        <div><label className="text-[10px] font-bold">Hero Image</label><input type="file" className="block text-xs" onChange={e => uploadImg(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} /></div>
+                                        <input className="input-f" placeholder="Brand Name" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
                                         <input className="input-f" placeholder="Hero Subtitle" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} />
-                                        <textarea className="input-f h-20" placeholder="Footer Address" value={data.footer?.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
-                                        <input className="input-f" placeholder="Copyright Bar" value={data.footer?.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
                                     </div>
                                 </div>
 
-                                {/* 4. GALLERY & REVIEWS (ADD/REMOVE) */}
-                                <div className="admin-box">
-                                    <h3 className="text-[10px] font-bold tracking-widest mb-4 uppercase">Gallery & Reviews</h3>
-                                    <p className="text-[10px] mb-4 text-gray-400">Manage photos and testimonials from here</p>
-                                    <div className="grid grid-cols-5 gap-2 mb-6">
-                                        {data.gallery.map((img, i) => (
-                                            <div key={i} className="relative aspect-square"><img src={img} className="w-full h-full object-cover rounded-lg" /><button onClick={() => {let d={...data}; d.gallery.splice(i,1); setData(d);}} className="absolute -top-1 -right-1 bg-red-500 text-white w-5 h-5 rounded-full text-xs">×</button></div>
-                                        ))}
-                                    </div>
-                                    <input type="file" onChange={e => uploadImg(e, (url) => setData({...data, gallery: [...data.gallery, url]}))} />
+                                {/* MENU / PRICES MANAGER */}
+                                <div className="admin-box border-l-8 border-black">
+                                    <h3 className="font-bold text-xs tracking-widest mb-4 uppercase">The Menu (Prices Section)</h3>
+                                    {data.full_menu.map((menu, mi) => (
+                                        <div key={mi} className="mb-6 p-4 bg-gray-50 rounded-xl">
+                                            <input className="font-bold bg-transparent border-b mb-4" value={menu.cat} onChange={e => {let d={...data}; d.full_menu[mi].cat=e.target.value; setData(d);}} />
+                                            {menu.items.map((it, ii) => (
+                                                <div key={ii} className="flex gap-2 mb-2">
+                                                    <input className="input-f" placeholder="Item Name" value={it.n} onChange={e => {let d={...data}; d.full_menu[mi].items[ii].n=e.target.value; setData(d);}} />
+                                                    <input className="input-f w-24" placeholder="Price" value={it.p} onChange={e => {let d={...data}; d.full_menu[mi].items[ii].p=e.target.value; setData(d);}} />
+                                                    <button onClick={() => {let d={...data}; d.full_menu[mi].items.splice(ii,1); setData(d);}} className="text-red-500">×</button>
+                                                </div>
+                                            ))}
+                                            <button onClick={() => {let d={...data}; d.full_menu[mi].items.push({n:"", p:""}); setData(d);}} className="text-xs text-blue-500 font-bold">+ Add Item</button>
+                                        </div>
+                                    ))}
                                 </div>
 
-                                <button onClick={saveToGithub} className="btn-premium w-full py-8 rounded-3xl font-bold uppercase tracking-[0.3em] shadow-2xl sticky bottom-10 border-4 border-white">Deploy Updates</button>
+                                {/* REVIEWS MANAGER */}
+                                <div className="admin-box border-l-8 border-yellow-500">
+                                    <h3 className="font-bold text-xs tracking-widest mb-4 uppercase">Customer Reviews</h3>
+                                    {data.reviews.map((rev, ri) => (
+                                        <div key={ri} className="mb-4 p-4 border rounded-xl">
+                                            <textarea className="input-f mb-2" placeholder="Review Text" value={rev.text} onChange={e => {let d={...data}; d.reviews[ri].text=e.target.value; setData(d);}} />
+                                            <input className="input-f" placeholder="Customer Name" value={rev.name} onChange={e => {let d={...data}; d.reviews[ri].name=e.target.value; setData(d);}} />
+                                            <button onClick={() => {let d={...data}; d.reviews.splice(ri,1); setData(d);}} className="text-red-500 text-xs mt-2">Delete Review</button>
+                                        </div>
+                                    ))}
+                                    <button onClick={() => setData({...data, reviews: [...data.reviews, {text:"", name:""}]})} className="btn-premium px-4 py-2 rounded-lg text-xs">+ Add New Review</button>
+                                </div>
+
+                                {/* ABOUT & FOOTER */}
+                                <div className="admin-box border-l-8 border-blue-500">
+                                    <h3 className="font-bold text-xs tracking-widest mb-4 uppercase">About & Contact</h3>
+                                    <textarea className="input-f mb-4" placeholder="About Text" value={data.about_text} onChange={e => setData({...data, about_text: e.target.value})} />
+                                    <input className="input-f mb-2" placeholder="WhatsApp Number" value={data.footer?.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
+                                    <input className="input-f mb-2" placeholder="Salon Address" value={data.footer?.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
+                                </div>
+
+                                <button onClick={saveToGithub} className="btn-premium w-full py-6 rounded-2xl font-bold uppercase tracking-widest shadow-2xl sticky bottom-5 border-2 border-white">Publish Everything Live</button>
                             </div>
                         </div>
                     ) : (
                         <div>
-                            {/* --- NAVIGATION --- */}
-                            <nav className="p-4 md:px-12 flex justify-between items-center bg-white/95 backdrop-blur-sm sticky top-0 z-[100] border-b border-rose-gold/5">
-                                <div className="flex items-center cursor-pointer" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASS && setIsAdmin(true)}>
-                                    {data.logo ? <img src={data.logo} className="h-10 md:h-16 w-auto" alt="Logo" /> : <span className="serif text-3xl font-bold tracking-tighter">{data.brand_name}</span>}
+                            {/* --- WEBSITE FRONTEND --- */}
+                            <nav className="p-4 md:px-12 flex justify-between items-center bg-white/95 sticky top-0 z-[100] border-b">
+                                <div className="cursor-pointer" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASS && setIsAdmin(true)}>
+                                    {data.logo ? <img src={data.logo} className="h-12" /> : <span className="serif text-3xl font-bold">{data.brand_name}</span>}
                                 </div>
-                                <div className="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em]">
-                                    <a href="#home-top" className="hover:text-rose-gold transition">Home</a>
-                                    <a href="#gallery" className="hover:text-rose-gold transition">Gallery</a>
-                                    <a href="#services" className="hover:text-rose-gold transition">Services</a>
-                                    <a href="#prices" className="hover:text-rose-gold transition">Prices</a>
-                                    <a href="#reviews" className="hover:text-rose-gold transition">Reviews</a>
-                                    <a href="#about" className="hover:text-rose-gold transition">About</a>
+                                <div className="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-widest">
+                                    <a href="#home">Home</a><a href="#gallery">Gallery</a><a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#about">About</a>
                                 </div>
-                                <button onClick={handleWhatsAppBooking} className="btn-premium px-8 py-3 rounded-full shadow-xl hover:scale-105 active:scale-95 transition text-[10px] font-bold">
-                                    {data.booking_btn_text || "Book Now"} {cart.length > 0 && `(${cart.length})`}
-                                </button>
+                                <button className="btn-premium px-8 py-2 rounded-full text-[10px] font-bold uppercase">Book Now</button>
                             </nav>
 
-                            {/* --- HERO --- */}
-                            <header className="h-[80vh] relative flex items-center justify-center text-white text-center overflow-hidden">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-110" />
-                                <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
-                                <div className="relative animate-fade p-6">
-                                    <h1 className="serif text-8xl md:text-[11rem] italic leading-none">{data.brand_name}</h1>
-                                    <p className="tracking-[0.6em] uppercase text-[10px] mt-10 font-bold opacity-70">{data.hero.subtitle}</p>
+                            {/* HERO */}
+                            <header className="h-[70vh] relative flex items-center justify-center text-white text-center">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-black/40"></div>
+                                <div className="relative">
+                                    <h1 className="serif text-7xl md:text-9xl italic leading-none">{data.brand_name}</h1>
+                                    <p className="tracking-[0.5em] uppercase text-[10px] mt-6 font-bold">{data.hero.subtitle}</p>
                                 </div>
                             </header>
 
-                            {/* --- SERVICES --- */}
-                            <section id="services" className="py-32 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-7xl text-center mb-20 italic">The Experience</h2>
-                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b mb-16 justify-center">
+                            {/* SERVICES DETAILS */}
+                            <section id="services" className="py-24 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-6xl text-center mb-16 italic">The Services</h2>
+                                <div className="flex overflow-x-auto no-scrollbar gap-10 border-b mb-12 justify-center">
                                     {Object.keys(data.services).map(cat => (
                                         <button key={cat} onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
-                                            className={`pb-6 text-[11px] font-bold tracking-[0.3em] uppercase transition-all ${activeCat === cat ? 'border-b-2 border-rose-gold text-rose-gold' : 'opacity-20 hover:opacity-100'}`}>{cat}</button>
+                                            className={`pb-4 text-[11px] font-bold uppercase transition-all ${activeCat === cat ? 'border-b-2 border-rose-gold text-rose-gold' : 'opacity-30'}`}>{cat}</button>
                                     ))}
                                 </div>
-                                <div className="grid md:grid-cols-12 gap-16 bg-white p-8 md:p-16 rounded-[4rem] shadow-2xl border border-gray-50 items-center">
-                                    <div className="md:col-span-5 space-y-4 max-h-[500px] overflow-y-auto no-scrollbar pr-4">
+                                <div className="grid md:grid-cols-12 gap-10 items-center">
+                                    <div className="md:col-span-4 space-y-2">
                                         {data.services[activeCat]?.map((s, i) => (
-                                            <div key={i} onClick={() => setSelectedSvc(s)} className={`p-6 cursor-pointer rounded-3xl transition-all ${selectedSvc?.name === s.name ? 'bg-pink-50 border-l-8 border-rose-gold' : 'hover:bg-gray-50 opacity-60'}`}>
-                                                <h4 className="serif text-3xl font-bold uppercase leading-none">{s.name}</h4>
-                                                <p className="text-xs mt-2 font-bold text-rose-gold">{s.price}</p>
+                                            <div key={i} onClick={() => setSelectedSvc(s)} className={`p-4 cursor-pointer rounded-xl transition-all ${selectedSvc?.name === s.name ? 'bg-pink-50 border-l-4 border-rose-gold' : 'hover:bg-gray-50'}`}>
+                                                <h4 className="serif text-xl font-bold uppercase">{s.name}</h4>
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="md:col-span-7 flex flex-col md:flex-row gap-12 items-center">
+                                    <div className="md:col-span-8 flex flex-col md:flex-row gap-8 bg-white p-8 rounded-[3rem] shadow-xl">
                                         {selectedSvc && (
-                                            <React.Fragment>
-                                                <img src={selectedSvc.img} className="w-full md:w-3/5 aspect-[4/5] object-cover rounded-[3rem] shadow-2xl transform hover:scale-[1.02] transition duration-700" />
-                                                <div className="flex-1">
-                                                    <h3 className="serif text-6xl mb-6 italic leading-tight">{selectedSvc.name}</h3>
-                                                    <p className="text-xl opacity-50 mb-10 leading-relaxed font-light">{selectedSvc.desc}</p>
-                                                    <button onClick={() => {
-                                                        const isAdded = cart.find(i => i.name === selectedSvc.name);
-                                                        if(isAdded) setCart(cart.filter(i => i.name !== selectedSvc.name));
-                                                        else setCart([...cart, selectedSvc]);
-                                                    }} className={`w-full py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] shadow-xl transition-all ${cart.find(i => i.name === selectedSvc.name) ? 'bg-black text-white' : 'btn-premium'}`}>
-                                                        {cart.find(i => i.name === selectedSvc.name) ? "Selected" : "Add to List"}
-                                                    </button>
+                                            <>
+                                                <img src={selectedSvc.img} className="w-full md:w-1/2 aspect-square object-cover rounded-3xl" />
+                                                <div className="flex flex-col justify-center">
+                                                    <h3 className="serif text-5xl mb-4 italic">{selectedSvc.name}</h3>
+                                                    <p className="text-3xl font-bold text-rose-gold mb-6">{selectedSvc.price}</p>
+                                                    <p className="opacity-60 mb-8 italic">{selectedSvc.desc}</p>
+                                                    <button className="btn-premium py-4 rounded-full text-[10px] font-bold uppercase">Add to Booking</button>
                                                 </div>
-                                            </React.Fragment>
+                                            </>
                                         )}
                                     </div>
                                 </div>
                             </section>
 
-                            {/* --- MENU --- */}
-                            <section id="prices" className="py-32 bg-white">
+                            {/* PRICES MENU */}
+                            <section id="prices" className="py-24 bg-white border-y">
                                 <div className="max-w-6xl mx-auto px-6">
-                                    <h2 className="serif text-7xl text-center mb-24 italic font-light">The Menu</h2>
-                                    <div className="grid md:grid-cols-2 gap-x-24 gap-y-20">
+                                    <h2 className="serif text-6xl text-center mb-20 italic">The Menu</h2>
+                                    <div className="grid md:grid-cols-2 gap-x-20 gap-y-12">
                                         {data.full_menu.map((sec, idx) => (
-                                            <div key={idx} className="animate-fade">
-                                                <h3 className="serif text-4xl text-rose-gold mb-10 italic border-b-2 border-rose-gold/10 pb-4">{sec.cat}</h3>
+                                            <div key={idx}>
+                                                <h3 className="serif text-3xl text-rose-gold mb-8 italic border-b pb-2">{sec.cat}</h3>
                                                 {sec.items.map((it, i) => (
-                                                    <div key={i} className="service-row group">
-                                                        <span className="serif text-2xl uppercase group-hover:text-rose-gold transition duration-300">{it.n}</span>
-                                                        <span className="font-bold text-rose-gold text-lg">{it.p}</span>
+                                                    <div key={i} className="service-row">
+                                                        <span className="serif text-xl uppercase">{it.n}</span>
+                                                        <span className="font-bold text-rose-gold">{it.p}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -228,44 +206,45 @@
                                 </div>
                             </section>
 
-                            {/* --- GALLERY --- */}
-                            <section id="gallery" className="py-32 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-7xl text-center mb-24 italic">Gallery</h2>
-                                <div className="columns-2 md:columns-4 gap-6 space-y-6">
-                                    {data.gallery.map((img, i) => <img key={i} src={img} className="w-full rounded-[2rem] shadow-xl hover:brightness-110 transition duration-500 cursor-zoom-in" />)}
+                            {/* GALLERY */}
+                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto text-center">
+                                <h2 className="serif text-6xl mb-16 italic">Gallery</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {data.gallery.map((img, i) => <img key={i} src={img} className="w-full aspect-[4/5] object-cover rounded-2xl shadow-lg" />)}
                                 </div>
                             </section>
 
-                            {/* --- ABOUT --- */}
-                            <section id="about" className="py-40 bg-white text-center px-6">
-                                <div className="max-w-3xl mx-auto">
-                                    <h2 className="serif text-6xl mb-12 italic">Our Philosophy</h2>
-                                    <p className="text-2xl text-gray-800 leading-relaxed italic serif mb-16">{data.about_text}</p>
-                                    <div className="inline-block p-2 border border-rose-gold/30 rounded-full">
-                                        <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=800" className="w-48 h-48 rounded-full object-cover shadow-2xl grayscale" />
+                            {/* REVIEWS SECTION */}
+                            <section id="reviews" className="py-24 bg-blush/20">
+                                <div className="max-w-5xl mx-auto px-6">
+                                    <h2 className="serif text-6xl text-center mb-16 italic">Customer Love</h2>
+                                    <div className="grid md:grid-cols-2 gap-8">
+                                        {data.reviews.map((rev, i) => (
+                                            <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm italic relative">
+                                                <p className="text-lg opacity-70 mb-6">"{rev.text}"</p>
+                                                <h5 className="font-bold text-rose-gold uppercase text-xs tracking-widest">— {rev.name}</h5>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </section>
 
-                            {/* --- FOOTER --- */}
-                            <footer className="bg-[#0F0202] text-white pt-32 pb-12 px-10">
-                                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 border-b border-white/5 pb-24">
-                                    <div className="space-y-10">
-                                        {data.logo ? <img src={data.logo} className="h-20 brightness-200" /> : <h4 className="serif text-6xl text-rose-gold italic font-bold">{data.brand_name}</h4>}
-                                        <div className="flex space-x-6">
-                                            {data.socials?.instagram && <a href={data.socials.instagram} className="text-xs font-bold uppercase tracking-widest border-b border-rose-gold pb-1">Instagram</a>}
-                                            {data.socials?.facebook && <a href={data.socials.facebook} className="text-xs font-bold uppercase tracking-widest border-b border-rose-gold pb-1">Facebook</a>}
-                                        </div>
-                                    </div>
-                                    <div><h5 className="text-rose-gold uppercase text-[10px] font-bold mb-8 tracking-[0.4em] opacity-40">Timing</h5><p className="serif text-3xl italic">{data.footer?.hours}</p></div>
-                                    <div><h5 className="text-rose-gold uppercase text-[10px] font-bold mb-8 tracking-[0.4em] opacity-40">Contact</h5><p className="text-xl serif italic leading-relaxed opacity-70">{data.footer?.address}</p></div>
-                                    <div className="bg-[#1A0404] p-10 rounded-[3rem] border border-rose-gold/10 text-center shadow-inner transform hover:-translate-y-2 transition duration-500">
-                                        <h5 className="text-rose-gold uppercase text-[9px] font-bold mb-4 tracking-[0.3em]">Special Offer</h5>
-                                        <p className="serif text-4xl italic text-white mb-2">{data.footer?.promo_title}</p>
-                                        <p className="text-[10px] opacity-40 uppercase">{data.footer?.promo_text}</p>
-                                    </div>
+                            {/* ABOUT */}
+                            <section id="about" className="py-32 text-center px-6">
+                                <h2 className="serif text-5xl mb-10 italic">Our Sanctuary</h2>
+                                <p className="max-w-3xl mx-auto text-xl italic opacity-80 leading-relaxed mb-12">{data.about_text}</p>
+                                <div className="inline-block p-1 border border-rose-gold rounded-full">
+                                    <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=600" className="w-48 h-48 rounded-full object-cover grayscale" />
                                 </div>
-                                <p className="text-center mt-16 text-[10px] uppercase tracking-[0.6em] opacity-20">{data.footer?.copyright}</p>
+                            </section>
+
+                            {/* FOOTER */}
+                            <footer className="bg-[#1A0404] text-white py-20 px-10">
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 text-center md:text-left">
+                                    <div><h4 className="serif text-5xl text-rose-gold italic mb-6">{data.brand_name}</h4><p className="opacity-50 text-xs uppercase tracking-widest">{data.footer?.copyright}</p></div>
+                                    <div><h5 className="text-rose-gold text-xs font-bold uppercase mb-4 tracking-widest">Timing</h5><p className="serif text-2xl italic">{data.footer?.hours}</p></div>
+                                    <div><h5 className="text-rose-gold text-xs font-bold uppercase mb-4 tracking-widest">Visit Us</h5><p className="serif text-xl italic">{data.footer?.address}</p></div>
+                                </div>
                             </footer>
                         </div>
                     )}
