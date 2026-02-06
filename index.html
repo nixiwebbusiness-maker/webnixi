@@ -52,8 +52,8 @@
                         method: 'POST', headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ content: b64, sha: fileResData.sha })
                     });
-                    alert("Site Updated!"); window.location.reload();
-                } catch (e) { alert("Token Error!"); }
+                    alert("Site Updated Successfully!"); window.location.reload();
+                } catch (e) { alert("Error saving. Check Token."); }
             };
 
             if (!data) return <div className="h-screen flex items-center justify-center italic">Loading Lumina Luxe...</div>;
@@ -63,16 +63,16 @@
                     {isAdmin ? (
                         <div className="bg-[#fcfcfc] min-h-screen p-6">
                             <div className="max-w-4xl mx-auto">
-                                <h1 className="serif text-4xl mb-8 text-center">Admin Control Center</h1>
+                                <h1 className="serif text-4xl mb-8 text-center">Admin Dashboard</h1>
                                 <div className="admin-card">
-                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-gold mb-4">Basic Info</h3>
+                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-gold mb-4">Site Content</h3>
                                     <label className="text-[10px] font-bold">Brand Name</label>
                                     <input className="input-style mb-4" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                    <label className="text-[10px] font-bold">About Text</label>
+                                    <label className="text-[10px] font-bold">About Paragraph</label>
                                     <textarea className="input-style h-24 mb-4" value={data.about_text} onChange={e => setData({...data, about_text: e.target.value})} />
                                 </div>
-                                <button onClick={saveChanges} className="btn-premium w-full py-4 rounded-xl font-bold uppercase tracking-widest shadow-xl">Save & Publish Site</button>
-                                <button onClick={() => setIsAdmin(false)} className="w-full mt-4 text-[10px] opacity-40 uppercase font-bold tracking-widest text-center">Exit Admin</button>
+                                <button onClick={saveChanges} className="btn-premium w-full py-4 rounded-xl font-bold uppercase tracking-widest shadow-xl">Update Live Site</button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full mt-4 text-[10px] opacity-40 uppercase font-bold tracking-widest text-center">Back to Website</button>
                             </div>
                         </div>
                     ) : (
@@ -94,13 +94,13 @@
                             </nav>
 
                             {/* Hero */}
-                            <header className="h-[60vh] relative flex items-center justify-center overflow-hidden">
+                            <header className="h-[65vh] relative flex items-center justify-center overflow-hidden">
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/40"></div>
                                 <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
                             </header>
 
-                            {/* Service Details */}
+                            {/* 1. Service Details Section */}
                             <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
                                 <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Details</h2>
                                 <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
@@ -125,7 +125,7 @@
                                                     <h3 className="serif text-5xl text-mahogany mb-4 leading-tight">{selectedItem.name}</h3>
                                                     <div className="text-3xl font-bold text-rose-gold mb-4">{selectedItem.price}</div>
                                                     <p className="text-xs uppercase tracking-widest leading-loose opacity-60 mb-8">{selectedItem.desc}</p>
-                                                    <button className="btn-premium px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase tracking-widest">Book Appointment</button>
+                                                    <button className="btn-premium px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase">Book Appointment</button>
                                                 </div>
                                             </div>
                                         )}
@@ -133,7 +133,7 @@
                                 </div>
                             </section>
 
-                            {/* Prices Section */}
+                            {/* 2. Full Pricing Menu */}
                             <section id="prices" className="py-24 bg-white border-y border-blush/30">
                                 <div className="max-w-6xl mx-auto px-6">
                                     <h2 className="serif text-6xl text-center text-mahogany mb-20 italic">The Menu</h2>
@@ -156,11 +156,40 @@
                                 </div>
                             </section>
 
-                            {/* --- DARK MAHOGANY FOOTER --- */}
+                            {/* 3. Gallery */}
+                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Gallery</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {data.gallery.map((img, i) => <img key={i} src={img} className="aspect-[4/5] object-cover rounded-lg shadow-md grayscale hover:grayscale-0 transition-all duration-700" />)}
+                                </div>
+                            </section>
+
+                            {/* 4. Reviews */}
+                            <section id="reviews" className="py-24 bg-blush/20 overflow-hidden">
+                                <div className="max-w-7xl mx-auto px-6">
+                                    <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Customer Love</h2>
+                                    <div className="flex gap-8 overflow-x-auto no-scrollbar pb-8">
+                                        {data.reviews.map((rev, i) => (
+                                            <div key={i} className="min-w-[320px] bg-white p-10 rounded-2xl shadow-sm border-b-4 border-rose-gold italic">
+                                                <p className="mb-6 text-gray-700">"{rev.text}"</p>
+                                                <span className="font-bold text-rose-gold uppercase text-[10px] tracking-widest">— {rev.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* 5. About Section */}
+                            <section id="about" className="py-24 bg-white text-center px-6">
+                                <h2 className="serif text-5xl text-mahogany mb-8 italic">About Us</h2>
+                                <p className="max-w-2xl mx-auto text-gray-700 leading-relaxed italic mb-10">{data.about_text}</p>
+                                <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=300" className="w-40 h-40 rounded-full mx-auto shadow-2xl border-4 border-blush" />
+                            </section>
+
+                            {/* 6. Dark Mahogany Footer */}
                             <footer id="contact" className="bg-[#2D0808] text-white pt-24 pb-12 px-10">
                                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
                                     
-                                    {/* Column 1: Brand & Appointment */}
                                     <div className="space-y-6 text-center md:text-left">
                                         <h4 className="serif text-5xl text-rose-gold italic font-bold tracking-tighter">lumina</h4>
                                         <div className="space-y-1">
@@ -170,7 +199,6 @@
                                         <p className="text-[10px] uppercase tracking-[0.3em] opacity-60">Book Online Now</p>
                                     </div>
 
-                                    {/* Column 2: Hours */}
                                     <div className="text-center md:text-left">
                                         <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Salon Hours</h5>
                                         <div className="space-y-2">
@@ -179,7 +207,6 @@
                                         </div>
                                     </div>
 
-                                    {/* Column 3: Location (Karachi) */}
                                     <div className="text-center md:text-left">
                                         <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Our Location</h5>
                                         <div className="space-y-2 opacity-80">
@@ -188,7 +215,6 @@
                                         </div>
                                     </div>
 
-                                    {/* Column 4: Promotions */}
                                     <div className="bg-[#3D0A0A] p-8 rounded-2xl border border-rose-gold/20 text-center flex flex-col justify-center shadow-2xl">
                                         <h5 className="text-rose-gold uppercase text-[10px] font-bold tracking-[0.2em] mb-4">Exclusive Promotions</h5>
                                         <p className="serif text-3xl italic leading-tight text-white">$10.00 Off Gel</p>
@@ -196,10 +222,8 @@
                                     </div>
                                 </div>
 
-                                {/* Copyright */}
                                 <div className="max-w-7xl mx-auto mt-12 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.3em] opacity-40 text-center space-y-4 md:space-y-0">
-                                    <p>©2026 LUMINA LUXE, ALL RIGHTS RESERVED</p>
-                                    <p>BY SALON MARKETER</p>
+                                    <p>©2026 LUMINA LUXE, ALL RIGHTS RESERVED | BY SALON MARKETER</p>
                                 </div>
                             </footer>
                         </div>
