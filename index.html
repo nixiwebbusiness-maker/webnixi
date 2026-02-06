@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Full Experience</title>
+    <title>Lumina Luxe | Signature Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -105,9 +105,9 @@
                                       onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASSWORD && setIsAdmin(true)}>
                                     {data.brand_name}
                                 </span>
-                                <div className="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-widest items-center">
+                                <div className="hidden lg:flex space-x-6 text-[9px] font-bold uppercase tracking-widest items-center">
                                     <a href="#gallery" className="hover:text-rose-gold">Gallery</a>
-                                    <a href="#exclusive-services" className="hover:text-rose-gold">Details</a>
+                                    <a href="#exclusive-services" className="hover:text-rose-gold">Service Details</a>
                                     <a href="#prices" className="hover:text-rose-gold">Prices</a>
                                     <a href="#reviews" className="hover:text-rose-gold">Reviews</a>
                                     <a href="#about" className="hover:text-rose-gold">About</a>
@@ -122,7 +122,7 @@
                                 <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
                             </header>
 
-                            {/* 1. Service Details */}
+                            {/* Service Details Section */}
                             <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
                                 <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Details</h2>
                                 <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
@@ -155,7 +155,7 @@
                                 </div>
                             </section>
 
-                            {/* 2. Full Pricing Section */}
+                            {/* Prices Section */}
                             <section id="prices" className="py-24 bg-white border-y border-blush/30">
                                 <div className="max-w-6xl mx-auto px-6">
                                     <h2 className="serif text-6xl text-center text-mahogany mb-20 italic">The Menu</h2>
@@ -178,7 +178,7 @@
                                 </div>
                             </section>
 
-                            {/* 3. Gallery */}
+                            {/* Gallery Section */}
                             <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
                                 <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Gallery</h2>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -186,7 +186,7 @@
                                 </div>
                             </section>
 
-                            {/* 4. Reviews */}
+                            {/* Reviews Section */}
                             <section id="reviews" className="py-24 bg-blush/20 overflow-hidden">
                                 <div className="max-w-7xl mx-auto px-6">
                                     <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Customer Love</h2>
@@ -201,18 +201,16 @@
                                 </div>
                             </section>
 
-                            {/* 5. About */}
+                            {/* About Section */}
                             <section id="about" className="py-24 bg-white text-center px-6">
                                 <h2 className="serif text-5xl text-mahogany mb-8 italic">About Us</h2>
                                 <p className="max-w-2xl mx-auto text-gray-700 leading-relaxed italic mb-10">{data.about_text}</p>
                                 <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=300" className="w-40 h-40 rounded-full mx-auto shadow-2xl border-4 border-blush" />
                             </section>
 
-                            {/* --- FINAL FOOTER --- */}
+                            {/* Footer */}
                             <footer id="contact" className="bg-mahogany text-white pt-24 pb-12 px-10">
                                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-                                    
-                                    {/* 1. Brand & Booking */}
                                     <div className="space-y-6 text-center md:text-left">
                                         <h4 className="serif text-5xl text-rose-gold italic font-bold tracking-tighter">lumina</h4>
                                         <div className="space-y-1">
@@ -221,8 +219,6 @@
                                         </div>
                                         <p className="text-xs uppercase tracking-[0.3em] opacity-60">Book Online Now</p>
                                     </div>
-
-                                    {/* 2. Salon Hours */}
                                     <div className="text-center md:text-left">
                                         <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Salon Hours</h5>
                                         <div className="space-y-2">
@@ -230,8 +226,6 @@
                                             <p className="serif text-2xl italic">10:00 AM - 10:00 PM</p>
                                         </div>
                                     </div>
-
-                                    {/* 3. Location */}
                                     <div className="text-center md:text-left">
                                         <h5 className="text-rose-gold uppercase text-[11px] font-bold tracking-[0.2em] mb-6">Our Location</h5>
                                         <div className="space-y-2 opacity-80">
@@ -239,15 +233,12 @@
                                             <p className="text-lg serif">Karachi, CA 90405</p>
                                         </div>
                                     </div>
-
-                                    {/* 4. Exclusive Promotions */}
                                     <div className="bg-[#3A0C0C] p-8 rounded-2xl border border-rose-gold/20 text-center flex flex-col justify-center shadow-2xl">
                                         <h5 className="text-rose-gold uppercase text-[10px] font-bold tracking-[0.2em] mb-4">Exclusive Promotions</h5>
                                         <p className="serif text-3xl italic leading-tight text-white">$10.00 Off Gel</p>
                                         <p className="text-[10px] uppercase tracking-widest opacity-70 mt-2">Manicures & Pedicures</p>
                                     </div>
                                 </div>
-
                                 <div className="max-w-7xl mx-auto mt-12 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.3em] opacity-40 text-center space-y-4 md:space-y-0">
                                     <p>©2026 LUMINA LUXE, ALL RIGHTS RESERVED</p>
                                     <p>BY SALON MARKETER</p>
