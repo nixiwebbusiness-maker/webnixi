@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Complete Business CMS</title>
+    <title>Lumina Luxe | The Ultimate Business Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -13,8 +13,9 @@
         body { font-family: 'Montserrat', sans-serif; background-color: #FFF9F9; color: var(--mahogany); scroll-behavior: smooth; }
         .serif { font-family: 'Cormorant Garamond', serif; }
         .btn-premium { background: linear-gradient(to right, #B76E79, #8E5A63); color: white; transition: 0.3s; cursor:pointer; border:none; }
-        .admin-box { background: white; border-radius: 15px; padding: 25px; border: 1px solid #eee; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .input-f { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; font-size: 13px; color: black; }
+        .admin-box { background: white; border-radius: 15px; padding: 25px; border: 1px solid #eee; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .input-f { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; font-size: 13px; color: black; outline: none; transition: 0.2s; }
+        .input-f:focus { border-color: var(--rose-gold); box-shadow: 0 0 0 2px rgba(183,110,121,0.1); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .service-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(183, 110, 121, 0.15); margin-bottom: 0.8rem; }
     </style>
@@ -52,14 +53,14 @@
                     const res = await fetch(CLOUDINARY_URL, { method: "POST", body: fd });
                     const json = await res.json();
                     callback(json.secure_url);
-                    alert("Image Uploaded Successfully!");
+                    alert("Image Uploaded!");
                 } catch(err) { alert("Upload Failed!"); }
             };
 
             const handleWhatsAppBooking = () => {
                 const phone = data.footer?.whatsapp || "923104939222";
                 const serviceList = cart.map(item => `- ${item.name} (${item.price})`).join('%0A');
-                const message = `Hello ${data.brand_name}!%0A%0AI want to book these services:%0A${serviceList}`;
+                const message = `*Booking Request from ${data.brand_name}*%0A%0AHello! I want to book:%0A${serviceList}%0A%0APlease confirm availability.`;
                 window.open(`https://wa.me/${phone.replace(/\D/g,'')}?text=${message}`, '_blank');
             };
 
@@ -71,153 +72,173 @@
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ content: b64, sha: fileData.sha })
                 });
-                alert("Website Updated Successfully!"); window.location.reload();
+                alert("Website Successfully Updated!"); window.location.reload();
             };
 
-            if (!data) return <div className="p-10 text-center italic">Loading Salon System...</div>;
+            if (!data) return <div className="p-10 text-center italic">Synchronizing Business Data...</div>;
 
             return (
                 <div>
                     {isAdmin ? (
                         <div className="bg-gray-100 min-h-screen p-4 md:p-10 relative">
-                            {/* CLOSE BUTTON */}
-                            <button onClick={() => setIsAdmin(false)} className="fixed top-5 right-5 bg-red-500 text-white w-10 h-10 rounded-full font-bold shadow-xl z-[100] hover:scale-110 transition">✕</button>
+                            <button onClick={() => setIsAdmin(false)} className="fixed top-5 right-5 bg-red-600 text-white w-12 h-12 rounded-full font-bold shadow-2xl z-[100] hover:scale-110 active:scale-95 transition">✕</button>
 
-                            <div className="max-w-5xl mx-auto pb-20">
-                                <h1 className="serif text-4xl mb-10 text-center font-bold uppercase">Business Control Center</h1>
+                            <div className="max-w-5xl mx-auto pb-32">
+                                <h1 className="serif text-5xl mb-2 text-center font-bold">LUMINA MASTER CONTROL</h1>
+                                <p className="text-center text-gray-500 mb-10 text-xs tracking-widest uppercase">Everything you change here updates the website live</p>
                                 
-                                {/* 1. BRANDING & FOOTER */}
+                                {/* 1. GLOBAL SETTINGS (WhatsApp & Footer) */}
                                 <div className="admin-box border-l-8 border-rose-gold">
-                                    <h3 className="font-bold mb-4 uppercase text-xs tracking-widest text-rose-gold">Branding & Footer Details</h3>
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        <div><label className="text-[10px]">Brand Name</label><input className="input-f font-bold" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} /></div>
-                                        <div><label className="text-[10px]">WhatsApp (Booking)</label><input className="input-f border-green-200" value={data.footer?.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">Salon Hours</label><input className="input-f" value={data.footer?.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">Location</label><input className="input-f" value={data.footer?.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">Promo Title</label><input className="input-f" value={data.footer?.promo_title} onChange={e => setData({...data, footer: {...data.footer, promo_title: e.target.value}})} /></div>
-                                        <div><label className="text-[10px]">Promo Text</label><input className="input-f" value={data.footer?.promo_text} onChange={e => setData({...data, footer: {...data.footer, promo_text: e.target.value}})} /></div>
-                                        <div className="col-span-2"><label className="text-[10px]">Copyright Text</label><input className="input-f" value={data.footer?.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} /></div>
+                                    <h3 className="font-bold mb-6 uppercase text-xs tracking-[0.2em] text-rose-gold">Core Settings & Footer</h3>
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div><label className="text-[10px] font-bold">Brand Name</label><input className="input-f" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} /></div>
+                                        <div><label className="text-[10px] font-bold text-green-600">WhatsApp Number (e.g. 92310...)</label><input className="input-f border-green-200" value={data.footer?.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} /></div>
+                                        <div><label className="text-[10px] font-bold">Salon Hours</label><input className="input-f" value={data.footer?.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} /></div>
+                                        <div><label className="text-[10px] font-bold">Location Address</label><input className="input-f" value={data.footer?.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} /></div>
+                                        <div><label className="text-[10px] font-bold text-blue-500">Promotion Title</label><input className="input-f" value={data.footer?.promo_title} onChange={e => setData({...data, footer: {...data.footer, promo_title: e.target.value}})} /></div>
+                                        <div><label className="text-[10px] font-bold text-blue-500">Promotion Text</label><input className="input-f" value={data.footer?.promo_text} onChange={e => setData({...data, footer: {...data.footer, promo_text: e.target.value}})} /></div>
+                                        <div className="col-span-2"><label className="text-[10px] font-bold">Copyright Bar Text</label><input className="input-f" value={data.footer?.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} /></div>
                                     </div>
                                 </div>
 
-                                {/* 2. GALLERY MANAGER (WITH COMPUTER UPLOAD) */}
+                                {/* 2. HERO & ABOUT SECTION */}
+                                <div className="admin-box border-l-8 border-amber-500">
+                                    <h3 className="font-bold mb-6 uppercase text-xs tracking-[0.2em] text-amber-600">Hero & About Sanctuary</h3>
+                                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                                        <div><label className="text-[10px] font-bold">Hero Subtitle</label><input className="input-f" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} /></div>
+                                        <div><label className="text-[10px] font-bold">Hero Main Image</label><input type="file" className="block text-xs mt-2" onChange={e => uploadImg(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} /></div>
+                                    </div>
+                                    <label className="text-[10px] font-bold">About Sanctuary Text</label>
+                                    <textarea className="input-f h-32" value={data.about_text} onChange={e => setData({...data, about_text: e.target.value})} />
+                                </div>
+
+                                {/* 3. GALLERY CONTROL (UPLOAD/REMOVE) */}
                                 <div className="admin-box border-l-8 border-purple-500">
-                                    <h3 className="font-bold mb-4 uppercase text-xs tracking-widest text-purple-600">Gallery Manager</h3>
-                                    <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mb-6">
+                                    <h3 className="font-bold mb-6 uppercase text-xs tracking-[0.2em] text-purple-600">The Gallery (Add/Delete)</h3>
+                                    <div className="grid grid-cols-4 md:grid-cols-6 gap-3 mb-6">
                                         {data.gallery.map((img, i) => (
-                                            <div key={i} className="relative group h-24 bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                                            <div key={i} className="relative group aspect-square rounded-lg overflow-hidden border">
                                                 <img src={img} className="w-full h-full object-cover" />
-                                                <button onClick={() => {let d={...data}; d.gallery.splice(i,1); setData(d);}} className="absolute top-1 right-1 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-lg">✕</button>
+                                                <button onClick={() => {let d={...data}; d.gallery.splice(i,1); setData(d);}} className="absolute top-0 right-0 bg-red-600 text-white p-1 text-[10px]">✕</button>
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="bg-purple-50 p-4 rounded-xl border-2 border-dashed border-purple-200 text-center">
-                                        <p className="text-[10px] font-bold text-purple-400 mb-2">ADD NEW IMAGE FROM COMPUTER</p>
+                                    <div className="bg-purple-50 p-6 rounded-xl border-2 border-dashed border-purple-200">
                                         <input type="file" className="text-xs" onChange={e => uploadImg(e, (url) => setData({...data, gallery: [...data.gallery, url]}))} />
+                                        <p className="text-[9px] text-purple-400 mt-2">Upload image from computer to add to website gallery</p>
                                     </div>
                                 </div>
 
-                                {/* 3. REVIEWS MANAGER */}
-                                <div className="admin-box border-l-8 border-blue-400">
-                                    <h3 className="font-bold mb-4 uppercase text-xs tracking-widest text-blue-500">Reviews Management</h3>
+                                {/* 4. REVIEWS MANAGER */}
+                                <div className="admin-box border-l-8 border-blue-500">
+                                    <h3 className="font-bold mb-6 uppercase text-xs tracking-[0.2em] text-blue-600">Customer Reviews</h3>
                                     {data.reviews.map((rev, i) => (
-                                        <div key={i} className="flex gap-2 mb-2 bg-gray-50 p-2 rounded border">
-                                            <input className="input-f flex-1" placeholder="Review Content" value={rev.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}} />
-                                            <input className="input-f w-32" placeholder="Customer Name" value={rev.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
-                                            <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-500 px-2">✕</button>
+                                        <div key={i} className="flex gap-4 mb-4 bg-gray-50 p-4 rounded-xl items-start">
+                                            <div className="flex-1">
+                                                <textarea className="input-f mb-2" placeholder="Review content" value={rev.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}} />
+                                                <input className="input-f" placeholder="Customer Name" value={rev.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
+                                            </div>
+                                            <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="bg-red-100 text-red-600 p-2 rounded-lg">✕</button>
                                         </div>
                                     ))}
-                                    <button onClick={() => setData({...data, reviews: [...data.reviews, {text:"", name:""}]})} className="text-blue-500 text-[10px] font-bold mt-2">+ Add New Review</button>
+                                    <button onClick={() => setData({...data, reviews: [...data.reviews, {text:"", name:""}]})} className="text-blue-600 text-xs font-bold">+ ADD NEW REVIEW</button>
                                 </div>
 
-                                {/* 4. SERVICE DETAILS TABS */}
-                                <div className="admin-box">
-                                    <h3 className="text-rose-gold font-bold mb-4 uppercase text-xs">Services & Image Control</h3>
+                                {/* 5. SERVICES (TABS & ITEMS) */}
+                                <div className="admin-box border-l-8 border-pink-500">
+                                    <h3 className="font-bold mb-6 uppercase text-xs tracking-[0.2em] text-pink-600">Service Categories & Details</h3>
                                     {Object.keys(data.services).map((cat) => (
-                                        <div key={cat} className="mb-6 p-4 border rounded-xl bg-gray-50">
-                                            <div className="flex justify-between mb-4">
-                                                <input className="font-bold border-b bg-transparent uppercase" value={cat} onChange={e => {
+                                        <div key={cat} className="mb-8 p-6 border rounded-2xl bg-gray-50/50 shadow-inner">
+                                            <div className="flex justify-between items-center mb-6">
+                                                <input className="font-bold border-b-2 border-pink-200 bg-transparent text-xl uppercase outline-none" value={cat} onChange={e => {
                                                     const newSvcs = {...data.services};
                                                     newSvcs[e.target.value] = newSvcs[cat];
                                                     delete newSvcs[cat];
                                                     setData({...data, services: newSvcs});
                                                 }} />
-                                                <button onClick={() => {const d={...data}; delete d.services[cat]; setData(d);}} className="text-red-500 text-[10px] font-bold">DELETE TAB</button>
+                                                <button onClick={() => {const d={...data}; delete d.services[cat]; setData(d);}} className="text-red-500 text-[10px] font-bold">DELETE CATEGORY</button>
                                             </div>
                                             {data.services[cat].map((svc, i) => (
-                                                <div key={i} className="bg-white p-4 rounded-lg mb-4 shadow-sm border">
-                                                    <div className="grid md:grid-cols-3 gap-2 mb-3">
-                                                        <input className="input-f font-bold" value={svc.name} placeholder="Name" onChange={e => {let d={...data}; d.services[cat][i].name=e.target.value; setData(d);}} />
-                                                        <input className="input-f" value={svc.price} placeholder="Price" onChange={e => {let d={...data}; d.services[cat][i].price=e.target.value; setData(d);}} />
-                                                        <input className="input-f" value={svc.desc} placeholder="Description" onChange={e => {let d={...data}; d.services[cat][i].desc=e.target.value; setData(d);}} />
+                                                <div key={i} className="bg-white p-6 rounded-xl mb-4 shadow-sm border border-gray-100">
+                                                    <div className="grid md:grid-cols-3 gap-4 mb-4">
+                                                        <div><label className="text-[9px] uppercase font-bold text-gray-400">Name</label><input className="input-f" value={svc.name} onChange={e => {let d={...data}; d.services[cat][i].name=e.target.value; setData(d);}} /></div>
+                                                        <div><label className="text-[9px] uppercase font-bold text-gray-400">Price</label><input className="input-f" value={svc.price} onChange={e => {let d={...data}; d.services[cat][i].price=e.target.value; setData(d);}} /></div>
+                                                        <div><label className="text-[9px] uppercase font-bold text-gray-400">Description</label><input className="input-f" value={svc.desc} onChange={e => {let d={...data}; d.services[cat][i].desc=e.target.value; setData(d);}} /></div>
                                                     </div>
-                                                    <div className="flex items-center gap-4 bg-gray-50 p-2 rounded">
-                                                        <label className="text-[10px] font-bold">Change Image:</label>
+                                                    <div className="flex items-center gap-4 border-t pt-4">
+                                                        <label className="text-[10px] font-bold">Service Image:</label>
                                                         <input type="file" className="text-[10px]" onChange={e => uploadImg(e, (url) => {let d={...data}; d.services[cat][i].img=url; setData(d);})} />
-                                                        <button onClick={() => {let d={...data}; d.services[cat].splice(i,1); setData(d);}} className="text-red-500 ml-auto font-bold">✕</button>
+                                                        <button onClick={() => {let d={...data}; d.services[cat].splice(i,1); setData(d);}} className="ml-auto text-red-500 text-xs">Remove</button>
                                                     </div>
                                                 </div>
                                             ))}
-                                            <button onClick={() => {let d={...data}; d.services[cat].push({name:"New", price:"$0", desc:"", img:""}); setData(d);}} className="text-blue-500 text-[10px] font-bold">+ Add Service Item</button>
+                                            <button onClick={() => {let d={...data}; d.services[cat].push({name:"New Service", price:"$0", desc:"", img:""}); setData(d);}} className="text-pink-600 text-xs font-bold">+ ADD SERVICE TO {cat}</button>
                                         </div>
                                     ))}
-                                    <button onClick={() => setData({...data, services: {...data.services, "NEW CATEGORY": []}})} className="btn-premium px-6 py-2 rounded-lg text-[10px]">+ Create New Category Tab</button>
+                                    <button onClick={() => setData({...data, services: {...data.services, "NEW CATEGORY": []}})} className="btn-premium px-8 py-3 rounded-full text-xs font-bold">+ CREATE NEW TAB CATEGORY</button>
                                 </div>
 
-                                <button onClick={saveToGithub} className="btn-premium w-full py-6 rounded-2xl font-bold uppercase tracking-widest shadow-2xl sticky bottom-5 border-2 border-white">Publish All Changes</button>
+                                <button onClick={saveToGithub} className="btn-premium w-full py-8 rounded-[2rem] font-bold uppercase tracking-widest shadow-2xl sticky bottom-5 border-4 border-white text-xl">🚀 PUBLISH LIVE TO WEBSITE</button>
                             </div>
                         </div>
                     ) : (
                         <div>
                             {/* --- WEBSITE FRONTEND --- */}
-                            <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 border-b border-rose-gold/10">
-                                <span className="serif text-4xl font-bold cursor-pointer" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASS && setIsAdmin(true)}>{data.brand_name}</span>
+                            <nav className="p-6 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-rose-gold/10">
+                                <span className="serif text-4xl font-bold cursor-pointer tracking-tighter" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASS && setIsAdmin(true)}>{data.brand_name}</span>
                                 <div className="hidden lg:flex space-x-6 text-[10px] font-bold uppercase tracking-widest items-center">
-                                    <a href="#gallery">Gallery</a><a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#about">About</a>
-                                    <button onClick={handleWhatsAppBooking} className="btn-premium px-8 py-2 rounded-full shadow-lg">Book Now {cart.length > 0 && `(${cart.length})`}</button>
+                                    <a href="#gallery" className="hover:text-rose-gold transition">Gallery</a>
+                                    <a href="#services" className="hover:text-rose-gold transition">Services</a>
+                                    <a href="#prices" className="hover:text-rose-gold transition">Prices</a>
+                                    <a href="#reviews" className="hover:text-rose-gold transition">Reviews</a>
+                                    <a href="#about" className="hover:text-rose-gold transition">About</a>
+                                    <button onClick={handleWhatsAppBooking} className="btn-premium px-8 py-2 rounded-full shadow-lg relative active:scale-95 transition">
+                                        Book Now {cart.length > 0 && <span className="absolute -top-2 -right-2 bg-mahogany text-white text-[8px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">{cart.length}</span>}
+                                    </button>
                                 </div>
                             </nav>
 
-                            <header className="h-[60vh] relative flex items-center justify-center overflow-hidden text-white text-center">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
+                            <header className="h-[75vh] relative flex items-center justify-center overflow-hidden text-white text-center">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-105" />
                                 <div className="absolute inset-0 bg-black/40"></div>
-                                <div className="relative">
-                                    <h1 className="serif text-8xl md:text-9xl italic drop-shadow-2xl">{data.brand_name}</h1>
-                                    <p className="tracking-[0.4em] uppercase text-[10px] mt-6 font-bold">{data.hero.subtitle}</p>
+                                <div className="relative p-6">
+                                    <h1 className="serif text-8xl md:text-[10rem] italic drop-shadow-2xl leading-none">{data.brand_name}</h1>
+                                    <p className="tracking-[0.5em] uppercase text-[10px] mt-8 font-bold opacity-90">{data.hero.subtitle}</p>
                                 </div>
                             </header>
 
-                            {/* Service Details Section */}
+                            {/* Service Detailed Selection */}
                             <section id="services" className="py-24 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-6xl text-center mb-16 italic font-light">Service Details</h2>
+                                <h2 className="serif text-7xl text-center mb-16 italic font-light">Service Selection</h2>
                                 <div className="flex overflow-x-auto no-scrollbar gap-10 border-b mb-12 justify-center">
                                     {Object.keys(data.services).map(cat => (
                                         <button key={cat} onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
-                                            className={`pb-4 text-[10px] font-bold tracking-widest uppercase transition-all ${activeCat === cat ? 'border-b-2 border-rose-gold text-rose-gold' : 'opacity-40'}`}>{cat}</button>
+                                            className={`pb-4 text-[11px] font-bold tracking-[0.2em] uppercase transition-all ${activeCat === cat ? 'border-b-2 border-rose-gold text-rose-gold' : 'opacity-30 hover:opacity-100'}`}>{cat}</button>
                                     ))}
                                 </div>
-                                <div className="grid md:grid-cols-12 gap-10 bg-white p-6 md:p-12 rounded-[3rem] shadow-2xl border border-gray-100 min-h-[500px]">
-                                    <div className="md:col-span-4 border-r pr-6">
+                                <div className="grid md:grid-cols-12 gap-10 bg-white p-6 md:p-12 rounded-[3.5rem] shadow-2xl border border-gray-100 min-h-[550px]">
+                                    <div className="md:col-span-4 border-r pr-6 max-h-[500px] overflow-y-auto no-scrollbar">
                                         {data.services[activeCat]?.map((s, i) => (
-                                            <div key={i} onClick={() => setSelectedSvc(s)} className={`p-4 cursor-pointer rounded-2xl mb-3 transition-all ${selectedSvc?.name === s.name ? 'bg-pink-50 border-l-4 border-rose-gold' : 'hover:bg-gray-50'}`}>
-                                                <h4 className="serif text-xl font-bold uppercase">{s.name}</h4>
+                                            <div key={i} onClick={() => setSelectedSvc(s)} className={`p-5 cursor-pointer rounded-2xl mb-3 transition-all ${selectedSvc?.name === s.name ? 'bg-pink-50 border-l-4 border-rose-gold translate-x-2' : 'hover:bg-gray-50'}`}>
+                                                <h4 className="serif text-2xl font-bold uppercase leading-none mb-1">{s.name}</h4>
+                                                <p className="text-[10px] font-bold text-rose-gold/60">{s.price}</p>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="md:col-span-8 flex flex-col md:flex-row gap-12">
                                         {selectedSvc && (
                                             <React.Fragment>
-                                                <img src={selectedSvc.img} className="w-full md:w-1/2 aspect-square object-cover rounded-[2rem] shadow-md" />
+                                                <img src={selectedSvc.img} className="w-full md:w-1/2 aspect-square object-cover rounded-[2.5rem] shadow-2xl" />
                                                 <div className="flex flex-col justify-center">
-                                                    <h3 className="serif text-5xl mb-4 leading-tight">{selectedSvc.name}</h3>
-                                                    <p className="text-3xl font-bold text-rose-gold mb-6">{selectedSvc.price}</p>
-                                                    <p className="text-sm leading-relaxed opacity-60 mb-10 italic">{selectedSvc.desc}</p>
+                                                    <h3 className="serif text-6xl mb-4 leading-tight">{selectedSvc.name}</h3>
+                                                    <p className="text-4xl font-bold text-rose-gold mb-6">{selectedSvc.price}</p>
+                                                    <p className="text-base leading-relaxed opacity-60 mb-10 italic">{selectedSvc.desc}</p>
                                                     <button onClick={() => {
                                                         const isAdded = cart.find(i => i.name === selectedSvc.name);
                                                         if(isAdded) setCart(cart.filter(i => i.name !== selectedSvc.name));
                                                         else setCart([...cart, selectedSvc]);
-                                                    }} className={`px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg ${cart.find(i => i.name === selectedSvc.name) ? 'bg-gray-200 text-gray-500' : 'btn-premium'}`}>
-                                                        {cart.find(i => i.name === selectedSvc.name) ? "✓ Service Added" : "+ Add to Booking List"}
+                                                    }} className={`px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-xl transition-all active:scale-90 ${cart.find(i => i.name === selectedSvc.name) ? 'bg-gray-800 text-white' : 'btn-premium'}`}>
+                                                        {cart.find(i => i.name === selectedSvc.name) ? "✓ REMOVE FROM BOOKING" : "+ ADD TO BOOKING LIST"}
                                                     </button>
                                                 </div>
                                             </React.Fragment>
@@ -226,45 +247,78 @@
                                 </div>
                             </section>
 
-                            {/* Gallery Section */}
-                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-6xl text-center mb-16 italic">The Gallery</h2>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {data.gallery.map((img, i) => <img key={i} src={img} className="aspect-[4/5] object-cover rounded-xl shadow-md grayscale hover:grayscale-0 transition duration-700" />)}
-                                </div>
-                            </section>
-
-                            {/* Reviews Section */}
-                            <section id="reviews" className="py-24 bg-blush/20">
-                                <div className="max-w-7xl mx-auto px-6">
-                                    <h2 className="serif text-6xl text-center mb-16 italic font-light">Customer Love</h2>
-                                    <div className="flex gap-8 overflow-x-auto no-scrollbar pb-8">
-                                        {data.reviews.map((rev, i) => (
-                                            <div key={i} className="min-w-[320px] bg-white p-10 rounded-[2rem] shadow-sm italic">
-                                                <p className="mb-6 opacity-80">"{rev.text}"</p>
-                                                <span className="font-bold text-rose-gold uppercase text-[10px]">— {rev.name}</span>
+                            {/* Dynamic Pricing List */}
+                            <section id="prices" className="py-24 bg-white border-y border-rose-gold/10">
+                                <div className="max-w-6xl mx-auto px-6 text-center">
+                                    <h2 className="serif text-7xl mb-20 italic">The Menu</h2>
+                                    <div className="grid md:grid-cols-2 gap-x-24 gap-y-16 text-left">
+                                        {data.full_menu.map((sec, idx) => (
+                                            <div key={idx}>
+                                                <h3 className="serif text-4xl text-rose-gold mb-10 italic border-b pb-2">~ {sec.cat} ~</h3>
+                                                {sec.items.map((it, i) => (
+                                                    <div key={i} className="service-row group">
+                                                        <span className="serif text-2xl uppercase group-hover:text-rose-gold transition">{it.n}</span>
+                                                        <span className="font-bold text-rose-gold">{it.p}</span>
+                                                    </div>
+                                                ))}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </section>
 
-                            {/* Footer */}
-                            <footer className="bg-[#2D0808] text-white pt-24 pb-12 px-10">
-                                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-                                    <div className="space-y-6">
-                                        <h4 className="serif text-5xl text-rose-gold italic font-bold">{data.brand_name}</h4>
-                                        <p className="text-2xl font-light underline decoration-rose-gold/30">{data.footer?.phone || "(310) 493-9222"}</p>
-                                    </div>
-                                    <div><h5 className="text-rose-gold uppercase text-[11px] font-bold mb-6 tracking-widest">Salon Hours</h5><p className="serif text-2xl italic">{data.footer?.hours}</p></div>
-                                    <div><h5 className="text-rose-gold uppercase text-[11px] font-bold mb-6 tracking-widest">Location</h5><p className="text-lg serif italic leading-tight">{data.footer?.address}</p></div>
-                                    <div className="bg-[#3D0A0A] p-8 rounded-2xl border border-rose-gold/20 text-center shadow-2xl">
-                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-4">Exclusive Promotion</h5>
-                                        <p className="serif text-3xl italic leading-tight text-white">{data.footer?.promo_title}</p>
-                                        <p className="text-[10px] uppercase opacity-70 mt-2">{data.footer?.promo_text}</p>
+                            {/* Gallery View */}
+                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-7xl text-center mb-20 italic">The Gallery</h2>
+                                <div className="columns-2 md:columns-4 gap-4 space-y-4">
+                                    {data.gallery.map((img, i) => <img key={i} src={img} className="w-full rounded-2xl shadow-xl hover:scale-[1.02] transition duration-500" />)}
+                                </div>
+                            </section>
+
+                            {/* Reviews */}
+                            <section id="reviews" className="py-24 bg-blush/30">
+                                <div className="max-w-7xl mx-auto px-6">
+                                    <h2 className="serif text-7xl text-center mb-20 italic font-light">Customer Love</h2>
+                                    <div className="flex gap-8 overflow-x-auto no-scrollbar pb-10">
+                                        {data.reviews.map((rev, i) => (
+                                            <div key={i} className="min-w-[350px] md:min-w-[450px] bg-white p-12 rounded-[3rem] shadow-xl italic relative">
+                                                <span className="text-8xl absolute top-6 right-10 opacity-5 serif text-rose-gold">"</span>
+                                                <p className="text-xl mb-8 opacity-70 leading-relaxed">"{rev.text}"</p>
+                                                <span className="font-bold text-rose-gold uppercase text-[12px] tracking-widest">— {rev.name}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                                <p className="text-center mt-12 text-[9px] uppercase tracking-[0.3em] opacity-40">{data.footer?.copyright}</p>
+                            </section>
+
+                            {/* About Sanctuary */}
+                            <section id="about" className="py-32 bg-white text-center px-6">
+                                <div className="max-w-4xl mx-auto">
+                                    <h2 className="serif text-6xl mb-12 italic font-light">The Sanctuary</h2>
+                                    <p className="text-xl text-gray-700 leading-relaxed italic mb-16 serif px-4">{data.about_text}</p>
+                                    <div className="relative inline-block">
+                                        <div className="absolute -inset-4 border border-rose-gold/20 rounded-full animate-spin-slow"></div>
+                                        <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=600" className="w-64 h-64 rounded-full shadow-2xl object-cover grayscale hover:grayscale-0 transition duration-1000" />
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Footer Sanctuary */}
+                            <footer className="bg-[#1A0404] text-white pt-32 pb-12 px-10">
+                                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 border-b border-white/5 pb-20">
+                                    <div className="space-y-8">
+                                        <h4 className="serif text-6xl text-rose-gold italic font-bold leading-none">{data.brand_name}</h4>
+                                        <p className="text-3xl font-light underline underline-offset-8 decoration-rose-gold/30">{data.footer?.phone || "+1 (310) 493-9222"}</p>
+                                    </div>
+                                    <div><h5 className="text-rose-gold uppercase text-[11px] font-bold mb-8 tracking-[0.3em] opacity-60">Salon Hours</h5><p className="serif text-3xl italic leading-snug">{data.footer?.hours}</p></div>
+                                    <div><h5 className="text-rose-gold uppercase text-[11px] font-bold mb-8 tracking-[0.3em] opacity-60">Location</h5><p className="text-xl serif italic leading-relaxed">{data.footer?.address}</p></div>
+                                    <div className="bg-[#2D0808] p-10 rounded-[2.5rem] border border-rose-gold/10 text-center shadow-2xl transform hover:-translate-y-2 transition">
+                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-4 tracking-widest">Limited Offer</h5>
+                                        <p className="serif text-4xl italic leading-tight text-white mb-2">{data.footer?.promo_title}</p>
+                                        <p className="text-[11px] uppercase tracking-tighter opacity-50">{data.footer?.promo_text}</p>
+                                    </div>
+                                </div>
+                                <p className="text-center mt-16 text-[10px] uppercase tracking-[0.5em] opacity-30">{data.footer?.copyright}</p>
                             </footer>
                         </div>
                     )}
