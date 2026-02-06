@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Sasha's Salon</title>
+    <title>Lumina Luxe | Elite Beauty Sanctuary</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -13,8 +13,10 @@
         .serif { font-family: 'Cormorant Garamond', serif; }
         .gold-text { color: #C5A059; }
         .gold-bg { background: #C5A059; }
-        .nav-link { font-size: 10px; uppercase; tracking-widest; cursor: pointer; transition: color 0.3s; }
-        .nav-link:hover { color: #C5A059; }
+        .category-btn { @apply px-6 py-2 border-b-2 border-transparent transition-all uppercase text-[10px] font-bold tracking-widest cursor-pointer whitespace-nowrap; }
+        .active-cat { border-color: #C5A059; color: #C5A059; }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
@@ -23,11 +25,23 @@
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
+            const [activeCat, setActiveCat] = React.useState('NAILS');
             const ADMIN_PASSWORD = "admin123";
 
             React.useEffect(() => {
                 fetch('data.json').then(res => res.json()).then(d => setData(d));
             }, []);
+
+            const categories = ["NAILS", "RUSSIAN STYLE", "PEDICURES", "ADD ON", "WAX", "LASHES", "BROWS"];
+
+            const nailServices = [
+                { name: "Regular Manicure", price: "$60", img: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=400", desc: "Classic care for your natural nails." },
+                { name: "Gel Manicure", price: "$80", img: "https://images.unsplash.com/photo-1604654894610-df490c81726a?w=400", desc: "Long-lasting shine and durability." },
+                { name: "Acrylic Powder Extension", price: "$140", img: "https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=400", desc: "Full set extensions (starts)." },
+                { name: "Hard Gel Full Set", price: "$130", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400", desc: "Strong, flexible gel extensions (starts)." },
+                { name: "Hard Gel Fill", price: "$110", img: "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=400", desc: "Maintenance for your hard gel set." },
+                { name: "Gel X (ANY LENGTH)", price: "$130", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400", desc: "Soft gel extensions for a natural feel." }
+            ];
 
             const saveChanges = async () => {
                 const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
@@ -46,7 +60,8 @@
                 <div>
                     {isAdmin ? (
                         <div className="p-8 max-w-2xl mx-auto bg-white shadow-2xl rounded-3xl my-10 border-t-8 border-[#C5A059]">
-                            <h2 className="serif text-3xl gold-text text-center mb-6 italic">Admin Dashboard</h2>
+                            <h2 className="serif text-3xl gold-text text-center mb-6 italic">Admin Center</h2>
+                            <label className="text-[10px] uppercase font-bold opacity-40">Announcement Bar</label>
                             <textarea className="w-full p-4 border rounded-xl mb-4" value={data.announcement} onChange={e => setData({...data, announcement: e.target.value})} />
                             <button onClick={saveChanges} className="w-full gold-bg text-white py-4 rounded-xl font-bold uppercase tracking-widest">Publish Changes</button>
                             <button onClick={() => setIsAdmin(false)} className="w-full text-gray-400 text-xs mt-4">Exit</button>
@@ -59,9 +74,9 @@
                             {/* Navigation */}
                             <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 border-b border-gray-50">
                                 <span className="serif text-4xl gold-text cursor-pointer select-none" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASSWORD && setIsAdmin(true)}>{data.brand_name}</span>
-                                <div className="hidden md:flex space-x-6 items-center uppercase tracking-widest text-[10px] font-bold">
+                                <div className="hidden lg:flex space-x-6 items-center uppercase tracking-widest text-[10px] font-bold">
                                     <a href="#gallery" className="nav-link">Service Gallery</a>
-                                    <a href="#pricing" className="nav-link">Prices</a>
+                                    <a href="#services-list" className="nav-link">Prices</a>
                                     <a href="#contact" className="nav-link">Contact</a>
                                     <a href="#reviews" className="nav-link">Reviews</a>
                                     <a href="#about" className="nav-link">About Us</a>
@@ -70,26 +85,51 @@
                             </nav>
 
                             {/* Hero */}
-                            <header className="h-[75vh] relative flex items-center justify-center">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover grayscale-[10%]" />
+                            <header className="h-[70vh] relative flex items-center justify-center">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/40"></div>
                                 <div className="relative text-center text-white px-4">
                                     <h1 className="serif text-7xl md:text-[8rem] mb-4 italic leading-none">{data.brand_name}</h1>
-                                    <p className="uppercase tracking-[0.5em] text-[10px] font-light">Luxury Russian Beauty Artistry</p>
+                                    <p className="uppercase tracking-[0.5em] text-[10px] font-light">Sasha's Russian Artistry</p>
                                 </div>
                             </header>
 
-                            {/* Pricing Section */}
-                            <section id="pricing" className="py-24 bg-white">
-                                <div className="max-w-4xl mx-auto px-6 text-center">
-                                    <h2 className="serif text-5xl gold-text mb-16 italic font-light">Pricing</h2>
-                                    <div className="space-y-8 text-left">
-                                        {data.services.map((item, idx) => (
-                                            <div key={idx} className="flex justify-between items-end border-b border-gray-100 pb-4">
-                                                <span className="serif text-2xl uppercase tracking-tighter">{item.name}</span>
-                                                <span className="gold-text font-bold tracking-widest ml-4">{item.price}</span>
-                                            </div>
+                            {/* Detailed Services Section */}
+                            <section id="services-list" className="py-24 bg-white overflow-hidden">
+                                <div className="max-w-6xl mx-auto px-6">
+                                    <h2 className="serif text-5xl gold-text mb-12 italic text-center">Service Menu</h2>
+                                    
+                                    {/* Horizontal Buttons Bar */}
+                                    <div className="flex justify-start md:justify-center space-x-4 mb-16 overflow-x-auto no-scrollbar border-b border-gray-100 pb-2">
+                                        {categories.map(cat => (
+                                            <button key={cat} onClick={() => setActiveCat(cat)} 
+                                            className={`category-btn ${activeCat === cat ? 'active-cat' : 'text-gray-400'}`}>
+                                                {cat}
+                                            </button>
                                         ))}
+                                    </div>
+
+                                    {/* Services Grid (Showing Nails by default) */}
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                                        {activeCat === 'NAILS' ? (
+                                            nailServices.map((service, idx) => (
+                                                <div key={idx} className="group border border-gray-50 p-4 rounded-3xl hover:shadow-xl transition-all">
+                                                    <div className="overflow-hidden rounded-2xl mb-6 h-64">
+                                                        <img src={service.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                                    </div>
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <h3 className="serif text-xl font-bold uppercase">{service.name}</h3>
+                                                        <span className="gold-text font-bold text-lg">{service.price}</span>
+                                                    </div>
+                                                    <p className="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed mb-4">{service.desc}</p>
+                                                    {service.name.includes("Hard Gel") && <p className="text-[10px] text-red-400 italic font-bold">* Removal Extra $10</p>}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="col-span-full py-20 text-center opacity-30 italic serif text-2xl">
+                                                More {activeCat} services coming soon...
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </section>
@@ -104,7 +144,7 @@
                                             {name: "Sarah M.", text: "Sasha is a magician with brows. The atmosphere is so welcoming."},
                                             {name: "Jessica L.", text: "Tea and champagne while getting pampered? Truly a luxury experience."}
                                         ].map((rev, i) => (
-                                            <div key={i} className="bg-white p-8 shadow-sm border-t-2 gold-border italic text-gray-600">
+                                            <div key={i} className="bg-white p-8 shadow-sm border-t-2 border-[#C5A059] italic text-gray-600">
                                                 <p className="mb-4">"{rev.text}"</p>
                                                 <span className="font-bold gold-text uppercase text-[10px] tracking-widest">— {rev.name}</span>
                                             </div>
@@ -114,11 +154,13 @@
                             </section>
 
                             {/* Gallery Section */}
-                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-5xl gold-text mb-16 italic text-center">Service Gallery</h2>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto text-center">
+                                <h2 className="serif text-5xl gold-text mb-16 italic">Service Gallery</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                                     {data.gallery.map((img, i) => (
-                                        <img key={i} src={img} className="w-full h-80 object-cover hover:opacity-90 transition-opacity" />
+                                        <div key={i} className="aspect-square overflow-hidden bg-gray-100">
+                                            <img src={img} className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+                                        </div>
                                     ))}
                                 </div>
                             </section>
@@ -126,9 +168,9 @@
                             {/* About Us Section */}
                             <section id="about" className="py-24 bg-white">
                                 <div className="max-w-3xl mx-auto px-6 text-center">
-                                    <h2 className="serif text-5xl gold-text mb-10 italic">About Us</h2>
-                                    <h3 className="gold-text font-bold uppercase tracking-widest text-xs mb-6">Book Your Appointment Now</h3>
-                                    <p className="text-gray-700 leading-relaxed space-y-4 text-sm md:text-base">
+                                    <h2 className="serif text-5xl gold-text mb-10 italic">About Sasha</h2>
+                                    <h3 className="gold-text font-bold uppercase tracking-widest text-[10px] mb-6">Book Your Appointment Now</h3>
+                                    <p className="text-gray-700 leading-relaxed text-sm">
                                         Hi, I’m Sasha. I founded this salon in Santa Monica to bring the best of beauty services to the area. <br/><br/>
                                         As a Russian nail technician with over 15 years of experience, I’m passionate about delivering top-quality, detail-oriented services. Our salon offers not only the best Russian manicures but also premium treatments for hair, brows, brow lamination, eyelash extensions, and spray tan. <br/><br/>
                                         Our goal is to ensure every client experiences exceptional care in a cozy, welcoming atmosphere. We treat our guests to tea, coffee, or champagne to make every visit truly special and memorable.
@@ -136,30 +178,34 @@
                                 </div>
                             </section>
 
-                            {/* Footer / Contact */}
+                            {/* Footer */}
                             <footer id="contact" className="py-20 bg-black text-white px-6">
-                                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
+                                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16 text-center md:text-left">
+                                    <div className="space-y-6">
+                                        <h4 className="serif text-4xl gold-text italic">{data.brand_name}</h4>
+                                        <p className="text-[11px] opacity-60 leading-relaxed uppercase tracking-widest">Schedule Appointment</p>
+                                        <p className="gold-text font-bold text-2xl tracking-tighter">(310) 493-9255</p>
+                                        <p className="text-[10px] underline tracking-widest opacity-80 cursor-pointer">Book Online Now</p>
+                                    </div>
                                     <div className="space-y-4">
-                                        <h4 className="serif text-3xl gold-text italic">{data.brand_name}</h4>
-                                        <button className="border border-white/20 px-8 py-3 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black">Schedule Appointment</button>
-                                        <p className="gold-text font-bold text-xl mt-4">(310) 493-9255</p>
-                                        <p className="text-[10px] underline tracking-widest cursor-pointer hover:gold-text">Book Online Now</p>
+                                        <h5 className="gold-text uppercase tracking-widest text-[11px] font-bold mb-6">Salon Hours</h5>
+                                        <div className="text-[12px] space-y-2 opacity-80 uppercase tracking-widest">
+                                            <p className="italic serif text-lg text-white">Monday - Sunday</p>
+                                            <p className="font-bold">10:00 AM - 10:00 PM</p>
+                                            <div className="pt-4">
+                                                <p className="italic serif text-lg text-white">2503 Main Street,</p>
+                                                <p className="font-bold">Attock, CA 90405</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <h5 className="gold-text uppercase tracking-widest text-[10px] font-bold mb-4">Salon Hours</h5>
-                                        <p className="text-sm opacity-70 italic font-serif">Monday - Sunday</p>
-                                        <p className="text-sm font-bold tracking-widest">10:00 AM - 10:00 PM</p>
-                                        <p className="mt-6 text-sm opacity-70 italic font-serif">2503 Main Street,</p>
-                                        <p className="text-sm tracking-widest font-bold">Attock, CA 90405</p>
-                                    </div>
-                                    <div className="bg-zinc-900 p-8 border border-white/5 shadow-2xl">
-                                        <h5 className="gold-text uppercase tracking-widest text-[10px] font-bold mb-4">Exclusive Promotions</h5>
-                                        <p className="serif text-3xl italic mb-2">$10.00 Off</p>
-                                        <p className="text-[10px] uppercase tracking-[0.2em] leading-loose">Gel Manicures & Pedicures</p>
+                                    <div className="bg-zinc-900/50 p-8 border border-white/5 shadow-2xl rounded-2xl">
+                                        <h5 className="gold-text uppercase tracking-widest text-[11px] font-bold mb-6">Exclusive Promotions</h5>
+                                        <p className="serif text-4xl italic mb-4 text-white">$10.00 Off</p>
+                                        <p className="text-[10px] uppercase tracking-[0.3em] leading-loose opacity-60">Gel Manicures & Pedicures</p>
                                     </div>
                                 </div>
                                 <div className="mt-20 pt-8 border-t border-white/5 text-center text-[8px] uppercase tracking-[0.5em] opacity-30">
-                                    {data.brand_name} | Premium Artistry © 2026
+                                    {data.brand_name} | Sasha's Signature © 2026
                                 </div>
                             </footer>
                         </div>
