@@ -1,30 +1,70 @@
 {
   "brand_name": "LUMINA",
-  "announcement": "✨ Book your Luxury Session - Exclusive 2026 Openings",
   "hero": {
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600"
+    "image": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=1600"
   },
-  "gallery": [
-    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800",
-    "https://images.unsplash.com/photo-1527799822367-3188572f8817?auto=format&fit=crop&w=800",
-    "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800"
-  ],
-  "services": [
+  "services": {
+    "NAILS": [
+      {
+        "name": "Regular Manicure",
+        "price": "$60",
+        "desc": "Classic nail care, shaping, and polish.",
+        "img": "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600"
+      },
+      {
+        "name": "Gel Manicure",
+        "price": "$80",
+        "desc": "Long-lasting gel polish cured under UV.",
+        "img": "https://images.unsplash.com/photo-1604654894610-df490c81726a?w=600"
+      },
+      {
+        "name": "Acrylic Powder Extension",
+        "price": "$140",
+        "desc": "Full set extensions for length and strength.",
+        "img": "https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=600"
+      }
+    ],
+    "RUSSIAN STYLE": [
+      {
+        "name": "Russian E-File Manicure",
+        "price": "$90",
+        "desc": "Precision cuticle work using electric file for a clean look.",
+        "img": "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=600"
+      }
+    ]
+  },
+  "full_menu": [
     {
-      "name": "Signature Haircut",
-      "price": "$120"
+      "cat": "Nails",
+      "items": [
+        { "n": "Regular Manicure", "p": "$60" },
+        { "n": "Gel Manicure", "p": "$80" },
+        { "n": "Acrylic Full Set", "p": "$140" }
+      ]
     },
     {
-      "name": "Premium Balayage",
-      "price": "$250"
-    },
-    {
-      "name": "Silk Protein Treatment",
-      "price": "$85"
-    },
-    {
-      "name": "Royal Manicure",
-      "price": "$65"
+      "cat": "Pedicures",
+      "items": [
+        { "n": "Regular Pedicure", "p": "$80", "d": "*Callus removal included" },
+        { "n": "Gel Pedicure", "p": "$95" }
+      ]
     }
-  ]
+  ],
+  "gallery": [
+    "https://images.unsplash.com/photo-1604654894610-df490c81726a?w=600",
+    "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600",
+    "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600",
+    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600"
+  ],
+  "reviews": [
+    {
+      "name": "Emily R.",
+      "text": "The best Russian manicure in Santa Monica! Highly recommended."
+    },
+    {
+      "name": "Sarah M.",
+      "text": "Sasha's attention to detail is unmatched. Luxury experience."
+    }
+  ],
+  "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics."
 }
