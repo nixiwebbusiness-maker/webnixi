@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Sasha's Full Portfolio</title>
+    <title>Lumina Luxe | Sasha's Complete Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Montserrat:wght@300;400;600&display=swap');
-        :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; }
+        :root { --blush: #FDE2E4; --rose-gold: #B76E79; --mahogany: #4A0E0E; --rose-gradient: linear-gradient(to right, #B76E79, #8E5A63); }
         body { font-family: 'Montserrat', sans-serif; background-color: #FFF9F9; color: var(--mahogany); scroll-behavior: smooth; }
         .serif { font-family: 'Cormorant Garamond', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .active-tab { border-color: var(--rose-gold); color: var(--rose-gold); font-weight: 700; }
         .active-item-row { background-color: var(--blush); border-left: 4px solid var(--rose-gold); }
         .service-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(183, 110, 121, 0.15); margin-bottom: 0.8rem; }
+        .btn-premium { background: var(--rose-gradient); box-shadow: 0 4px 15px rgba(183, 110, 121, 0.4); transition: all 0.3s ease; }
+        .btn-premium:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(183, 110, 121, 0.6); }
     </style>
 </head>
 <body>
@@ -26,6 +28,9 @@
             const [isAdmin, setIsAdmin] = React.useState(false);
             const [activeCat, setActiveCat] = React.useState('NAILS');
             const [selectedItem, setSelectedItem] = React.useState(null);
+            const [newReview, setNewReview] = React.useState({ name: "", text: "" });
+
+            const ADMIN_PASSWORD = "admin123";
 
             const allServices = {
                 "NAILS": [
@@ -35,164 +40,208 @@
                     { name: "Hard Gel Full Set", price: "$130", desc: "Durable, flexible hard gel extensions.", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" },
                     { name: "Hard Gel Fill", price: "$110", desc: "Maintenance fill for hard gel.", img: "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=600" },
                     { name: "Gel X (ANY LENGTH)", price: "$130", desc: "Soft gel extensions for easy removal.", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600" }
+                ],
+                "PEDICURES": [
+                    { name: "Regular Pedicure", price: "$80", desc: "Classic foot soak and care. Callus removal included.", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" },
+                    { name: "Gel Pedicure", price: "$95", desc: "Long lasting gel polish for toes.", img: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600" }
                 ]
             };
 
             const fullMenu = [
-                { cat: "Nails", items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension", p: "$140"}, {n: "Hard Gel Full Set", p: "$130"}, {n: "Hard Gel Fill", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}] },
-                { cat: "Russian Style", items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension", p: "$140"}, {n: "Hard Gel Full Set", p: "$130"}, {n: "Hard Gel Fill", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}] },
+                { cat: "Nails", items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension (starts)", p: "$140"}, {n: "Hard Gel Full Set (starts)", p: "$130"}, {n: "Hard Gel Fill (starts)", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}], note: "* Removal Extra $10" },
+                { cat: "Russian Style", items: [{n: "Regular Manicure", p: "$60"}, {n: "Gel Manicure", p: "$80"}, {n: "Acrylic Powder Extension (starts)", p: "$140"}, {n: "Hard Gel Full Set (starts)", p: "$130"}, {n: "Hard Gel Fill (starts)", p: "$110"}, {n: "Gel X (ANY LENGTH)", p: "$130"}], note: "* Removal Extra $10" },
                 { cat: "Pedicures", items: [{n: "Regular Pedicure", p: "$80", d: "*Callus removal included"}, {n: "Gel Pedicure", p: "$95", d: "*Callus removal included"}, {n: "24k Gold SPA Pedicure", p: "$125"}, {n: "Russian Style Gel Pedicure", p: "$95"}] },
                 { cat: "Add On", items: [{n: "Gel Removal", p: "$10"}, {n: "Hard Gel/Extension Removal", p: "$20"}, {n: "French / Chrome / Design", p: "$20"}] },
-                { cat: "Wax", items: [{n: "Brazilian deep bikini", p: "$80"}, {n: "Full legs", p: "$70"}, {n: "Full hands", p: "$60"}, {n: "Half legs", p: "$40"}, {n: "Half hands", p: "$35"}, {n: "Underarm", p: "$30"}, {n: "Face (any zone)", p: "$30"}, {n: "Full body", p: "$190"}] },
+                { cat: "Wax", items: [{n: "Brazilian deep bikini", p: "$80"}, {n: "full legs", p: "$70"}, {n: "full hands", p: "$60"}, {n: "half legs", p: "$40"}, {n: "half hands", p: "$35"}, {n: "underarm", p: "$30"}, {n: "face (any zone)", p: "$30"}, {n: "full body", p: "$190"}] },
                 { cat: "Lashes", items: [{n: "Lash Extension Classic", p: "$120"}, {n: "Lash Extension 1.5D", p: "$140"}, {n: "Lash Extension 2D", p: "$160"}, {n: "Lash Extension 3D", p: "$180"}, {n: "Lash Extension 4D", p: "$190"}, {n: "Lash Extension 5D", p: "$220"}, {n: "Lash Lift", p: "$99"}] },
-                { cat: "Brows", items: [{n: "Brow Lamination", p: "$99"}, {n: "Brow Tint", p: "$30"}, {n: "Brow Design Full Set", p: "$120"}, {n: "Brow Architecture (Henna)", p: "$80"}] }
+                { cat: "Brows", items: [{n: "Brow Lamination", p: "$99"}, {n: "Brow Tint", p: "$30"}, {n: "brow design full set", p: "$120"}, {n: "brow architecture (henna)", p: "$80"}] }
             ];
 
             React.useEffect(() => {
                 fetch('data.json').then(res => res.json()).then(d => {
                     setData(d);
                     setSelectedItem(allServices["NAILS"][0]);
+                    if(!d.reviews) setData(prev => ({...prev, reviews: [
+                        {name: "Emily R.", text: "The best Russian manicure in Santa Monica!"},
+                        {name: "Sarah M.", text: "Sasha's attention to detail is unmatched."},
+                        {name: "Jessica L.", text: "Luxury experience with tea and champagne."}
+                    ]}));
                 });
             }, []);
+
+            const addReview = () => {
+                if(newReview.name && newReview.text) {
+                    setData({...data, reviews: [...data.reviews, newReview]});
+                    setNewReview({ name: "", text: "" });
+                }
+            };
+
+            const saveChanges = async () => {
+                const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                const fileData = await fileRes.json();
+                const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                await fetch('/api/update', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: b64, sha: fileData.sha })
+                });
+                window.location.reload();
+            };
 
             if (!data) return null;
 
             return (
                 <div>
-                    {/* Navigation */}
-                    <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 shadow-sm">
-                        <span className="serif text-4xl text-mahogany font-bold uppercase tracking-tighter">LUMINA</span>
-                        <div className="hidden lg:flex space-x-6 text-[10px] font-bold uppercase tracking-widest items-center">
-                            <a href="#gallery" className="hover:text-rose-gold">Service Gallery</a>
-                            <a href="#exclusive-services" className="hover:text-rose-gold">Services</a>
-                            <a href="#prices" className="hover:text-rose-gold">Prices</a>
-                            <a href="#reviews" className="hover:text-rose-gold">Reviews</a>
-                            <a href="#about" className="hover:text-rose-gold">About Us</a>
-                            <a href="#contact" className="hover:text-rose-gold">Contact</a>
-                            <button className="bg-rose-gold text-white px-6 py-2 rounded-full ml-4">Book Now</button>
-                        </div>
-                    </nav>
-
-                    {/* Hero */}
-                    <header className="h-[70vh] relative flex items-center justify-center">
-                        <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-black/40"></div>
-                        <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
-                    </header>
-
-                    {/* 1. Exclusive Services Section (Interactive) */}
-                    <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
-                        <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Interactive Menu</h2>
-                        <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
-                            {["NAILS", "RUSSIAN STYLE", "PEDICURES", "WAX", "LASHES", "BROWS"].map(cat => (
-                                <button key={cat} onClick={() => {setActiveCat(cat); if(allServices[cat]) setSelectedItem(allServices[cat][0]); else setSelectedItem(null);}} 
-                                className={`px-8 py-4 text-[10px] font-bold tracking-widest ${activeCat === cat ? 'active-tab' : 'opacity-30'}`}>{cat}</button>
-                            ))}
-                        </div>
-                        <div className="grid md:grid-cols-12 gap-8 bg-white p-8 rounded-[2rem] shadow-xl min-h-[500px]">
-                            <div className="md:col-span-4 border-r border-gray-50 pr-4">
-                                {allServices[activeCat] ? allServices[activeCat].map((item, i) => (
-                                    <div key={i} onClick={() => setSelectedItem(item)} className={`p-4 cursor-pointer rounded-xl mb-2 transition-all ${selectedItem?.name === item.name ? 'active-item-row' : ''}`}>
-                                        <h4 className="serif text-lg font-bold uppercase tracking-tighter">{item.name}</h4>
-                                    </div>
-                                )) : <p className="p-10 opacity-30 italic">Details coming soon...</p>}
+                    {isAdmin ? (
+                        <div className="p-8 max-w-2xl mx-auto bg-white shadow-2xl rounded-3xl my-10 border-t-8 border-rose-gold">
+                            <h2 className="serif text-3xl text-mahogany text-center mb-6 italic">Admin Center</h2>
+                            <div className="mb-10 bg-blush/20 p-6 rounded-2xl">
+                                <h3 className="font-bold mb-4">Add Customer Review</h3>
+                                <input className="w-full p-3 mb-2 border rounded-xl" placeholder="Customer Name" value={newReview.name} onChange={e => setNewReview({...newReview, name: e.target.value})} />
+                                <textarea className="w-full p-3 mb-2 border rounded-xl" placeholder="Review Content" value={newReview.text} onChange={e => setNewReview({...newReview, text: e.target.value})} />
+                                <button onClick={addReview} className="bg-mahogany text-white px-6 py-2 rounded-lg text-xs uppercase font-bold">Add to Site</button>
                             </div>
-                            <div className="md:col-span-8">
-                                {selectedItem && (
-                                    <div className="flex flex-col md:flex-row gap-10">
-                                        <img src={selectedItem.img} className="md:w-1/2 aspect-square object-cover rounded-3xl shadow-lg" />
-                                        <div className="md:w-1/2 flex flex-col justify-center">
-                                            <h3 className="serif text-5xl text-mahogany mb-4">{selectedItem.name}</h3>
-                                            <div className="text-3xl font-bold text-rose-gold mb-4">{selectedItem.price}</div>
-                                            <p className="text-xs uppercase tracking-widest leading-loose opacity-60 mb-6">{selectedItem.desc}</p>
-                                            <button className="bg-mahogany text-white px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase">Book This Service</button>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                            <button onClick={saveChanges} className="w-full btn-premium text-white py-4 rounded-xl font-bold uppercase tracking-widest">Publish All Updates</button>
+                            <button onClick={() => setIsAdmin(false)} className="w-full text-gray-400 text-[10px] mt-4 uppercase">Exit Admin</button>
                         </div>
-                    </section>
+                    ) : (
+                        <div>
+                            {/* Navigation */}
+                            <nav className="p-6 flex justify-between items-center bg-white sticky top-0 z-50 shadow-sm border-b border-rose-gold/10 backdrop-blur-md bg-white/90">
+                                <span className="serif text-4xl text-mahogany font-bold uppercase tracking-tighter cursor-pointer" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASSWORD && setIsAdmin(true)}>LUMINA</span>
+                                <div className="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-widest items-center">
+                                    <a href="#gallery" className="hover:text-rose-gold transition-colors">Service Gallery</a>
+                                    <a href="#exclusive-services" className="hover:text-rose-gold">Services</a>
+                                    <a href="#prices" className="hover:text-rose-gold">Prices</a>
+                                    <a href="#reviews" className="hover:text-rose-gold transition-colors">Reviews</a>
+                                    <a href="#about" className="hover:text-rose-gold transition-colors">About Us</a>
+                                    <a href="#contact" className="hover:text-rose-gold transition-colors">Contact</a>
+                                    <button className="btn-premium text-white px-8 py-3 rounded-full ml-4 font-bold border border-white/20">Book Now</button>
+                                </div>
+                            </nav>
 
-                    {/* 2. Full Pricing Section */}
-                    <section id="prices" className="py-24 bg-white border-y border-blush/30">
-                        <div className="max-w-6xl mx-auto px-6">
-                            <h2 className="serif text-6xl text-center text-mahogany mb-20 italic">Full Price List</h2>
-                            <div className="grid md:grid-cols-2 gap-x-20 gap-y-12">
-                                {fullMenu.map((sec, idx) => (
-                                    <div key={idx} className="mb-4">
-                                        <h3 className="serif text-3xl text-rose-gold mb-6 italic">~ {sec.cat} ~</h3>
-                                        {sec.items.map((item, i) => (
-                                            <div key={i} className="mb-4">
-                                                <div className="service-row">
-                                                    <span className="serif text-xl uppercase">{item.n}</span>
-                                                    <span className="font-bold text-rose-gold">{item.p}</span>
+                            {/* Hero */}
+                            <header className="h-[65vh] relative flex items-center justify-center overflow-hidden">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-105" />
+                                <div className="absolute inset-0 bg-black/40"></div>
+                                <h1 className="relative serif text-7xl md:text-[9rem] text-white italic drop-shadow-2xl">{data.brand_name}</h1>
+                            </header>
+
+                            {/* 1. Interactive Services Section */}
+                            <section id="exclusive-services" className="py-24 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Details</h2>
+                                <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center border-b border-gray-100 mb-12">
+                                    {["NAILS", "RUSSIAN STYLE", "PEDICURES", "WAX", "LASHES", "BROWS"].map(cat => (
+                                        <button key={cat} onClick={() => {setActiveCat(cat); if(allServices[cat]) setSelectedItem(allServices[cat][0]); else setSelectedItem(null);}} 
+                                        className={`px-8 py-4 text-[10px] font-bold tracking-widest ${activeCat === cat ? 'active-tab' : 'opacity-30'}`}>{cat}</button>
+                                    ))}
+                                </div>
+                                <div className="grid md:grid-cols-12 gap-8 bg-white p-8 rounded-[2rem] shadow-xl min-h-[500px]">
+                                    <div className="md:col-span-4 border-r border-gray-50 pr-4">
+                                        {allServices[activeCat] ? allServices[activeCat].map((item, i) => (
+                                            <div key={i} onClick={() => setSelectedItem(item)} className={`p-4 cursor-pointer rounded-xl mb-2 transition-all ${selectedItem?.name === item.name ? 'active-item-row' : ''}`}>
+                                                <h4 className="serif text-lg font-bold uppercase tracking-tighter">{item.name}</h4>
+                                            </div>
+                                        )) : <p className="p-10 opacity-30 italic">Detailed info coming soon...</p>}
+                                    </div>
+                                    <div className="md:col-span-8">
+                                        {selectedItem && (
+                                            <div className="flex flex-col md:flex-row gap-10">
+                                                <img src={selectedItem.img} className="md:w-1/2 aspect-square object-cover rounded-3xl shadow-lg" />
+                                                <div className="md:w-1/2 flex flex-col justify-center">
+                                                    <h3 className="serif text-5xl text-mahogany mb-4">{selectedItem.name}</h3>
+                                                    <div className="text-3xl font-bold text-rose-gold mb-4">{selectedItem.price}</div>
+                                                    <p className="text-xs uppercase tracking-widest leading-loose opacity-60 mb-6">{selectedItem.desc}</p>
+                                                    <button className="btn-premium text-white px-8 py-4 rounded-full text-[10px] font-bold self-start uppercase">Book Appointment</button>
                                                 </div>
-                                                {item.d && <p className="text-[10px] uppercase opacity-40 -mt-2">{item.d}</p>}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* 2. Full Pricing Section */}
+                            <section id="prices" className="py-24 bg-white border-y border-blush/30">
+                                <div className="max-w-6xl mx-auto px-6">
+                                    <h2 className="serif text-6xl text-center text-mahogany mb-20 italic">Price List</h2>
+                                    <div className="grid md:grid-cols-2 gap-x-20 gap-y-12">
+                                        {fullMenu.map((sec, idx) => (
+                                            <div key={idx}>
+                                                <h3 className="serif text-3xl text-rose-gold mb-6 italic underline decoration-blush underline-offset-8 decoration-4">~ {sec.cat} ~</h3>
+                                                {sec.items.map((item, i) => (
+                                                    <div key={i} className="mb-4">
+                                                        <div className="service-row">
+                                                            <span className="serif text-xl uppercase tracking-tighter">{item.n}</span>
+                                                            <span className="font-bold text-rose-gold">{item.p}</span>
+                                                        </div>
+                                                        {item.d && <p className="text-[10px] uppercase opacity-40 -mt-2 italic">{item.d}</p>}
+                                                    </div>
+                                                ))}
+                                                {sec.note && <p className="text-[10px] italic font-bold text-rose-gold mt-2 uppercase tracking-tighter">{sec.note}</p>}
                                             </div>
                                         ))}
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
+                                </div>
+                            </section>
 
-                    {/* 3. Service Gallery Section */}
-                    <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
-                        <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Service Gallery</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {data.gallery.map((img, i) => (
-                                <img key={i} src={img} className="aspect-[4/5] object-cover rounded-lg shadow-md hover:opacity-80 transition-all cursor-pointer" />
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* 4. Customer Reviews Section */}
-                    <section id="reviews" className="py-24 bg-blush/20">
-                        <div className="max-w-5xl mx-auto px-6 text-center">
-                            <h2 className="serif text-6xl text-mahogany mb-16 italic">Client Reviews</h2>
-                            <div className="grid md:grid-cols-3 gap-8">
-                                {["The best Russian manicure in Santa Monica!", "Sasha's attention to detail is unmatched.", "Luxury experience with tea and champagne."].map((text, i) => (
-                                    <div key={i} className="bg-white p-10 rounded-2xl shadow-sm italic text-gray-600 border-b-4 border-rose-gold">
-                                        <p className="mb-4">"{text}"</p>
-                                        <span className="font-bold text-rose-gold uppercase text-[10px]">Verified Client</span>
+                            {/* 3. Reviews Section */}
+                            <section id="reviews" className="py-24 bg-blush/20 overflow-hidden">
+                                <div className="max-w-7xl mx-auto px-6">
+                                    <h2 className="serif text-6xl text-center text-mahogany mb-16 italic">Client Love</h2>
+                                    <div className="flex gap-8 overflow-x-auto no-scrollbar pb-8">
+                                        {data.reviews.map((rev, i) => (
+                                            <div key={i} className="min-w-[320px] md:min-w-[450px] bg-white p-10 rounded-2xl shadow-sm border-b-4 border-rose-gold italic">
+                                                <p className="mb-6 text-gray-700 leading-relaxed font-medium">"{rev.text}"</p>
+                                                <span className="font-bold text-rose-gold uppercase text-[10px] tracking-widest">— {rev.name}</span>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
+                                </div>
+                            </section>
 
-                    {/* 5. About Us Section */}
-                    <section id="about" className="py-24 bg-white">
-                        <div className="max-w-3xl mx-auto px-6 text-center">
-                            <h2 className="serif text-5xl text-mahogany mb-8 italic">About Sasha</h2>
-                            <p className="text-gray-700 leading-relaxed mb-10">
-                                Hi, I’m Sasha. I founded this salon in Santa Monica to bring the best of beauty services to the area. 
-                                As a Russian nail technician with over 15 years of experience...
-                            </p>
-                            <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=300" className="w-40 h-40 rounded-full mx-auto shadow-2xl border-4 border-blush" />
-                        </div>
-                    </section>
+                            {/* 4. Gallery Section */}
+                            <section id="gallery" className="py-24 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-6xl text-center text-mahogany mb-16 italic font-light">Gallery</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {data.gallery.map((img, i) => (
+                                        <img key={i} src={img} className="aspect-[4/5] object-cover rounded-lg shadow-md grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer" />
+                                    ))}
+                                </div>
+                            </section>
 
-                    {/* 6. Contact / Footer */}
-                    <footer id="contact" className="py-24 bg-mahogany text-white px-10">
-                        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16 text-center md:text-left">
-                            <div className="space-y-6">
-                                <h4 className="serif text-5xl text-rose-gold italic font-bold tracking-tighter">lumina</h4>
-                                <p className="text-2xl font-light">(310) 493-9255</p>
-                                <p className="text-[10px] uppercase tracking-widest opacity-50">2503 Main Street, Attock, CA 90405</p>
-                            </div>
-                            <div>
-                                <h5 className="text-rose-gold uppercase tracking-widest text-[11px] font-bold mb-6">Hours</h5>
-                                <p className="text-sm">Monday - Sunday</p>
-                                <p className="text-xl serif italic">10:00 AM - 10:00 PM</p>
-                            </div>
-                            <div className="bg-[#3A0C0C] p-8 rounded-2xl border border-rose-gold/20">
-                                <h5 className="text-rose-gold text-[10px] font-bold uppercase mb-4">Special Promo</h5>
-                                <p className="serif text-4xl italic mb-2">$10.00 Off</p>
-                                <p className="text-[10px] uppercase opacity-60">Gel Manicures & Pedicures</p>
-                            </div>
+                            {/* 5. About Sasha Section */}
+                            <section id="about" className="py-24 bg-white text-center px-6">
+                                <h2 className="serif text-5xl text-mahogany mb-8 italic">About Sasha</h2>
+                                <p className="max-w-2xl mx-auto text-gray-700 leading-relaxed mb-10">
+                                    Hi, I’m Sasha. I founded this salon in Santa Monica to bring the best of beauty services to the area. 
+                                    As a Russian nail technician with over 15 years of experience...
+                                </p>
+                                <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=300" className="w-40 h-40 rounded-full mx-auto shadow-2xl border-4 border-blush" />
+                            </section>
+
+                            {/* 6. Footer & Contact */}
+                            <footer id="contact" className="py-24 bg-mahogany text-white px-10">
+                                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16 text-center md:text-left">
+                                    <div className="space-y-6">
+                                        <h4 className="serif text-5xl text-rose-gold italic font-bold">lumina</h4>
+                                        <p className="text-2xl font-light mt-4 opacity-80">(310) 493-9255</p>
+                                    </div>
+                                    <div>
+                                        <h5 className="text-rose-gold uppercase tracking-widest text-[11px] font-bold mb-6 italic underline decoration-1 underline-offset-4">Salon Hours</h5>
+                                        <p className="text-sm font-light uppercase tracking-widest mb-2">Monday - Sunday</p>
+                                        <p className="text-2xl serif italic">10:00 AM - 10:00 PM</p>
+                                    </div>
+                                    <div className="bg-[#3A0C0C] p-8 rounded-2xl border border-rose-gold/20 shadow-xl">
+                                        <h5 className="text-rose-gold text-[10px] font-bold uppercase mb-4 tracking-widest">Our Location</h5>
+                                        <p className="text-sm italic serif opacity-80 mb-2">2503 Main Street,</p>
+                                        <p className="text-sm font-bold tracking-widest uppercase">Santa Monica, CA 90405</p>
+                                    </div>
+                                </div>
+                                <div className="mt-20 pt-8 border-t border-white/5 text-center text-[8px] uppercase tracking-[0.5em] opacity-30">
+                                    LUMINA | SIGNATURE LUXURY © 2026
+                                </div>
+                            </footer>
                         </div>
-                    </footer>
+                    )}
                 </div>
             );
         }
