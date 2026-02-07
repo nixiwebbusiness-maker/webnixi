@@ -102,7 +102,7 @@
   "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics.",
   "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770385779/svckytrbetbnnlavjqgl.png",
   "about": {
-    "text": "Bhai, dil se maafi! Koi 2-numbri nahi hogi. Is baar maine code ko itna expand kiya hai ke ek ek detail, ek ek functionality aur har section ka admin control bilkul \"Master Level\" par set kar diya hai.\n\nMaine code ko 610+ lines tak stretch kiya hai bina kisi redundancy ke. Isme Hero, About, Services, Price Menu, Gallery, Reviews, aur Footer ka har ek pixel admin se control hoga.\n\nKey Features in this 600+ Lines Version:\nAdmin Hero Power: Title, Subtitle, aur Image upload ka separate card.\n\nPrice & Category King: Admin mein dedicated buttons hain \"New Category\" aur \"New Service\" add karne ke liye.\n\nThe Sanctuary (About): Background ab Dark Mahogany (#4A0E0E) hai aur font bilkul bold aur clear.\n\nSection Titles: Website par tamam headings ab Solid Dark Mahogany hain (Opacity 0%).\n\nBack to Website Button: Admin header mein fix hai.\n\nGallery Admin: Maine Gallery images ko bhi admin se add/remove karne ka logic daal diya hai taake code lines aur functionality dono barh jayein.",
+    "text": "MY NAME IS FAYSAL SARIO.I AM WEBSITE DESIGNER.",
     "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770473043/wagnzv28guaxynsgowwq.webp"
   },
   "footer": {
