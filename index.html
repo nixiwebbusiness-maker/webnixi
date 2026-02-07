@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumina Luxe | Ultimate Business OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -23,6 +24,7 @@
 </head>
 <body>
     <div id="root"></div>
+
     <script type="text/babel">
         function App() {
             const [data, setData] = React.useState(null);
@@ -37,18 +39,21 @@
 
             React.useEffect(() => {
                 fetch('data.json').then(res => res.json()).then(d => {
-                    // Critical Object Initialization
                     if(!d.hero) d.hero = { title: "", subtitle: "", image: "" };
                     if(!d.about) d.about = { text: "", image: "" };
                     if(!d.gallery) d.gallery = [];
                     if(!d.reviews) d.reviews = [];
                     if(!d.footer) d.footer = { whatsapp: "", hours: "", address: "", copyright: "" };
                     if(!d.full_menu) d.full_menu = [];
+                    if(!d.services) d.services = {};
                     
                     setData(d);
                     const cats = Object.keys(d.services || {});
-                    if(cats.length > 0) { setActiveCat(cats[0]); setSelectedSvc(d.services[cats[0]][0]); }
-                });
+                    if(cats.length > 0) { 
+                        setActiveCat(cats[0]); 
+                        setSelectedSvc(d.services[cats[0]][0]); 
+                    }
+                }).catch(err => console.error("Error loading data:", err));
             }, []);
 
             const uploadImg = async (e, callback) => {
@@ -78,14 +83,16 @@
             };
 
             const saveToGithub = async () => {
-                const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
-                const fileData = await fileRes.json();
-                const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-                await fetch('/api/update', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content: b64, sha: fileData.sha })
-                });
-                alert("Settings Updated!"); window.location.reload();
+                try {
+                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                    const fileData = await fileRes.json();
+                    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    await fetch('/api/update', {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ content: b64, sha: fileData.sha })
+                    });
+                    alert("Settings Updated!"); window.location.reload();
+                } catch(e) { alert("Update Failed. Check API route."); }
             };
 
             if (!data) return <div className="h-screen flex items-center justify-center serif text-3xl italic animate-pulse">LUMINA LUXE BUSINESS OS...</div>;
@@ -98,7 +105,7 @@
                             <div className="max-w-6xl mx-auto">
                                 <h1 className="serif text-6xl font-bold mb-10 border-b pb-4">Business Controller</h1>
 
-                                {/* 1. BRANDING & LOGO */}
+                                {/* 1. BRANDING */}
                                 <div className="admin-card border-l-8 border-rose-gold">
                                     <h3 className="font-bold text-xs tracking-widest text-rose-gold mb-6 uppercase">1. Branding & Logo</h3>
                                     <div className="grid md:grid-cols-2 gap-6 items-end">
@@ -114,7 +121,7 @@
                                     </div>
                                 </div>
 
-                                {/* 2. HERO SECTION */}
+                                {/* 2. HERO */}
                                 <div className="admin-card border-l-8 border-blue-500">
                                     <h3 className="font-bold text-xs tracking-widest text-blue-500 mb-6 uppercase">2. Hero Section</h3>
                                     <div className="grid md:grid-cols-2 gap-6">
@@ -131,7 +138,7 @@
                                     </div>
                                 </div>
 
-                                {/* 3. ABOUT US SECTION */}
+                                {/* 3. ABOUT */}
                                 <div className="admin-card border-l-8 border-purple-500">
                                     <h3 className="font-bold text-xs tracking-widest text-purple-500 mb-6 uppercase">3. About Us Section</h3>
                                     <div className="grid md:grid-cols-2 gap-6">
@@ -146,16 +153,46 @@
                                     </div>
                                 </div>
 
-                                <!-- ================= THE EXPERIENCE ADMIN ================= -->
-                                <section id="admin-services" style="padding:40px; background:#f7f7f7">
-                                <h3>4. The Experience (Services) – Admin</h3>
-                                <div id="servicesAdmin"></div>
-                                    <button onclick="addCategory()">+ ADD CATEGORY</button>
-                                     </section>
+                                {/* 4. THE EXPERIENCE (SERVICES) ADMIN SECTION */}
+                                <div className="admin-card border-l-8 border-amber-600">
+                                    <h3 className="font-bold text-xs tracking-widest text-amber-600 mb-6 uppercase">4. The Experience (Main Services)</h3>
+                                    <p className="text-[10px] mb-4 opacity-50 italic">Note: Manage the categories and services shown in the main scrolling section.</p>
+                                    <button onClick={() => {
+                                        const catName = prompt("New Category Name:");
+                                        if(catName) setData({...data, services: {...data.services, [catName]: []}});
+                                    }} className="bg-amber-600 text-white px-4 py-2 rounded text-[10px] font-bold mb-4">+ ADD SERVICE CATEGORY</button>
+                                    
+                                    {Object.keys(data.services).map(cat => (
+                                        <div key={cat} className="mb-6 border p-4 rounded-xl bg-amber-50/30">
+                                            <div className="flex justify-between items-center mb-4">
+                                                <h4 className="font-bold uppercase text-sm">{cat}</h4>
+                                                <button onClick={() => {
+                                                    let d = {...data}; delete d.services[cat]; setData(d);
+                                                }} className="text-red-500 text-[10px]">Delete Category</button>
+                                            </div>
+                                            {data.services[cat].map((svc, si) => (
+                                                <div key={si} className="grid grid-cols-3 gap-2 mb-2 bg-white p-2 rounded shadow-sm">
+                                                    <input className="input-f !mt-0" placeholder="Name" value={svc.name} onChange={e => {
+                                                        let d = {...data}; d.services[cat][si].name = e.target.value; setData(d);
+                                                    }} />
+                                                    <input className="input-f !mt-0" placeholder="Price" value={svc.price} onChange={e => {
+                                                        let d = {...data}; d.services[cat][si].price = e.target.value; setData(d);
+                                                    }} />
+                                                    <button onClick={() => {
+                                                        let d = {...data}; d.services[cat].splice(si, 1); setData(d);
+                                                    }} className="text-red-400 text-xs text-right">✕</button>
+                                                </div>
+                                            ))}
+                                            <button onClick={() => {
+                                                let d = {...data}; d.services[cat].push({name: "New Service", price: "$0", desc: "", img: ""}); setData(d);
+                                            }} className="text-[10px] text-blue-500 font-bold mt-2">+ ADD SERVICE TO {cat}</button>
+                                        </div>
+                                    ))}
+                                </div>
 
-                                {/* 4. THE PRICE MENU */}
+                                {/* 5. THE PRICE MENU */}
                                 <div className="admin-card border-l-8 border-black">
-                                    <h3 className="font-bold text-xs tracking-widest mb-6 uppercase">4. Full Price Menu</h3>
+                                    <h3 className="font-bold text-xs tracking-widest mb-6 uppercase">5. Full Price Menu</h3>
                                     {data.full_menu.map((m, mi) => (
                                         <div key={mi} className="mb-6 p-4 bg-gray-50 rounded-xl border">
                                             <div className="flex justify-between items-center mb-4">
@@ -175,10 +212,10 @@
                                     <button onClick={() => setData({...data, full_menu: [...data.full_menu, {cat: "New Category", items: []}]})} className="bg-black text-white px-4 py-2 rounded text-xs font-bold">+ ADD CATEGORY</button>
                                 </div>
 
-                                {/* 5. REVIEWS & GALLERY */}
+                                {/* 6. REVIEWS & GALLERY */}
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="admin-card border-l-8 border-amber-500">
-                                        <h3 className="font-bold text-[10px] mb-4 uppercase">5. Client Reviews</h3>
+                                        <h3 className="font-bold text-[10px] mb-4 uppercase">6. Client Reviews</h3>
                                         {data.reviews.map((r, i) => (
                                             <div key={i} className="mb-3 p-3 bg-gray-50 rounded">
                                                 <input className="input-f font-bold !mt-0 !py-1" value={r.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
@@ -189,7 +226,7 @@
                                         <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"", text:""}]})} className="text-amber-600 font-bold text-[10px] uppercase">+ Add Review</button>
                                     </div>
                                     <div className="admin-card border-l-8 border-teal-500">
-                                        <h3 className="font-bold text-[10px] mb-4 uppercase">6. Gallery Photos</h3>
+                                        <h3 className="font-bold text-[10px] mb-4 uppercase">7. Gallery Photos</h3>
                                         <div className="grid grid-cols-4 gap-2 mb-4">
                                             {data.gallery.map((img, i) => (
                                                 <div key={i} className="relative group">
@@ -202,9 +239,9 @@
                                     </div>
                                 </div>
 
-                                {/* 6. CONTACT & FOOTER */}
+                                {/* 7. FOOTER */}
                                 <div className="admin-card border-l-8 border-green-600">
-                                    <h3 className="font-bold text-xs uppercase mb-6">7. Footer & Contacts</h3>
+                                    <h3 className="font-bold text-xs uppercase mb-6">8. Footer & Contacts</h3>
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <input className="input-f" placeholder="WhatsApp" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
                                         <input className="input-f" placeholder="Hours" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
@@ -318,25 +355,12 @@
                                 </div>
                             </section>
 
-                            {/* GALLERY MASONRY */}
+                            {/* GALLERY */}
                             <section id="gallery" className="py-32 bg-white px-6">
                                 <h2 className="serif text-8xl text-center mb-24 italic">Visual Sanctuary</h2>
                                 <div className="max-w-7xl mx-auto masonry space-y-6">
                                     {data.gallery.map((img, i) => (
                                         <div key={i} className="overflow-hidden rounded-[2rem] shadow-xl border-4 border-white"><img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" /></div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* REVIEWS */}
-                            <section className="py-32 px-6">
-                                <h2 className="serif text-8xl text-center mb-24 italic">Kind Words</h2>
-                                <div className="max-w-7xl mx-auto flex gap-10 overflow-x-auto no-scrollbar pb-10">
-                                    {data.reviews.map((rev, i) => (
-                                        <div key={i} className="min-w-[400px] md:min-w-[550px] bg-white p-16 rounded-[4rem] shadow-2xl border-t-8 border-rose-gold italic relative">
-                                            <p className="text-2xl mb-12 opacity-60 leading-relaxed">"{rev.text}"</p>
-                                            <span className="font-bold text-rose-gold uppercase text-[12px] tracking-[0.4em]">—— {rev.name}</span>
-                                        </div>
                                     ))}
                                 </div>
                             </section>
@@ -362,4 +386,3 @@
     </script>
 </body>
 </html>
-
