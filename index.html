@@ -3,144 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Ultimate Business Operating System</title>
+    <title>Lumina Luxe | The Ultimate Business Management Suite</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        /* LUXURY TYPOGRAPHY IMPORT */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         
+        /* BRAND COLOR SYSTEM */
         :root {
             --rose-gold: #B76E79;
             --mahogany: #4A0E0E;
-            --cream: #FFFDFD;
-            --ivory: #F9F7F2;
-            --onyx: #1A1A1A;
+            --cream-light: #FFFDFD;
+            --admin-bg-soft: #F4F7F9;
+            --white-pure: #FFFFFF;
         }
 
-        /* Base Typography */
+        /* GLOBAL RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--cream);
+            background-color: var(--cream-light);
             color: var(--mahogany);
+            overflow-x: hidden;
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
         }
 
-        .serif { font-family: 'Cormorant Garamond', serif; }
-
-        /* Website Section Headings - Forced Dark Mahogany */
-        .web-section-header {
-            color: var(--mahogany) !important;
-            font-weight: 800 !important;
-            text-transform: capitalize;
-            letter-spacing: -0.03em;
-            opacity: 1 !important;
+        .serif-font {
+            font-family: 'Cormorant Garamond', serif;
         }
 
-        /* Admin Dashboard UI */
-        .admin-wrapper {
-            background-color: #f0f2f5;
+        /* WEBSITE SECTION TITLES - SOLID DARK MAHOGANY & BOLD */
+        .web-section-header-title {
+            color: #4A0E0E !important;
+            font-weight: 900 !important;
+            letter-spacing: -0.01em;
+            text-transform: capitalize;
+            opacity: 1 !important;
+            display: block;
+        }
+
+        /* ADMIN INTERFACE STYLING (EXPANDED) */
+        .admin-viewport {
+            background-color: var(--admin-bg-soft);
             min-height: 100vh;
         }
 
-        .admin-card {
-            background: #ffffff;
-            border-radius: 40px;
-            padding: 60px;
-            margin-bottom: 50px;
-            border: 1px solid #e1e4e8;
-            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+        .admin-container-box {
+            background: var(--white-pure);
+            border-radius: 45px;
+            padding: 65px;
+            margin-bottom: 55px;
+            border: 1.5px solid #E2E8F0;
+            box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
 
-        .admin-card:hover {
-            box-shadow: 0 40px 80px -15px rgba(0,0,0,0.12);
-        }
-
-        .admin-label {
+        .admin-field-label {
             display: block;
             font-size: 12px;
-            font-weight: 900;
-            color: #4b5563;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
-            margin-top: 25px;
-        }
-
-        .admin-input-field {
-            width: 100%;
-            padding: 18px 24px;
-            border: 2px solid #edf2f7;
-            border-radius: 20px;
-            font-size: 15px;
-            color: var(--onyx);
-            background: #f9fafb;
-            outline: none;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .admin-input-field:focus {
-            border-color: var(--rose-gold);
-            background: white;
-            box-shadow: 0 0 0 6px rgba(183, 110, 121, 0.1);
-        }
-
-        /* Buttons */
-        .btn-luxury-action {
-            background: linear-gradient(135deg, #B76E79 0%, #4A0E0E 100%);
-            color: white;
-            padding: 18px 45px;
-            border-radius: 100px;
             font-weight: 800;
-            font-size: 12px;
+            color: #4A5568;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            margin-bottom: 14px;
+            margin-top: 30px;
+        }
+
+        .admin-custom-input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid #EDF2F7;
+            border-radius: 22px;
+            font-size: 15px;
+            background: #F8FAFC;
+            color: #1A202C;
+            outline: none;
+            transition: all 0.4s ease;
+        }
+
+        .admin-custom-input:focus {
+            border-color: var(--rose-gold);
+            background: var(--white-pure);
+            box-shadow: 0 0 0 6px rgba(183, 110, 121, 0.08);
+        }
+
+        /* BUTTON ARCHITECTURE */
+        .btn-master-mahogany {
+            background-color: #4A0E0E !important;
+            color: #FFFFFF !important;
+            padding: 16px 35px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            cursor: pointer;
             border: none;
-            transition: all 0.5s ease;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .btn-luxury-action:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(74, 14, 14, 0.3);
+        .btn-master-mahogany:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(74, 14, 14, 0.25);
         }
 
-        .btn-outline-admin {
-            border: 2px solid #e5e7eb;
-            color: #6b7280;
-            padding: 12px 25px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 10px;
+        .btn-publish-system {
+            background: linear-gradient(135deg, #B76E79 0%, #4A0E0E 100%);
+            color: white;
+            padding: 22px 50px;
+            border-radius: 80px;
+            font-weight: 900;
+            font-size: 14px;
             text-transform: uppercase;
-            transition: 0.3s;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 25px 50px rgba(183, 110, 121, 0.3);
         }
 
-        .btn-outline-admin:hover {
-            border-color: var(--rose-gold);
-            color: var(--rose-gold);
+        /* LAYOUT COMPONENTS */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        /* Scrollers */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        /* Layout */
-        .masonry-grid {
+        .masonry-layout {
             column-count: 1;
-            column-gap: 30px;
+            column-gap: 35px;
         }
-        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
+        @media (min-width: 768px) { .masonry-layout { column-count: 2; } }
+        @media (min-width: 1200px) { .masonry-layout { column-count: 4; } }
 
-        .service-img-preview {
-            width: 100%;
-            height: 250px;
-            object-cover: cover;
-            border-radius: 25px;
-            margin-top: 15px;
+        /* ABOUT US FIX: TEXT ON MAHOGANY BACKGROUND */
+        .sanctuary-text-content {
+            color: #FFFFFF !important;
+            font-weight: 400;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .gallery-item-wrapper {
+            break-inside: avoid;
+            margin-bottom: 35px;
+            border-radius: 40px;
+            overflow: hidden;
+            border: 15px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -151,370 +168,483 @@
         const { useState, useEffect } = React;
 
         function App() {
+            // STATE MANAGEMENT
             const [data, setData] = useState(null);
             const [isAdmin, setIsAdmin] = useState(false);
             const [activeCategory, setActiveCategory] = useState('');
-            const [selectedService, setSelectedService] = useState(null);
+            const [currentService, setCurrentService] = useState(null);
+            
+            // SECURITY & API CONSTANTS
+            const ADMIN_CODE = "admin123";
+            const CLOUDINARY_ENDPOINT = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
+            const UPLOAD_PRESET_NAME = "faysal";
 
-            const SYSTEM_KEY = "admin123";
-            const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
-            const CLOUDINARY_PRESET = "faysal";
-
+            // SYSTEM INITIALIZATION
             useEffect(() => {
-                fetch('data.json')
-                    .then(res => res.json())
-                    .then(json => {
-                        // Integrity checks
-                        if(!json.reviews) json.reviews = [];
-                        if(!json.gallery) json.gallery = [];
-                        if(!json.about) json.about = { text: "", image: "" };
+                const loadData = async () => {
+                    try {
+                        const response = await fetch('data.json');
+                        const result = await response.json();
                         
-                        setData(json);
-                        const firstCat = Object.keys(json.services || {})[0];
-                        if(firstCat) {
-                            setActiveCategory(firstCat);
-                            setSelectedService(json.services[firstCat][0]);
+                        // Default structure ensuring no crashes
+                        if(!result.gallery) result.gallery = [];
+                        if(!result.reviews) result.reviews = [];
+                        if(!result.brand_name) result.brand_name = "Lumina Luxe";
+                        
+                        setData(result);
+                        
+                        const categories = Object.keys(result.services || {});
+                        if(categories.length > 0) {
+                            setActiveCategory(categories[0]);
+                            setCurrentService(result.services[categories[0]][0]);
                         }
-                    })
-                    .catch(err => console.error("Data Load Error:", err));
+                    } catch (error) {
+                        console.error("Critical System Load Failure:", error);
+                    }
+                };
+                loadData();
             }, []);
 
-            const processUpload = async (e, callback) => {
-                const file = e.target.files[0];
-                if(!file) return;
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("upload_preset", CLOUDINARY_PRESET);
-                
+            // MEDIA PROCESSING ENGINE
+            const handleMediaCapture = async (event, updateHandler) => {
+                const fileObject = event.target.files[0];
+                if(!fileObject) return;
+
+                const payload = new FormData();
+                payload.append("file", fileObject);
+                payload.append("upload_preset", UPLOAD_PRESET_NAME);
+
                 try {
-                    const res = await fetch(CLOUDINARY_UPLOAD_URL, { method: "POST", body: formData });
-                    const result = await res.json();
-                    callback(result.secure_url);
-                    alert("Media Synced Successfully!");
-                } catch (error) {
-                    alert("Media Upload Failed. Check Connection.");
+                    const response = await fetch(CLOUDINARY_ENDPOINT, {
+                        method: "POST",
+                        body: payload
+                    });
+                    const finalImage = await response.json();
+                    updateHandler(finalImage.secure_url);
+                    alert("Media Asset Synchronized!");
+                } catch (err) {
+                    alert("Media Server Refused Connection.");
                 }
             };
 
-            const handleSystemSync = async () => {
+            // GLOBAL DEPLOYMENT ENGINE
+            const deployToProduction = async () => {
                 try {
-                    const metaRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
-                    const metaData = await metaRes.json();
-                    const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    const githubMeta = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                    const metaJson = await githubMeta.json();
                     
-                    const response = await fetch('/api/update', {
+                    const dataString = JSON.stringify(data, null, 2);
+                    const base64Content = btoa(unescape(encodeURIComponent(dataString)));
+                    
+                    const updateResponse = await fetch('/api/update', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ content: encodedData, sha: metaData.sha })
+                        body: JSON.stringify({ 
+                            content: base64Content, 
+                            sha: metaJson.sha 
+                        })
                     });
                     
-                    if(response.ok) {
-                        alert("BUSINESS OS REBOOTED: All Changes Live!");
+                    if(updateResponse.ok) {
+                        alert("PRODUCTION SYSTEM UPDATED SUCCESSFULLY!");
                         window.location.reload();
                     }
                 } catch (e) {
-                    alert("CRITICAL ERROR: Sync Interrupted.");
+                    alert("DEPLOYMENT ERROR: Check API Credentials.");
                 }
             };
 
-            if (!data) return (
-                <div className="h-screen w-full flex flex-col items-center justify-center bg-white">
-                    <div className="serif text-5xl italic animate-pulse text-mahogany">Lumina Luxe</div>
-                    <div className="mt-4 text-[10px] tracking-[0.8em] uppercase opacity-40">System Initializing</div>
-                </div>
-            );
+            // COMPONENT RENDER LOGIC
+            if (!data) {
+                return (
+                    <div className="h-screen w-full flex flex-col items-center justify-center bg-white">
+                        <div className="serif-font text-6xl italic animate-pulse text-mahogany">Lumina Luxe</div>
+                        <div className="mt-6 text-[10px] tracking-[1em] uppercase opacity-30">Decrypting Assets...</div>
+                    </div>
+                );
+            }
 
             return (
-                <div className="app-container">
+                <div className="application-root">
                     {isAdmin ? (
                         /* ========================================================================
-                           ADMIN PORTAL INTERFACE (FULL CONTROL - 600+ LINE VERSION)
+                           1.0 ADMIN CONTROL CENTER (EXPANDED TO 750+ LINES)
                            ======================================================================== */
-                        <div className="admin-wrapper p-6 md:p-20 pb-64">
+                        <div className="admin-viewport p-6 md:p-20 pb-64">
                             <div className="max-w-7xl mx-auto">
                                 
-                                {/* ADMIN HEADER */}
-                                <header className="flex flex-col md:flex-row justify-between items-center mb-20 bg-white p-10 rounded-[40px] shadow-sm border border-gray-100">
-                                    <div className="text-center md:text-left mb-6 md:mb-0">
-                                        <h1 className="serif text-5xl font-black text-mahogany">Master Control</h1>
-                                        <p className="text-[11px] font-bold uppercase tracking-[0.5em] text-rose-gold mt-2">Lumina Luxe Operating System v10.0</p>
+                                {/* ADMIN TOP NAVIGATION BAR */}
+                                <div className="flex flex-col md:flex-row justify-between items-center mb-16 bg-white p-10 rounded-[45px] shadow-sm border border-gray-100">
+                                    <div className="mb-6 md:mb-0">
+                                        <h1 className="serif-font text-5xl font-black text-mahogany">Elite OS Control</h1>
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.6em] text-rose-gold mt-2">Business Operations Management</p>
                                     </div>
-                                    <button onClick={() => setIsAdmin(false)} className="bg-mahogany text-white px-12 py-5 rounded-full text-[11px] font-black uppercase tracking-[0.3em] shadow-xl hover:scale-105 transition-all">
-                                        Back to Website
+                                    <button 
+                                        onClick={() => setIsAdmin(false)} 
+                                        className="btn-master-mahogany"
+                                    >
+                                        Return to Live Website
                                     </button>
-                                </header>
+                                </div>
 
-                                {/* 01. HERO BILLBOARD MANAGER */}
-                                <div className="admin-card">
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <span className="h-10 w-10 bg-mahogany text-white rounded-full flex items-center justify-center font-bold">01</span>
-                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Hero Billboard Visuals</h3>
+                                {/* 1.1 BRAND IDENTITY ARCHITECTURE */}
+                                <div className="admin-container-box">
+                                    <div className="flex items-center gap-5 mb-12">
+                                        <div className="h-12 w-12 bg-mahogany text-white rounded-2xl flex items-center justify-center font-black">01</div>
+                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Brand Identity Settings</h3>
+                                    </div>
+                                    <div className="grid lg:grid-cols-2 gap-16">
+                                        <div className="space-y-6">
+                                            <div>
+                                                <label className="admin-field-label">Official Brand Name</label>
+                                                <input 
+                                                    className="admin-custom-input" 
+                                                    value={data.brand_name} 
+                                                    onChange={e => setData({...data, brand_name: e.target.value})} 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="admin-field-label">Brand Signature (Logo)</label>
+                                                <div className="flex items-center gap-8 bg-gray-50 p-6 rounded-3xl border-2 border-dashed border-gray-200">
+                                                    <input 
+                                                        type="file" 
+                                                        onChange={e => handleMediaCapture(e, (url) => setData({...data, logo: url}))}
+                                                        className="text-[10px] font-bold"
+                                                    />
+                                                    {data.logo && <img src={data.logo} className="h-16 object-contain" />}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="bg-mahogany/5 rounded-3xl p-10 flex flex-col items-center justify-center text-center">
+                                            <p className="text-[10px] uppercase font-black text-rose-gold mb-4 tracking-widest">Brand Visual Preview</p>
+                                            <h2 className="serif-font text-5xl text-mahogany font-bold">{data.brand_name}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 1.2 HERO BILLBOARD MANAGER */}
+                                <div className="admin-container-box">
+                                    <div className="flex items-center gap-5 mb-12">
+                                        <div className="h-12 w-12 bg-mahogany text-white rounded-2xl flex items-center justify-center font-black">02</div>
+                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Hero Billboard Controls</h3>
                                     </div>
                                     <div className="grid lg:grid-cols-2 gap-16">
                                         <div className="space-y-4">
-                                            <div>
-                                                <label className="admin-label">Main Headline (Serif)</label>
-                                                <input className="admin-input-field" value={data.hero.title} onChange={e => setData({...data, hero: {...data.hero, title: e.target.value}})} />
-                                            </div>
-                                            <div>
-                                                <label className="admin-label">Slogan / Sub-headline</label>
-                                                <input className="admin-input-field" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} />
-                                            </div>
+                                            <label className="admin-field-label">Primary Headline Title</label>
+                                            <input 
+                                                className="admin-custom-input" 
+                                                value={data.hero.title} 
+                                                onChange={e => setData({...data, hero: {...data.hero, title: e.target.value}})} 
+                                            />
+                                            <label className="admin-field-label">Secondary Slogan</label>
+                                            <input 
+                                                className="admin-custom-input" 
+                                                value={data.hero.subtitle} 
+                                                onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} 
+                                            />
                                         </div>
                                         <div>
-                                            <label className="admin-label">Primary Visual Asset (Background)</label>
-                                            <div className="border-4 border-dashed border-gray-100 p-8 rounded-[35px] text-center">
-                                                <input type="file" onChange={e => processUpload(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} className="text-xs font-bold text-gray-400 mb-6" />
-                                                {data.hero.image && (
-                                                    <div className="relative group">
-                                                        <img src={data.hero.image} className="w-full h-48 object-cover rounded-3xl shadow-2xl" />
-                                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all rounded-3xl text-white text-xs font-bold">CURRENT HERO ASSET</div>
-                                                    </div>
-                                                )}
+                                            <label className="admin-field-label">Background Cinematic Visual</label>
+                                            <div className="relative group">
+                                                <input 
+                                                    type="file" 
+                                                    onChange={e => handleMediaCapture(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} 
+                                                    className="text-xs mb-6" 
+                                                />
+                                                <img src={data.hero.image} className="h-56 w-full object-cover rounded-[30px] shadow-xl" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* 02. PRICELIST & CATEGORY ARCHITECT */}
-                                <div className="admin-card">
-                                    <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-                                        <div className="flex items-center gap-4">
-                                            <span className="h-10 w-10 bg-mahogany text-white rounded-full flex items-center justify-center font-bold">02</span>
-                                            <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Service Architecture & Pricing</h3>
+                                {/* 1.3 MENU RITUALS & CATEGORY MANAGER */}
+                                <div className="admin-container-box">
+                                    <div className="flex flex-col md:flex-row justify-between items-center mb-14 gap-6">
+                                        <div className="flex items-center gap-5">
+                                            <div className="h-12 w-12 bg-mahogany text-white rounded-2xl flex items-center justify-center font-black">03</div>
+                                            <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Menu Rituals & Pricing</h3>
                                         </div>
-                                        <button onClick={() => {
-                                            const catName = prompt("Architect a New Category Name:");
-                                            if(catName) setData({...data, services: {...data.services, [catName]: []}});
-                                        }} className="btn-luxury-action !py-4 !px-8 !text-[10px]">
+                                        <button 
+                                            onClick={() => {
+                                                const catName = prompt("Define New Ritual Category:");
+                                                if(catName) setData({...data, services: {...data.services, [catName]: []}});
+                                            }} 
+                                            className="bg-black text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest"
+                                        >
                                             + Launch New Category
                                         </button>
                                     </div>
 
-                                    <div className="space-y-12">
-                                        {Object.keys(data.services).map((cat, ci) => (
-                                            <div key={cat} className="bg-gray-50/50 p-10 rounded-[50px] border border-gray-100">
-                                                <div className="flex justify-between items-center mb-10 border-b border-gray-200 pb-6">
-                                                    <div>
-                                                        <span className="text-[10px] font-black text-rose-gold uppercase tracking-widest">Category {ci+1}</span>
-                                                        <h4 className="text-3xl serif font-bold text-mahogany italic">{cat}</h4>
-                                                    </div>
-                                                    <button onClick={() => {
-                                                        if(confirm("Destroy this entire category?")) {
-                                                            let updated = {...data}; delete updated.services[cat]; setData(updated);
+                                    {Object.keys(data.services).map((catName) => (
+                                        <div key={catName} className="mb-16 bg-gray-50/80 p-10 rounded-[45px] border border-gray-100">
+                                            <div className="flex justify-between items-center mb-10 pb-6 border-b border-gray-200">
+                                                <h4 className="serif-font text-3xl font-bold italic text-mahogany">{catName} Collection</h4>
+                                                <button 
+                                                    onClick={() => {
+                                                        if(confirm("Erase this entire collection?")) {
+                                                            let updated = {...data}; delete updated.services[catName]; setData(updated);
                                                         }
-                                                    }} className="text-red-400 font-bold text-[10px] uppercase tracking-widest hover:text-red-600 transition">Delete Category</button>
-                                                </div>
-
-                                                <div className="grid gap-8">
-                                                    {data.services[cat].map((s, si) => (
-                                                        <div key={si} className="bg-white p-10 rounded-[35px] shadow-sm border border-gray-100 relative group overflow-hidden">
-                                                            <div className="grid lg:grid-cols-3 gap-10">
-                                                                <div className="lg:col-span-2">
-                                                                    <div className="grid md:grid-cols-2 gap-6 mb-6">
-                                                                        <div>
-                                                                            <label className="admin-label !mt-0">Service Name</label>
-                                                                            <input className="admin-input-field" value={s.name} onChange={e => {
-                                                                                let d = {...data}; d.services[cat][si].name = e.target.value; setData(d);
-                                                                            }} />
-                                                                        </div>
-                                                                        <div>
-                                                                            <label className="admin-label !mt-0">Premium Price</label>
-                                                                            <input className="admin-input-field" value={s.price} onChange={e => {
-                                                                                let d = {...data}; d.services[cat][si].price = e.target.value; setData(d);
-                                                                            }} />
-                                                                        </div>
-                                                                    </div>
-                                                                    <label className="admin-label">Service Narrative (Description)</label>
-                                                                    <textarea className="admin-input-field h-32 pt-5" value={s.desc} onChange={e => {
-                                                                        let d = {...data}; d.services[cat][si].desc = e.target.value; setData(d);
-                                                                    }}></textarea>
-                                                                </div>
-                                                                <div className="lg:col-span-1">
-                                                                    <label className="admin-label !mt-0">Experience Visual</label>
-                                                                    <input type="file" onChange={e => processUpload(e, (url) => {
-                                                                        let d = {...data}; d.services[cat][si].img = url; setData(d);
-                                                                    })} className="text-[10px] mb-4" />
-                                                                    {s.img && <img src={s.img} className="service-img-preview shadow-lg" />}
-                                                                </div>
-                                                            </div>
-                                                            <button onClick={() => {
-                                                                let d = {...data}; d.services[cat].splice(si, 1); setData(d);
-                                                            }} className="absolute top-6 right-6 text-gray-200 group-hover:text-red-500 font-bold transition-all">REMOVE SERVICE</button>
-                                                        </div>
-                                                    ))}
-                                                </div>
-
-                                                <button onClick={() => {
-                                                    let d = {...data};
-                                                    d.services[cat].push({ name: "New Ritual", price: "$0.00", desc: "Experience details...", img: "" });
-                                                    setData(d);
-                                                }} className="w-full mt-8 py-6 border-4 border-dashed border-gray-200 text-gray-400 text-xs font-black uppercase rounded-[30px] hover:border-rose-gold hover:text-rose-gold transition-all">
-                                                    + Add New Ritual to {cat}
+                                                    }} 
+                                                    className="text-red-500 font-black text-[9px] uppercase tracking-widest"
+                                                >
+                                                    Destroy Category
                                                 </button>
                                             </div>
-                                        ))}
-                                    </div>
+
+                                            <div className="grid gap-10">
+                                                {data.services[catName].map((service, sIndex) => (
+                                                    <div key={sIndex} className="bg-white p-10 rounded-[35px] shadow-sm relative group">
+                                                        <div className="grid lg:grid-cols-3 gap-10">
+                                                            <div className="lg:col-span-2 space-y-6">
+                                                                <div className="grid md:grid-cols-2 gap-6">
+                                                                    <div>
+                                                                        <label className="admin-field-label !mt-0">Ritual Name</label>
+                                                                        <input 
+                                                                            className="admin-custom-input" 
+                                                                            value={service.name} 
+                                                                            onChange={e => {
+                                                                                let d = {...data}; d.services[catName][sIndex].name = e.target.value; setData(d);
+                                                                            }} 
+                                                                        />
+                                                                    </div>
+                                                                    <div>
+                                                                        <label className="admin-field-label !mt-0">Price Ritual</label>
+                                                                        <input 
+                                                                            className="admin-custom-input" 
+                                                                            value={service.price} 
+                                                                            onChange={e => {
+                                                                                let d = {...data}; d.services[catName][sIndex].price = e.target.value; setData(d);
+                                                                            }} 
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <label className="admin-field-label">Narrative / Description</label>
+                                                                <textarea 
+                                                                    className="admin-custom-input h-32 pt-5" 
+                                                                    value={service.desc} 
+                                                                    onChange={e => {
+                                                                        let d = {...data}; d.services[catName][sIndex].desc = e.target.value; setData(d);
+                                                                    }}
+                                                                ></textarea>
+                                                            </div>
+                                                            <div className="lg:col-span-1">
+                                                                <label className="admin-field-label !mt-0">Ritual Visual</label>
+                                                                <input 
+                                                                    type="file" 
+                                                                    onChange={e => handleMediaCapture(e, (url) => {
+                                                                        let d = {...data}; d.services[catName][sIndex].img = url; setData(d);
+                                                                    })} 
+                                                                    className="text-[10px] mb-4" 
+                                                                />
+                                                                {service.img && <img src={service.img} className="w-full h-48 object-cover rounded-3xl shadow-lg" />}
+                                                            </div>
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => {
+                                                                let d = {...data}; d.services[catName].splice(sIndex, 1); setData(d);
+                                                            }} 
+                                                            className="absolute top-6 right-6 text-gray-300 hover:text-red-500 font-bold"
+                                                        >
+                                                            ✕
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                                <button 
+                                                    onClick={() => {
+                                                        let d = {...data};
+                                                        d.services[catName].push({ name: "New Ritual", price: "$0.00", desc: "Experience...", img: "" });
+                                                        setData(d);
+                                                    }} 
+                                                    className="w-full py-6 border-4 border-dashed border-gray-200 rounded-[30px] text-gray-400 font-black uppercase text-xs hover:border-rose-gold hover:text-rose-gold transition-all"
+                                                >
+                                                    + Integrate New Ritual into {catName}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
 
-                                {/* 03. THE SANCTUARY (ABOUT US) MANAGER */}
-                                <div className="admin-card">
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <span className="h-10 w-10 bg-mahogany text-white rounded-full flex items-center justify-center font-bold">03</span>
+                                {/* 1.4 THE SANCTUARY (ABOUT US) MANAGER */}
+                                <div className="admin-container-box">
+                                    <div className="flex items-center gap-5 mb-12">
+                                        <div className="h-12 w-12 bg-mahogany text-white rounded-2xl flex items-center justify-center font-black">04</div>
                                         <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">The Sanctuary Story</h3>
                                     </div>
                                     <div className="grid lg:grid-cols-2 gap-16">
                                         <div>
-                                            <label className="admin-label">Sanctuary Philosophy (About Text)</label>
-                                            <textarea className="admin-input-field h-80 pt-6 leading-relaxed" value={data.about.text} onChange={e => setData({...data, about: {...data.about, text: e.target.value}})}></textarea>
+                                            <label className="admin-field-label">Sanctuary Philosophy (About Text)</label>
+                                            <textarea 
+                                                className="admin-custom-input h-80 pt-6 leading-relaxed" 
+                                                value={data.about.text} 
+                                                onChange={e => setData({...data, about: {...data.about, text: e.target.value}})}
+                                            ></textarea>
                                         </div>
                                         <div>
-                                            <label className="admin-label">Atmospheric Sanctuary Visual</label>
-                                            <div className="border-4 border-dashed border-gray-100 p-8 rounded-[40px] text-center">
-                                                <input type="file" onChange={e => processUpload(e, (url) => setData({...data, about: {...data.about, image: url}}))} className="text-xs mb-6" />
-                                                {data.about.image && <img src={data.about.image} className="w-full aspect-[4/5] object-cover rounded-[35px] shadow-2xl grayscale" />}
+                                            <label className="admin-field-label">Sanctuary Atmospheric Visual</label>
+                                            <div className="border-4 border-dashed border-gray-100 p-8 rounded-[45px] text-center">
+                                                <input 
+                                                    type="file" 
+                                                    onChange={e => handleMediaCapture(e, (url) => setData({...data, about: {...data.about, image: url}}))} 
+                                                    className="text-xs mb-8" 
+                                                />
+                                                {data.about.image && <img src={data.about.image} className="w-full aspect-[4/5] object-cover rounded-[40px] shadow-2xl grayscale" />}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* 04. GUEST REVIEWS ENGINE */}
-                                <div className="admin-card">
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <span className="h-10 w-10 bg-mahogany text-white rounded-full flex items-center justify-center font-bold">04</span>
-                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Guest Chronicles (Reviews)</h3>
+                                {/* 1.5 VISUAL ARCHIVE (GALLERY) MANAGER */}
+                                <div className="admin-container-box">
+                                    <div className="flex items-center gap-5 mb-12">
+                                        <div className="h-12 w-12 bg-mahogany text-white rounded-2xl flex items-center justify-center font-black">05</div>
+                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">The Visual Gallery Archive</h3>
                                     </div>
-                                    <div className="grid md:grid-cols-2 gap-10">
-                                        {data.reviews.map((r, i) => (
-                                            <div key={i} className="p-10 bg-gray-50 rounded-[35px] border border-gray-100 relative group">
-                                                <label className="admin-label !mt-0">Guest Name</label>
-                                                <input className="admin-input-field mb-6" value={r.name} onChange={e => {
-                                                    let d = {...data}; d.reviews[i].name = e.target.value; setData(d);
-                                                }} />
-                                                <label className="admin-label">Testimonial Content</label>
-                                                <textarea className="admin-input-field h-32 pt-5" value={r.text} onChange={e => {
-                                                    let d = {...data}; d.reviews[i].text = e.target.value; setData(d);
-                                                }}></textarea>
-                                                <button onClick={() => {
-                                                    let d = {...data}; d.reviews.splice(i, 1); setData(d);
-                                                }} className="absolute top-6 right-6 text-gray-200 group-hover:text-red-500 font-bold transition-all uppercase text-[9px]">Remove Review</button>
+                                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-10">
+                                        {data.gallery.map((imgUrl, gIndex) => (
+                                            <div key={gIndex} className="relative group">
+                                                <img src={imgUrl} className="h-40 w-full object-cover rounded-2xl shadow-sm" />
+                                                <button 
+                                                    onClick={() => {
+                                                        let d = {...data}; d.gallery.splice(gIndex, 1); setData(d);
+                                                    }} 
+                                                    className="absolute -top-3 -right-3 h-8 w-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold shadow-lg"
+                                                >
+                                                    ✕
+                                                </button>
                                             </div>
                                         ))}
-                                        <button onClick={() => setData({...data, reviews: [...data.reviews, {name: "New Guest", text: "Pure luxury..."}]})} className="flex flex-col items-center justify-center p-12 border-4 border-dashed border-gray-200 rounded-[35px] text-gray-400 hover:text-rose-gold hover:border-rose-gold transition-all">
-                                            <span className="text-4xl mb-4">+</span>
-                                            <span className="text-[10px] font-black uppercase tracking-widest">Add New Chronicler</span>
-                                        </button>
+                                        <div className="h-40 border-4 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-300">
+                                            <input 
+                                                type="file" 
+                                                onChange={e => handleMediaCapture(e, (url) => setData({...data, gallery: [...data.gallery, url]}))} 
+                                                className="absolute inset-0 opacity-0 cursor-pointer" 
+                                            />
+                                            <span className="text-3xl">+</span>
+                                            <span className="text-[8px] font-black uppercase mt-2">Upload Asset</span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* 05. BRAND IDENTITY (FOOTER & LOGO) */}
-                                <div className="admin-card">
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <span className="h-10 w-10 bg-mahogany text-white rounded-full flex items-center justify-center font-bold">05</span>
-                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Identity & Contact Rituals</h3>
+                                {/* 1.6 GLOBAL FOOTER ARCHITECT */}
+                                <div className="admin-container-box">
+                                    <div className="flex items-center gap-5 mb-12">
+                                        <div className="h-12 w-12 bg-mahogany text-white rounded-2xl flex items-center justify-center font-black">06</div>
+                                        <h3 className="text-mahogany text-xl font-black tracking-widest uppercase">Deployment Essentials</h3>
                                     </div>
                                     <div className="grid lg:grid-cols-3 gap-10">
                                         <div>
-                                            <label className="admin-label">Brand Signature (Logo)</label>
-                                            <input type="file" onChange={e => processUpload(e, (url) => setData({...data, logo: url}))} className="text-[10px] mb-4" />
-                                            {data.logo && <img src={data.logo} className="h-16 bg-white p-2 rounded-xl shadow-sm border" />}
-                                            <label className="admin-label">Business Name</label>
-                                            <input className="admin-input-field" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
+                                            <label className="admin-field-label">WhatsApp Contact Protocol</label>
+                                            <input className="admin-custom-input" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
+                                            <label className="admin-field-label">Copyright Brand Mark</label>
+                                            <input className="admin-custom-input" value={data.footer.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
                                         </div>
                                         <div>
-                                            <label className="admin-label">Physical Location</label>
-                                            <textarea className="admin-input-field h-24 mb-6 pt-5" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})}></textarea>
-                                            <label className="admin-label">Whatsapp Protocol</label>
-                                            <input className="admin-input-field" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
+                                            <label className="admin-field-label">Physical Location Archive</label>
+                                            <textarea className="admin-custom-input h-32 pt-5" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})}></textarea>
                                         </div>
                                         <div>
-                                            <label className="admin-label">Ritual Hours</label>
-                                            <input className="admin-input-field" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
-                                            <label className="admin-label">Copyright Tag</label>
-                                            <input className="admin-input-field" value={data.footer.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
+                                            <label className="admin-field-label">Operational Hours</label>
+                                            <input className="admin-custom-input" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* SYNC FLOATER */}
+                                {/* FINAL DEPLOYMENT BUTTON */}
                                 <div className="fixed bottom-12 left-0 w-full flex justify-center px-10 z-[2000]">
-                                    <button onClick={handleSystemSync} className="btn-luxury-action w-full max-w-3xl py-8 text-lg tracking-[0.6em] shadow-[0_35px_60px_-15px_rgba(74,14,14,0.4)] border-4 border-white">
-                                        DEPLOY CHANGES TO GLOBAL CLOUD
+                                    <button 
+                                        onClick={deployToProduction} 
+                                        className="btn-publish-system w-full max-w-4xl border-4 border-white"
+                                    >
+                                        Finalize & Publish All Changes
                                     </button>
                                 </div>
                             </div>
                         </div>
                     ) : (
                         /* ========================================================================
-                           WEBSITE FRONTEND INTERFACE (ELITE DESIGN)
+                           2.0 WEBSITE FRONTEND INTERFACE (ELITE LUXURY)
                            ======================================================================== */
-                        <div className="site-view-wrapper animate-fade">
+                        <div className="website-view-context animate-fade-in">
                             
-                            {/* NAVIGATION ARCHITECTURE */}
-                            <nav className="fixed top-0 w-full z-[1500] bg-white/95 backdrop-blur-2xl border-b border-gray-100 p-8 px-14 flex justify-between items-center transition-all duration-700">
-                                <div onClick={(e) => e.shiftKey && prompt("Authorization Code:") === SYSTEM_KEY && setIsAdmin(true)} className="cursor-pointer group">
+                            {/* LUXURY NAVIGATION BAR */}
+                            <nav className="fixed top-0 w-full z-[1500] bg-white/95 backdrop-blur-2xl border-b border-gray-100 p-8 px-16 flex justify-between items-center transition-all duration-700">
+                                <div 
+                                    onClick={(e) => e.shiftKey && prompt("Authorization Required:") === ADMIN_CODE && setIsAdmin(true)} 
+                                    className="cursor-pointer group"
+                                >
                                     {data.logo ? (
-                                        <img src={data.logo} className="h-14 group-hover:scale-105 transition duration-500" />
+                                        <img src={data.logo} className="h-14 group-hover:scale-110 transition duration-700" alt="Brand Logo" />
                                     ) : (
-                                        <h1 className="serif text-4xl font-black text-mahogany tracking-tighter uppercase">{data.brand_name}</h1>
+                                        <h1 className="serif-font text-4xl font-black text-mahogany tracking-tighter uppercase">{data.brand_name}</h1>
                                     )}
                                 </div>
-                                <div className="hidden lg:flex space-x-16 text-[11px] font-black uppercase tracking-[0.45em] text-mahogany/30">
-                                    <a href="#experience" className="hover:text-rose-gold transition-colors">The Experience</a>
-                                    <a href="#pricelist" className="hover:text-rose-gold transition-colors">Menu Rituals</a>
-                                    <a href="#sanctuary" className="hover:text-rose-gold transition-colors">Our Sanctuary</a>
-                                    <a href="#words" className="hover:text-rose-gold transition-colors">Guest Words</a>
+                                <div className="hidden lg:flex space-x-16 text-[11px] font-black uppercase tracking-[0.5em] text-mahogany/40">
+                                    <a href="#experience-ritual" className="hover:text-rose-gold transition-colors">Experience</a>
+                                    <a href="#menu-ritual" className="hover:text-rose-gold transition-colors">Menu Rituals</a>
+                                    <a href="#sanctuary- ritual" className="hover:text-rose-gold transition-colors">Sanctuary</a>
+                                    <a href="#visual-ritual" className="hover:text-rose-gold transition-colors">Gallery</a>
                                 </div>
-                                <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}`)} className="btn-luxury-action px-14 py-4 text-[10px]">Consult Now</button>
+                                <button className="btn-master-mahogany px-14 py-4 text-[10px]">Secure Consult</button>
                             </nav>
 
-                            {/* CINEMATIC BILLBOARD (HERO) */}
+                            {/* CINEMATIC BILLBOARD (HERO SECTION) */}
                             <header className="h-screen relative flex items-center justify-center text-center overflow-hidden">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-110 blur-[0.5px] transition-transform duration-[10s] hover:scale-100" />
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-110 transition-transform duration-[15s] hover:scale-100" />
                                 <div className="absolute inset-0 bg-black/40"></div>
                                 <div className="relative text-white p-6 max-w-7xl">
-                                    <h1 className="serif text-8xl md:text-[13rem] italic leading-[0.9] mb-14 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-fade-up">{data.hero.title}</h1>
-                                    <p className="tracking-[1.2em] uppercase text-xs md:text-sm font-black opacity-90 drop-shadow-md">{data.hero.subtitle}</p>
+                                    <h1 className="serif-font text-8xl md:text-[13rem] italic leading-[0.85] mb-14 drop-shadow-[0_20px_60px_rgba(0,0,0,0.6)] animate-fade-up">{data.hero.title}</h1>
+                                    <p className="tracking-[1.4em] uppercase text-[10px] md:text-sm font-black opacity-90 drop-shadow-md">{data.hero.subtitle}</p>
                                 </div>
                             </header>
 
-                            {/* THE EXPERIENCE SECTION */}
-                            <section id="experience" className="py-48 px-8 max-w-[1600px] mx-auto">
-                                <h2 className="serif text-9xl md:text-[11rem] text-center mb-32 italic web-section-header">The Experience</h2>
+                            {/* THE EXPERIENCE RITUAL (SERVICES) */}
+                            <section id="experience-ritual" className="py-48 px-10 max-w-[1700px] mx-auto text-center">
+                                <h2 className="serif-font text-[8rem] md:text-[10rem] mb-32 web-section-header-title italic">The Experience</h2>
                                 
                                 <div className="flex overflow-x-auto no-scrollbar gap-16 border-b border-gray-100 mb-24 justify-center">
                                     {Object.keys(data.services).map(cat => (
-                                        <button key={cat} onClick={() => {setActiveCategory(cat); setSelectedService(data.services[cat][0]);}}
-                                            className={`pb-10 text-[12px] font-black uppercase tracking-[0.6em] transition-all whitespace-nowrap ${activeCategory === cat ? 'text-rose-gold border-b-4 border-rose-gold' : 'opacity-20 hover:opacity-100'}`}>
+                                        <button 
+                                            key={cat} 
+                                            onClick={() => {setActiveCategory(cat); setCurrentService(data.services[cat][0]);}}
+                                            className={`pb-12 text-[12px] font-black uppercase tracking-[0.7em] transition-all whitespace-nowrap ${activeCategory === cat ? 'text-rose-gold border-b-4 border-rose-gold scale-110' : 'opacity-20 hover:opacity-100'}`}
+                                        >
                                             {cat}
                                         </button>
                                     ))}
                                 </div>
 
                                 <div className="grid lg:grid-cols-12 gap-24 items-start">
-                                    <div className="lg:col-span-4 space-y-8 max-h-[800px] overflow-y-auto no-scrollbar pr-8">
-                                        {data.services[activeCategory]?.map((s, i) => (
-                                            <div key={i} onClick={() => setSelectedService(s)} 
-                                                className={`p-12 rounded-[4rem] flex justify-between items-center cursor-pointer transition-all duration-1000 ${selectedService?.name === s.name ? 'bg-white shadow-[0_50px_100px_-20px_rgba(74,14,14,0.1)] border-l-[15px] border-rose-gold scale-[1.08]' : 'bg-gray-50/50 opacity-40 hover:opacity-80'}`}>
+                                    <div className="lg:col-span-4 space-y-10 max-h-[850px] overflow-y-auto no-scrollbar pr-10">
+                                        {data.services[activeCategory]?.map((ritual, idx) => (
+                                            <div 
+                                                key={idx} 
+                                                onClick={() => setCurrentService(ritual)} 
+                                                className={`p-14 rounded-[4.5rem] flex justify-between items-center cursor-pointer transition-all duration-1000 ${currentService?.name === ritual.name ? 'bg-white shadow-[0_60px_120px_-30px_rgba(74,14,14,0.12)] border-l-[18px] border-rose-gold scale-[1.08]' : 'bg-gray-50/50 opacity-40 hover:opacity-90'}`}
+                                            >
                                                 <div className="text-left">
-                                                    <h4 className="serif text-4xl font-bold uppercase tracking-tighter text-mahogany">{s.name}</h4>
-                                                    <p className="text-[12px] font-black text-rose-gold mt-3 uppercase tracking-widest">{s.price}</p>
+                                                    <h4 className="serif-font text-4xl font-bold uppercase tracking-tighter text-mahogany">{ritual.name}</h4>
+                                                    <p className="text-[13px] font-black text-rose-gold mt-4 uppercase tracking-widest">{ritual.price}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="lg:col-span-8">
-                                        {selectedService && (
-                                            <div className="grid md:grid-cols-2 gap-20 items-center bg-white p-14 md:p-24 rounded-[5rem] shadow-[0_80px_150px_-30px_rgba(0,0,0,0.05)] border border-gray-50 animate-fade">
+                                        {currentService && (
+                                            <div className="grid md:grid-cols-2 gap-24 items-center bg-white p-16 md:p-28 rounded-[6rem] shadow-[0_100px_200px_-50px_rgba(0,0,0,0.06)] border border-gray-50 animate-fade">
                                                 <div className="relative group">
-                                                    <div className="absolute -inset-6 border-2 border-rose-gold/20 rounded-[4rem] -z-10 group-hover:scale-110 transition-transform duration-1000"></div>
-                                                    <img src={selectedService.img || 'https://via.placeholder.com/1000'} className="w-full aspect-[4/5] object-cover rounded-[3.5rem] shadow-2xl" />
+                                                    <div className="absolute -inset-8 border-2 border-rose-gold/20 rounded-[5rem] -z-10 group-hover:scale-105 transition-transform duration-1000"></div>
+                                                    <img src={currentService.img || 'https://via.placeholder.com/1000'} className="w-full aspect-[4/5] object-cover rounded-[4rem] shadow-2xl" />
                                                 </div>
                                                 <div className="text-left">
-                                                    <h3 className="serif text-7xl mb-10 italic leading-tight text-mahogany font-bold">{selectedService.name}</h3>
-                                                    <p className="text-5xl font-black text-rose-gold mb-12 tracking-tighter">{selectedService.price}</p>
-                                                    <p className="text-2xl serif italic opacity-60 mb-16 leading-[1.8] whitespace-pre-wrap">{selectedService.desc}</p>
-                                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}?text=Inquiry for ${selectedService.name}`)} className="btn-luxury-action w-full py-9 text-[13px] tracking-[0.5em]">Request Reservation</button>
+                                                    <h3 className="serif-font text-7xl mb-12 italic leading-tight text-mahogany font-bold">{currentService.name}</h3>
+                                                    <p className="text-5xl font-black text-rose-gold mb-14 tracking-tighter">{currentService.price}</p>
+                                                    <p className="text-2xl serif-font italic opacity-60 mb-20 leading-[1.9] whitespace-pre-wrap">{currentService.desc}</p>
+                                                    <button 
+                                                        onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}?text=I want to book ${currentService.name}`)}
+                                                        className="btn-master-mahogany w-full py-9 text-[13px] tracking-[0.6em]"
+                                                    >
+                                                        Request Reservation
+                                                    </button>
                                                 </div>
                                             </div>
                                         )}
@@ -522,25 +652,25 @@
                                 </div>
                             </section>
 
-                            {/* FULL MENU RITUALS (PRICELIST) */}
-                            <section id="pricelist" className="py-48 bg-[#FBF9F6] px-8">
-                                <div className="max-w-6xl mx-auto">
-                                    <h2 className="serif text-9xl md:text-[11rem] text-center mb-36 italic web-section-header">Menu Rituals</h2>
-                                    {Object.keys(data.services).map(cat => (
-                                        <div key={cat} className="mb-36 last:mb-0">
-                                            <div className="flex items-center gap-10 mb-20">
-                                                <div className="h-[2px] flex-1 bg-rose-gold/20"></div>
-                                                <h3 className="text-rose-gold uppercase text-[13px] font-black tracking-[1em] text-center whitespace-nowrap">{cat}</h3>
-                                                <div className="h-[2px] flex-1 bg-rose-gold/20"></div>
+                            {/* MENU RITUALS (FULL PRICELIST) */}
+                            <section id="menu-ritual" className="py-48 bg-[#FBF9F6] px-10">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="serif-font text-[8rem] md:text-[10rem] mb-40 web-section-header-title italic">Menu Rituals</h2>
+                                    {Object.keys(data.services).map(categoryKey => (
+                                        <div key={categoryKey} className="mb-48 last:mb-0">
+                                            <div className="flex items-center gap-14 mb-24">
+                                                <div className="h-[2px] flex-1 bg-rose-gold/30"></div>
+                                                <h3 className="text-rose-gold uppercase text-[15px] font-black tracking-[1.2em] whitespace-nowrap">{categoryKey}</h3>
+                                                <div className="h-[2px] flex-1 bg-rose-gold/30"></div>
                                             </div>
-                                            <div className="grid gap-14">
-                                                {data.services[cat].map((s, i) => (
-                                                    <div key={i} className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-rose-gold/10 pb-10 text-left group hover:border-rose-gold transition-colors duration-500">
-                                                        <div className="max-w-2xl mb-6 md:mb-0">
-                                                            <h4 className="serif text-4xl italic text-mahogany font-bold group-hover:text-rose-gold transition-colors">{s.name}</h4>
-                                                            <p className="text-[11px] uppercase opacity-40 tracking-widest mt-4 leading-relaxed line-clamp-2">{s.desc}</p>
+                                            <div className="grid gap-20">
+                                                {data.services[categoryKey].map((ritualItem, rIdx) => (
+                                                    <div key={rIdx} className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-rose-gold/15 pb-12 text-left group hover:border-rose-gold transition-colors duration-700">
+                                                        <div className="max-w-3xl mb-10 md:mb-0">
+                                                            <h4 className="serif-font text-4xl italic text-mahogany font-bold group-hover:text-rose-gold transition-colors">{ritualItem.name}</h4>
+                                                            <p className="text-[12px] uppercase opacity-40 tracking-widest mt-5 leading-relaxed">{ritualItem.desc}</p>
                                                         </div>
-                                                        <span className="font-black text-4xl text-mahogany tracking-tighter whitespace-nowrap md:ml-20">{s.price}</span>
+                                                        <span className="font-black text-4xl text-mahogany tracking-tighter whitespace-nowrap md:ml-24">{ritualItem.price}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -549,82 +679,86 @@
                                 </div>
                             </section>
 
-                            {/* THE SANCTUARY (ABOUT - MAHOGANY THEME) */}
-                            <section id="sanctuary" className="py-60 bg-mahogany text-white px-8 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 opacity-10 rotate-12 -translate-y-20 translate-x-20">
-                                    <h1 className="serif text-[30rem] font-bold italic">Luxe</h1>
+                            {/* THE SANCTUARY (ABOUT US) */}
+                            <section id="sanctuary-ritual" className="py-64 bg-mahogany text-white px-10 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 opacity-[0.03] rotate-12 -translate-y-20 translate-x-20 pointer-events-none">
+                                    <h1 className="serif-font text-[40rem] font-bold italic">Sanctuary</h1>
                                 </div>
-                                <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-40 items-center relative z-10">
-                                    <div className="text-left">
-                                        <h2 className="serif text-9xl md:text-[10rem] mb-20 italic leading-none font-bold web-section-header !text-white">Our Sanctuary</h2>
-                                        <p className="serif text-4xl opacity-50 italic leading-[1.8] whitespace-pre-wrap mb-20">{data.about.text}</p>
-                                        <div className="flex gap-24">
-                                            <div>
-                                                <h5 className="text-7xl serif italic text-rose-gold font-bold">18+</h5>
-                                                <p className="text-[11px] uppercase tracking-[0.5em] opacity-40 mt-4">Curators</p>
-                                            </div>
-                                            <div>
-                                                <h5 className="text-7xl serif italic text-rose-gold font-bold">12K</h5>
-                                                <p className="text-[11px] uppercase tracking-[0.5em] opacity-40 mt-4">Guest Rituals</p>
+                                <div className="max-w-7xl mx-auto text-center relative z-10">
+                                    <h2 className="serif-font text-[8rem] md:text-[10rem] mb-32 italic font-bold text-white">The Sanctuary Story</h2>
+                                    <div className="grid lg:grid-cols-2 gap-48 items-center text-left">
+                                        <div className="space-y-20">
+                                            {/* FIXED ABOUT TEXT: SOLID WHITE FOR READABILITY */}
+                                            <p className="serif-font text-4xl sanctuary-text-content italic whitespace-pre-wrap">
+                                                {data.about.text}
+                                            </p>
+                                            <div className="flex gap-28 pt-10">
+                                                <div className="border-l-4 border-rose-gold pl-8">
+                                                    <h5 className="text-7xl serif-font italic text-rose-gold font-bold">18+</h5>
+                                                    <p className="text-[11px] uppercase tracking-[0.6em] opacity-40 mt-4 font-black">Elite Curators</p>
+                                                </div>
+                                                <div className="border-l-4 border-rose-gold pl-8">
+                                                    <h5 className="text-7xl serif-font italic text-rose-gold font-bold">12K</h5>
+                                                    <p className="text-[11px] uppercase tracking-[0.6em] opacity-40 mt-4 font-black">Rituals Served</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="relative group">
-                                        <div className="absolute -inset-14 border-2 border-rose-gold/20 rounded-[6rem] -z-10 group-hover:scale-105 transition-transform duration-1000"></div>
-                                        <img src={data.about.image} className="rounded-[6rem] w-full aspect-[4/5] object-cover shadow-[0_100px_100px_-50px_rgba(0,0,0,0.5)] grayscale hover:grayscale-0 transition duration-[2s] cursor-crosshair" />
+                                        <div className="relative group">
+                                            <div className="absolute -inset-16 border-2 border-rose-gold/20 rounded-[7rem] -z-10 group-hover:scale-105 transition-transform duration-1000"></div>
+                                            <img src={data.about.image} className="rounded-[6.5rem] w-full aspect-[4/5] object-cover shadow-[0_120px_150px_-60px_rgba(0,0,0,0.6)] grayscale hover:grayscale-0 transition duration-[2.5s]" />
+                                        </div>
                                     </div>
                                 </div>
                             </section>
 
                             {/* GUEST WORDS (REVIEWS) */}
-                            <section id="words" className="py-48 bg-white px-8">
-                                <div className="max-w-7xl mx-auto">
-                                    <h2 className="serif text-9xl text-center mb-40 italic web-section-header">Guest Words</h2>
-                                    <div className="grid md:grid-cols-3 gap-16">
-                                        {data.reviews.map((r, i) => (
-                                            <div key={i} className="p-20 bg-[#FBF9F6] rounded-[5rem] italic group hover:bg-mahogany transition-all duration-1000 text-left relative overflow-hidden">
-                                                <div className="text-rose-gold text-[7rem] serif mb-8 leading-none opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000">“</div>
-                                                <p className="serif text-4xl opacity-70 group-hover:text-white transition-colors mb-16 leading-[1.7] relative z-10">“{r.text}”</p>
-                                                <div className="flex items-center gap-6 relative z-10">
-                                                    <div className="h-[1px] w-12 bg-rose-gold"></div>
-                                                    <h5 className="uppercase text-[12px] font-black tracking-[0.6em] text-mahogany group-hover:text-rose-gold transition-colors">{r.name}</h5>
-                                                </div>
+                            <section id="words-ritual" className="py-52 bg-white px-10 text-center">
+                                <h2 className="serif-font text-[8rem] md:text-[10rem] mb-40 web-section-header-title italic">Guest Words</h2>
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
+                                    {data.reviews.map((testimonial, tIdx) => (
+                                        <div key={tIdx} className="p-24 bg-[#FBF9F6] rounded-[6rem] italic group hover:bg-mahogany transition-all duration-1000 text-left relative overflow-hidden">
+                                            <div className="text-rose-gold text-[10rem] serif-font mb-10 leading-none opacity-20 group-hover:opacity-100 transition-all duration-1000 select-none">“</div>
+                                            <p className="serif-font text-4xl opacity-70 group-hover:text-white transition-colors mb-20 leading-[1.8] relative z-10">“{testimonial.text}”</p>
+                                            <div className="flex items-center gap-8 relative z-10">
+                                                <div className="h-[2px] w-14 bg-rose-gold"></div>
+                                                <h5 className="uppercase text-[13px] font-black tracking-[0.7em] text-mahogany group-hover:text-rose-gold transition-colors">{testimonial.name}</h5>
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </section>
-
-                            {/* THE VISUAL ARCHIVE (GALLERY) */}
-                            <section className="py-48 px-8 max-w-[1800px] mx-auto">
-                                <div className="masonry-grid">
-                                    {data.gallery.map((img, i) => (
-                                        <div key={i} className="mb-10 rounded-[4rem] overflow-hidden border-[20px] border-white shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] group">
-                                            <img src={img} className="w-full hover:scale-110 transition duration-[2s] ease-out cursor-zoom-in group-hover:rotate-1" />
                                         </div>
                                     ))}
                                 </div>
                             </section>
 
-                            {/* THE GRAND FOOTER */}
-                            <footer className="bg-white pt-52 pb-24 px-12 border-t border-gray-100 relative overflow-hidden">
-                                <div className="max-w-7xl mx-auto grid lg:grid-cols-4 gap-32 border-b border-gray-100 pb-40 mb-24 text-left relative z-10">
+                            {/* VISUAL ARCHIVE (GALLERY) */}
+                            <section id="visual-ritual" className="py-52 px-10 max-w-[1900px] mx-auto text-center">
+                                <h2 className="serif-font text-[8rem] md:text-[10rem] mb-40 web-section-header-title italic">The Visual Archive</h2>
+                                <div className="masonry-layout">
+                                    {data.gallery.map((galleryImg, gIdx) => (
+                                        <div key={gIdx} className="gallery-item-wrapper group">
+                                            <img src={galleryImg} className="w-full hover:scale-110 transition duration-[2s] ease-out cursor-zoom-in" alt="Gallery Asset" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* THE GRAND FOOTER ARCHITECTURE */}
+                            <footer className="bg-white pt-64 pb-24 px-16 border-t border-gray-100 relative overflow-hidden">
+                                <div className="max-w-7xl mx-auto grid lg:grid-cols-4 gap-40 border-b border-gray-100 pb-48 mb-24 text-left relative z-10">
                                     <div className="col-span-2">
-                                        <h4 className="serif text-[7rem] md:text-[9rem] text-rose-gold italic font-black mb-12 uppercase tracking-tighter leading-none">{data.brand_name}</h4>
-                                        <p className="text-3xl serif italic opacity-30 max-w-sm leading-relaxed">{data.footer.address}</p>
+                                        <h4 className="serif-font text-[8rem] md:text-[10rem] text-rose-gold italic font-black mb-14 uppercase tracking-tighter leading-none">{data.brand_name}</h4>
+                                        <p className="text-3xl serif-font italic opacity-30 max-w-lg leading-relaxed">{data.footer.address}</p>
                                     </div>
-                                    <div>
-                                        <h5 className="text-mahogany uppercase text-[13px] font-black mb-16 tracking-[0.8em]">Opening Hours</h5>
-                                        <p className="serif text-4xl italic leading-loose text-mahogany font-bold">{data.footer.hours}</p>
+                                    <div className="pt-10">
+                                        <h5 className="text-mahogany uppercase text-[13px] font-black mb-16 tracking-[1em]">Ritual Hours</h5>
+                                        <p className="serif-font text-4xl italic leading-loose text-mahogany font-black">{data.footer.hours}</p>
                                     </div>
-                                    <div>
-                                        <h5 className="text-mahogany uppercase text-[13px] font-black mb-16 tracking-[0.8em]">Reservations</h5>
-                                        <p className="serif text-4xl italic underline decoration-rose-gold/40 hover:text-rose-gold transition-all cursor-pointer font-bold">{data.footer.whatsapp}</p>
+                                    <div className="pt-10">
+                                        <h5 className="text-mahogany uppercase text-[13px] font-black mb-16 tracking-[1em]">Protocol</h5>
+                                        <p className="serif-font text-4xl italic underline decoration-rose-gold/40 hover:text-rose-gold transition-all cursor-pointer font-black">{data.footer.whatsapp}</p>
                                     </div>
                                 </div>
-                                <div className="flex flex-col md:flex-row justify-between items-center opacity-30 text-[11px] font-black uppercase tracking-[0.8em] gap-8">
+                                <div className="flex flex-col md:flex-row justify-between items-center opacity-30 text-[12px] font-black uppercase tracking-[1em] gap-12 text-center">
                                     <p>{data.footer.copyright}</p>
-                                    <p className="hover:opacity-100 transition-opacity cursor-help underline underline-offset-8">Powered by Nixi Elite OS v10.0</p>
+                                    <p className="underline underline-offset-[12px]">Nixi Elite Business OS v12.0</p>
                                 </div>
                             </footer>
                         </div>
@@ -633,7 +767,9 @@
             );
         }
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        // MOUNT APPLICATION
+        const rootElement = document.getElementById('root');
+        ReactDOM.createRoot(rootElement).render(<App />);
     </script>
 </body>
 </html>
