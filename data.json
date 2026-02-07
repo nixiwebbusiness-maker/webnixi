@@ -3,7 +3,7 @@
   "hero": {
     "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770389651/ips58e7amcd34sxy2a1h.png",
     "subtitle": "WELCOME TO LUMINA",
-    "title": "LUMINA you"
+    "title": "LUMINA"
   },
   "services": {
     "NAILS": [
@@ -39,8 +39,7 @@
         "desc": "Experience details...",
         "img": ""
       }
-    ],
-    "NEW CATEGOR": []
+    ]
   },
   "full_menu": [
     {
@@ -80,7 +79,6 @@
     }
   ],
   "gallery": [
-    "https://images.unsplash.com/photo-1604654894610-df490c81726a?w=600",
     "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600",
     "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600",
     "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600"
