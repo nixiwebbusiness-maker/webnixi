@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Full Business Operating System</title>
+    <title>Lumina Luxe | Complete Business OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        /* CSS SECTIONS - FULLY EXPANDED */
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,500&family=Montserrat:wght@100;200;400;600&display=swap');
         
         :root {
             --rose-gold: #B76E79;
             --mahogany: #4A0E0E;
             --cream: #FFFDFD;
+            --smoke: #F4F7F6;
         }
 
         body {
@@ -23,73 +23,80 @@
             background-color: var(--cream);
             color: var(--mahogany);
             scroll-behavior: smooth;
+            margin: 0;
         }
 
         .serif { font-family: 'Cormorant Garamond', serif; }
 
-        /* Admin UI Components */
+        /* Admin UI Refinement */
         .admin-card {
             background: #ffffff;
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 35px;
-            border: 1px solid #e1e8ed;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            border-radius: 30px;
+            padding: 45px;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
         }
 
-        .section-header {
-            font-size: 12px;
+        .section-tag {
+            font-size: 10px;
             font-weight: 900;
             color: var(--rose-gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            display: block;
         }
 
         .admin-label {
             display: block;
             font-size: 11px;
             font-weight: 700;
-            color: #7f8c8d;
+            color: #94a3b8;
             text-transform: uppercase;
-            margin-bottom: 8px;
-            margin-top: 15px;
+            margin-bottom: 10px;
+            margin-top: 20px;
         }
 
-        .admin-input-field {
+        .admin-input {
             width: 100%;
-            padding: 14px 18px;
-            border: 1.5px solid #edf2f7;
-            border-radius: 12px;
+            padding: 15px 20px;
+            border: 2px solid #f1f5f9;
+            border-radius: 15px;
             font-size: 14px;
-            color: #2d3748;
-            background: #fdfdfd;
+            background: #f8fafc;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .admin-input-field:focus {
+        .admin-input:focus {
             border-color: var(--rose-gold);
             background: white;
+            box-shadow: 0 0 0 4px rgba(183, 110, 121, 0.05);
         }
 
-        .btn-luxury {
+        .btn-action {
             background: linear-gradient(135deg, #B76E79 0%, #8E5A63 100%);
             color: white;
-            padding: 12px 30px;
+            padding: 14px 35px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: 0.4s;
             border: none;
+            transition: 0.4s;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(183, 110, 121, 0.2);
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .masonry { column-count: 2; column-gap: 20px; }
+        @media (min-width: 768px) { .masonry { column-count: 4; } }
     </style>
 </head>
 <body>
@@ -99,120 +106,156 @@
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
-            const [activeCategory, setActiveCategory] = React.useState('');
-            const [selectedService, setSelectedService] = React.useState(null);
+            const [activeCat, setActiveCat] = React.useState('');
+            const [selectedSvc, setSelectedSvc] = React.useState(null);
 
-            const ADMIN_CODE = "admin123";
-            const CLOUDINARY_ENDPOINT = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
-            const CLOUDINARY_PRESET = "faysal";
+            const ADMIN_KEY = "admin123";
+            const CLOUDINARY_API = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
+            const UPLOAD_PRESET = "faysal";
 
             React.useEffect(() => {
                 fetch('data.json')
                     .then(res => res.json())
-                    .then(json => {
-                        if (!json.reviews) json.reviews = [];
-                        setData(json);
-                        const cats = Object.keys(json.services || {});
-                        if(cats.length > 0) {
-                            setActiveCategory(cats[0]);
-                            setSelectedService(json.services[cats[0]][0]);
+                    .then(db => {
+                        if(!db.reviews) db.reviews = [];
+                        if(!db.gallery) db.gallery = [];
+                        setData(db);
+                        const keys = Object.keys(db.services || {});
+                        if(keys.length > 0) {
+                            setActiveCat(keys[0]);
+                            setSelectedSvc(db.services[keys[0]][0]);
                         }
                     });
             }, []);
 
-            const handleMediaUpload = async (e, callback) => {
+            const handleUpload = async (e, cb) => {
                 const file = e.target.files[0];
-                if (!file) return;
+                if(!file) return;
                 const fd = new FormData();
                 fd.append("file", file);
-                fd.append("upload_preset", CLOUDINARY_PRESET);
+                fd.append("upload_preset", UPLOAD_PRESET);
                 try {
-                    const res = await fetch(CLOUDINARY_ENDPOINT, { method: "POST", body: fd });
-                    const result = await res.json();
-                    callback(result.secure_url);
-                    alert("Upload Success!");
+                    const res = await fetch(CLOUDINARY_API, { method: "POST", body: fd });
+                    const json = await res.json();
+                    cb(json.secure_url);
+                    alert("Media Updated!");
                 } catch (err) { alert("Upload Failed!"); }
             };
 
-            const syncData = async () => {
+            const saveToSystem = async () => {
                 try {
-                    const metaRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
-                    const metaData = await metaRes.json();
-                    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    const meta = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                    const metaJson = await meta.json();
+                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
                     await fetch('/api/update', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ content: encoded, sha: metaData.sha })
+                        body: JSON.stringify({ content: content, sha: metaJson.sha })
                     });
-                    alert("Live Site Updated!"); window.location.reload();
+                    alert("Business OS Synced Successfully!"); window.location.reload();
                 } catch (e) { alert("Sync Error!"); }
             };
 
-            if (!data) return <div className="h-screen flex items-center justify-center serif text-3xl italic animate-pulse">LUMINA LUXE...</div>;
+            if (!data) return <div className="h-screen flex items-center justify-center serif text-3xl italic animate-pulse">Initializing Lumina Luxe...</div>;
 
             return (
-                <div>
+                <div className="overflow-x-hidden">
                     {isAdmin ? (
-                        /* ================= ADMIN INTERFACE ================= */
-                        <div className="bg-[#f4f7f6] min-h-screen p-8 md:p-12 pb-40">
-                            <div className="max-w-5xl mx-auto">
-                                <header className="flex justify-between items-center mb-12">
-                                    <h1 className="serif text-4xl font-bold italic">Admin Panel</h1>
-                                    <button onClick={() => setIsAdmin(false)} className="bg-black text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Back to Website</button>
-                                </header>
-
-                                {/* Branding */}
-                                <div className="admin-card">
-                                    <h3 className="section-header">01. Branding</h3>
-                                    <label className="admin-label">Business Name</label>
-                                    <input className="admin-input-field" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                    <label className="admin-label">Logo Asset</label>
-                                    <input type="file" onChange={e => handleMediaUpload(e, (url) => setData({...data, logo: url}))} className="text-xs" />
+                        /* ================== ADMIN PAGE (EVERYTHING INCLUDED) ================== */
+                        <div className="bg-[#f8fafc] min-h-screen p-6 md:p-16 pb-48">
+                            <div className="max-w-6xl mx-auto">
+                                <div className="flex justify-between items-center mb-16 border-b pb-8">
+                                    <div>
+                                        <h1 className="serif text-5xl font-bold tracking-tighter">Business Console</h1>
+                                        <p className="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-2">Manage your luxury empire</p>
+                                    </div>
+                                    <button onClick={() => setIsAdmin(false)} className="bg-black text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl">Back to Website</button>
                                 </div>
 
-                                {/* THE EXPERIENCE (SERVICES) */}
+                                {/* 01. BRANDING & LOGO */}
                                 <div className="admin-card">
-                                    <h3 className="section-header">02. The Experience (Service Details)</h3>
+                                    <span className="section-tag">01. Identity</span>
+                                    <div className="grid md:grid-cols-2 gap-10">
+                                        <div>
+                                            <label className="admin-label">Company Name</label>
+                                            <input className="admin-input" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
+                                        </div>
+                                        <div>
+                                            <label className="admin-label">Logo Asset</label>
+                                            <input type="file" onChange={e => handleUpload(e, (url) => setData({...data, logo: url}))} className="text-xs" />
+                                            {data.logo && <img src={data.logo} className="h-12 mt-4 rounded p-1 border bg-white" />}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 02. HERO SECTION (RE-ADDED) */}
+                                <div className="admin-card">
+                                    <span className="section-tag">02. Hero Cinematic</span>
+                                    <div className="grid md:grid-cols-2 gap-10">
+                                        <div>
+                                            <label className="admin-label">Hero Title (Large)</label>
+                                            <input className="admin-input" value={data.hero.title} onChange={e => setData({...data, hero: {...data.hero, title: e.target.value}})} />
+                                            <label className="admin-label">Hero Slogan</label>
+                                            <input className="admin-input" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} />
+                                        </div>
+                                        <div>
+                                            <label className="admin-label">Background Billboard Image</label>
+                                            <input type="file" onChange={e => handleUpload(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} className="text-xs" />
+                                            {data.hero.image && <img src={data.hero.image} className="w-full h-32 object-cover mt-4 rounded-xl border" />}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 03. THE EXPERIENCE (SERVICES) */}
+                                <div className="admin-card">
+                                    <span className="section-tag">03. The Experience (Services)</span>
                                     {Object.keys(data.services).map(cat => (
-                                        <div key={cat} className="mb-10 bg-gray-50 p-6 rounded-3xl border">
-                                            <div className="flex justify-between mb-6">
-                                                <h4 className="font-bold text-gray-400 uppercase">{cat}</h4>
-                                                <button onClick={() => {let d={...data}; delete d.services[cat]; setData(d);}} className="text-red-400 text-[10px] uppercase">Delete Category</button>
+                                        <div key={cat} className="mb-12 bg-gray-50 p-8 rounded-[2rem] border border-gray-100">
+                                            <div className="flex justify-between items-center mb-8 border-b pb-4">
+                                                <h4 className="font-bold text-rose-gold uppercase tracking-widest">{cat}</h4>
+                                                <button onClick={() => {let d={...data}; delete d.services[cat]; setData(d);}} className="text-red-400 text-[10px] font-bold uppercase">Remove Category</button>
                                             </div>
-                                            {data.services[cat].map((s, si) => (
-                                                <div key={si} className="bg-white p-6 rounded-2xl border mb-4 relative">
-                                                    <div className="grid md:grid-cols-2 gap-4">
-                                                        <div><label className="admin-label">Service Name</label><input className="admin-input-field" value={s.name} onChange={e => {let d={...data}; d.services[cat][si].name=e.target.value; setData(d);}} /></div>
-                                                        <div><label className="admin-label">Price Tag</label><input className="admin-input-field" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} /></div>
+                                            <div className="grid gap-6">
+                                                {data.services[cat].map((s, si) => (
+                                                    <div key={si} className="bg-white p-8 rounded-2xl border relative shadow-sm">
+                                                        <div className="grid md:grid-cols-2 gap-6">
+                                                            <div>
+                                                                <label className="admin-label">Service Title</label>
+                                                                <input className="admin-input" value={s.name} onChange={e => {let d={...data}; d.services[cat][si].name=e.target.value; setData(d);}} />
+                                                            </div>
+                                                            <div>
+                                                                <label className="admin-label">Price Info</label>
+                                                                <input className="admin-input" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} />
+                                                            </div>
+                                                        </div>
+                                                        <label className="admin-label">Full Description</label>
+                                                        <textarea className="admin-input h-24 pt-4" value={s.desc} onChange={e => {let d={...data}; d.services[cat][si].desc=e.target.value; setData(d);}}></textarea>
+                                                        <label className="admin-label">Spotlight Image</label>
+                                                        <div className="flex items-center gap-6 mt-2">
+                                                            <input type="file" onChange={e => handleUpload(e, (url) => {let d={...data}; d.services[cat][si].img=url; setData(d);})} className="text-[10px]" />
+                                                            {s.img && <img src={s.img} className="w-16 h-16 object-cover rounded-xl border" />}
+                                                        </div>
+                                                        <button onClick={() => {let d={...data}; d.services[cat].splice(si,1); setData(d);}} className="absolute top-4 right-4 text-gray-200 hover:text-red-500">✕</button>
                                                     </div>
-                                                    <label className="admin-label">Detailed Description</label>
-                                                    <textarea className="admin-input-field h-24 pt-3" value={s.desc} onChange={e => {let d={...data}; d.services[cat][si].desc=e.target.value; setData(d);}}></textarea>
-                                                    <label className="admin-label">Spotlight Image</label>
-                                                    <div className="flex items-center gap-4 mt-2">
-                                                        <input type="file" onChange={e => handleMediaUpload(e, (url) => {let d={...data}; d.services[cat][si].img=url; setData(d);})} className="text-[10px]" />
-                                                        {s.img && <img src={s.img} className="w-12 h-12 object-cover rounded shadow" />}
-                                                    </div>
-                                                    <button onClick={() => {let d={...data}; d.services[cat].splice(si,1); setData(d);}} className="text-red-500 text-[9px] mt-4 font-bold uppercase">Remove Service</button>
-                                                </div>
-                                            ))}
-                                            <button onClick={() => {let d={...data}; d.services[cat].push({name:"", price:"", desc:"", img:""}); setData(d);}} className="w-full py-2 border-2 border-dashed border-gray-200 text-gray-400 text-xs rounded-xl">+ Add Service</button>
+                                                ))}
+                                            </div>
+                                            <button onClick={() => {let d={...data}; d.services[cat].push({name:"", price:"", desc:"", img:""}); setData(d);}} className="w-full py-4 mt-6 border-2 border-dashed border-gray-200 text-gray-400 text-[10px] font-bold rounded-2xl">+ Add New Service</button>
                                         </div>
                                     ))}
-                                    <button onClick={() => {const n=prompt("Category:"); if(n) setData({...data, services: {...data.services, [n]:[]}})}} className="btn-luxury">+ New Category</button>
+                                    <button onClick={() => {const n=prompt("Category Name:"); if(n) setData({...data, services: {...data.services, [n]:[]}})}} className="btn-action">+ New Service Category</button>
                                 </div>
 
-                                {/* PRICES SECTION (ADMIN) - ADDED AS REQUESTED */}
+                                {/* 04. PRICE LIST (ADMIN VIEW RE-ADDED) */}
                                 <div className="admin-card">
-                                    <h3 className="section-header">03. Full Price Menu Controller</h3>
-                                    <p className="text-[10px] text-gray-400 mb-6 italic">* Note: Prices here are automatically synced with the services above.</p>
-                                    <div className="space-y-4">
+                                    <span className="section-tag">04. Price Menu Control</span>
+                                    <div className="space-y-6">
                                         {Object.keys(data.services).map(cat => (
-                                            <div key={cat} className="p-4 border rounded-xl bg-gray-50">
-                                                <p className="font-bold text-xs uppercase text-rose-gold mb-4">{cat} Pricelist</p>
+                                            <div key={cat} className="p-6 border rounded-2xl">
+                                                <h5 className="font-bold mb-4 text-xs opacity-40 uppercase">{cat} Pricing</h5>
                                                 {data.services[cat].map((s, si) => (
-                                                    <div key={si} className="flex gap-4 mb-2">
-                                                        <input className="admin-input-field !py-2 flex-1" value={s.name} readOnly disabled />
-                                                        <input className="admin-input-field !py-2 w-32" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} />
+                                                    <div key={si} className="flex gap-4 mb-3 items-center">
+                                                        <div className="flex-1 font-bold text-sm">{s.name}</div>
+                                                        <input className="admin-input !py-2 !w-32" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} />
                                                     </div>
                                                 ))}
                                             </div>
@@ -220,82 +263,97 @@
                                     </div>
                                 </div>
 
-                                {/* REVIEWS SECTION */}
+                                {/* 05. ABOUT US SECTION (RE-ADDED) */}
                                 <div className="admin-card">
-                                    <h3 className="section-header">04. Client Reviews</h3>
-                                    {data.reviews.map((r, i) => (
-                                        <div key={i} className="mb-4 p-4 border rounded-xl relative">
-                                            <label className="admin-label !mt-0">Reviewer Name</label>
-                                            <input className="admin-input-field mb-2" value={r.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
-                                            <label className="admin-label">Comment</label>
-                                            <textarea className="admin-input-field h-20" value={r.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}}></textarea>
-                                            <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-500 text-[9px] mt-2 uppercase font-bold">Delete</button>
-                                        </div>
-                                    ))}
-                                    <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"", text:""}]})} className="bg-black text-white px-6 py-2 rounded text-[10px] font-bold uppercase tracking-widest">+ Add Review</button>
+                                    <span className="section-tag">05. About Sanctuary</span>
+                                    <label className="admin-label">Our Philosophy / About Text</label>
+                                    <textarea className="admin-input h-48 mb-8" value={data.about.text} onChange={e => setData({...data, about: {...data.about, text: e.target.value}})}></textarea>
+                                    <label className="admin-label">About Section Image</label>
+                                    <input type="file" onChange={e => handleUpload(e, (url) => setData({...data, about: {...data.about, image: url}}))} className="text-xs" />
+                                    {data.about.image && <img src={data.about.image} className="w-40 h-40 object-cover mt-4 rounded-3xl border" />}
                                 </div>
 
-                                {/* Publish Button */}
-                                <div className="fixed bottom-10 left-0 w-full flex justify-center px-6">
-                                    <button onClick={syncData} className="btn-luxury w-full max-w-lg py-5 text-lg font-bold tracking-[0.4em] shadow-2xl">Publish All Changes</button>
+                                {/* 06. REVIEWS & TESTIMONIALS */}
+                                <div className="admin-card">
+                                    <span className="section-tag">06. Guest Feedback</span>
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        {data.reviews.map((r, i) => (
+                                            <div key={i} className="p-6 bg-gray-50 rounded-2xl border relative">
+                                                <label className="admin-label !mt-0">Guest Name</label>
+                                                <input className="admin-input mb-4" value={r.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
+                                                <label className="admin-label">Feedback</label>
+                                                <textarea className="admin-input h-20" value={r.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}}></textarea>
+                                                <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-400 text-[9px] mt-4 font-bold uppercase">Delete Feedback</button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"", text:""}]})} className="btn-action mt-8">+ Add New Review</button>
+                                </div>
+
+                                <div className="fixed bottom-12 left-0 w-full flex justify-center px-6 z-[100]">
+                                    <button onClick={saveToSystem} className="btn-action w-full max-w-xl py-6 text-base tracking-[0.5em] shadow-2xl border-4 border-white">Deploy Live Updates</button>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        /* ================= FRONTEND INTERFACE ================= */
-                        <div className="site-wrapper">
-                            <nav className="p-6 md:px-12 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-[500] border-b">
-                                <div onClick={(e) => e.shiftKey && prompt("Authorization:") === ADMIN_CODE && setIsAdmin(true)} className="cursor-pointer">
-                                    {data.logo ? <img src={data.logo} className="h-10" /> : <h1 className="serif text-3xl font-bold uppercase">{data.brand_name}</h1>}
+                        /* ================== WEBSITE PAGE (EVERYTHING INCLUDED) ================== */
+                        <div className="site-view animate-fade">
+                            {/* NAVIGATION */}
+                            <nav className="fixed top-0 w-full z-[500] bg-white/95 backdrop-blur-xl border-b p-6 px-12 flex justify-between items-center">
+                                <div onClick={(e) => e.shiftKey && prompt("Auth:") === ADMIN_KEY && setIsAdmin(true)} className="cursor-pointer">
+                                    {data.logo ? <img src={data.logo} className="h-12" /> : <h1 className="serif text-4xl font-bold tracking-tighter uppercase">{data.brand_name}</h1>}
                                 </div>
-                                <div className="hidden md:flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">
-                                    <a href="#services">Experience</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a>
+                                <div className="hidden lg:flex space-x-12 text-[10px] font-bold uppercase tracking-[0.4em] opacity-30">
+                                    <a href="#services" className="hover:opacity-100 transition">Experience</a>
+                                    <a href="#prices" className="hover:opacity-100 transition">Prices</a>
+                                    <a href="#about" className="hover:opacity-100 transition">Sanctuary</a>
+                                    <a href="#reviews" className="hover:opacity-100 transition">Words</a>
                                 </div>
-                                <button className="btn-luxury px-10 py-3 text-[10px]">Contact</button>
+                                <button className="btn-action px-10 py-3 text-[10px]">Connect</button>
                             </nav>
 
-                            {/* Hero */}
-                            <header className="h-[90vh] relative flex items-center justify-center text-center text-white overflow-hidden">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-105" />
+                            {/* HERO Billboard */}
+                            <header className="h-screen relative flex items-center justify-center text-center overflow-hidden">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-110" />
                                 <div className="absolute inset-0 bg-black/40"></div>
-                                <div className="relative p-6">
-                                    <h1 className="serif text-7xl md:text-[9rem] italic leading-none mb-10 drop-shadow-2xl">{data.hero.title}</h1>
+                                <div className="relative text-white p-6 mt-20">
+                                    <h1 className="serif text-7xl md:text-[11rem] italic leading-none mb-10 drop-shadow-2xl">{data.hero.title}</h1>
                                     <p className="tracking-[1em] uppercase text-xs md:text-sm font-bold opacity-70">{data.hero.subtitle}</p>
                                 </div>
                             </header>
 
-                            {/* Services Section */}
-                            <section id="services" className="py-32 px-6 max-w-7xl mx-auto">
-                                <h2 className="serif text-8xl text-center mb-24 italic opacity-10">The Experience</h2>
-                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b mb-16 justify-center">
+                            {/* THE EXPERIENCE SECTION */}
+                            <section id="services" className="py-40 px-6 max-w-7xl mx-auto">
+                                <h2 className="serif text-9xl text-center mb-24 italic opacity-10">The Experience</h2>
+                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b mb-20 justify-center">
                                     {Object.keys(data.services).map(cat => (
-                                        <button key={cat} onClick={() => {setActiveCategory(cat); setSelectedService(data.services[cat][0]);}}
-                                            className={`pb-6 text-[10px] font-bold uppercase tracking-[0.4em] transition-all whitespace-nowrap ${activeCategory === cat ? 'text-rose-gold border-b-2 border-rose-gold' : 'opacity-20'}`}>
+                                        <button key={cat} onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}}
+                                            className={`pb-8 text-[11px] font-bold uppercase tracking-[0.4em] transition-all whitespace-nowrap ${activeCat === cat ? 'text-rose-gold border-b-2 border-rose-gold' : 'opacity-20'}`}>
                                             {cat}
                                         </button>
                                     ))}
                                 </div>
-                                <div className="grid lg:grid-cols-12 gap-16">
-                                    <div className="lg:col-span-4 space-y-4 max-h-[600px] overflow-y-auto no-scrollbar pr-4">
-                                        {data.services[activeCategory]?.map((s, i) => (
-                                            <div key={i} onClick={() => setSelectedService(s)} 
-                                                className={`p-8 rounded-[2.5rem] flex justify-between items-center cursor-pointer transition-all duration-500 ${selectedService?.name === s.name ? 'bg-white shadow-2xl border-l-8 border-rose-gold scale-[1.02]' : 'bg-gray-50/50 opacity-40'}`}>
-                                                <div className="flex-1 text-left">
-                                                    <h4 className="serif text-2xl font-bold uppercase tracking-tighter">{s.name}</h4>
-                                                    <p className="text-[10px] font-bold text-rose-gold mt-2 uppercase tracking-widest">{s.price}</p>
+                                <div className="grid lg:grid-cols-12 gap-20">
+                                    <div className="lg:col-span-4 space-y-6 max-h-[700px] overflow-y-auto no-scrollbar pr-4">
+                                        {data.services[activeCat]?.map((s, i) => (
+                                            <div key={i} onClick={() => setSelectedSvc(s)} 
+                                                className={`p-10 rounded-[3rem] flex justify-between items-center cursor-pointer transition-all duration-700 ${selectedSvc?.name === s.name ? 'bg-white shadow-2xl border-l-[10px] border-rose-gold scale-[1.05]' : 'bg-gray-50/50 opacity-40'}`}>
+                                                <div className="text-left">
+                                                    <h4 className="serif text-3xl font-bold uppercase tracking-tighter">{s.name}</h4>
+                                                    <p className="text-[11px] font-bold text-rose-gold mt-2 uppercase tracking-widest">{s.price}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="lg:col-span-8">
-                                        {selectedService && (
-                                            <div className="grid md:grid-cols-2 gap-12 items-center bg-white p-8 md:p-12 rounded-[4rem] shadow-sm border">
-                                                <img src={selectedService.img || 'https://via.placeholder.com/600'} className="w-full aspect-square object-cover rounded-[3rem] shadow-2xl" />
-                                                <div>
-                                                    <h3 className="serif text-5xl mb-6 italic leading-tight">{selectedService.name}</h3>
-                                                    <p className="text-3xl font-bold text-rose-gold mb-8 tracking-tighter">{selectedService.price}</p>
-                                                    <p className="text-lg serif italic opacity-50 mb-10 leading-relaxed whitespace-pre-wrap">{selectedService.desc}</p>
-                                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}`)} className="btn-luxury w-full py-6 text-[10px]">Reserve Experience</button>
+                                        {selectedSvc && (
+                                            <div className="grid md:grid-cols-2 gap-16 items-center bg-white p-10 md:p-16 rounded-[4rem] shadow-sm border border-gray-50">
+                                                <img src={selectedSvc.img || 'https://via.placeholder.com/800'} className="w-full aspect-square object-cover rounded-[3rem] shadow-2xl" />
+                                                <div className="text-left">
+                                                    <h3 className="serif text-6xl mb-8 italic leading-tight">{selectedSvc.name}</h3>
+                                                    <p className="text-4xl font-bold text-rose-gold mb-10 tracking-tighter">{selectedSvc.price}</p>
+                                                    <p className="text-xl serif italic opacity-50 mb-12 leading-relaxed whitespace-pre-wrap">{selectedSvc.desc}</p>
+                                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}`)} className="btn-action w-full py-7 text-[12px]">Request Reservation</button>
                                                 </div>
                                             </div>
                                         )}
@@ -303,21 +361,21 @@
                                 </div>
                             </section>
 
-                            {/* Full Price List */}
-                            <section id="prices" className="py-32 bg-gray-50 px-6">
-                                <div className="max-w-4xl mx-auto text-center">
-                                    <h2 className="serif text-7xl mb-24 italic opacity-10">Pricelist</h2>
+                            {/* FULL PRICE MENU */}
+                            <section id="prices" className="py-40 bg-gray-50 px-6">
+                                <div className="max-w-4xl mx-auto">
+                                    <h2 className="serif text-8xl text-center mb-24 italic">A La Carte</h2>
                                     {Object.keys(data.services).map(cat => (
-                                        <div key={cat} className="mb-20">
-                                            <h3 className="text-rose-gold uppercase text-[10px] font-bold tracking-[0.6em] mb-10 border-b pb-4">{cat}</h3>
-                                            <div className="space-y-8">
+                                        <div key={cat} className="mb-24">
+                                            <h3 className="text-rose-gold uppercase text-[12px] font-bold tracking-[0.7em] mb-12 border-b pb-6 text-center">{cat}</h3>
+                                            <div className="space-y-10">
                                                 {data.services[cat].map((s, i) => (
-                                                    <div key={i} className="flex justify-between items-end border-b border-dashed border-gray-200 pb-2 text-left">
-                                                        <div>
-                                                            <h4 className="serif text-2xl italic">{s.name}</h4>
-                                                            <p className="text-[10px] uppercase opacity-40 tracking-widest mt-2">{s.desc?.substring(0, 60)}...</p>
+                                                    <div key={i} className="flex justify-between items-end border-b border-dashed border-gray-200 pb-3 text-left">
+                                                        <div className="max-w-lg">
+                                                            <h4 className="serif text-3xl italic">{s.name}</h4>
+                                                            <p className="text-[10px] uppercase opacity-30 tracking-widest mt-2">{s.desc?.substring(0, 100)}...</p>
                                                         </div>
-                                                        <span className="font-bold text-xl text-rose-gold">{s.price}</span>
+                                                        <span className="font-bold text-2xl text-rose-gold whitespace-nowrap ml-10">{s.price}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -326,41 +384,67 @@
                                 </div>
                             </section>
 
-                            {/* Reviews */}
-                            <section id="reviews" className="py-32 bg-white px-6">
+                            {/* ABOUT SANCTUARY SECTION (RE-ADDED) */}
+                            <section id="about" className="py-48 bg-[#0A0202] text-white px-6">
+                                <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
+                                    <div className="text-left">
+                                        <h2 className="serif text-9xl mb-16 italic leading-none">Our Sanctuary</h2>
+                                        <p className="serif text-3xl opacity-40 italic leading-relaxed whitespace-pre-wrap mb-16">{data.about.text}</p>
+                                        <div className="flex gap-20">
+                                            <div><h5 className="text-5xl serif italic text-rose-gold">15+</h5><p className="text-[10px] uppercase tracking-widest opacity-40 mt-2">Specialists</p></div>
+                                            <div><h5 className="text-5xl serif italic text-rose-gold">9k+</h5><p className="text-[10px] uppercase tracking-widest opacity-40 mt-2">Rituals Done</p></div>
+                                        </div>
+                                    </div>
+                                    <img src={data.about.image} className="rounded-[5rem] w-full aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000" />
+                                </div>
+                            </section>
+
+                            {/* REVIEWS SECTION */}
+                            <section id="reviews" className="py-40 bg-white px-6">
                                 <div className="max-w-7xl mx-auto">
-                                    <h2 className="serif text-8xl text-center mb-24 italic opacity-10">Testimonials</h2>
-                                    <div className="grid md:grid-cols-3 gap-10">
+                                    <h2 className="serif text-9xl text-center mb-32 italic opacity-10">Guest Kind Words</h2>
+                                    <div className="grid md:grid-cols-3 gap-12">
                                         {data.reviews.map((r, i) => (
-                                            <div key={i} className="p-12 bg-gray-50 rounded-[4rem] italic group hover:bg-rose-gold hover:text-white transition-all duration-700 text-left">
-                                                <div className="text-rose-gold group-hover:text-white text-5xl mb-8">“</div>
-                                                <p className="serif text-2xl opacity-70 group-hover:opacity-100 mb-10 leading-relaxed">“{r.text}”</p>
-                                                <h5 className="uppercase text-[10px] font-bold tracking-[0.4em] opacity-50 group-hover:opacity-100">— {r.name}</h5>
+                                            <div key={i} className="p-16 bg-gray-50 rounded-[4rem] italic group hover:bg-rose-gold hover:text-white transition-all duration-700 text-left">
+                                                <div className="text-rose-gold group-hover:text-white text-6xl mb-10">“</div>
+                                                <p className="serif text-3xl opacity-70 group-hover:opacity-100 mb-12 leading-relaxed">“{r.text}”</p>
+                                                <h5 className="uppercase text-[11px] font-bold tracking-[0.5em] opacity-40 group-hover:opacity-100">— {r.name}</h5>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </section>
 
-                            {/* Footer */}
-                            <footer className="bg-white pt-32 pb-16 px-10 border-t">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20 border-b pb-24 mb-16">
-                                    <div className="col-span-2 text-left">
-                                        <h4 className="serif text-7xl text-rose-gold italic font-bold mb-8 uppercase tracking-tighter">{data.brand_name}</h4>
-                                        <p className="text-xl serif italic opacity-30 max-w-sm">{data.footer.address}</p>
+                            {/* GALLERY */}
+                            <section id="gallery" className="py-40 px-6">
+                                <div className="masonry">
+                                    {data.gallery.map((img, i) => (
+                                        <div key={i} className="mb-6 rounded-[3rem] overflow-hidden border-[15px] border-white shadow-2xl">
+                                            <img src={img} className="w-full hover:scale-110 transition duration-1000" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* FOOTER */}
+                            <footer className="bg-white pt-40 pb-20 px-10 border-t border-gray-100">
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-24 border-b pb-32 mb-20 text-left">
+                                    <div className="col-span-2">
+                                        <h4 className="serif text-8xl text-rose-gold italic font-bold mb-10 uppercase tracking-tighter">{data.brand_name}</h4>
+                                        <p className="text-2xl serif italic opacity-30 max-w-md leading-relaxed">{data.footer.address}</p>
                                     </div>
-                                    <div className="text-left">
-                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-10 tracking-widest">Timing</h5>
-                                        <p className="serif text-2xl italic">{data.footer.hours}</p>
+                                    <div>
+                                        <h5 className="text-rose-gold uppercase text-[11px] font-bold mb-12 tracking-widest opacity-50">Hours</h5>
+                                        <p className="serif text-3xl italic leading-loose">{data.footer.hours}</p>
                                     </div>
-                                    <div className="text-left">
-                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-10 tracking-widest">WhatsApp</h5>
-                                        <p className="serif text-2xl italic underline">{data.footer.whatsapp}</p>
+                                    <div>
+                                        <h5 className="text-rose-gold uppercase text-[11px] font-bold mb-12 tracking-widest opacity-50">Connect</h5>
+                                        <p className="serif text-3xl italic underline decoration-rose-gold/30">{data.footer.whatsapp}</p>
                                     </div>
                                 </div>
-                                <div className="flex justify-between items-center opacity-20 text-[9px] uppercase tracking-[0.5em]">
+                                <div className="flex justify-between items-center opacity-20 text-[10px] uppercase tracking-[0.6em]">
                                     <p>{data.footer.copyright}</p>
-                                    <p>Nixi Business OS v5.0</p>
+                                    <p>Nixi Global Business OS v6.0</p>
                                 </div>
                             </footer>
                         </div>
