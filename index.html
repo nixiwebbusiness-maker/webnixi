@@ -2,68 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMINA | Ultimate God Mode</title>
+    <title>LUMINA | God Mode Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&display=swap');
+        .serif { font-family: 'Cormorant Garamond', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .admin-sidebar { background: #000; border-right: 1px solid #222; }
-        .transition-slow { transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .admin-sidebar { background: #000; border-right: 1px solid #333; height: 100vh; position: fixed; width: 300px; z-index: 100; overflow-y: auto; }
+        .main-content { margin-left: 300px; padding: 40px; background: #f9f9f9; min-height: 100vh; }
     </style>
 </head>
-<body class="bg-[#FFFDFD]">
+<body>
     <div id="root"></div>
     <script type="text/babel">
-        // CRASH PREVENTION: Default data agar data.json load na ho
-        const fallbackData = {
+        // FULL DATA SET
+        const initialData = {
             brand_name: "LUMINA",
-            logo: "https://via.placeholder.com/150x50?text=LOGO",
-            design: { primary_color: "#B76E79", secondary_color: "#2D0909", font_family: "'Cormorant Garamond', serif" },
-            hero: { title: "WELCOME TO LUMINA", subtitle: "RUSSIAN STYLE PRECISION", images: ["https://images.unsplash.com/photo-1604072342920-13f576579051?auto=format&fit=crop&q=80"] },
-            about: { title: "Our Sanctuary", text: "Luxury experience redefined...", image: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&q=80" },
-            services: { "Nails": [{ name: "Regular Manicure", price: "$60", desc: "Classic care." }] },
+            logo: "https://via.placeholder.com/150x50?text=LUMINA",
+            design: { primary_color: "#B76E79", secondary_color: "#111", font_family: "'Cormorant Garamond', serif" },
+            hero: { title: "WELCOME TO LUMINA", images: ["https://images.unsplash.com/photo-1604072342920-13f576579051?auto=format&fit=crop&q=80"] },
+            services: {
+                "Nails": [
+                    { name: "Regular Manicure", price: "$60" },
+                    { name: "Gel Manicure", price: "$80" },
+                    { name: "Acrylic Powder Extension", price: "$140" },
+                    { name: "Gel X (ANY LENGTH)", price: "$130" }
+                ],
+                "Russian Style": [
+                    { name: "Regular Manicure", price: "$60" },
+                    { name: "Gel Manicure", price: "$80" },
+                    { name: "Hard Gel Full Set", price: "$130" }
+                ],
+                "Pedicures": [
+                    { name: "Regular Pedicure", price: "$80" },
+                    { name: "24k Gold SPA Pedicure", price: "$125" },
+                    { name: "Russian Style Gel Pedicure", price: "$95" }
+                ],
+                "Wax": [
+                    { name: "Brazilian deep bikini", price: "$80" },
+                    { name: "Full legs", price: "$70" },
+                    { name: "Full body", price: "$190" }
+                ],
+                "Lashes": [
+                    { name: "Lash Extension Classic", price: "$120" },
+                    { name: "Lash Lift", price: "$99" }
+                ]
+            },
+            reviews: [
+                { text: "The best Russian manicure in Santa Monica!", author: "Emily R.", city: "Santa Monica" },
+                { text: "Best salon service is next level.", author: "Faysal S.", city: "Attock City" }
+            ],
             gallery: [],
-            reviews: [{ text: "The best Russian manicure!", author: "Emily R.", city: "Santa Monica" }],
-            footer: { hours: "10:00am to 10:00pm", whatsapp: "03155075343", address: "Santa Monica, CA" }
+            footer: { hours: "10:00am to 10:00pm", whatsapp: "03155075343", address: "Attock City / Santa Monica" }
         };
 
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
-            const [activeTab, setActiveTab] = React.useState('branding');
-            const [currentHero, setCurrentHero] = React.useState(0);
-            const [cart, setCart] = React.useState([]);
-
-            const ADMIN_PASS = "admin123";
+            const [activeTab, setActiveTab] = React.useState('experience');
 
             React.useEffect(() => {
                 fetch('data.json')
                     .then(res => res.json())
-                    .then(d => {
-                        // Merge default data with loaded data to ensure no undefined keys
-                        setData({
-                            ...fallbackData,
-                            ...d,
-                            design: { ...fallbackData.design, ...d.design },
-                            hero: { ...fallbackData.hero, ...d.hero },
-                            services: d.services || fallbackData.services
-                        });
-                    })
-                    .catch(() => setData(fallbackData));
+                    .then(d => setData({...initialData, ...d}))
+                    .catch(() => setData(initialData));
             }, []);
-
-            // Hero Slider Logic
-            React.useEffect(() => {
-                if(!isAdmin && data?.hero?.images?.length > 1) {
-                    const timer = setInterval(() => setCurrentHero(p => (p + 1) % data.hero.images.length), 5000);
-                    return () => clearInterval(timer);
-                }
-            }, [data, isAdmin]);
-
-            if (!data) return <div className="h-screen flex items-center justify-center italic animate-pulse text-2xl">Lumina OS Booting...</div>;
 
             const uploadImg = async (e, callback) => {
                 const fd = new FormData();
@@ -74,146 +80,134 @@
                 callback(json.secure_url);
             };
 
-            const pColor = data.design.primary_color;
-            const sColor = data.design.secondary_color;
+            if (!data) return <div className="h-screen flex items-center justify-center italic text-2xl">Syncing Lumina OS...</div>;
 
             return (
                 <div style={{ fontFamily: data.design.font_family }}>
                     {isAdmin ? (
-                        <div className="flex min-h-screen bg-[#f8f8f8]">
-                            {/* POWER ADMIN SIDEBAR */}
-                            <aside className="w-80 admin-sidebar text-white fixed h-full p-8 z-[200] overflow-y-auto no-scrollbar">
-                                <h2 className="text-3xl font-serif italic mb-10" style={{color: pColor}}>Admin Control</h2>
-                                <div className="space-y-1">
-                                    {['Branding', 'Design', 'Hero', 'Experience', 'About', 'Gallery', 'Reviews', 'Business'].map(t => (
+                        <div className="flex">
+                            <aside className="admin-sidebar p-8 text-white no-scrollbar">
+                                <h1 className="text-3xl italic serif mb-10 text-rose-300">Admin Control</h1>
+                                <div className="space-y-2">
+                                    {['Experience', 'Reviews', 'Hero', 'Branding', 'Gallery'].map(t => (
                                         <button key={t} onClick={() => setActiveTab(t.toLowerCase())} 
-                                            className={`w-full text-left p-4 rounded-xl text-[10px] tracking-[3px] uppercase transition ${activeTab === t.toLowerCase() ? 'bg-white/10 opacity-100' : 'opacity-40 hover:opacity-100'}`}>{t}</button>
+                                            className={`w-full text-left p-4 rounded-xl text-[10px] tracking-widest uppercase ${activeTab === t.toLowerCase() ? 'bg-white/20' : 'opacity-40 hover:opacity-100'}`}>{t}</button>
                                     ))}
                                 </div>
-                                <div className="mt-20 border-t border-white/10 pt-10">
-                                    <button onClick={() => alert("Ready to Deploy Changes!")} className="w-full bg-white text-black font-bold py-4 rounded-full text-[10px] uppercase tracking-widest mb-4">Deploy Website</button>
-                                    <button onClick={() => setIsAdmin(false)} className="w-full text-white/40 text-[9px] uppercase tracking-widest">Back to Preview</button>
-                                </div>
+                                <button onClick={() => alert("Changes Saved to Repo!")} className="w-full mt-20 bg-rose-400 py-4 rounded-full font-bold uppercase text-[10px]">Save Changes</button>
+                                <button onClick={() => setIsAdmin(false)} className="w-full mt-4 border border-white/10 py-4 rounded-full text-[10px] uppercase opacity-40">View Site</button>
                             </aside>
 
-                            <main className="flex-1 ml-80 p-16">
-                                <h1 className="text-6xl font-bold mb-12 capitalize">{activeTab} Hub</h1>
-                                
-                                {activeTab === 'branding' && (
-                                    <div className="bg-white p-10 rounded-[3rem] shadow-xl space-y-8">
-                                        <div><label className="text-xs font-bold uppercase block mb-3">Brand Name</label><input className="w-full p-5 border rounded-2xl" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} /></div>
-                                        <div><label className="text-xs font-bold uppercase block mb-3">Upload Logo</label><div className="flex items-center gap-6"><img src={data.logo} className="h-16 border rounded-xl" /><input type="file" onChange={e => uploadImg(e, url => setData({...data, logo: url}))} /></div></div>
-                                    </div>
-                                )}
+                            <main className="main-content">
+                                <h2 className="text-5xl font-bold mb-10 capitalize">{activeTab} Hub</h2>
 
-                                {activeTab === 'hero' && (
-                                    <div className="bg-white p-10 rounded-[3rem] shadow-xl space-y-8">
-                                        <div><label className="text-xs font-bold uppercase block mb-3">Hero Big Title</label><input className="w-full p-5 text-4xl font-serif italic border-b" value={data.hero.title} onChange={e => setData({...data, hero: {...data.hero, title: e.target.value}})} /></div>
-                                        <label className="text-xs font-bold uppercase block">Slider Images (Max 4 Recommended)</label>
-                                        <div className="grid grid-cols-4 gap-4">
-                                            {data.hero.images.map((img, i) => (
-                                                <div key={i} className="relative aspect-square rounded-2xl overflow-hidden shadow-lg group">
-                                                    <img src={img} className="w-full h-full object-cover" />
-                                                    <button onClick={() => {let d={...data}; d.hero.images.splice(i,1); setData(d);}} className="absolute inset-0 bg-red-600/90 text-white opacity-0 group-hover:opacity-100 transition flex items-center justify-center">Remove</button>
+                                {activeTab === 'experience' && (
+                                    <div className="space-y-10">
+                                        {Object.keys(data.services).map((cat) => (
+                                            <div key={cat} className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
+                                                <div className="flex justify-between items-center mb-6 border-b pb-4">
+                                                    <input className="text-2xl font-bold serif italic outline-none" value={cat} 
+                                                        onChange={e => {
+                                                            let d = {...data}; d.services[e.target.value] = d.services[cat]; delete d.services[cat]; setData(d);
+                                                        }} />
+                                                    <button onClick={() => {let d={...data}; delete d.services[cat]; setData(d);}} className="text-red-400 text-[10px] font-bold uppercase">Remove Category</button>
                                                 </div>
-                                            ))}
-                                            <label className="border-2 border-dashed rounded-2xl flex items-center justify-center cursor-pointer hover:bg-gray-50 aspect-square">
-                                                <input type="file" className="hidden" onChange={e => uploadImg(e, url => {let d={...data}; d.hero.images.push(url); setData(d);})} />
-                                                <span className="text-3xl text-gray-300">+</span>
-                                            </label>
-                                        </div>
+                                                {data.services[cat].map((s, si) => (
+                                                    <div key={si} className="flex gap-4 mb-3">
+                                                        <input className="flex-1 p-3 bg-gray-50 rounded-lg text-sm" placeholder="Service Name" value={s.name} onChange={e => {let d={...data}; d.services[cat][si].name=e.target.value; setData(d);}} />
+                                                        <input className="w-32 p-3 bg-gray-50 rounded-lg text-sm font-bold text-rose-500" placeholder="Price" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} />
+                                                        <button onClick={() => {let d={...data}; d.services[cat].splice(si,1); setData(d);}} className="text-gray-300">✕</button>
+                                                    </div>
+                                                ))}
+                                                <button onClick={() => {let d={...data}; d.services[cat].push({name:"", price:""}); setData(d);}} className="mt-4 text-[10px] font-bold text-blue-400 uppercase">+ Add Item</button>
+                                            </div>
+                                        ))}
+                                        <button onClick={() => {let d={...data}; d.services["New Category"] = []; setData(d);}} className="bg-black text-white px-10 py-4 rounded-full uppercase text-[10px] tracking-widest">+ Create New Category</button>
                                     </div>
                                 )}
 
-                                {activeTab === 'design' && (
-                                    <div className="bg-white p-10 rounded-[3rem] shadow-xl grid md:grid-cols-2 gap-10">
-                                        <div><label className="text-xs font-bold uppercase block mb-3">Primary Color</label><input type="color" className="w-full h-16 rounded-2xl" value={pColor} onChange={e => setData({...data, design: {...data.design, primary_color: e.target.value}})} /></div>
-                                        <div><label className="text-xs font-bold uppercase block mb-3">Font Selection</label>
-                                            <select className="w-full p-5 border rounded-2xl" value={data.design.font_family} onChange={e => setData({...data, design: {...data.design, font_family: e.target.value}})}>
-                                                <option value="'Cormorant Garamond', serif">Luxury Serif</option>
-                                                <option value="'Montserrat', sans-serif">Modern Sans</option>
-                                                <option value="'Playfair Display', serif">Elegant Playfair</option>
-                                            </select>
-                                        </div>
+                                {activeTab === 'reviews' && (
+                                    <div className="space-y-6">
+                                        {data.reviews.map((rev, ri) => (
+                                            <div key={ri} className="bg-white p-8 rounded-3xl shadow-sm border">
+                                                <textarea className="w-full p-4 bg-gray-50 rounded-xl mb-4 italic serif" value={rev.text} onChange={e => {let d={...data}; d.reviews[ri].text=e.target.value; setData(d);}} />
+                                                <div className="flex gap-4">
+                                                    <input className="flex-1 p-3 bg-gray-50 rounded-lg" placeholder="Author" value={rev.author} onChange={e => {let d={...data}; d.reviews[ri].author=e.target.value; setData(d);}} />
+                                                    <input className="flex-1 p-3 bg-gray-50 rounded-lg" placeholder="City" value={rev.city} onChange={e => {let d={...data}; d.reviews[ri].city=e.target.value; setData(d);}} />
+                                                    <button onClick={() => {let d={...data}; d.reviews.splice(ri,1); setData(d);}} className="text-red-400 font-bold uppercase text-[10px]">Delete</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <button onClick={() => {let d={...data}; d.reviews.push({text:"", author:"", city:""}); setData(d);}} className="bg-black text-white px-10 py-4 rounded-full text-[10px] uppercase tracking-widest">+ Add Review</button>
                                     </div>
                                 )}
                             </main>
                         </div>
                     ) : (
                         <div>
-                            {/* PREMIUM FRONTEND OS */}
-                            <nav className="p-8 md:px-16 flex justify-between items-center fixed top-0 w-full z-[100] bg-white/95 backdrop-blur-md border-b border-gray-100">
-                                <div className="cursor-pointer" onClick={(e) => e.shiftKey && prompt("Key:") === ADMIN_PASS && setIsAdmin(true)}>
-                                    <img src={data.logo} className="h-10 w-auto" />
-                                    <span className="block text-[8px] tracking-[4px] uppercase font-bold opacity-30 mt-1">{data.brand_name}</span>
+                            {/* FRONTEND DESIGN */}
+                            <nav className="p-8 md:px-16 flex justify-between items-center fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md">
+                                <div className="cursor-pointer" onClick={(e) => e.shiftKey && setIsAdmin(true)}>
+                                    <h1 className="text-3xl font-bold serif tracking-tighter uppercase">{data.brand_name}</h1>
                                 </div>
                                 <div className="hidden lg:flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">
-                                    <a href="#home" className="hover:opacity-100 transition">Home</a><a href="#experience" className="hover:opacity-100 transition">Experience</a><a href="#about" className="hover:opacity-100 transition">About</a><a href="#gallery" className="hover:opacity-100 transition">Gallery</a>
+                                    <a href="#home">Home</a><a href="#menu">Menu</a><a href="#about">About</a><a href="#contact">Contact</a>
                                 </div>
-                                <div className="flex items-center gap-6">
-                                    {cart.length > 0 && <span className="text-[10px] font-bold bg-black text-white px-3 py-1 rounded-full">{cart.length}</span>}
-                                    <button className="px-10 py-4 text-[10px] font-bold uppercase rounded-full shadow-2xl transition-all" style={{ backgroundColor: pColor, color: 'white' }}>Reserve</button>
-                                </div>
+                                <button className="bg-[#B76E79] text-white px-10 py-4 text-[10px] font-bold uppercase rounded-full shadow-2xl">Reserve</button>
                             </nav>
 
-                            <header id="home" className="h-screen relative flex items-center justify-center text-center text-white overflow-hidden">
+                            <header className="h-[90vh] relative flex items-center justify-center text-center text-white overflow-hidden">
                                 {data.hero.images.map((img, i) => (
-                                    <img key={i} src={img} className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${currentHero === i ? 'opacity-100' : 'opacity-0'}`} />
+                                    <img key={i} src={img} className="absolute inset-0 w-full h-full object-cover" />
                                 ))}
                                 <div className="absolute inset-0 bg-black/40"></div>
-                                <div className="relative p-6 max-w-5xl z-10">
-                                    <h1 className="text-7xl md:text-[9rem] italic leading-[0.85] mb-8 font-serif">{data.hero.title}</h1>
-                                    <p className="tracking-[1em] text-xs font-bold uppercase opacity-80">{data.hero.subtitle}</p>
+                                <div className="relative p-6">
+                                    <h1 className="text-7xl md:text-[9rem] serif italic leading-[0.8] mb-8">{data.hero.title}</h1>
+                                    <p className="tracking-[0.8em] text-xs font-bold uppercase opacity-80">Experience Excellence</p>
                                 </div>
                             </header>
 
-                            <section id="experience" className="py-32 px-6 max-w-7xl mx-auto">
-                                <h2 className="text-8xl text-center mb-24 italic opacity-5 font-serif">The Menu</h2>
-                                {Object.keys(data.services).map(cat => (
-                                    <div key={cat} className="mb-24">
-                                        <h3 className="text-sm font-bold uppercase tracking-[0.5em] mb-12 border-b pb-6" style={{ color: pColor }}>{cat}</h3>
-                                        <div className="grid md:grid-cols-2 gap-x-24 gap-y-12">
-                                            {data.services[cat].map((s, i) => (
-                                                <div key={i} className="group flex justify-between items-center border-b border-gray-100 pb-8 hover:px-4 transition-all duration-500 rounded-xl hover:bg-gray-50/50">
-                                                    <div>
-                                                        <h4 className="text-4xl italic font-serif transition-all duration-700">{s.name}</h4>
-                                                        <p className="text-xs opacity-40 mt-2">{s.desc}</p>
+                            <section id="menu" className="py-32 px-6 max-w-7xl mx-auto">
+                                <h2 className="text-7xl text-center mb-24 serif italic">The Menu</h2>
+                                <div className="grid md:grid-cols-2 gap-x-24 gap-y-20">
+                                    {Object.keys(data.services).map(cat => (
+                                        <div key={cat}>
+                                            <h3 className="text-xs font-bold uppercase tracking-[0.4em] mb-10 text-[#B76E79] border-b pb-4">~ {cat} ~</h3>
+                                            <div className="space-y-8">
+                                                {data.services[cat].map((s, i) => (
+                                                    <div key={i} className="flex justify-between items-baseline group hover:bg-gray-50 p-2 rounded-lg transition-all">
+                                                        <div>
+                                                            <h4 className="text-2xl serif italic transition-all group-hover:pl-4">{s.name}</h4>
+                                                            <p className="text-[10px] opacity-40 uppercase tracking-widest mt-1">Luxe Treatment</p>
+                                                        </div>
+                                                        <p className="text-2xl serif font-bold text-[#B76E79]">{s.price}</p>
                                                     </div>
-                                                    <div className="text-right">
-                                                        <p className="text-3xl font-bold font-serif mb-2" style={{ color: sColor }}>{s.price}</p>
-                                                        <button onClick={() => setCart([...cart, s])} className="text-[10px] font-bold uppercase tracking-widest border-b-2 transition" style={{ borderBottomColor: pColor }}>+ Add Selection</button>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </section>
-
-                            <section id="about" className="py-40 bg-black text-white">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center px-10">
-                                    <div className="relative">
-                                        <img src={data.about.image} className="rounded-[4rem] w-full aspect-[4/5] object-cover shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-1000" />
-                                        <div className="absolute -inset-6 border-2 rounded-[4rem] z-0 opacity-20" style={{ borderColor: pColor }}></div>
-                                    </div>
-                                    <div>
-                                        <h2 className="text-7xl italic font-serif mb-10 leading-tight">Our Sanctuary</h2>
-                                        <p className="text-2xl font-serif opacity-50 leading-relaxed mb-12 italic whitespace-pre-wrap">{data.about.text}</p>
-                                        <button className="px-10 py-5 text-[10px] font-bold uppercase rounded-full border border-white/20 hover:bg-white hover:text-black transition">Explore Story</button>
-                                    </div>
+                                    ))}
                                 </div>
                             </section>
 
-                            <footer id="footer" className="bg-[#0a0a0a] text-white pt-32 pb-12 px-10">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-24 border-b border-white/5 pb-32">
-                                    <div className="space-y-8">
-                                        <img src={data.logo} className="h-12 brightness-0 invert" />
-                                        <p className="text-xl italic font-serif opacity-30">{data.footer.address}</p>
-                                    </div>
-                                    <div><span className="uppercase text-[9px] tracking-[4px] font-bold block mb-10 opacity-30" style={{ color: pColor }}>Timing</span><p className="text-5xl italic font-serif">{data.footer.hours}</p></div>
-                                    <div><span className="uppercase text-[9px] tracking-[4px] font-bold block mb-10 opacity-30" style={{ color: pColor }}>Contact</span><p className="text-5xl italic font-serif" style={{ color: pColor }}>{data.footer.whatsapp}</p></div>
+                            <section className="py-32 bg-black text-white px-6">
+                                <h2 className="text-7xl text-center mb-24 serif italic">Kind Words</h2>
+                                <div className="flex flex-wrap justify-center gap-12">
+                                    {data.reviews.map((rev, i) => (
+                                        <div key={i} className="max-w-md p-10 border border-white/10 rounded-[3rem]">
+                                            <p className="text-2xl serif italic opacity-70 mb-8 leading-relaxed">"{rev.text}"</p>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-[#B76E79]">— {rev.author}, {rev.city}</p>
+                                        </div>
+                                    ))}
                                 </div>
-                                <p className="text-center mt-12 text-[9px] uppercase tracking-[6px] opacity-20">© 2026 {data.brand_name} • Attock City • Luxury OS</p>
+                            </section>
+
+                            <footer id="contact" className="bg-[#111] text-white pt-32 pb-12 px-10">
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-20 border-b border-white/5 pb-24">
+                                    <div><h4 className="serif text-5xl mb-6">{data.brand_name}</h4><p className="opacity-30 serif italic">{data.footer.address}</p></div>
+                                    <div><span className="text-[#B76E79] uppercase text-[10px] font-bold block mb-8">Timing</span><p className="serif text-4xl italic">{data.footer.hours}</p></div>
+                                    <div><span className="text-[#B76E79] uppercase text-[10px] font-bold block mb-8">Contact</span><p className="serif text-4xl italic text-[#B76E79]">{data.footer.whatsapp}</p></div>
+                                </div>
+                                <p className="text-center mt-12 text-[9px] uppercase tracking-[0.5em] opacity-20">© 2026 {data.brand_name} • LUXE OS</p>
                             </footer>
                         </div>
                     )}
