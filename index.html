@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Luxe | Business Management System</title>
+    <title>Lumina Luxe | Full Business Operating System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        /* CSS SECTIONS - EXPANDED FOR BETTER UI */
+        /* CSS SECTIONS - FULLY EXPANDED */
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,500&family=Montserrat:wght@100;200;400;600&display=swap');
         
         :root {
             --rose-gold: #B76E79;
             --mahogany: #4A0E0E;
             --cream: #FFFDFD;
-            --slate: #2C3E50;
         }
 
         body {
@@ -24,27 +23,11 @@
             background-color: var(--cream);
             color: var(--mahogany);
             scroll-behavior: smooth;
-            margin: 0;
-            padding: 0;
         }
 
-        .serif {
-            font-family: 'Cormorant Garamond', serif;
-        }
+        .serif { font-family: 'Cormorant Garamond', serif; }
 
         /* Admin UI Components */
-        .admin-wrapper {
-            background-color: #f4f7f6;
-            min-height: 100vh;
-            padding-bottom: 100px;
-        }
-
-        .admin-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
         .admin-card {
             background: #ffffff;
             border-radius: 25px;
@@ -65,10 +48,6 @@
             padding-bottom: 10px;
         }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
-
         .admin-label {
             display: block;
             font-size: 11px;
@@ -76,6 +55,7 @@
             color: #7f8c8d;
             text-transform: uppercase;
             margin-bottom: 8px;
+            margin-top: 15px;
         }
 
         .admin-input-field {
@@ -87,23 +67,21 @@
             color: #2d3748;
             background: #fdfdfd;
             outline: none;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
 
         .admin-input-field:focus {
             border-color: var(--rose-gold);
             background: white;
-            box-shadow: 0 0 0 4px rgba(183, 110, 121, 0.1);
         }
 
-        /* Buttons */
         .btn-luxury {
             background: linear-gradient(135deg, #B76E79 0%, #8E5A63 100%);
             color: white;
             padding: 12px 30px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
@@ -111,333 +89,188 @@
             border: none;
         }
 
-        .btn-luxury:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(183, 110, 121, 0.3);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        /**
-         * LUMINA LUXE - FULL BUSINESS OPERATING SYSTEM
-         * COMPONENT: APP
-         */
         function App() {
-            // STATE MANAGEMENT
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
             const [activeCategory, setActiveCategory] = React.useState('');
             const [selectedService, setSelectedService] = React.useState(null);
-            const [cart, setCart] = React.useState([]);
 
-            // CONSTANTS
             const ADMIN_CODE = "admin123";
             const CLOUDINARY_ENDPOINT = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
             const CLOUDINARY_PRESET = "faysal";
 
-            // INITIAL DATA FETCH
             React.useEffect(() => {
                 fetch('data.json')
-                    .then(response => response.json())
+                    .then(res => res.json())
                     .then(json => {
-                        // Ensuring essential structures exist
                         if (!json.reviews) json.reviews = [];
-                        if (!json.services) json.services = {};
-                        
                         setData(json);
-                        
-                        const categories = Object.keys(json.services);
-                        if(categories.length > 0) {
-                            setActiveCategory(categories[0]);
-                            setSelectedService(json.services[categories[0]][0]);
+                        const cats = Object.keys(json.services || {});
+                        if(cats.length > 0) {
+                            setActiveCategory(cats[0]);
+                            setSelectedService(json.services[cats[0]][0]);
                         }
-                    })
-                    .catch(error => console.error("Critical Error: Data not found", error));
+                    });
             }, []);
 
-            // MEDIA UPLOAD LOGIC
-            const handleMediaUpload = async (event, callbackFunction) => {
-                const selectedFile = event.target.files[0];
-                if (!selectedFile) return;
-
-                const payload = new FormData();
-                payload.append("file", selectedFile);
-                payload.append("upload_preset", CLOUDINARY_PRESET);
-
+            const handleMediaUpload = async (e, callback) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const fd = new FormData();
+                fd.append("file", file);
+                fd.append("upload_preset", CLOUDINARY_PRESET);
                 try {
-                    const response = await fetch(CLOUDINARY_ENDPOINT, {
-                        method: "POST",
-                        body: payload
-                    });
-                    const result = await response.json();
-                    callbackFunction(result.secure_url);
-                    alert("Media Asset Uploaded Successfully!");
-                } catch (err) {
-                    alert("Upload Failed. Please verify Cloudinary credentials.");
-                }
+                    const res = await fetch(CLOUDINARY_ENDPOINT, { method: "POST", body: fd });
+                    const result = await res.json();
+                    callback(result.secure_url);
+                    alert("Upload Success!");
+                } catch (err) { alert("Upload Failed!"); }
             };
 
-            // PERSISTENCE LOGIC
-            const syncDataWithGithub = async () => {
+            const syncData = async () => {
                 try {
                     const metaRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
                     const metaData = await metaRes.json();
-                    
-                    const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-                    
-                    const syncResponse = await fetch('/api/update', {
+                    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    await fetch('/api/update', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            content: encodedContent,
-                            sha: metaData.sha
-                        })
+                        body: JSON.stringify({ content: encoded, sha: metaData.sha })
                     });
-
-                    if (syncResponse.ok) {
-                        alert("Business System Synchronized!");
-                        window.location.reload();
-                    }
-                } catch (syncError) {
-                    alert("Synchronization Error. Check API status.");
-                }
+                    alert("Live Site Updated!"); window.location.reload();
+                } catch (e) { alert("Sync Error!"); }
             };
 
-            if (!data) {
-                return (
-                    <div className="h-screen flex flex-col items-center justify-center">
-                        <div className="serif text-4xl italic animate-pulse mb-4 tracking-tighter">Lumina Luxe</div>
-                        <div className="text-[10px] uppercase tracking-[0.5em] opacity-30">Booting Business OS...</div>
-                    </div>
-                );
-            }
+            if (!data) return <div className="h-screen flex items-center justify-center serif text-3xl italic animate-pulse">LUMINA LUXE...</div>;
 
             return (
-                <div className="main-viewport">
+                <div>
                     {isAdmin ? (
-                        /* ==========================================================
-                           ADMIN PORTAL SECTION
-                           ========================================================== */
-                        <div className="admin-wrapper">
-                            <div className="admin-container">
-                                <div className="flex justify-between items-center mb-12">
-                                    <h1 className="serif text-5xl font-bold tracking-tighter italic">Admin Portal</h1>
-                                    <button onClick={() => setIsAdmin(false)} className="bg-mahogany text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Preview Mode</button>
+                        /* ================= ADMIN INTERFACE ================= */
+                        <div className="bg-[#f4f7f6] min-h-screen p-8 md:p-12 pb-40">
+                            <div className="max-w-5xl mx-auto">
+                                <header className="flex justify-between items-center mb-12">
+                                    <h1 className="serif text-4xl font-bold italic">Admin Panel</h1>
+                                    <button onClick={() => setIsAdmin(false)} className="bg-black text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Back to Website</button>
+                                </header>
+
+                                {/* Branding */}
+                                <div className="admin-card">
+                                    <h3 className="section-header">01. Branding</h3>
+                                    <label className="admin-label">Business Name</label>
+                                    <input className="admin-input-field" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
+                                    <label className="admin-label">Logo Asset</label>
+                                    <input type="file" onChange={e => handleMediaUpload(e, (url) => setData({...data, logo: url}))} className="text-xs" />
                                 </div>
 
-                                {/* SECTION 1: CORE BRANDING */}
+                                {/* THE EXPERIENCE (SERVICES) */}
                                 <div className="admin-card">
-                                    <h3 className="section-header">01. Core Branding</h3>
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        <div className="input-group">
-                                            <label className="admin-label">Business Name</label>
-                                            <input className="admin-input-field" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                        </div>
-                                        <div className="input-group">
-                                            <label className="admin-label">Logo Brand Mark</label>
-                                            <input type="file" onChange={e => handleMediaUpload(e, (url) => setData({...data, logo: url}))} className="text-xs mb-2 block" />
-                                            {data.logo && <img src={data.logo} className="h-10 border rounded p-1 bg-white" alt="Logo Preview" />}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* SECTION 2: HERO DISPLAY */}
-                                <div className="admin-card">
-                                    <h3 className="section-header">02. Hero Showcase</h3>
-                                    <div className="input-group">
-                                        <label className="admin-label">Main Billboard Title</label>
-                                        <input className="admin-input-field" value={data.hero.title} onChange={e => setData({...data, hero: {...data.hero, title: e.target.value}})} />
-                                    </div>
-                                    <div className="input-group">
-                                        <label className="admin-label">Subtitle / Slogan</label>
-                                        <input className="admin-input-field" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} />
-                                    </div>
-                                    <div className="input-group">
-                                        <label className="admin-label">Background Visual (Image)</label>
-                                        <input type="file" onChange={e => handleMediaUpload(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} className="text-xs" />
-                                    </div>
-                                </div>
-
-                                {/* SECTION 3: THE EXPERIENCE (SERVICES) */}
-                                <div className="admin-card">
-                                    <div className="flex justify-between items-center mb-8 border-b pb-4">
-                                        <h3 className="section-header !mb-0">03. The Experience (Services)</h3>
-                                        <button onClick={() => {
-                                            const categoryName = prompt("New Service Category (e.g., Facials, Nails):");
-                                            if(categoryName) setData({...data, services: {...data.services, [categoryName]: []}});
-                                        }} className="btn-luxury text-[10px] px-4">+ NEW CATEGORY</button>
-                                    </div>
-
-                                    {Object.keys(data.services).map(category => (
-                                        <div key={category} className="mb-12 bg-gray-50 p-8 rounded-3xl border border-gray-100">
-                                            <div className="flex justify-between items-center mb-6">
-                                                <h4 className="font-bold text-gray-500 uppercase tracking-widest text-sm">{category}</h4>
-                                                <button onClick={() => {
-                                                    let updated = {...data};
-                                                    delete updated.services[category];
-                                                    setData(updated);
-                                                }} className="text-red-400 text-[10px] uppercase font-bold hover:underline">Delete Category</button>
+                                    <h3 className="section-header">02. The Experience (Service Details)</h3>
+                                    {Object.keys(data.services).map(cat => (
+                                        <div key={cat} className="mb-10 bg-gray-50 p-6 rounded-3xl border">
+                                            <div className="flex justify-between mb-6">
+                                                <h4 className="font-bold text-gray-400 uppercase">{cat}</h4>
+                                                <button onClick={() => {let d={...data}; delete d.services[cat]; setData(d);}} className="text-red-400 text-[10px] uppercase">Delete Category</button>
                                             </div>
-
-                                            <div className="space-y-6">
-                                                {data.services[category].map((service, index) => (
-                                                    <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative group">
-                                                        <button onClick={() => {
-                                                            let updated = {...data};
-                                                            updated.services[category].splice(index, 1);
-                                                            setData(updated);
-                                                        }} className="absolute top-4 right-4 text-gray-200 hover:text-red-500 font-bold">✕</button>
-                                                        
-                                                        <div className="grid md:grid-cols-2 gap-6 mb-4">
-                                                            <div className="input-group">
-                                                                <label className="admin-label">Service Title</label>
-                                                                <input className="admin-input-field" value={service.name} onChange={e => {
-                                                                    let updated = {...data};
-                                                                    updated.services[category][index].name = e.target.value;
-                                                                    setData(updated);
-                                                                }} />
-                                                            </div>
-                                                            <div className="input-group">
-                                                                <label className="admin-label">Pricing Info</label>
-                                                                <input className="admin-input-field" value={service.price} onChange={e => {
-                                                                    let updated = {...data};
-                                                                    updated.services[category][index].price = e.target.value;
-                                                                    setData(updated);
-                                                                }} placeholder="e.g. $50 / Session" />
-                                                            </div>
-                                                        </div>
-
-                                                        {/* DESCRIPTION INPUT - EXPANDED */}
-                                                        <div className="input-group">
-                                                            <label className="admin-label">Service Description (Benefits & Duration)</label>
-                                                            <textarea className="admin-input-field h-24" value={service.desc} onChange={e => {
-                                                                let updated = {...data};
-                                                                updated.services[category][index].desc = e.target.value;
-                                                                setData(updated);
-                                                            }} placeholder="Describe the process and luxury feel..."></textarea>
-                                                        </div>
-
-                                                        {/* IMAGE INPUT - EXPANDED */}
-                                                        <div className="input-group">
-                                                            <label className="admin-label">Service Spotlight Image</label>
-                                                            <div className="flex items-center gap-6 mt-2">
-                                                                <input type="file" onChange={e => handleMediaUpload(e, (url) => {
-                                                                    let updated = {...data};
-                                                                    updated.services[category][index].img = url;
-                                                                    setData(updated);
-                                                                })} className="text-[10px]" />
-                                                                {service.img && <img src={service.img} className="w-16 h-16 object-cover rounded-xl border shadow-inner" />}
-                                                            </div>
-                                                        </div>
+                                            {data.services[cat].map((s, si) => (
+                                                <div key={si} className="bg-white p-6 rounded-2xl border mb-4 relative">
+                                                    <div className="grid md:grid-cols-2 gap-4">
+                                                        <div><label className="admin-label">Service Name</label><input className="admin-input-field" value={s.name} onChange={e => {let d={...data}; d.services[cat][si].name=e.target.value; setData(d);}} /></div>
+                                                        <div><label className="admin-label">Price Tag</label><input className="admin-input-field" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} /></div>
                                                     </div>
-                                                ))}
-                                                <button onClick={() => {
-                                                    let updated = {...data};
-                                                    updated.services[category].push({ name: "", price: "", desc: "", img: "" });
-                                                    setData(updated);
-                                                }} className="w-full py-4 border-2 border-dashed border-gray-200 text-gray-400 text-[10px] font-bold rounded-2xl hover:border-rose-gold hover:text-rose-gold transition-all uppercase tracking-widest">+ Add New Service to {category}</button>
-                                            </div>
+                                                    <label className="admin-label">Detailed Description</label>
+                                                    <textarea className="admin-input-field h-24 pt-3" value={s.desc} onChange={e => {let d={...data}; d.services[cat][si].desc=e.target.value; setData(d);}}></textarea>
+                                                    <label className="admin-label">Spotlight Image</label>
+                                                    <div className="flex items-center gap-4 mt-2">
+                                                        <input type="file" onChange={e => handleMediaUpload(e, (url) => {let d={...data}; d.services[cat][si].img=url; setData(d);})} className="text-[10px]" />
+                                                        {s.img && <img src={s.img} className="w-12 h-12 object-cover rounded shadow" />}
+                                                    </div>
+                                                    <button onClick={() => {let d={...data}; d.services[cat].splice(si,1); setData(d);}} className="text-red-500 text-[9px] mt-4 font-bold uppercase">Remove Service</button>
+                                                </div>
+                                            ))}
+                                            <button onClick={() => {let d={...data}; d.services[cat].push({name:"", price:"", desc:"", img:""}); setData(d);}} className="w-full py-2 border-2 border-dashed border-gray-200 text-gray-400 text-xs rounded-xl">+ Add Service</button>
                                         </div>
                                     ))}
+                                    <button onClick={() => {const n=prompt("Category:"); if(n) setData({...data, services: {...data.services, [n]:[]}})}} className="btn-luxury">+ New Category</button>
                                 </div>
 
-                                {/* SECTION 4: CLIENT REVIEWS */}
+                                {/* PRICES SECTION (ADMIN) - ADDED AS REQUESTED */}
                                 <div className="admin-card">
-                                    <h3 className="section-header">04. Client Testimonials</h3>
-                                    <div className="space-y-6">
-                                        {data.reviews.map((rev, ri) => (
-                                            <div key={ri} className="p-6 bg-gray-50 rounded-2xl border relative">
-                                                <button onClick={() => {
-                                                    let updated = {...data};
-                                                    updated.reviews.splice(ri, 1);
-                                                    setData(updated);
-                                                }} className="absolute top-4 right-4 text-red-300 hover:text-red-600">✕</button>
-                                                <label className="admin-label">Client Name</label>
-                                                <input className="admin-input-field mb-4" value={rev.name} onChange={e => {
-                                                    let updated = {...data};
-                                                    updated.reviews[ri].name = e.target.value;
-                                                    setData(updated);
-                                                }} />
-                                                <label className="admin-label">Testimonial Content</label>
-                                                <textarea className="admin-input-field h-20" value={rev.text} onChange={e => {
-                                                    let updated = {...data};
-                                                    updated.reviews[ri].text = e.target.value;
-                                                    setData(updated);
-                                                }}></textarea>
+                                    <h3 className="section-header">03. Full Price Menu Controller</h3>
+                                    <p className="text-[10px] text-gray-400 mb-6 italic">* Note: Prices here are automatically synced with the services above.</p>
+                                    <div className="space-y-4">
+                                        {Object.keys(data.services).map(cat => (
+                                            <div key={cat} className="p-4 border rounded-xl bg-gray-50">
+                                                <p className="font-bold text-xs uppercase text-rose-gold mb-4">{cat} Pricelist</p>
+                                                {data.services[cat].map((s, si) => (
+                                                    <div key={si} className="flex gap-4 mb-2">
+                                                        <input className="admin-input-field !py-2 flex-1" value={s.name} readOnly disabled />
+                                                        <input className="admin-input-field !py-2 w-32" value={s.price} onChange={e => {let d={...data}; d.services[cat][si].price=e.target.value; setData(d);}} />
+                                                    </div>
+                                                ))}
                                             </div>
                                         ))}
-                                        <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"", text:""}]})} className="bg-black text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">+ Add New Review</button>
                                     </div>
                                 </div>
 
-                                {/* SECTION 5: FOOTER & CONTACT */}
+                                {/* REVIEWS SECTION */}
                                 <div className="admin-card">
-                                    <h3 className="section-header">05. Business Contact</h3>
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div className="input-group">
-                                            <label className="admin-label">WhatsApp Number</label>
-                                            <input className="admin-input-field" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
+                                    <h3 className="section-header">04. Client Reviews</h3>
+                                    {data.reviews.map((r, i) => (
+                                        <div key={i} className="mb-4 p-4 border rounded-xl relative">
+                                            <label className="admin-label !mt-0">Reviewer Name</label>
+                                            <input className="admin-input-field mb-2" value={r.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
+                                            <label className="admin-label">Comment</label>
+                                            <textarea className="admin-input-field h-20" value={r.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}}></textarea>
+                                            <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-500 text-[9px] mt-2 uppercase font-bold">Delete</button>
                                         </div>
-                                        <div className="input-group">
-                                            <label className="admin-label">Opening Hours</label>
-                                            <input className="admin-input-field" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
-                                        </div>
-                                        <div className="md:col-span-2">
-                                            <label className="admin-label">Business Address</label>
-                                            <input className="admin-input-field" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
-                                        </div>
-                                    </div>
+                                    ))}
+                                    <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"", text:""}]})} className="bg-black text-white px-6 py-2 rounded text-[10px] font-bold uppercase tracking-widest">+ Add Review</button>
                                 </div>
 
-                                {/* PERSISTENCE CONTROLLER */}
-                                <div className="fixed bottom-10 left-0 w-full flex justify-center px-6 z-[200]">
-                                    <button onClick={syncDataWithGithub} className="btn-luxury w-full max-w-lg py-6 text-base tracking-[0.4em] shadow-2xl border-4 border-white">DEPLOY UPDATES TO LIVE SITE</button>
+                                {/* Publish Button */}
+                                <div className="fixed bottom-10 left-0 w-full flex justify-center px-6">
+                                    <button onClick={syncData} className="btn-luxury w-full max-w-lg py-5 text-lg font-bold tracking-[0.4em] shadow-2xl">Publish All Changes</button>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        /* ==========================================================
-                           FRONTEND DISPLAY SECTION
-                           ========================================================== */
-                        <div className="site-content animate-fade">
-                            {/* NAVIGATION BAR */}
-                            <nav className="fixed top-0 w-full z-[500] bg-white/90 backdrop-blur-lg border-b border-gray-100 p-6 px-12 flex justify-between items-center">
+                        /* ================= FRONTEND INTERFACE ================= */
+                        <div className="site-wrapper">
+                            <nav className="p-6 md:px-12 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-[500] border-b">
                                 <div onClick={(e) => e.shiftKey && prompt("Authorization:") === ADMIN_CODE && setIsAdmin(true)} className="cursor-pointer">
-                                    {data.logo ? <img src={data.logo} className="h-10" alt="Brand Logo" /> : <h1 className="serif text-3xl font-bold tracking-tighter uppercase">{data.brand_name}</h1>}
+                                    {data.logo ? <img src={data.logo} className="h-10" /> : <h1 className="serif text-3xl font-bold uppercase">{data.brand_name}</h1>}
                                 </div>
                                 <div className="hidden md:flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">
-                                    <a href="#services" className="hover:opacity-100 transition">Experience</a>
-                                    <a href="#prices" className="hover:opacity-100 transition">Prices</a>
-                                    <a href="#reviews" className="hover:opacity-100 transition">Testimonials</a>
-                                    <a href="#about" className="hover:opacity-100 transition">About</a>
+                                    <a href="#services">Experience</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a>
                                 </div>
-                                <button className="btn-luxury px-10 py-3 text-[10px]">Connect</button>
+                                <button className="btn-luxury px-10 py-3 text-[10px]">Contact</button>
                             </nav>
 
-                            {/* HERO HEADER */}
-                            <header className="h-screen relative flex items-center justify-center text-center overflow-hidden">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-105" alt="Hero Background" />
+                            {/* Hero */}
+                            <header className="h-[90vh] relative flex items-center justify-center text-center text-white overflow-hidden">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover scale-105" />
                                 <div className="absolute inset-0 bg-black/40"></div>
-                                <div className="relative text-white p-6 mt-20">
-                                    <h1 className="serif text-7xl md:text-[10rem] italic leading-none mb-10 drop-shadow-2xl">{data.hero.title}</h1>
+                                <div className="relative p-6">
+                                    <h1 className="serif text-7xl md:text-[9rem] italic leading-none mb-10 drop-shadow-2xl">{data.hero.title}</h1>
                                     <p className="tracking-[1em] uppercase text-xs md:text-sm font-bold opacity-70">{data.hero.subtitle}</p>
                                 </div>
                             </header>
 
-                            {/* EXPERIENCE SECTION */}
+                            {/* Services Section */}
                             <section id="services" className="py-32 px-6 max-w-7xl mx-auto">
                                 <h2 className="serif text-8xl text-center mb-24 italic opacity-10">The Experience</h2>
-                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b border-gray-100 mb-16 justify-center">
+                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b mb-16 justify-center">
                                     {Object.keys(data.services).map(cat => (
                                         <button key={cat} onClick={() => {setActiveCategory(cat); setSelectedService(data.services[cat][0]);}}
-                                            className={`pb-6 text-[11px] font-bold uppercase tracking-[0.4em] whitespace-nowrap transition-all ${activeCategory === cat ? 'text-rose-gold border-b-2 border-rose-gold' : 'opacity-20'}`}>
+                                            className={`pb-6 text-[10px] font-bold uppercase tracking-[0.4em] transition-all whitespace-nowrap ${activeCategory === cat ? 'text-rose-gold border-b-2 border-rose-gold' : 'opacity-20'}`}>
                                             {cat}
                                         </button>
                                     ))}
@@ -447,7 +280,7 @@
                                         {data.services[activeCategory]?.map((s, i) => (
                                             <div key={i} onClick={() => setSelectedService(s)} 
                                                 className={`p-8 rounded-[2.5rem] flex justify-between items-center cursor-pointer transition-all duration-500 ${selectedService?.name === s.name ? 'bg-white shadow-2xl border-l-8 border-rose-gold scale-[1.02]' : 'bg-gray-50/50 opacity-40'}`}>
-                                                <div className="flex-1">
+                                                <div className="flex-1 text-left">
                                                     <h4 className="serif text-2xl font-bold uppercase tracking-tighter">{s.name}</h4>
                                                     <p className="text-[10px] font-bold text-rose-gold mt-2 uppercase tracking-widest">{s.price}</p>
                                                 </div>
@@ -456,13 +289,13 @@
                                     </div>
                                     <div className="lg:col-span-8">
                                         {selectedService && (
-                                            <div className="grid md:grid-cols-2 gap-12 items-center bg-white p-8 md:p-12 rounded-[4rem] shadow-sm border border-gray-50">
-                                                <img src={selectedService.img || 'https://via.placeholder.com/600'} className="w-full aspect-square object-cover rounded-[3rem] shadow-2xl" alt="Service Detail" />
+                                            <div className="grid md:grid-cols-2 gap-12 items-center bg-white p-8 md:p-12 rounded-[4rem] shadow-sm border">
+                                                <img src={selectedService.img || 'https://via.placeholder.com/600'} className="w-full aspect-square object-cover rounded-[3rem] shadow-2xl" />
                                                 <div>
                                                     <h3 className="serif text-5xl mb-6 italic leading-tight">{selectedService.name}</h3>
                                                     <p className="text-3xl font-bold text-rose-gold mb-8 tracking-tighter">{selectedService.price}</p>
                                                     <p className="text-lg serif italic opacity-50 mb-10 leading-relaxed whitespace-pre-wrap">{selectedService.desc}</p>
-                                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}?text=I want to book ${selectedService.name}`)} className="btn-luxury w-full py-6 text-[10px]">Reserve Experience</button>
+                                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp}`)} className="btn-luxury w-full py-6 text-[10px]">Reserve Experience</button>
                                                 </div>
                                             </div>
                                         )}
@@ -470,21 +303,21 @@
                                 </div>
                             </section>
 
-                            {/* PRICES SECTION */}
+                            {/* Full Price List */}
                             <section id="prices" className="py-32 bg-gray-50 px-6">
-                                <div className="max-w-4xl mx-auto">
-                                    <h2 className="serif text-7xl text-center mb-24 italic">A La Carte Menu</h2>
+                                <div className="max-w-4xl mx-auto text-center">
+                                    <h2 className="serif text-7xl mb-24 italic opacity-10">Pricelist</h2>
                                     {Object.keys(data.services).map(cat => (
                                         <div key={cat} className="mb-20">
                                             <h3 className="text-rose-gold uppercase text-[10px] font-bold tracking-[0.6em] mb-10 border-b pb-4">{cat}</h3>
                                             <div className="space-y-8">
                                                 {data.services[cat].map((s, i) => (
-                                                    <div key={i} className="flex justify-between items-end border-b border-dashed border-gray-200 pb-2">
-                                                        <div className="max-w-md">
+                                                    <div key={i} className="flex justify-between items-end border-b border-dashed border-gray-200 pb-2 text-left">
+                                                        <div>
                                                             <h4 className="serif text-2xl italic">{s.name}</h4>
-                                                            <p className="text-[10px] uppercase opacity-40 tracking-widest mt-2 leading-loose">{s.desc?.substring(0, 80)}...</p>
+                                                            <p className="text-[10px] uppercase opacity-40 tracking-widest mt-2">{s.desc?.substring(0, 60)}...</p>
                                                         </div>
-                                                        <span className="font-bold text-xl text-rose-gold whitespace-nowrap ml-10">{s.price}</span>
+                                                        <span className="font-bold text-xl text-rose-gold">{s.price}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -493,14 +326,14 @@
                                 </div>
                             </section>
 
-                            {/* REVIEWS SECTION */}
+                            {/* Reviews */}
                             <section id="reviews" className="py-32 bg-white px-6">
                                 <div className="max-w-7xl mx-auto">
-                                    <h2 className="serif text-8xl text-center mb-24 italic opacity-10">Kind Words</h2>
+                                    <h2 className="serif text-8xl text-center mb-24 italic opacity-10">Testimonials</h2>
                                     <div className="grid md:grid-cols-3 gap-10">
                                         {data.reviews.map((r, i) => (
-                                            <div key={i} className="p-12 bg-gray-50 rounded-[4rem] italic group hover:bg-rose-gold hover:text-white transition-all duration-700">
-                                                <div className="text-rose-gold group-hover:text-white text-5xl mb-8 transition-colors">“</div>
+                                            <div key={i} className="p-12 bg-gray-50 rounded-[4rem] italic group hover:bg-rose-gold hover:text-white transition-all duration-700 text-left">
+                                                <div className="text-rose-gold group-hover:text-white text-5xl mb-8">“</div>
                                                 <p className="serif text-2xl opacity-70 group-hover:opacity-100 mb-10 leading-relaxed">“{r.text}”</p>
                                                 <h5 className="uppercase text-[10px] font-bold tracking-[0.4em] opacity-50 group-hover:opacity-100">— {r.name}</h5>
                                             </div>
@@ -509,36 +342,25 @@
                                 </div>
                             </section>
 
-                            {/* ABOUT SECTION */}
-                            <section id="about" className="py-40 bg-[#0A0202] text-white px-6">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
-                                    <div>
-                                        <h2 className="serif text-8xl mb-12 italic leading-none">Our Sanctuary</h2>
-                                        <p className="serif text-2xl opacity-40 italic leading-relaxed whitespace-pre-wrap mb-10">{data.about.text}</p>
-                                    </div>
-                                    <img src={data.about.image} className="rounded-[4rem] w-full aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000" alt="About Atmosphere" />
-                                </div>
-                            </section>
-
-                            {/* FOOTER */}
-                            <footer className="bg-white pt-32 pb-16 px-10 border-t border-gray-100">
+                            {/* Footer */}
+                            <footer className="bg-white pt-32 pb-16 px-10 border-t">
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20 border-b pb-24 mb-16">
-                                    <div className="col-span-2">
+                                    <div className="col-span-2 text-left">
                                         <h4 className="serif text-7xl text-rose-gold italic font-bold mb-8 uppercase tracking-tighter">{data.brand_name}</h4>
                                         <p className="text-xl serif italic opacity-30 max-w-sm">{data.footer.address}</p>
                                     </div>
-                                    <div>
-                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-10 tracking-widest">Timings</h5>
-                                        <p className="serif text-2xl italic leading-relaxed">{data.footer.hours}</p>
+                                    <div className="text-left">
+                                        <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-10 tracking-widest">Timing</h5>
+                                        <p className="serif text-2xl italic">{data.footer.hours}</p>
                                     </div>
-                                    <div>
+                                    <div className="text-left">
                                         <h5 className="text-rose-gold uppercase text-[10px] font-bold mb-10 tracking-widest">WhatsApp</h5>
                                         <p className="serif text-2xl italic underline">{data.footer.whatsapp}</p>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center opacity-20 text-[9px] uppercase tracking-[0.5em]">
                                     <p>{data.footer.copyright}</p>
-                                    <p>Engineered by Nixi OS v4.0</p>
+                                    <p>Nixi Business OS v5.0</p>
                                 </div>
                             </footer>
                         </div>
@@ -546,11 +368,7 @@
                 </div>
             );
         }
-
-        // ROOT INITIALIZATION
-        const container = document.getElementById('root');
-        const root = ReactDOM.createRoot(container);
-        root.render(<App />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
