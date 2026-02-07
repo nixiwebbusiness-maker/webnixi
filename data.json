@@ -32,6 +32,12 @@
         "price": "$90",
         "desc": "Precision cuticle work using electric file for a clean look.",
         "img": "https://images.unsplash.com/photo-1610992015732-2449b0de0a86?w=600"
+      },
+      {
+        "name": "New Ritual",
+        "price": "$0.00",
+        "desc": "Experience details...",
+        "img": ""
       }
     ],
     "NEW CATEGOR": []
@@ -96,8 +102,8 @@
   "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics.",
   "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770385779/svckytrbetbnnlavjqgl.png",
   "about": {
-    "text": "",
-    "image": ""
+    "text": "I AM FAYSAL SARIO.I AM A WEBSITE DESIGNER.",
+    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770473043/wagnzv28guaxynsgowwq.webp"
   },
   "footer": {
     "whatsapp": "03155075343",
