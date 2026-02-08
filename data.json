@@ -70,10 +70,6 @@
         {
           "n": "Gel Pedicure",
           "p": "$95"
-        },
-        {
-          "n": "shess",
-          "p": "75"
         }
       ]
     }
@@ -81,10 +77,7 @@
   "gallery": [
     "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600",
     "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600",
-    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770549250/oy5r3og3ypjajv80xqep.webp",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770549259/vnou9pekfawvvnkkk1q3.webp",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770549267/um5cgocj6pi06jnqbfdd.webp"
+    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600"
   ],
   "reviews": [
     {
