@@ -281,7 +281,13 @@
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/50"></div>
                                 <div className="relative p-6">
-                                    <h1 className="serif text-7xl md:text-[10rem] italic leading-none">{data.hero.title || data.brand_name}</h1>
+                                    <div className="flex flex-col items-center gap-6">
+                                        {data.logo && <img src={data.logo} className="h-24 opacity-90" />}
+                                        <h1 className="serif text-7xl md:text-[10rem] italic leading-none">
+                                            {data.hero.title || data.brand_name}
+                                        </h1>
+                                    </div>
+
                                     <p className="tracking-[0.8em] uppercase text-[12px] mt-12 font-bold opacity-70 italic">{data.hero.subtitle}</p>
                                 </div>
                             </header>
@@ -387,7 +393,13 @@
                             <footer className="bg-mahogany text-white pt-24 pb-12 px-10">
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 border-b border-white/5 pb-20">
                                     <div className="col-span-2">
-                                        {data.logo ? <img src={data.logo} className="h-14 mb-6 brightness-0 invert" /> : <h4 className="serif text-6xl text-rose-gold italic font-bold mb-6">{data.brand_name}</h4>}
+                                        <div className="flex items-center gap-3">
+                                            <h4 className="serif text-6xl italic font-bold mb-6 text-[var(--rose-gold)]">
+                                                {data.brand_name}
+                                            </h4>
+                                                {data.brand_name}
+                                            </span>
+                                        </div>
                                         <h5 className="text-footer-head uppercase text-[11px] mb-3 tracking-widest">Address</h5>
                                         <p className="text-footer-small italic opacity-70 max-w-sm mb-6">{data.footer.address}</p>
                                     </div>
@@ -411,3 +423,4 @@
     </script>
 </body>
 </html>
+
