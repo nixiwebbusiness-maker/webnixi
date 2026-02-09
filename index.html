@@ -118,12 +118,27 @@
                                             <input className="input-f" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
                                         </div>
                                         <div>
-                                            <label className="text-[10px] font-bold block mb-2">Upload New Logo Image</label>
-                                            <input type="file" className="text-xs" onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} />
-                                            {data.logo && <img src={data.logo} className="h-10 mt-2 bg-black p-1" />}
+                                          <label className="text-[10px] font-bold block mb-2">
+                                            Upload Favicon (Browser Tab Logo)
+                                          </label>
+
+                                          <input
+                                            type="file"
+                                            className="text-xs"
+                                            onChange={e =>
+                                              uploadImg(e, url =>
+                                                setData({ ...data, favicon: url })
+                                              )
+                                            }
+                                          />
+
+                                          {data.favicon && (
+                                            <img
+                                              src={data.favicon}
+                                              className="h-8 w-8 mt-2 rounded bg-white p-1 border"
+                                            />
+                                          )}
                                         </div>
-                                    </div>
-                                </div>
 
                                 {/* 2. HERO */}
                                 <div className="admin-card border-l-8 border-blue-500">
@@ -443,6 +458,7 @@
     </script>
 </body>
 </html>
+
 
 
 
