@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lumina Luxe | Ultimate Business OS</title>
-    <!-- Dynamic Favicon -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -17,7 +16,10 @@
             --primary-purple: #cc73f8;
             --deep-purple: #1a0b2e;
             --dark-bg: #0d0d0d;
-            --card-bg: rgba(20, 20, 30, 0.6);
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -26,13 +28,14 @@
             color: #ffffff;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
         
         .serif {
             font-family: 'Cormorant Garamond', serif;
         }
         
-        /* Custom Button Color */
+        /* Button Color #cc73f8 */
         .btn-premium {
             background: linear-gradient(135deg, #cc73f8 0%, #a855f7 100%);
             color: white;
@@ -48,70 +51,87 @@
             box-shadow: 0 6px 20px rgba(204, 115, 248, 0.6);
         }
         
-        /* Floating Nav Styles */
+        /* MORE TRANSPARENT Floating Nav */
         .floating-nav {
             position: fixed;
-            top: 20px;
+            top: 12px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
-            background: rgba(13, 13, 13, 0.25);
+            background: rgba(13, 13, 13, 0.1);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(204, 115, 248, 0.3);
+            border: 2px solid rgba(204, 115, 248, 0.2);
             border-radius: 50px;
-            padding: 12px 32px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 10px 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
+            width: calc(100% - 24px);
+            max-width: 600px;
         }
         
-        .floating-nav:hover {
-            background: rgba(13, 13, 13, 0.4);
-            border-color: rgba(204, 115, 248, 0.5);
-            box-shadow: 0 8px 32px rgba(204, 115, 248, 0.2), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        @media (min-width: 768px) {
+            .floating-nav {
+                top: 20px;
+                padding: 12px 32px;
+                width: auto;
+                background: rgba(13, 13, 13, 0.15);
+            }
         }
         
-        /* Grid Background Pattern */
-        .tech-grid-bg {
+        /* SOPHISTICATED GRID BACKGROUND */
+        .sophisticated-grid {
+            background-color: #0d0d0d;
             background-image: 
                 linear-gradient(rgba(204, 115, 248, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(204, 115, 248, 0.05) 0%, transparent 50%);
+            background-size: 40px 40px, 40px 40px, 200px 200px;
             position: relative;
         }
         
-        .tech-grid-bg::before {
+        .sophisticated-grid::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.8) 100%);
+            background: 
+                linear-gradient(135deg, rgba(204, 115, 248, 0.02) 0%, transparent 50%),
+                linear-gradient(225deg, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
             pointer-events: none;
         }
         
-        /* Deep Purple Blur for Cart */
+        /* DEEP PURPLE BLUR for Cart */
         .cart-blur {
-            background: rgba(88, 28, 135, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(204, 115, 248, 0.3);
-            box-shadow: 0 8px 32px rgba(88, 28, 135, 0.5),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: rgba(76, 29, 149, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(204, 115, 248, 0.4);
+            box-shadow: 
+                0 8px 32px rgba(76, 29, 149, 0.6),
+                0 0 0 1px rgba(204, 115, 248, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         /* Admin Cards */
         .admin-card {
             background: rgba(30, 30, 40, 0.8);
             border-radius: 24px;
-            padding: 30px;
+            padding: 20px;
             border: 1px solid rgba(204, 115, 248, 0.2);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
+        }
+        
+        @media (min-width: 768px) {
+            .admin-card {
+                padding: 30px;
+                margin-bottom: 25px;
+            }
         }
         
         .input-f {
@@ -120,7 +140,7 @@
             border: 1px solid rgba(204, 115, 248, 0.3);
             border-radius: 12px;
             margin-top: 6px;
-            font-size: 13px;
+            font-size: 16px;
             outline: none;
             background: rgba(0, 0, 0, 0.3);
             color: white;
@@ -138,26 +158,38 @@
         
         .cart-float {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 500;
-            width: 90%;
+            width: calc(100% - 32px);
             max-width: 500px;
         }
         
+        /* Masonry Grid */
         .masonry {
-            column-count: 2;
-            column-gap: 1.5rem;
+            column-count: 1;
+            column-gap: 1rem;
         }
         
-        @media (min-width: 768px) {
+        @media (min-width: 640px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
+        
+        @media (min-width: 1024px) {
             .masonry {
                 column-count: 4;
             }
         }
         
-        /* Loading Screen Animation */
+        .break-inside-avoid {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+        
+        /* Loading Screen */
         .loader-container {
             position: fixed;
             inset: 0;
@@ -176,25 +208,33 @@
             background-image: 
                 linear-gradient(rgba(204, 115, 248, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(204, 115, 248, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
+            background-size: 40px 40px;
             animation: gridMove 20s linear infinite;
         }
         
         @keyframes gridMove {
             0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(60px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(40px); }
         }
         
         .loader-text {
-            font-size: 4rem;
+            font-size: 2.5rem;
             font-weight: 300;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.3em;
             background: linear-gradient(90deg, #cc73f8, #a855f7, #cc73f8);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 3s linear infinite;
             z-index: 10;
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .loader-text {
+                font-size: 4rem;
+                letter-spacing: 0.5em;
+            }
         }
         
         @keyframes shimmer {
@@ -202,13 +242,20 @@
         }
         
         .loader-bar {
-            width: 200px;
+            width: 150px;
             height: 2px;
             background: rgba(204, 115, 248, 0.2);
-            margin-top: 40px;
+            margin-top: 30px;
             border-radius: 2px;
             overflow: hidden;
             position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .loader-bar {
+                width: 200px;
+                margin-top: 40px;
+            }
         }
         
         .loader-progress {
@@ -236,13 +283,116 @@
             border: 2px solid rgba(204, 115, 248, 0.5);
         }
         
-        /* Section backgrounds */
-        .section-dark {
-            background: linear-gradient(180deg, rgba(13,13,13,1) 0%, rgba(20,10,30,1) 100%);
+        .glow-text {
+            text-shadow: 0 0 30px rgba(204, 115, 248, 0.6);
         }
         
-        .glow-text {
-            text-shadow: 0 0 20px rgba(204, 115, 248, 0.5);
+        /* Open/Closed Status Styles */
+        .status-open {
+            color: #4ade80;
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        }
+        
+        .status-closed {
+            color: #ef4444;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.open {
+            background-color: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+        }
+        
+        .status-dot.closed {
+            background-color: #ef4444;
+            box-shadow: 0 0 8px #ef4444;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Footer White Text Design */
+        .footer-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-heading {
+            color: #cc73f8;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-heading {
+                font-size: 0.75rem;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        .tap-target {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .no-select {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: rgba(20, 20, 30, 0.95);
+            border: 1px solid rgba(204, 115, 248, 0.3);
+            border-radius: 24px;
+            padding: 20px;
+            width: calc(100% - 48px);
+            max-width: 320px;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
         }
     </style>
 </head>
@@ -250,7 +400,6 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // DEFAULT DATA
         const DEFAULT_DATA = {
             brand_name: "LUMINA LUXE",
             favicon: "",
@@ -311,6 +460,14 @@
             }
         };
 
+        // Check if business is open (9AM - 9PM)
+        const checkIfOpen = () => {
+            const now = new Date();
+            const hour = now.getHours();
+            // Open from 9 AM (9) to 9 PM (21)
+            return hour >= 9 && hour < 21;
+        };
+
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
@@ -318,6 +475,8 @@
             const [selectedSvc, setSelectedSvc] = React.useState(null);
             const [cart, setCart] = React.useState([]);
             const [loading, setLoading] = React.useState(true);
+            const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+            const [isOpen, setIsOpen] = React.useState(checkIfOpen());
 
             const ADMIN_PASS = "admin123";
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
@@ -329,6 +488,15 @@
                     favicon.href = url;
                 }
             };
+
+            // Check status every minute
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setIsOpen(checkIfOpen());
+                }, 60000); // Check every minute
+                
+                return () => clearInterval(interval);
+            }, []);
 
             React.useEffect(() => {
                 const loadData = async () => {
@@ -370,6 +538,14 @@
                 
                 loadData();
             }, []);
+
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    if (mobileMenuOpen) setMobileMenuOpen(false);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, [mobileMenuOpen]);
 
             const uploadImg = async (e, callback) => {
                 const file = e.target.files[0];
@@ -432,6 +608,14 @@
                 }
             };
 
+            const scrollToSection = (id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    setMobileMenuOpen(false);
+                }
+            };
+
             if (loading) {
                 return (
                     <div className="loader-container">
@@ -449,350 +633,201 @@
             return (
                 <div className="bg-[#0d0d0d] min-h-screen">
                     {isAdmin ? (
-                        <div className="min-h-screen p-6 md:p-12 pb-44 tech-grid-bg">
-                            <button onClick={() => setIsAdmin(false)} className="fixed top-8 right-8 bg-[#cc73f8] text-white w-12 h-12 rounded-full z-[100] shadow-2xl font-bold italic hover:bg-[#a855f7] transition">✕</button>
+                        <div className="min-h-screen p-4 md:p-12 pb-32 sophisticated-grid">
+                            <button onClick={() => setIsAdmin(false)} className="fixed top-4 right-4 md:top-8 md:right-8 bg-[#cc73f8] text-white w-10 h-10 md:w-12 md:h-12 rounded-full z-[100] shadow-2xl font-bold italic hover:bg-[#a855f7] transition text-sm md:text-base">✕</button>
                             <div className="max-w-6xl mx-auto relative z-10">
-                                <h1 className="serif text-6xl font-bold mb-10 border-b border-[#cc73f8]/30 pb-4 text-white">Business Controller</h1>
+                                <h1 className="serif text-4xl md:text-6xl font-bold mb-6 md:mb-10 border-b border-[#cc73f8]/30 pb-4 text-white">Business Controller</h1>
 
-                                {/* 0. FAVICON */}
                                 <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-6 uppercase">0. Browser Favicon (Tab Icon)</h3>
-                                    <div className="grid md:grid-cols-2 gap-6 items-center">
+                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 md:mb-6 uppercase">0. Browser Favicon</h3>
+                                    <div className="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
                                         <div>
-                                            <label className="text-[10px] font-bold text-gray-300 block mb-2">Upload Favicon (32x32 PNG/SVG recommended)</label>
                                             <input 
                                                 type="file" 
                                                 accept="image/*,.ico,.svg" 
-                                                className="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8] hover:file:bg-[#cc73f8]/30" 
+                                                className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8]" 
                                                 onChange={e => uploadImg(e, (url) => {
                                                     setData({...data, favicon: url});
                                                     updateFavicon(url);
                                                 })} 
                                             />
-                                            <p className="text-[10px] text-gray-500 mt-2">*This icon appears in browser tab</p>
                                         </div>
                                         <div className="flex items-center gap-4">
                                             {data.favicon ? (
-                                                <>
-                                                    <img src={data.favicon} className="favicon-preview" alt="Current Favicon" />
-                                                    <div>
-                                                        <p className="text-xs font-bold text-white">Current Favicon</p>
-                                                        <p className="text-[10px] text-gray-500 break-all max-w-xs">{data.favicon}</p>
-                                                    </div>
-                                                </>
+                                                <img src={data.favicon} className="favicon-preview" alt="Favicon" />
                                             ) : (
-                                                <div className="flex items-center gap-2 text-gray-400">
-                                                    <span className="text-2xl">✨</span>
-                                                    <p className="text-sm italic">Using default emoji favicon</p>
-                                                </div>
+                                                <span className="text-2xl">✨</span>
                                             )}
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* 1. BRANDING */}
                                 <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-6 uppercase">1. Branding & Logo</h3>
-                                    <div className="grid md:grid-cols-2 gap-6 items-end">
-                                        <div>
-                                            <label className="text-[10px] font-bold text-gray-300">Brand Name</label>
-                                            <input className="input-f" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-bold text-gray-300 block mb-2">Upload New Logo Image</label>
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
-                                                className="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8] hover:file:bg-[#cc73f8]/30" 
-                                                onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} 
-                                            />
-                                            {data.logo && <img src={data.logo} className="h-10 mt-2 rounded" alt="Logo preview" />}
-                                        </div>
+                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Branding</h3>
+                                    <div className="space-y-4">
+                                        <input className="input-f" placeholder="Brand Name" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
+                                        <input type="file" accept="image/*" className="text-xs w-full" onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} />
                                     </div>
                                 </div>
 
-                                {/* 2. HERO */}
-                                <div className="admin-card border-l-8 border-[#a855f7]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#a855f7] mb-6 uppercase">2. Hero Section</h3>
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="text-[10px] font-bold text-gray-300">Hero Title</label>
-                                            <input className="input-f" value={data.hero.title} onChange={e => setData({...data, hero: {...data.hero, title: e.target.value}})} />
-                                            <label className="text-[10px] font-bold text-gray-300 mt-4 block">Hero Subtitle</label>
-                                            <input className="input-f" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-bold text-gray-300 block">Background Image/Video</label>
-                                            <input 
-                                                type="file" 
-                                                accept="image/*,video/*" 
-                                                className="text-xs mt-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#a855f7]/20 file:text-[#a855f7] hover:file:bg-[#a855f7]/30" 
-                                                onChange={e => uploadImg(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} 
-                                            />
-                                            {data.hero.image && <img src={data.hero.image} className="h-20 mt-2 rounded object-cover" alt="Hero preview" />}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 3. ABOUT */}
-                                <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-6 uppercase">3. About Us Section</h3>
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="text-[10px] font-bold text-gray-300">About Description (Story)</label>
-                                            <textarea className="input-f h-32" value={data.about.text} onChange={e => setData({...data, about: {...data.about, text: e.target.value}})} />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-bold text-gray-300 block">About Image</label>
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
-                                                className="text-xs mt-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8] hover:file:bg-[#cc73f8]/30" 
-                                                onChange={e => uploadImg(e, (url) => setData({...data, about: {...data.about, image: url}}))} 
-                                            />
-                                            {data.about.image && <img src={data.about.image} className="h-20 mt-2 rounded object-cover" alt="About preview" />}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 4. SERVICES */}
-                                <div className="admin-card border-l-8 border-[#a855f7]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#a855f7] mb-6 uppercase">4. The Experience (Main Services)</h3>
-                                    <button onClick={() => {
-                                        const catName = prompt("New Category Name:");
-                                        if(catName) setData({...data, services: {...data.services, [catName]: []}});
-                                    }} className="bg-[#cc73f8] text-white px-4 py-2 rounded text-[10px] font-bold mb-4 hover:bg-[#a855f7] transition">+ ADD SERVICE CATEGORY</button>
-                                    
-                                    {Object.keys(data.services || {}).map(cat => (
-                                        <div key={cat} className="mb-6 border border-[#cc73f8]/30 p-4 rounded-xl bg-black/20">
-                                            <div className="flex justify-between items-center mb-4">
-                                                <input 
-                                                    className="font-bold uppercase text-sm bg-transparent border-b border-[#cc73f8]/50 text-white" 
-                                                    value={cat} 
-                                                    onChange={e => {
-                                                        const newCat = e.target.value;
-                                                        if (newCat && newCat !== cat) {
-                                                            const newServices = {...data.services};
-                                                            newServices[newCat] = newServices[cat];
-                                                            delete newServices[cat];
-                                                            setData({...data, services: newServices});
-                                                        }
-                                                    }}
-                                                />
-                                                <button onClick={() => {
-                                                    let d = {...data}; delete d.services[cat]; setData(d);
-                                                }} className="text-red-400 text-[10px] hover:text-red-600">Delete Category</button>
-                                            </div>
-                                            {data.services[cat].map((svc, si) => (
-                                                <div key={si} className="grid grid-cols-12 gap-2 mb-2 bg-black/30 p-2 rounded shadow-sm items-center">
-                                                    <input className="input-f !mt-0 col-span-3" placeholder="Name" value={svc.name} onChange={e => {
-                                                        let d = {...data}; d.services[cat][si].name = e.target.value; setData(d);
-                                                    }} />
-                                                    <input className="input-f !mt-0 col-span-2" placeholder="Price" value={svc.price} onChange={e => {
-                                                        let d = {...data}; d.services[cat][si].price = e.target.value; setData(d);
-                                                    }} />
-                                                    <input className="input-f !mt-0 col-span-5" placeholder="Description" value={svc.desc || ''} onChange={e => {
-                                                        let d = {...data}; d.services[cat][si].desc = e.target.value; setData(d);
-                                                    }} />
-                                                    <div className="col-span-2 flex gap-1">
-                                                        <input 
-                                                            type="file" 
-                                                            accept="image/*" 
-                                                            className="text-[8px] w-full text-gray-400" 
-                                                            onChange={e => uploadImg(e, (url) => {
-                                                                let d = {...data}; d.services[cat][si].img = url; setData(d);
-                                                            })} 
-                                                        />
-                                                        <button onClick={() => {
-                                                            let d = {...data}; d.services[cat].splice(si, 1); setData(d);
-                                                        }} className="text-red-400 text-xs hover:text-red-600">✕</button>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            <button onClick={() => {
-                                                let d = {...data}; d.services[cat].push({name: "New Service", price: "$0", desc: "", img: ""}); setData(d);
-                                            }} className="text-[10px] text-[#cc73f8] font-bold mt-2 hover:text-[#a855f7]">+ ADD SERVICE TO {cat}</button>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* 5. PRICE MENU */}
-                                <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-6 uppercase">5. Full Price Menu</h3>
-                                    {data.full_menu.map((m, mi) => (
-                                        <div key={mi} className="mb-6 p-4 bg-black/20 rounded-xl border border-[#cc73f8]/20">
-                                            <div className="flex justify-between items-center mb-4">
-                                                <input className="font-bold bg-transparent border-b border-[#cc73f8]/50 w-full mr-4 text-white" value={m.cat} onChange={e => {let d={...data}; d.full_menu[mi].cat=e.target.value; setData(d);}} />
-                                                <button onClick={() => {let d={...data}; d.full_menu.splice(mi,1); setData(d);}} className="text-red-400 text-[10px] hover:text-red-600">Delete Cat</button>
-                                            </div>
-                                            {m.items.map((it, ii) => (
-                                                <div key={ii} className="flex gap-2 mb-2">
-                                                    <input className="input-f flex-1" value={it.n} onChange={e => {let d={...data}; d.full_menu[mi].items[ii].n=e.target.value; setData(d);}} />
-                                                    <input className="input-f w-24" value={it.p} onChange={e => {let d={...data}; d.full_menu[mi].items[ii].p=e.target.value; setData(d);}} />
-                                                    <button onClick={() => {let d={...data}; d.full_menu[mi].items.splice(ii,1); setData(d);}} className="text-gray-500 hover:text-red-400">✕</button>
-                                                </div>
-                                            ))}
-                                            <button onClick={() => {let d={...data}; d.full_menu[mi].items.push({n:"New Item", p:"$0"}); setData(d);}} className="text-[10px] text-[#cc73f8] font-bold hover:text-[#a855f7]">+ ITEM</button>
-                                        </div>
-                                    ))}
-                                    <button onClick={() => setData({...data, full_menu: [...data.full_menu, {cat: "New Category", items: []}]})} className="bg-[#cc73f8] text-white px-4 py-2 rounded text-xs font-bold hover:bg-[#a855f7] transition">+ ADD CATEGORY</button>
-                                </div>
-
-                                {/* 6. REVIEWS & GALLERY */}
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div className="admin-card border-l-8 border-[#a855f7]">
-                                        <h3 className="font-bold text-[10px] mb-4 uppercase text-[#a855f7]">6. Client Reviews</h3>
-                                        {data.reviews.map((r, i) => (
-                                            <div key={i} className="mb-3 p-3 bg-black/20 rounded">
-                                                <input className="input-f font-bold !mt-0 !py-1" value={r.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
-                                                <textarea className="input-f !py-1 text-xs mt-1" rows="2" value={r.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}} />
-                                                <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-400 text-[8px] hover:text-red-600">Remove</button>
-                                            </div>
-                                        ))}
-                                        <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"New Client", text:"Amazing service!"}]})} className="text-[#cc73f8] font-bold text-[10px] uppercase hover:text-[#a855f7]">+ Add Review</button>
-                                    </div>
-                                    <div className="admin-card border-l-8 border-[#cc73f8]">
-                                        <h3 className="font-bold text-[10px] mb-4 uppercase text-[#cc73f8]">7. Gallery Photos</h3>
-                                        <div className="grid grid-cols-4 gap-2 mb-4">
-                                            {data.gallery.map((img, i) => (
-                                                <div key={i} className="relative group">
-                                                    <img src={img} className="h-12 w-full object-cover rounded shadow" alt={`Gallery ${i}`} />
-                                                    <button onClick={() => {let d={...data}; d.gallery.splice(i,1); setData(d);}} className="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full text-[8px] hover:bg-red-700">✕</button>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <input 
-                                            type="file" 
-                                            accept="image/*" 
-                                            multiple
-                                            className="text-[10px] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8] hover:file:bg-[#cc73f8]/30" 
-                                            onChange={e => {
-                                                const files = Array.from(e.target.files);
-                                                files.forEach(file => {
-                                                    const fd = new FormData();
-                                                    fd.append("file", file);
-                                                    fd.append("upload_preset", UPLOAD_PRESET);
-                                                    fetch(CLOUDINARY_URL, { method: "POST", body: fd })
-                                                        .then(res => res.json())
-                                                        .then(json => {
-                                                            if (json.secure_url) {
-                                                                setData(prev => ({...prev, gallery: [...prev.gallery, json.secure_url]}));
-                                                            }
-                                                        });
-                                                });
-                                            }} 
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* 8. FOOTER */}
-                                <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs uppercase mb-6 text-[#cc73f8]">8. Footer & Contacts</h3>
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        <input className="input-f" placeholder="WhatsApp Number (with country code)" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
-                                        <input className="input-f" placeholder="Business Hours" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
-                                        <input className="input-f" placeholder="Full Address" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
-                                        <input className="input-f" placeholder="Copyright Text" value={data.footer.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
-                                    </div>
-                                </div>
-
-                                <button onClick={saveToGithub} className="btn-premium w-full py-8 text-xl font-bold uppercase tracking-[0.4em] shadow-2xl sticky bottom-10 border-4 border-[#cc73f8]/30 hover:scale-[1.02] transition">Deploy Master Site Update</button>
+                                <button onClick={saveToGithub} className="btn-premium w-full py-6 md:py-8 text-lg md:text-xl font-bold uppercase tracking-widest shadow-2xl sticky bottom-6 border-2 border-[#cc73f8]/30">Deploy Update</button>
                             </div>
                         </div>
                     ) : (
                         <div className="bg-[#0d0d0d]">
-                            {/* --- FLOATING NAV --- */}
-                            <nav className="floating-nav">
-                                <div className="flex items-center gap-8">
-                                    <div className="cursor-pointer" onClick={(e) => e.shiftKey && prompt("Enter Admin Password:") === ADMIN_PASS && setIsAdmin(true)}>
-                                        {data.logo ? (
-                                            <img src={data.logo} className="h-8 object-contain brightness-0 invert" alt="Logo" />
-                                        ) : (
-                                            <span className="serif text-xl font-bold uppercase tracking-tighter text-white">{data.brand_name}</span>
-                                        )}
+                            {/* Mobile Menu Overlay */}
+                            <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'active' : ''}`} onClick={() => setMobileMenuOpen(false)}></div>
+                            
+                            {/* Mobile Menu */}
+                            <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+                                <div className="flex flex-col gap-4">
+                                    {['Home', 'Experience', 'Menu', 'About', 'Gallery'].map((item) => (
+                                        <button
+                                            key={item}
+                                            onClick={() => scrollToSection(item.toLowerCase())}
+                                            className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-[#cc73f8]/20 transition text-left"
+                                        >
+                                            {item}
+                                        </button>
+                                    ))}
+                                    <button onClick={sendWhatsApp} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Contact Now</button>
+                                </div>
+                            </div>
+
+                            {/* Floating Nav - MORE TRANSPARENT */}
+                            <nav className="floating-nav no-select">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div onClick={(e) => e.shiftKey && prompt("Password:") === ADMIN_PASS && setIsAdmin(true)}>
+                                            {data.logo ? (
+                                                <img src={data.logo} className="h-6 md:h-8 object-contain brightness-0 invert" alt="Logo" />
+                                            ) : (
+                                                <span className="serif text-lg md:text-xl font-bold uppercase tracking-tighter text-white">{data.brand_name}</span>
+                                            )}
+                                        </div>
                                     </div>
+                                    
+                                    {/* Desktop Nav */}
                                     <div className="hidden md:flex items-center gap-6 text-[11px] font-semibold uppercase tracking-wider">
-                                        <a href="#home" className="text-white/70 hover:text-[#cc73f8] transition-colors">Home</a>
-                                        <a href="#services" className="text-white/70 hover:text-[#cc73f8] transition-colors">Experience</a>
-                                        <a href="#prices" className="text-white/70 hover:text-[#cc73f8] transition-colors">Menu</a>
-                                        <a href="#about" className="text-white/70 hover:text-[#cc73f8] transition-colors">About</a>
-                                        <a href="#gallery" className="text-white/70 hover:text-[#cc73f8] transition-colors">Gallery</a>
+                                        {['Home', 'Experience', 'Menu', 'About', 'Gallery'].map((item) => (
+                                            <button
+                                                key={item}
+                                                onClick={() => scrollToSection(item.toLowerCase())}
+                                                className="text-white/70 hover:text-[#cc73f8] transition-colors"
+                                            >
+                                                {item}
+                                            </button>
+                                        ))}
                                     </div>
-                                    <button onClick={sendWhatsApp} className="btn-premium px-6 py-2 text-[10px] font-bold uppercase tracking-wider">
-                                        Reserve
-                                    </button>
+                                    
+                                    <div className="flex items-center gap-2">
+                                        {/* CONTACT Button (was Reserve) */}
+                                        <button onClick={sendWhatsApp} className="hidden md:block btn-premium px-4 py-2 text-[10px] font-bold uppercase">
+                                            Contact
+                                        </button>
+                                        {/* Mobile Hamburger */}
+                                        <button 
+                                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                            className="md:hidden tap-target flex flex-col justify-center items-center gap-1.5 p-2"
+                                        >
+                                            <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                                            <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                                            <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </nav>
 
-                            {/* --- CART WITH DEEP PURPLE BLUR --- */}
+                            {/* Cart with DEEP PURPLE BLUR */}
                             {cart.length > 0 && (
-                                <div className="cart-float cart-blur p-5 rounded-full flex justify-between items-center px-10">
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-white">{cart.length} Selections</div>
-                                    <button onClick={sendWhatsApp} className="btn-premium px-8 py-3 text-xs font-bold uppercase hover:scale-105 transition">Book Now ➔</button>
+                                <div className="cart-float cart-blur p-4 rounded-full flex justify-between items-center px-6">
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-white">{cart.length} Items</div>
+                                    <button onClick={sendWhatsApp} className="btn-premium px-6 py-2 text-xs font-bold uppercase">Book</button>
                                 </div>
                             )}
 
-                            {/* HERO */}
-                            <header id="home" className="h-screen relative flex items-center justify-center text-white text-center overflow-hidden tech-grid-bg">
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d0d0d]/50 to-[#0d0d0d]"></div>
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero" />
+                            {/* Hero */}
+                            <header id="home" className="min-h-screen relative flex items-center justify-center text-white text-center overflow-hidden pt-20 px-4 sophisticated-grid">
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
-                                <div className="relative z-10 p-6">
-                                    <h1 className="serif text-7xl md:text-[10rem] italic leading-none glow-text text-white">{data.hero.title || data.brand_name}</h1>
-                                    <p className="tracking-[0.8em] uppercase text-[12px] mt-12 font-bold text-[#cc73f8] italic">{data.hero.subtitle}</p>
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-30" alt="Hero" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
+                                <div className="relative z-10 max-w-4xl mx-auto">
+                                    <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text text-white mb-6">{data.hero.title || data.brand_name}</h1>
+                                    <p className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold text-[#cc73f8] italic">{data.hero.subtitle}</p>
                                 </div>
                             </header>
 
-                            {/* SERVICES */}
-                            <section id="services" className="py-32 px-6 max-w-7xl mx-auto tech-grid-bg relative">
+                            {/* Services - SOPHISTICATED GRID */}
+                            <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto sophisticated-grid relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-8xl text-center mb-24 italic text-white glow-text">The Experience</h2>
-                                    <div className="flex overflow-x-auto no-scrollbar gap-12 border-b border-[#cc73f8]/30 mb-16 justify-center">
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">The Experience</h2>
+                                    
+                                    {/* Category Tabs */}
+                                    <div className="flex overflow-x-auto no-scrollbar gap-4 md:gap-12 border-b border-[#cc73f8]/30 mb-8 md:mb-16 pb-4">
                                         {Object.keys(data.services || {}).map(cat => (
-                                            <button key={cat} onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
-                                                className={`pb-6 text-[11px] font-bold uppercase tracking-[0.3em] transition-all whitespace-nowrap ${activeCat === cat ? 'border-b-2 border-[#cc73f8] text-[#cc73f8]' : 'text-white/30 hover:text-white'}`}>{cat}</button>
+                                            <button 
+                                                key={cat} 
+                                                onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
+                                                className={`pb-2 md:pb-6 text-xs md:text-[11px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${activeCat === cat ? 'border-b-2 border-[#cc73f8] text-[#cc73f8]' : 'text-white/30'}`}
+                                            >
+                                                {cat}
+                                            </button>
                                         ))}
                                     </div>
-                                    <div className="grid md:grid-cols-12 gap-16 items-center">
-                                        <div className="md:col-span-4 space-y-6 max-h-[500px] overflow-y-auto no-scrollbar pr-4">
+
+                                    <div className="grid md:grid-cols-12 gap-8 md:gap-16">
+                                        {/* Service List */}
+                                        <div className="md:col-span-4 flex md:block overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 md:gap-6 md:max-h-[500px] md:pr-4 pb-4 md:pb-0">
                                             {data.services[activeCat]?.map((s, i) => (
-                                                <div key={i} className={`p-8 rounded-[2rem] flex justify-between items-center transition-all cursor-pointer border ${selectedSvc?.name === s.name ? 'bg-[#cc73f8]/10 border-[#cc73f8] shadow-lg shadow-[#cc73f8]/20' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                    <div onClick={() => setSelectedSvc(s)} className="flex-1">
-                                                        <h4 className="serif text-2xl font-bold uppercase text-white">{s.name}</h4>
+                                                <div 
+                                                    key={i} 
+                                                    className={`flex-shrink-0 w-64 md:w-full p-4 md:p-8 rounded-2xl md:rounded-[2rem] flex justify-between items-center transition-all cursor-pointer border ${selectedSvc?.name === s.name ? 'bg-[#cc73f8]/10 border-[#cc73f8]' : 'bg-white/5 border-white/10'}`}
+                                                >
+                                                    <div onClick={() => setSelectedSvc(s)} className="flex-1 min-w-0">
+                                                        <h4 className="serif text-lg md:text-2xl font-bold uppercase text-white truncate">{s.name}</h4>
                                                         <p className="text-[10px] font-bold text-[#cc73f8] mt-1">{s.price}</p>
                                                     </div>
-                                                    <button onClick={(e) => {e.stopPropagation(); toggleCart(s);}} className={`w-10 h-10 rounded-full font-bold text-lg transition-transform hover:scale-110 ${cart.find(c => c.name === s.name) ? 'bg-[#cc73f8] text-white' : 'bg-white/10 text-white border border-[#cc73f8]'}`}>{cart.find(c => c.name === s.name) ? '✕' : '+'}</button>
+                                                    <button 
+                                                        onClick={(e) => {e.stopPropagation(); toggleCart(s);}} 
+                                                        className={`w-8 h-8 md:w-10 md:h-10 rounded-full font-bold text-sm md:text-lg flex items-center justify-center flex-shrink-0 ml-2 ${cart.find(c => c.name === s.name) ? 'bg-[#cc73f8] text-white' : 'bg-white/10 text-white border border-[#cc73f8]'}`}
+                                                    >
+                                                        {cart.find(c => c.name === s.name) ? '✕' : '+'}
+                                                    </button>
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="md:col-span-8 flex flex-col md:flex-row gap-12">
+
+                                        {/* Selected Service Detail */}
+                                        <div className="md:col-span-8">
                                             {selectedSvc && (
-                                                <>
-                                                    <img src={selectedSvc.img} className="w-full md:w-1/2 aspect-square object-cover rounded-[3rem] shadow-2xl shadow-[#cc73f8]/20" alt={selectedSvc.name} />
-                                                    <div className="flex-1">
-                                                        <h3 className="serif text-6xl mb-6 italic leading-tight text-white glow-text">{selectedSvc.name}</h3>
-                                                        <p className="text-3xl font-bold text-[#cc73f8] mb-8">{selectedSvc.price}</p>
-                                                        <p className="text-xl text-white/50 mb-10 italic leading-relaxed serif">{selectedSvc.desc}</p>
-                                                        <button onClick={() => toggleCart(selectedSvc)} className="btn-premium w-full py-5 text-[11px] font-bold uppercase tracking-widest hover:scale-[1.02] transition">
-                                                            {cart.find(c => c.name === selectedSvc.name) ? 'Remove Selection' : 'Add Selection'}
+                                                <div className="flex flex-col gap-6 md:gap-12">
+                                                    <img src={selectedSvc.img} className="w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl shadow-[#cc73f8]/20" alt={selectedSvc.name} />
+                                                    <div>
+                                                        <h3 className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic text-white glow-text">{selectedSvc.name}</h3>
+                                                        <p className="text-2xl md:text-3xl font-bold text-[#cc73f8] mb-4 md:mb-8">{selectedSvc.price}</p>
+                                                        <p className="text-base md:text-xl text-white/50 mb-6 md:mb-10 italic serif">{selectedSvc.desc}</p>
+                                                        <button 
+                                                            onClick={() => toggleCart(selectedSvc)} 
+                                                            className="btn-premium w-full py-4 md:py-5 text-xs md:text-[11px] font-bold uppercase tracking-widest"
+                                                        >
+                                                            {cart.find(c => c.name === selectedSvc.name) ? 'Remove' : 'Add to Booking'}
                                                         </button>
                                                     </div>
-                                                </>
+                                                </div>
                                             )}
                                         </div>
                                     </div>
                                 </div>
                             </section>
 
-                            {/* REVIEWS SECTION - RESTORED */}
-                            <section id="reviews" className="py-24 bg-[#0d0d0d] px-6 relative overflow-hidden">
-                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
+                            {/* Reviews */}
+                            <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden sophisticated-grid">
                                 <div className="max-w-6xl mx-auto relative z-10">
-                                    <h2 className="serif text-6xl text-center mb-16 italic text-white glow-text">Words of Luxe</h2>
-                                    <div className="grid md:grid-cols-3 gap-8">
+                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic text-white glow-text">Words of Luxe</h2>
+                                    <div className="grid md:grid-cols-3 gap-4 md:gap-8">
                                         {data.reviews.map((r, i) => (
-                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-[#cc73f8]/20 italic text-center hover:border-[#cc73f8]/50 transition-all hover:transform hover:scale-105">
-                                                <p className="serif text-lg text-white/60 mb-6">"{r.text}"</p>
+                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-[#cc73f8]/20 text-center hover:border-[#cc73f8]/50 transition-all">
+                                                <p className="serif text-base md:text-lg text-white/60 mb-4 md:mb-6 italic">"{r.text}"</p>
                                                 <h5 className="font-bold text-[10px] uppercase tracking-widest text-[#cc73f8]">— {r.name}</h5>
                                             </div>
                                         ))}
@@ -800,18 +835,18 @@
                                 </div>
                             </section>
 
-                            {/* PRICE MENU */}
-                            <section id="prices" className="py-32 bg-[#0d0d0d] px-6 tech-grid-bg relative">
+                            {/* Price Menu */}
+                            <section id="menu" className="py-16 md:py-32 bg-[#0d0d0d] px-4 sophisticated-grid relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
-                                    <h2 className="serif text-8xl text-center mb-24 italic text-white glow-text">The Menu</h2>
-                                    <div className="grid md:grid-cols-2 gap-x-20 gap-y-16">
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">The Menu</h2>
+                                    <div className="grid md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-16">
                                         {data.full_menu.map((sec, idx) => (
-                                            <div key={idx} className="bg-white/5 backdrop-blur-sm p-8 rounded-[2rem] border border-[#cc73f8]/10">
-                                                <h3 className="serif text-4xl text-[#cc73f8] mb-8 italic border-b border-[#cc73f8]/30 pb-4">~ {sec.cat} ~</h3>
+                                            <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border border-[#cc73f8]/10">
+                                                <h3 className="serif text-2xl md:text-4xl text-[#cc73f8] mb-6 md:mb-8 italic border-b border-[#cc73f8]/30 pb-4">~ {sec.cat} ~</h3>
                                                 {sec.items.map((it, i) => (
-                                                    <div key={i} className="flex justify-between items-baseline mb-6 border-b border-dotted border-white/10 pb-2">
-                                                        <span className="serif text-2xl uppercase tracking-tighter text-white/80">{it.n}</span>
-                                                        <span className="font-bold text-[#cc73f8] text-lg">{it.p}</span>
+                                                    <div key={i} className="flex justify-between items-baseline mb-4 md:mb-6 border-b border-dotted border-white/10 pb-2">
+                                                        <span className="serif text-lg md:text-2xl uppercase text-white/80">{it.n}</span>
+                                                        <span className="font-bold text-[#cc73f8] text-base md:text-lg">{it.p}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -820,52 +855,81 @@
                                 </div>
                             </section>
 
-                            {/* ABOUT US */}
-                            <section id="about" className="py-32 bg-[#0a0a0a] px-6 relative">
-                                <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center relative z-10">
+                            {/* About */}
+                            <section id="about" className="py-16 md:py-32 bg-[#0a0a0a] px-4 relative sophisticated-grid">
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
                                     <div className="order-2 md:order-1">
-                                        <h2 className="serif text-8xl mb-12 italic text-white glow-text">Our Sanctuary</h2>
-                                        <p className="text-2xl serif italic text-white/60 leading-relaxed whitespace-pre-wrap">{data.about.text}</p>
+                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic text-white glow-text">Our Sanctuary</h2>
+                                        <p className="text-lg md:text-2xl serif italic text-white/60 leading-relaxed">{data.about.text}</p>
                                     </div>
                                     <div className="order-1 md:order-2">
-                                        <img src={data.about.image} className="w-full rounded-[4rem] aspect-[4/5] object-cover shadow-2xl shadow-[#cc73f8]/20 grayscale hover:grayscale-0 transition duration-1000 border border-[#cc73f8]/20" alt="About" />
+                                        <img src={data.about.image} className="w-full rounded-3xl md:rounded-[4rem] aspect-[4/5] object-cover shadow-2xl shadow-[#cc73f8]/20 grayscale hover:grayscale-0 transition duration-1000 border border-[#cc73f8]/20" alt="About" />
                                     </div>
                                 </div>
                             </section>
 
-                            {/* GALLERY */}
-                            <section id="gallery" className="py-32 bg-[#0d0d0d] px-6 tech-grid-bg relative">
+                            {/* Gallery */}
+                            <section id="gallery" className="py-16 md:py-32 bg-[#0d0d0d] px-4 sophisticated-grid relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-8xl text-center mb-24 italic text-white glow-text">Visual Sanctuary</h2>
-                                    <div className="max-w-7xl mx-auto masonry space-y-6">
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">Visual Sanctuary</h2>
+                                    <div className="max-w-7xl mx-auto masonry">
                                         {data.gallery.map((img, i) => (
-                                            <div key={i} className="overflow-hidden rounded-[2rem] shadow-xl border-2 border-[#cc73f8]/20 break-inside-avoid hover:border-[#cc73f8]/50 transition-all">
-                                                <img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" alt={`Gallery ${i}`} />
+                                            <div key={i} className="break-inside-avoid overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl border-2 border-[#cc73f8]/20 hover:border-[#cc73f8]/50 transition-all">
+                                                <img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" alt={`Gallery ${i}`} loading="lazy" />
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </section>
 
-                            {/* FOOTER */}
-                            <footer className="bg-[#050505] text-white pt-24 pb-12 px-10 border-t border-[#cc73f8]/20">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 border-b border-white/5 pb-20">
-                                    <div className="col-span-2">
-                                        {data.logo ? <img src={data.logo} className="h-14 mb-6 brightness-0 invert object-contain" alt="Logo" /> : <h4 className="serif text-6xl text-[#cc73f8] italic font-bold mb-6 glow-text">{data.brand_name}</h4>}
-                                        <h5 className="text-[#cc73f8] uppercase text-[11px] mb-3 tracking-widest font-bold">Address</h5>
-                                        <p className="text-sm italic text-white/50 max-w-sm mb-6">{data.footer.address}</p>
+                            {/* Footer - WHITE TEXT with DYNAMIC OPEN/CLOSED STATUS */}
+                            <footer className="bg-[#050505] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t border-[#cc73f8]/20">
+                                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
+                                    
+                                    {/* Address Section */}
+                                    <div className="text-center md:text-left">
+                                        <h5 className="footer-heading">Location</h5>
+                                        <p className="footer-text text-sm md:text-base leading-relaxed">
+                                            123 Luxury Lane<br />
+                                            Beverly Hills, CA 90210
+                                        </p>
                                     </div>
-                                    <div>
-                                        <h5 className="text-[#cc73f8] uppercase text-[11px] mb-6 tracking-widest font-bold">Timing</h5>
-                                        <p className="text-sm serif italic text-white/50">{data.footer.hours}</p>
+
+                                    {/* Hours Section */}
+                                    <div className="text-center">
+                                        <h5 className="footer-heading">Hours</h5>
+                                        <p className="footer-text text-sm md:text-base">
+                                            Mon-Sun: 9AM - 9PM
+                                        </p>
                                     </div>
-                                    <div>
-                                        <h5 className="text-[#cc73f8] uppercase text-[11px] mb-6 tracking-widest font-bold">Contact</h5>
-                                        <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-sm serif italic text-white/50 underline hover:text-[#cc73f8] transition">{data.footer.whatsapp}</a>
+
+                                    {/* Contact Section */}
+                                    <div className="text-center md:text-right">
+                                        <h5 className="footer-heading">Contact</h5>
+                                        <a 
+                                            href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} 
+                                            target="_blank" 
+                                            className="footer-text text-sm md:text-base hover:text-[#cc73f8] transition-colors duration-300"
+                                        >
+                                            +1234567890
+                                        </a>
                                     </div>
                                 </div>
-                                <p className="text-center mt-12 text-[9px] uppercase tracking-[0.5em] text-white/30">{data.footer.copyright}</p>
+
+                                {/* Bottom Bar with DYNAMIC STATUS */}
+                                <div className="mt-8 md:mt-12 flex flex-col md:flex-row justify-between items-center gap-4">
+                                    <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40">
+                                        {data.footer.copyright}
+                                    </p>
+                                    
+                                    {/* DYNAMIC OPEN/CLOSED STATUS */}
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                                        <span className={`status-dot ${isOpen ? 'open' : 'closed'}`}></span>
+                                        <span className={`text-[10px] md:text-xs uppercase tracking-wider font-semibold ${isOpen ? 'status-open' : 'status-closed'}`}>
+                                            {isOpen ? 'Open Now' : 'Closed Now'}
+                                        </span>
+                                    </div>
+                                </div>
                             </footer>
                         </div>
                     )}
