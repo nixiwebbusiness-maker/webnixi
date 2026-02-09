@@ -277,19 +277,25 @@
                             </nav>
 
                             {/* HERO */}
-                            <header id="home" className="h-[90vh] relative flex items-center justify-center text-white text-center">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-black/50"></div>
-                                <div className="relative p-6">
-                                    <div className="flex flex-col items-center gap-6">
-                                        {data.logo && <img src={data.logo} className="h-24 opacity-90" />}
-                                        <h1 className="serif text-7xl md:text-[10rem] italic leading-none">
-                                            {data.hero.title || data.brand_name}
-                                        </h1>
-                                    </div>
+                            <header
+                              id="home"
+                              className="h-[90vh] relative flex items-center justify-center text-white text-center"
+                            >
+                              <img
+                                src={data.hero.image}
+                                className="absolute inset-0 w-full h-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-black/50"></div>
 
-                                    <p className="tracking-[0.8em] uppercase text-[12px] mt-12 font-bold opacity-70 italic">{data.hero.subtitle}</p>
-                                </div>
+                              <div className="relative p-6">
+                                <h1 className="serif text-7xl md:text-[10rem] italic leading-none">
+                                  {data.hero.title || data.brand_name}
+                                </h1>
+
+                                <p className="tracking-[0.8em] uppercase text-[12px] mt-12 font-bold opacity-70 italic">
+                                  {data.hero.subtitle}
+                                </p>
+                              </div>
                             </header>
 
                             {/* SERVICES */}
@@ -442,5 +448,6 @@
     </script>
 </body>
 </html>
+
 
 
