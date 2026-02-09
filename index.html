@@ -293,7 +293,14 @@
 
                             <nav className="p-6 md:px-12 flex justify-between items-center bg-white/95 sticky top-0 z-[100] border-b">
                                 <div className="cursor-pointer" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASS && setIsAdmin(true)}>
-                                    {data.logo ? <img src={data.logo} className="h-10 md:h-12" /> : <span className="serif text-3xl font-bold uppercase tracking-tighter">{data.brand_name}</span>}
+                                    {data.logo ? (
+                                      <img src={data.logo} className="h-10 md:h-12" />
+                                    ) : (
+                                      <span className="serif text-3xl font-bold uppercase tracking-tighter">
+                                        {data.brand_name}
+                                      </span>
+                                    )}
+
                                 </div>
                                 <div className="hidden lg:flex space-x-12 text-[10px] font-bold uppercase opacity-50 tracking-[0.3em]">
                                     <a href="#home">Home</a><a href="#services">Experience</a><a href="#prices">Menu</a><a href="#about">About</a><a href="#gallery">Gallery</a>
@@ -467,6 +474,7 @@
     </script>
 </body>
 </html>
+
 
 
 
