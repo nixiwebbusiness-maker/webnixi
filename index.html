@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumina Luxe | Ultimate Business OS</title>
+    <!-- Dynamic Favicon -->
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -20,58 +22,167 @@
         .cart-float { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 500; width: 90%; max-width: 500px; }
         .masonry { column-count: 2; column-gap: 1.5rem; }
         @media (min-width: 768px) { .masonry { column-count: 4; } }
-        /* Footer Custom Colors */
         .bg-mahogany { background-color: var(--mahogany) !important; }
         .text-footer-head { color: #000000 !important; font-weight: 800; }
         .text-footer-small { font-size: 0.75rem !important; line-height: 1.4; opacity: 0.8; }
+        .favicon-preview { width: 32px; height: 32px; border-radius: 6px; object-fit: cover; border: 2px solid #ddd; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
+        // DEFAULT DATA - Agar data.json na mile to yeh use hoga
+        const DEFAULT_DATA = {
+            brand_name: "LUMINA LUXE",
+            favicon: "",
+            logo: "",
+            hero: {
+                title: "LUMINA LUXE",
+                subtitle: "Experience Ultimate Luxury",
+                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop"
+            },
+            about: {
+                text: "Welcome to Lumina Luxe, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop"
+            },
+            services: {
+                "Spa": [
+                    {name: "Royal Massage", price: "$150", desc: "Full body relaxation massage", img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop"},
+                    {name: "Facial Treatment", price: "$120", desc: "Premium skincare treatment", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop"}
+                ],
+                "Salon": [
+                    {name: "Hair Styling", price: "$80", desc: "Professional hair styling", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop"},
+                    {name: "Manicure", price: "$50", desc: "Luxury nail care", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop"}
+                ]
+            },
+            full_menu: [
+                {
+                    cat: "Hair Services",
+                    items: [
+                        {n: "Haircut & Style", p: "$65"},
+                        {n: "Color & Highlights", p: "$120"},
+                        {n: "Keratin Treatment", p: "$200"}
+                    ]
+                },
+                {
+                    cat: "Body Treatments",
+                    items: [
+                        {n: "Swedish Massage", p: "$90"},
+                        {n: "Deep Tissue", p: "$110"},
+                        {n: "Hot Stone Therapy", p: "$130"}
+                    ]
+                }
+            ],
+            reviews: [
+                {name: "Sarah Johnson", text: "Absolutely amazing experience! The staff was so professional."},
+                {name: "Emily Davis", text: "Best spa day I've ever had. Highly recommend!"},
+                {name: "Michael Brown", text: "Luxurious atmosphere and top-notch service."}
+            ],
+            gallery: [
+                "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop",
+                "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+            ],
+            footer: {
+                whatsapp: "+1234567890",
+                hours: "Mon-Sun: 9AM - 9PM",
+                address: "123 Luxury Lane, Beverly Hills, CA 90210",
+                copyright: "© 2024 Lumina Luxe. All rights reserved."
+            }
+        };
+
         function App() {
             const [data, setData] = React.useState(null);
             const [isAdmin, setIsAdmin] = React.useState(false);
             const [activeCat, setActiveCat] = React.useState('');
             const [selectedSvc, setSelectedSvc] = React.useState(null);
             const [cart, setCart] = React.useState([]);
+            const [loading, setLoading] = React.useState(true);
 
             const ADMIN_PASS = "admin123";
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
             const UPLOAD_PRESET = "faysal";
 
+            // Favicon update function
+            const updateFavicon = (url) => {
+                const favicon = document.getElementById('dynamic-favicon');
+                if (favicon && url) {
+                    favicon.href = url;
+                }
+            };
+
             React.useEffect(() => {
-                fetch('data.json').then(res => res.json()).then(d => {
-                    if(!d.hero) d.hero = { title: "", subtitle: "", image: "" };
-                    if(!d.about) d.about = { text: "", image: "" };
-                    if(!d.gallery) d.gallery = [];
-                    if(!d.reviews) d.reviews = [];
-                    if(!d.footer) d.footer = { whatsapp: "", hours: "", address: "", copyright: "" };
-                    if(!d.full_menu) d.full_menu = [];
-                    if(!d.services) d.services = {};
-                    
-                    setData(d);
-                    const cats = Object.keys(d.services || {});
-                    if(cats.length > 0) { 
-                        setActiveCat(cats[0]); 
-                        setSelectedSvc(d.services[cats[0]][0]); 
+                // Try to load data.json, fallback to DEFAULT_DATA if fails
+                const loadData = async () => {
+                    try {
+                        const response = await fetch('data.json');
+                        if (!response.ok) throw new Error('Failed to load');
+                        const jsonData = await response.json();
+                        
+                        // Merge with defaults to ensure all fields exist
+                        const mergedData = { ...DEFAULT_DATA, ...jsonData };
+                        if (!mergedData.hero) mergedData.hero = DEFAULT_DATA.hero;
+                        if (!mergedData.about) mergedData.about = DEFAULT_DATA.about;
+                        if (!mergedData.services) mergedData.services = DEFAULT_DATA.services;
+                        if (!mergedData.full_menu) mergedData.full_menu = DEFAULT_DATA.full_menu;
+                        if (!mergedData.reviews) mergedData.reviews = DEFAULT_DATA.reviews;
+                        if (!mergedData.gallery) mergedData.gallery = DEFAULT_DATA.gallery;
+                        if (!mergedData.footer) mergedData.footer = DEFAULT_DATA.footer;
+                        
+                        setData(mergedData);
+                        
+                        // Set favicon if exists
+                        if (mergedData.favicon) {
+                            updateFavicon(mergedData.favicon);
+                        }
+                        
+                        const cats = Object.keys(mergedData.services || {});
+                        if (cats.length > 0) { 
+                            setActiveCat(cats[0]); 
+                            setSelectedSvc(mergedData.services[cats[0]][0]); 
+                        }
+                    } catch (err) {
+                        console.log("Using default data:", err);
+                        setData(DEFAULT_DATA);
+                        const cats = Object.keys(DEFAULT_DATA.services);
+                        setActiveCat(cats[0]);
+                        setSelectedSvc(DEFAULT_DATA.services[cats[0]][0]);
+                    } finally {
+                        setLoading(false);
                     }
-                }).catch(err => console.error("Error loading data:", err));
+                };
+                
+                loadData();
             }, []);
 
             const uploadImg = async (e, callback) => {
                 const file = e.target.files[0];
                 if(!file) return;
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert("Please select an image file only!");
+                    return;
+                }
+                
                 const fd = new FormData();
                 fd.append("file", file);
                 fd.append("upload_preset", UPLOAD_PRESET);
                 try {
                     const res = await fetch(CLOUDINARY_URL, { method: "POST", body: fd });
                     const json = await res.json();
-                    callback(json.secure_url);
-                    alert("Image Uploaded!");
-                } catch(err) { alert("Upload Failed!"); }
+                    if (json.secure_url) {
+                        callback(json.secure_url);
+                        alert("Image Uploaded Successfully!");
+                    } else {
+                        throw new Error("Upload failed");
+                    }
+                } catch(err) { 
+                    alert("Upload Failed! Please try again."); 
+                    console.error(err);
+                }
             };
 
             const toggleCart = (svc) => {
@@ -81,9 +192,14 @@
             };
 
             const sendWhatsApp = () => {
+                if (!data || !data.footer || !data.footer.whatsapp) {
+                    alert("WhatsApp number not configured!");
+                    return;
+                }
                 const items = cart.map(c => `- ${c.name} (${c.price})`).join('%0A');
                 const msg = `Booking Request from ${data.brand_name}:%0A${items}`;
-                window.open(`https://wa.me/${data.footer.whatsapp.replace(/\D/g,'')}?text=${msg}`);
+                const phone = data.footer.whatsapp.replace(/\D/g,'');
+                window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
             };
 
             const saveToGithub = async () => {
@@ -95,19 +211,63 @@
                         method: 'POST', headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ content: b64, sha: fileData.sha })
                     });
-                    alert("Settings Updated!"); window.location.reload();
-                } catch(e) { alert("Update Failed. Check API route."); }
+                    alert("Settings Updated!"); 
+                    window.location.reload();
+                } catch(e) { 
+                    alert("Update Failed. Check API route or GitHub permissions."); 
+                    console.error(e);
+                }
             };
 
-            if (!data) return <div className="h-screen flex items-center justify-center serif text-3xl italic animate-pulse">LUMINA LUXE BUSINESS OS...</div>;
+            if (loading || !data) return (
+                <div className="h-screen flex items-center justify-center serif text-3xl italic animate-pulse bg-white">
+                    LUMINA LUXE BUSINESS OS...
+                </div>
+            );
 
             return (
                 <div>
                     {isAdmin ? (
                         <div className="bg-slate-50 min-h-screen p-6 md:p-12 pb-44">
-                            <button onClick={() => setIsAdmin(false)} className="fixed top-8 right-8 bg-black text-white w-12 h-12 rounded-full z-[100] shadow-2xl font-bold italic">✕</button>
+                            <button onClick={() => setIsAdmin(false)} className="fixed top-8 right-8 bg-black text-white w-12 h-12 rounded-full z-[100] shadow-2xl font-bold italic hover:bg-gray-800 transition">✕</button>
                             <div className="max-w-6xl mx-auto">
                                 <h1 className="serif text-6xl font-bold mb-10 border-b pb-4">Business Controller</h1>
+
+                                {/* 0. FAVICON */}
+                                <div className="admin-card border-l-8 border-pink-600">
+                                    <h3 className="font-bold text-xs tracking-widest text-pink-600 mb-6 uppercase">0. Browser Favicon (Tab Icon)</h3>
+                                    <div className="grid md:grid-cols-2 gap-6 items-center">
+                                        <div>
+                                            <label className="text-[10px] font-bold block mb-2">Upload Favicon (32x32 PNG/SVG recommended)</label>
+                                            <input 
+                                                type="file" 
+                                                accept="image/*,.ico,.svg" 
+                                                className="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100" 
+                                                onChange={e => uploadImg(e, (url) => {
+                                                    setData({...data, favicon: url});
+                                                    updateFavicon(url);
+                                                })} 
+                                            />
+                                            <p className="text-[10px] text-gray-500 mt-2">*This icon appears in browser tab</p>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            {data.favicon ? (
+                                                <>
+                                                    <img src={data.favicon} className="favicon-preview" alt="Current Favicon" />
+                                                    <div>
+                                                        <p className="text-xs font-bold">Current Favicon</p>
+                                                        <p className="text-[10px] text-gray-500 break-all max-w-xs">{data.favicon}</p>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div className="flex items-center gap-2 text-gray-400">
+                                                    <span className="text-2xl">✨</span>
+                                                    <p className="text-sm italic">Using default emoji favicon</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
 
                                 {/* 1. BRANDING */}
                                 <div className="admin-card border-l-8 border-rose-gold">
@@ -119,8 +279,13 @@
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-bold block mb-2">Upload New Logo Image</label>
-                                            <input type="file" className="text-xs" onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} />
-                                            {data.logo && <img src={data.logo} className="h-10 mt-2 bg-black p-1" />}
+                                            <input 
+                                                type="file" 
+                                                accept="image/*" 
+                                                className="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100" 
+                                                onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} 
+                                            />
+                                            {data.logo && <img src={data.logo} className="h-10 mt-2 bg-black p-1 rounded" alt="Logo preview" />}
                                         </div>
                                     </div>
                                 </div>
@@ -136,8 +301,14 @@
                                             <input className="input-f" value={data.hero.subtitle} onChange={e => setData({...data, hero: {...data.hero, subtitle: e.target.value}})} />
                                         </div>
                                         <div>
-                                            <label className="text-[10px] font-bold block">Background Video/Image</label>
-                                            <input type="file" className="text-xs mt-2" onChange={e => uploadImg(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} />
+                                            <label className="text-[10px] font-bold block">Background Image/Video</label>
+                                            <input 
+                                                type="file" 
+                                                accept="image/*,video/*" 
+                                                className="text-xs mt-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" 
+                                                onChange={e => uploadImg(e, (url) => setData({...data, hero: {...data.hero, image: url}}))} 
+                                            />
+                                            {data.hero.image && <img src={data.hero.image} className="h-20 mt-2 rounded object-cover" alt="Hero preview" />}
                                         </div>
                                     </div>
                                 </div>
@@ -152,67 +323,98 @@
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-bold block">About Image</label>
-                                            <input type="file" className="text-xs mt-2" onChange={e => uploadImg(e, (url) => setData({...data, about: {...data.about, image: url}}))} />
+                                            <input 
+                                                type="file" 
+                                                accept="image/*" 
+                                                className="text-xs mt-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" 
+                                                onChange={e => uploadImg(e, (url) => setData({...data, about: {...data.about, image: url}}))} 
+                                            />
+                                            {data.about.image && <img src={data.about.image} className="h-20 mt-2 rounded object-cover" alt="About preview" />}
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* 4. THE EXPERIENCE (SERVICES) */}
+                                {/* 4. SERVICES */}
                                 <div className="admin-card border-l-8 border-amber-600">
                                     <h3 className="font-bold text-xs tracking-widest text-amber-600 mb-6 uppercase">4. The Experience (Main Services)</h3>
                                     <button onClick={() => {
                                         const catName = prompt("New Category Name:");
                                         if(catName) setData({...data, services: {...data.services, [catName]: []}});
-                                    }} className="bg-amber-600 text-white px-4 py-2 rounded text-[10px] font-bold mb-4">+ ADD SERVICE CATEGORY</button>
+                                    }} className="bg-amber-600 text-white px-4 py-2 rounded text-[10px] font-bold mb-4 hover:bg-amber-700 transition">+ ADD SERVICE CATEGORY</button>
                                     
-                                    {Object.keys(data.services).map(cat => (
+                                    {Object.keys(data.services || {}).map(cat => (
                                         <div key={cat} className="mb-6 border p-4 rounded-xl bg-amber-50/30">
                                             <div className="flex justify-between items-center mb-4">
-                                                <h4 className="font-bold uppercase text-sm">{cat}</h4>
+                                                <input 
+                                                    className="font-bold uppercase text-sm bg-transparent border-b border-amber-200" 
+                                                    value={cat} 
+                                                    onChange={e => {
+                                                        const newCat = e.target.value;
+                                                        if (newCat && newCat !== cat) {
+                                                            const newServices = {...data.services};
+                                                            newServices[newCat] = newServices[cat];
+                                                            delete newServices[cat];
+                                                            setData({...data, services: newServices});
+                                                        }
+                                                    }}
+                                                />
                                                 <button onClick={() => {
                                                     let d = {...data}; delete d.services[cat]; setData(d);
-                                                }} className="text-red-500 text-[10px]">Delete Category</button>
+                                                }} className="text-red-500 text-[10px] hover:text-red-700">Delete Category</button>
                                             </div>
                                             {data.services[cat].map((svc, si) => (
-                                                <div key={si} className="grid grid-cols-4 gap-2 mb-2 bg-white p-2 rounded shadow-sm">
-                                                    <input className="input-f !mt-0 col-span-2" placeholder="Name" value={svc.name} onChange={e => {
+                                                <div key={si} className="grid grid-cols-12 gap-2 mb-2 bg-white p-2 rounded shadow-sm items-center">
+                                                    <input className="input-f !mt-0 col-span-3" placeholder="Name" value={svc.name} onChange={e => {
                                                         let d = {...data}; d.services[cat][si].name = e.target.value; setData(d);
                                                     }} />
-                                                    <input className="input-f !mt-0" placeholder="Price" value={svc.price} onChange={e => {
+                                                    <input className="input-f !mt-0 col-span-2" placeholder="Price" value={svc.price} onChange={e => {
                                                         let d = {...data}; d.services[cat][si].price = e.target.value; setData(d);
                                                     }} />
-                                                    <button onClick={() => {
-                                                        let d = {...data}; d.services[cat].splice(si, 1); setData(d);
-                                                    }} className="text-red-400 text-xs">✕</button>
+                                                    <input className="input-f !mt-0 col-span-5" placeholder="Description" value={svc.desc || ''} onChange={e => {
+                                                        let d = {...data}; d.services[cat][si].desc = e.target.value; setData(d);
+                                                    }} />
+                                                    <div className="col-span-2 flex gap-1">
+                                                        <input 
+                                                            type="file" 
+                                                            accept="image/*" 
+                                                            className="text-[8px] w-full" 
+                                                            onChange={e => uploadImg(e, (url) => {
+                                                                let d = {...data}; d.services[cat][si].img = url; setData(d);
+                                                            })} 
+                                                        />
+                                                        <button onClick={() => {
+                                                            let d = {...data}; d.services[cat].splice(si, 1); setData(d);
+                                                        }} className="text-red-400 text-xs hover:text-red-600">✕</button>
+                                                    </div>
                                                 </div>
                                             ))}
                                             <button onClick={() => {
                                                 let d = {...data}; d.services[cat].push({name: "New Service", price: "$0", desc: "", img: ""}); setData(d);
-                                            }} className="text-[10px] text-blue-500 font-bold mt-2">+ ADD SERVICE TO {cat}</button>
+                                            }} className="text-[10px] text-blue-500 font-bold mt-2 hover:text-blue-700">+ ADD SERVICE TO {cat}</button>
                                         </div>
                                     ))}
                                 </div>
 
-                                {/* 5. THE PRICE MENU */}
+                                {/* 5. PRICE MENU */}
                                 <div className="admin-card border-l-8 border-black">
                                     <h3 className="font-bold text-xs tracking-widest mb-6 uppercase">5. Full Price Menu</h3>
                                     {data.full_menu.map((m, mi) => (
                                         <div key={mi} className="mb-6 p-4 bg-gray-50 rounded-xl border">
                                             <div className="flex justify-between items-center mb-4">
-                                                <input className="font-bold bg-transparent border-b" value={m.cat} onChange={e => {let d={...data}; d.full_menu[mi].cat=e.target.value; setData(d);}} />
-                                                <button onClick={() => {let d={...data}; d.full_menu.splice(mi,1); setData(d);}} className="text-red-500 text-[10px]">Delete Cat</button>
+                                                <input className="font-bold bg-transparent border-b w-full mr-4" value={m.cat} onChange={e => {let d={...data}; d.full_menu[mi].cat=e.target.value; setData(d);}} />
+                                                <button onClick={() => {let d={...data}; d.full_menu.splice(mi,1); setData(d);}} className="text-red-500 text-[10px] hover:text-red-700">Delete Cat</button>
                                             </div>
                                             {m.items.map((it, ii) => (
                                                 <div key={ii} className="flex gap-2 mb-2">
                                                     <input className="input-f flex-1" value={it.n} onChange={e => {let d={...data}; d.full_menu[mi].items[ii].n=e.target.value; setData(d);}} />
                                                     <input className="input-f w-24" value={it.p} onChange={e => {let d={...data}; d.full_menu[mi].items[ii].p=e.target.value; setData(d);}} />
-                                                    <button onClick={() => {let d={...data}; d.full_menu[mi].items.splice(ii,1); setData(d);}} className="text-gray-300">✕</button>
+                                                    <button onClick={() => {let d={...data}; d.full_menu[mi].items.splice(ii,1); setData(d);}} className="text-gray-300 hover:text-red-500">✕</button>
                                                 </div>
                                             ))}
-                                            <button onClick={() => {let d={...data}; d.full_menu[mi].items.push({n:"", p:""}); setData(d);}} className="text-[10px] text-blue-500 font-bold">+ ITEM</button>
+                                            <button onClick={() => {let d={...data}; d.full_menu[mi].items.push({n:"New Item", p:"$0"}); setData(d);}} className="text-[10px] text-blue-500 font-bold hover:text-blue-700">+ ITEM</button>
                                         </div>
                                     ))}
-                                    <button onClick={() => setData({...data, full_menu: [...data.full_menu, {cat: "New Category", items: []}]})} className="bg-black text-white px-4 py-2 rounded text-xs font-bold">+ ADD CATEGORY</button>
+                                    <button onClick={() => setData({...data, full_menu: [...data.full_menu, {cat: "New Category", items: []}]})} className="bg-black text-white px-4 py-2 rounded text-xs font-bold hover:bg-gray-800 transition">+ ADD CATEGORY</button>
                                 </div>
 
                                 {/* 6. REVIEWS & GALLERY */}
@@ -222,66 +424,90 @@
                                         {data.reviews.map((r, i) => (
                                             <div key={i} className="mb-3 p-3 bg-gray-50 rounded">
                                                 <input className="input-f font-bold !mt-0 !py-1" value={r.name} onChange={e => {let d={...data}; d.reviews[i].name=e.target.value; setData(d);}} />
-                                                <textarea className="input-f !py-1 text-xs mt-1" value={r.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}} />
-                                                <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-500 text-[8px]">Remove</button>
+                                                <textarea className="input-f !py-1 text-xs mt-1" rows="2" value={r.text} onChange={e => {let d={...data}; d.reviews[i].text=e.target.value; setData(d);}} />
+                                                <button onClick={() => {let d={...data}; d.reviews.splice(i,1); setData(d);}} className="text-red-500 text-[8px] hover:text-red-700">Remove</button>
                                             </div>
                                         ))}
-                                        <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"", text:""}]})} className="text-amber-600 font-bold text-[10px] uppercase">+ Add Review</button>
+                                        <button onClick={() => setData({...data, reviews: [...data.reviews, {name:"New Client", text:"Amazing service!"}]})} className="text-amber-600 font-bold text-[10px] uppercase hover:text-amber-800">+ Add Review</button>
                                     </div>
                                     <div className="admin-card border-l-8 border-teal-500">
                                         <h3 className="font-bold text-[10px] mb-4 uppercase">7. Gallery Photos</h3>
                                         <div className="grid grid-cols-4 gap-2 mb-4">
                                             {data.gallery.map((img, i) => (
                                                 <div key={i} className="relative group">
-                                                    <img src={img} className="h-12 w-full object-cover rounded shadow" />
-                                                    <button onClick={() => {let d={...data}; d.gallery.splice(i,1); setData(d);}} className="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full text-[8px]">✕</button>
+                                                    <img src={img} className="h-12 w-full object-cover rounded shadow" alt={`Gallery ${i}`} />
+                                                    <button onClick={() => {let d={...data}; d.gallery.splice(i,1); setData(d);}} className="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full text-[8px] hover:bg-red-700">✕</button>
                                                 </div>
                                             ))}
                                         </div>
-                                        <input type="file" className="text-[10px]" onChange={e => uploadImg(e, (url) => setData({...data, gallery: [...data.gallery, url]}))} />
+                                        <input 
+                                            type="file" 
+                                            accept="image/*" 
+                                            multiple
+                                            className="text-[10px] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100" 
+                                            onChange={e => {
+                                                const files = Array.from(e.target.files);
+                                                files.forEach(file => {
+                                                    const fd = new FormData();
+                                                    fd.append("file", file);
+                                                    fd.append("upload_preset", UPLOAD_PRESET);
+                                                    fetch(CLOUDINARY_URL, { method: "POST", body: fd })
+                                                        .then(res => res.json())
+                                                        .then(json => {
+                                                            if (json.secure_url) {
+                                                                setData(prev => ({...prev, gallery: [...prev.gallery, json.secure_url]}));
+                                                            }
+                                                        });
+                                                });
+                                            }} 
+                                        />
                                     </div>
                                 </div>
 
-                                {/* 7. FOOTER */}
+                                {/* 8. FOOTER */}
                                 <div className="admin-card border-l-8 border-green-600">
                                     <h3 className="font-bold text-xs uppercase mb-6">8. Footer & Contacts</h3>
                                     <div className="grid md:grid-cols-2 gap-4">
-                                        <input className="input-f" placeholder="WhatsApp Number" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
+                                        <input className="input-f" placeholder="WhatsApp Number (with country code)" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
                                         <input className="input-f" placeholder="Business Hours" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
                                         <input className="input-f" placeholder="Full Address" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
                                         <input className="input-f" placeholder="Copyright Text" value={data.footer.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
                                     </div>
                                 </div>
 
-                                <button onClick={saveToGithub} className="btn-premium w-full py-8 text-xl font-bold uppercase tracking-[0.4em] shadow-2xl sticky bottom-10 border-4 border-white">Deploy Master Site Update</button>
+                                <button onClick={saveToGithub} className="btn-premium w-full py-8 text-xl font-bold uppercase tracking-[0.4em] shadow-2xl sticky bottom-10 border-4 border-white hover:scale-[1.02] transition">Deploy Master Site Update</button>
                             </div>
                         </div>
                     ) : (
                         <div>
                             {/* --- WEBSITE FRONTEND --- */}
                             {cart.length > 0 && (
-                                <div className="cart-float bg-black text-white p-5 rounded-full flex justify-between items-center shadow-2xl px-10 border border-white/20">
+                                <div className="cart-float bg-black text-white p-5 rounded-full flex justify-between items-center shadow-2xl px-10 border border-white/20 animate-bounce">
                                     <div className="text-[10px] font-bold uppercase tracking-widest">{cart.length} Selections</div>
-                                    <button onClick={sendWhatsApp} className="btn-premium px-8 py-3 text-xs font-bold uppercase">Book Now ➔</button>
+                                    <button onClick={sendWhatsApp} className="btn-premium px-8 py-3 text-xs font-bold uppercase hover:scale-105 transition">Book Now ➔</button>
                                 </div>
                             )}
 
-                            <nav className="p-6 md:px-12 flex justify-between items-center bg-white/95 sticky top-0 z-[100] border-b">
-                                <div className="cursor-pointer" onClick={(e) => e.shiftKey && prompt("Pass:") === ADMIN_PASS && setIsAdmin(true)}>
-                                    {data.logo ? <img src={data.logo} className="h-10 md:h-12" /> : <span className="serif text-3xl font-bold uppercase tracking-tighter">{data.brand_name}</span>}
+                            <nav className="p-6 md:px-12 flex justify-between items-center bg-white/95 sticky top-0 z-[100] border-b backdrop-blur-sm">
+                                <div className="cursor-pointer" onClick={(e) => e.shiftKey && prompt("Enter Admin Password:") === ADMIN_PASS && setIsAdmin(true)}>
+                                    {data.logo ? <img src={data.logo} className="h-10 md:h-12 object-contain" alt="Logo" /> : <span className="serif text-3xl font-bold uppercase tracking-tighter">{data.brand_name}</span>}
                                 </div>
                                 <div className="hidden lg:flex space-x-12 text-[10px] font-bold uppercase opacity-50 tracking-[0.3em]">
-                                    <a href="#home">Home</a><a href="#services">Experience</a><a href="#prices">Menu</a><a href="#about">About</a><a href="#gallery">Gallery</a>
+                                    <a href="#home" className="hover:text-rose-gold hover:opacity-100 transition">Home</a>
+                                    <a href="#services" className="hover:text-rose-gold hover:opacity-100 transition">Experience</a>
+                                    <a href="#prices" className="hover:text-rose-gold hover:opacity-100 transition">Menu</a>
+                                    <a href="#about" className="hover:text-rose-gold hover:opacity-100 transition">About</a>
+                                    <a href="#gallery" className="hover:text-rose-gold hover:opacity-100 transition">Gallery</a>
                                 </div>
-                                <button onClick={sendWhatsApp} className="btn-premium px-10 py-3 text-[10px] font-bold uppercase tracking-widest">Reserve</button>
+                                <button onClick={sendWhatsApp} className="btn-premium px-10 py-3 text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition">Reserve</button>
                             </nav>
 
                             {/* HERO */}
-                            <header id="home" className="h-[90vh] relative flex items-center justify-center text-white text-center">
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" />
+                            <header id="home" className="h-[90vh] relative flex items-center justify-center text-white text-center overflow-hidden">
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover" alt="Hero" />
                                 <div className="absolute inset-0 bg-black/50"></div>
-                                <div className="relative p-6">
-                                    <h1 className="serif text-7xl md:text-[10rem] italic leading-none">{data.hero.title || data.brand_name}</h1>
+                                <div className="relative p-6 animate-fade-in">
+                                    <h1 className="serif text-7xl md:text-[10rem] italic leading-none drop-shadow-2xl">{data.hero.title || data.brand_name}</h1>
                                     <p className="tracking-[0.8em] uppercase text-[12px] mt-12 font-bold opacity-70 italic">{data.hero.subtitle}</p>
                                 </div>
                             </header>
@@ -289,33 +515,33 @@
                             {/* SERVICES */}
                             <section id="services" className="py-32 px-6 max-w-7xl mx-auto">
                                 <h2 className="serif text-8xl text-center mb-24 italic">The Experience</h2>
-                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b mb-16 justify-center">
+                                <div className="flex overflow-x-auto no-scrollbar gap-12 border-b mb-16 justify-center min-w-full">
                                     {Object.keys(data.services || {}).map(cat => (
                                         <button key={cat} onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
-                                            className={`pb-6 text-[11px] font-bold uppercase tracking-[0.3em] transition-all ${activeCat === cat ? 'border-b-2 border-rose-gold text-rose-gold' : 'opacity-20 hover:opacity-100'}`}>{cat}</button>
+                                            className={`pb-6 text-[11px] font-bold uppercase tracking-[0.3em] transition-all whitespace-nowrap ${activeCat === cat ? 'border-b-2 border-rose-gold text-rose-gold' : 'opacity-20 hover:opacity-100'}`}>{cat}</button>
                                     ))}
                                 </div>
                                 <div className="grid md:grid-cols-12 gap-16 items-center">
                                     <div className="md:col-span-4 space-y-6 max-h-[500px] overflow-y-auto no-scrollbar pr-4">
                                         {data.services[activeCat]?.map((s, i) => (
-                                            <div key={i} className={`p-8 rounded-[2rem] flex justify-between items-center transition-all ${selectedSvc?.name === s.name ? 'bg-pink-50 border-l-[10px] border-rose-gold' : 'bg-gray-50'}`}>
-                                                <div onClick={() => setSelectedSvc(s)} className="cursor-pointer flex-1">
+                                            <div key={i} className={`p-8 rounded-[2rem] flex justify-between items-center transition-all cursor-pointer ${selectedSvc?.name === s.name ? 'bg-pink-50 border-l-[10px] border-rose-gold shadow-lg' : 'bg-gray-50 hover:bg-gray-100'}`}>
+                                                <div onClick={() => setSelectedSvc(s)} className="flex-1">
                                                     <h4 className="serif text-2xl font-bold uppercase">{s.name}</h4>
                                                     <p className="text-[10px] font-bold text-rose-gold mt-1">{s.price}</p>
                                                 </div>
-                                                <button onClick={() => toggleCart(s)} className={`w-10 h-10 rounded-full font-bold text-lg ${cart.find(c => c.name === s.name) ? 'bg-black text-white' : 'bg-rose-gold text-white'}`}>{cart.find(c => c.name === s.name) ? '✕' : '+'}</button>
+                                                <button onClick={(e) => {e.stopPropagation(); toggleCart(s);}} className={`w-10 h-10 rounded-full font-bold text-lg transition-transform hover:scale-110 ${cart.find(c => c.name === s.name) ? 'bg-black text-white' : 'bg-rose-gold text-white'}`}>{cart.find(c => c.name === s.name) ? '✕' : '+'}</button>
                                             </div>
                                         ))}
                                     </div>
                                     <div className="md:col-span-8 flex flex-col md:flex-row gap-12">
                                         {selectedSvc && (
                                             <>
-                                                <img src={selectedSvc.img} className="w-full md:w-1/2 aspect-square object-cover rounded-[3rem] shadow-2xl" />
+                                                <img src={selectedSvc.img} className="w-full md:w-1/2 aspect-square object-cover rounded-[3rem] shadow-2xl" alt={selectedSvc.name} />
                                                 <div className="flex-1">
                                                     <h3 className="serif text-6xl mb-6 italic leading-tight">{selectedSvc.name}</h3>
                                                     <p className="text-3xl font-bold text-rose-gold mb-8">{selectedSvc.price}</p>
                                                     <p className="text-xl opacity-50 mb-10 italic leading-relaxed serif">{selectedSvc.desc}</p>
-                                                    <button onClick={() => toggleCart(selectedSvc)} className="btn-premium w-full py-5 text-[11px] font-bold uppercase tracking-widest">
+                                                    <button onClick={() => toggleCart(selectedSvc)} className="btn-premium w-full py-5 text-[11px] font-bold uppercase tracking-widest hover:scale-[1.02] transition">
                                                         {cart.find(c => c.name === selectedSvc.name) ? 'Remove Selection' : 'Add Selection'}
                                                     </button>
                                                 </div>
@@ -331,7 +557,7 @@
                                     <h2 className="serif text-6xl text-center mb-16 italic">Words of Luxe</h2>
                                     <div className="grid md:grid-cols-3 gap-8">
                                         {data.reviews.map((r, i) => (
-                                            <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm italic text-center">
+                                            <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm italic text-center hover:shadow-xl transition-shadow">
                                                 <p className="serif text-lg opacity-60 mb-6">"{r.text}"</p>
                                                 <h5 className="font-bold text-[10px] uppercase tracking-widest text-rose-gold">— {r.name}</h5>
                                             </div>
@@ -368,7 +594,7 @@
                                         <p className="text-2xl serif italic opacity-60 leading-relaxed whitespace-pre-wrap">{data.about.text}</p>
                                     </div>
                                     <div className="order-1 md:order-2">
-                                        <img src={data.about.image} className="w-full rounded-[4rem] aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000" />
+                                        <img src={data.about.image} className="w-full rounded-[4rem] aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000" alt="About" />
                                     </div>
                                 </div>
                             </section>
@@ -378,7 +604,9 @@
                                 <h2 className="serif text-8xl text-center mb-24 italic">Visual Sanctuary</h2>
                                 <div className="max-w-7xl mx-auto masonry space-y-6">
                                     {data.gallery.map((img, i) => (
-                                        <div key={i} className="overflow-hidden rounded-[2rem] shadow-xl border-4 border-white"><img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" /></div>
+                                        <div key={i} className="overflow-hidden rounded-[2rem] shadow-xl border-4 border-white break-inside-avoid">
+                                            <img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" alt={`Gallery ${i}`} />
+                                        </div>
                                     ))}
                                 </div>
                             </section>
@@ -387,7 +615,7 @@
                             <footer className="bg-mahogany text-white pt-24 pb-12 px-10">
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 border-b border-white/5 pb-20">
                                     <div className="col-span-2">
-                                        {data.logo ? <img src={data.logo} className="h-14 mb-6 brightness-0 invert" /> : <h4 className="serif text-6xl text-rose-gold italic font-bold mb-6">{data.brand_name}</h4>}
+                                        {data.logo ? <img src={data.logo} className="h-14 mb-6 brightness-0 invert object-contain" alt="Logo" /> : <h4 className="serif text-6xl text-rose-gold italic font-bold mb-6">{data.brand_name}</h4>}
                                         <h5 className="text-footer-head uppercase text-[11px] mb-3 tracking-widest">Address</h5>
                                         <p className="text-footer-small italic opacity-70 max-w-sm mb-6">{data.footer.address}</p>
                                     </div>
@@ -397,7 +625,7 @@
                                     </div>
                                     <div>
                                         <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">Contact</h5>
-                                        <p className="text-footer-small serif italic underline">{data.footer.whatsapp}</p>
+                                        <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-footer-small serif italic underline hover:text-rose-gold transition">{data.footer.whatsapp}</a>
                                     </div>
                                 </div>
                                 <p className="text-center mt-12 text-[9px] uppercase tracking-[0.5em] opacity-30">{data.footer.copyright}</p>
