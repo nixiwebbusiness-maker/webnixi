@@ -391,29 +391,48 @@
 
                             {/* FOOTER */}
                             <footer className="bg-mahogany text-white pt-24 pb-12 px-10">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 border-b border-white/5 pb-20">
-                                    <div className="col-span-2">
-                                        <div className="flex items-center gap-3">
-                                            <h4 className="serif text-6xl italic font-bold mb-6 text-[var(--rose-gold)]">
-                                                {data.brand_name}
-                                            </h4>
-                                                {data.brand_name}
-                                            </span>
-                                        </div>
-                                        <h5 className="text-footer-head uppercase text-[11px] mb-3 tracking-widest">Address</h5>
-                                        <p className="text-footer-small italic opacity-70 max-w-sm mb-6">{data.footer.address}</p>
-                                    </div>
-                                    <div>
-                                        <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">Timing</h5>
-                                        <p className="text-footer-small serif italic">{data.footer.hours}</p>
-                                    </div>
-                                    <div>
-                                        <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">Contact</h5>
-                                        <p className="text-footer-small serif italic underline">{data.footer.whatsapp}</p>
-                                    </div>
+                              <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 border-b border-white/5 pb-20">
+
+                                <div className="col-span-2">
+                                  <div className="flex items-center gap-3">
+                                    <h4 className="serif text-6xl italic font-bold mb-6 text-[var(--rose-gold)]">
+                                      {data.brand_name}
+                                    </h4>
                                 </div>
-                                <p className="text-center mt-12 text-[9px] uppercase tracking-[0.5em] opacity-30">{data.footer.copyright}</p>
+
+                                <h5 className="text-footer-head uppercase text-[11px] mb-3 tracking-widest">
+                                  Address
+                                </h5>
+                                <p className="text-footer-small italic opacity-70 max-w-sm mb-6">
+                                  {data.footer.address}
+                                </p>
+                              </div>
+
+                              <div>
+                                <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">
+                                  Timing
+                                </h5>
+                                <p className="text-footer-small serif italic">
+                                  {data.footer.hours}
+                                </p>
+                              </div>
+
+                              <div>
+                                <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">
+                                  Contact
+                                </h5>
+                                <p className="text-footer-small serif italic underline">
+                                  {data.footer.whatsapp}
+                                </p>
+                                </div>
+
+                              </div>
+
+                              <p className="text-center mt-12 text-[9px] uppercase tracking-[0.5em] opacity-30">
+                                {data.footer.copyright}
+                              </p>
                             </footer>
+
                         </div>
                     )}
                 </div>
@@ -423,4 +442,5 @@
     </script>
 </body>
 </html>
+
 
