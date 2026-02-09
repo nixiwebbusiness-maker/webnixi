@@ -471,9 +471,27 @@
             );
         }
         ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    <script>
+      fetch("/api/data.json")
+        .then(res => res.json())
+        .then(data => {
+          if (!data.favicon) return;
+
+          let link =
+            document.querySelector("link[rel='icon']") ||
+            document.createElement("link");
+
+          link.rel = "icon";
+          link.type = "image/png";
+          link.href = data.favicon;
+
+          document.head.appendChild(link);
+        })
+        .catch(err => console.error("Favicon error:", err));
     </script>
 </body>
 </html>
+
 
 
 
