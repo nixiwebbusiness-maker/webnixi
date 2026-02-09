@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lumina Luxe | Ultimate Business OS</title>
+    <!-- Dynamic Favicon -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -35,7 +36,7 @@
             font-family: 'Cormorant Garamond', serif;
         }
         
-        /* Button Color #cc73f8 */
+        /* Custom Button Color */
         .btn-premium {
             background: linear-gradient(135deg, #cc73f8 0%, #a855f7 100%);
             color: white;
@@ -51,21 +52,25 @@
             box-shadow: 0 6px 20px rgba(204, 115, 248, 0.6);
         }
         
-        /* MORE TRANSPARENT Floating Nav */
+        .btn-premium:active {
+            transform: scale(0.98);
+        }
+        
+        /* Floating Nav Styles - Mobile Optimized */
         .floating-nav {
             position: fixed;
             top: 12px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
-            background: rgba(13, 13, 13, 0.15);
+            background: rgba(13, 13, 13, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(204, 115, 248, 0.25);
+            border: 2px solid rgba(204, 115, 248, 0.3);
             border-radius: 50px;
             padding: 10px 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             width: calc(100% - 24px);
             max-width: 600px;
@@ -76,40 +81,59 @@
                 top: 20px;
                 padding: 12px 32px;
                 width: auto;
-                background: rgba(13, 13, 13, 0.2);
             }
         }
         
-        /* SOPHISTICATED GRID BACKGROUND */
-        .sophisticated-grid {
-            background-color: #0d0d0d;
+        .floating-nav:hover {
+            background: rgba(13, 13, 13, 0.95);
+            border-color: rgba(204, 115, 248, 0.5);
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: rgba(20, 20, 30, 0.95);
+            border: 1px solid rgba(204, 115, 248, 0.3);
+            border-radius: 24px;
+            padding: 20px;
+            width: calc(100% - 48px);
+            max-width: 320px;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+        
+        /* Grid Background Pattern */
+        .tech-grid-bg {
             background-image: 
                 linear-gradient(rgba(204, 115, 248, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px),
-                radial-gradient(circle at 50% 50%, rgba(204, 115, 248, 0.05) 0%, transparent 50%);
-            background-size: 40px 40px, 40px 40px, 200px 200px;
-            position: relative;
-        }
-        
-        .sophisticated-grid::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(135deg, rgba(204, 115, 248, 0.02) 0%, transparent 50%),
-                linear-gradient(225deg, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        /* Animated Grid Lines */
-        .tech-grid-bg {
-            background-color: #0d0d0d;
-            background-image: 
-                linear-gradient(rgba(204, 115, 248, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204, 115, 248, 0.04) 1px, transparent 1px);
+                linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
             position: relative;
         }
@@ -127,20 +151,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.9) 100%);
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.8) 100%);
             pointer-events: none;
         }
         
-        /* DEEP PURPLE BLUR for Cart */
+        /* Deep Purple Blur for Cart */
         .cart-blur {
-            background: rgba(76, 29, 149, 0.6);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(88, 28, 135, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(204, 115, 248, 0.4);
-            box-shadow: 
-                0 8px 32px rgba(76, 29, 149, 0.6),
-                0 0 0 1px rgba(204, 115, 248, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(88, 28, 135, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         /* Admin Cards */
@@ -167,7 +189,7 @@
             border: 1px solid rgba(204, 115, 248, 0.3);
             border-radius: 12px;
             margin-top: 6px;
-            font-size: 16px;
+            font-size: 16px; /* Prevents zoom on iOS */
             outline: none;
             background: rgba(0, 0, 0, 0.3);
             color: white;
@@ -193,7 +215,7 @@
             max-width: 500px;
         }
         
-        /* Masonry Grid */
+        /* Masonry Grid - Mobile Optimized */
         .masonry {
             column-count: 1;
             column-gap: 1rem;
@@ -216,7 +238,7 @@
             margin-bottom: 1rem;
         }
         
-        /* Loading Screen */
+        /* Loading Screen Animation */
         .loader-container {
             position: fixed;
             inset: 0;
@@ -310,81 +332,21 @@
             border: 2px solid rgba(204, 115, 248, 0.5);
         }
         
+        /* Glow Text */
         .glow-text {
-            text-shadow: 0 0 30px rgba(204, 115, 248, 0.6);
+            text-shadow: 0 0 20px rgba(204, 115, 248, 0.5);
         }
         
-        /* Footer White Text Styling */
-        .footer-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-heading {
-            color: #cc73f8;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        @media (min-width: 768px) {
-            .footer-heading {
-                font-size: 0.75rem;
-                margin-bottom: 1rem;
-            }
-        }
-        
+        /* Touch-friendly tap targets */
         .tap-target {
             min-height: 44px;
             min-width: 44px;
         }
         
+        /* Prevent text selection on UI elements */
         .no-select {
             -webkit-user-select: none;
             user-select: none;
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .mobile-menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .mobile-menu {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%) scale(0.9);
-            background: rgba(20, 20, 30, 0.95);
-            border: 1px solid rgba(204, 115, 248, 0.3);
-            border-radius: 24px;
-            padding: 20px;
-            width: calc(100% - 48px);
-            max-width: 320px;
-            z-index: 1001;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .mobile-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) scale(1);
         }
     </style>
 </head>
@@ -392,6 +354,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
+        // DEFAULT DATA
         const DEFAULT_DATA = {
             brand_name: "LUMINA LUXE",
             favicon: "",
@@ -513,6 +476,7 @@
                 loadData();
             }, []);
 
+            // Close mobile menu on scroll
             React.useEffect(() => {
                 const handleScroll = () => {
                     if (mobileMenuOpen) setMobileMenuOpen(false);
@@ -607,11 +571,12 @@
             return (
                 <div className="bg-[#0d0d0d] min-h-screen">
                     {isAdmin ? (
-                        <div className="min-h-screen p-4 md:p-12 pb-32 sophisticated-grid">
+                        <div className="min-h-screen p-4 md:p-12 pb-32 tech-grid-bg">
                             <button onClick={() => setIsAdmin(false)} className="fixed top-4 right-4 md:top-8 md:right-8 bg-[#cc73f8] text-white w-10 h-10 md:w-12 md:h-12 rounded-full z-[100] shadow-2xl font-bold italic hover:bg-[#a855f7] transition text-sm md:text-base">✕</button>
                             <div className="max-w-6xl mx-auto relative z-10">
                                 <h1 className="serif text-4xl md:text-6xl font-bold mb-6 md:mb-10 border-b border-[#cc73f8]/30 pb-4 text-white">Business Controller</h1>
 
+                                {/* Admin sections - Mobile optimized */}
                                 <div className="admin-card border-l-8 border-[#cc73f8]">
                                     <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 md:mb-6 uppercase">0. Browser Favicon</h3>
                                     <div className="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
@@ -636,6 +601,7 @@
                                     </div>
                                 </div>
 
+                                {/* Other admin cards... (simplified for mobile) */}
                                 <div className="admin-card border-l-8 border-[#cc73f8]">
                                     <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Branding</h3>
                                     <div className="space-y-4">
@@ -664,11 +630,11 @@
                                             {item}
                                         </button>
                                     ))}
-                                    <button onClick={sendWhatsApp} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Contact Now</button>
+                                    <button onClick={sendWhatsApp} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Reserve Now</button>
                                 </div>
                             </div>
 
-                            {/* Floating Nav - MORE TRANSPARENT */}
+                            {/* Floating Nav */}
                             <nav className="floating-nav no-select">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
@@ -695,9 +661,8 @@
                                     </div>
                                     
                                     <div className="flex items-center gap-2">
-                                        {/* CONTACT Button (was Reserve) */}
                                         <button onClick={sendWhatsApp} className="hidden md:block btn-premium px-4 py-2 text-[10px] font-bold uppercase">
-                                            Contact
+                                            Reserve
                                         </button>
                                         {/* Mobile Hamburger */}
                                         <button 
@@ -712,7 +677,7 @@
                                 </div>
                             </nav>
 
-                            {/* Cart with DEEP PURPLE BLUR */}
+                            {/* Cart */}
                             {cart.length > 0 && (
                                 <div className="cart-float cart-blur p-4 rounded-full flex justify-between items-center px-6">
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-white">{cart.length} Items</div>
@@ -720,10 +685,10 @@
                                 </div>
                             )}
 
-                            {/* Hero */}
-                            <header id="home" className="min-h-screen relative flex items-center justify-center text-white text-center overflow-hidden pt-20 px-4 sophisticated-grid">
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
-                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-30" alt="Hero" />
+                            {/* Hero - Mobile Optimized */}
+                            <header id="home" className="min-h-screen relative flex items-center justify-center text-white text-center overflow-hidden pt-20 px-4">
+                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
                                 <div className="relative z-10 max-w-4xl mx-auto">
                                     <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text text-white mb-6">{data.hero.title || data.brand_name}</h1>
@@ -731,8 +696,8 @@
                                 </div>
                             </header>
 
-                            {/* Services - SOPHISTICATED GRID */}
-                            <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto sophisticated-grid relative">
+                            {/* Services - Mobile Optimized */}
+                            <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto tech-grid-bg relative">
                                 <div className="relative z-10">
                                     <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">The Experience</h2>
                                     
@@ -750,7 +715,7 @@
                                     </div>
 
                                     <div className="grid md:grid-cols-12 gap-8 md:gap-16">
-                                        {/* Service List */}
+                                        {/* Service List - Mobile: Horizontal scroll, Desktop: Vertical */}
                                         <div className="md:col-span-4 flex md:block overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 md:gap-6 md:max-h-[500px] md:pr-4 pb-4 md:pb-0">
                                             {data.services[activeCat]?.map((s, i) => (
                                                 <div 
@@ -794,8 +759,9 @@
                                 </div>
                             </section>
 
-                            {/* Reviews */}
-                            <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden sophisticated-grid">
+                            {/* Reviews - Mobile Optimized */}
+                            <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden">
+                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <div className="max-w-6xl mx-auto relative z-10">
                                     <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic text-white glow-text">Words of Luxe</h2>
                                     <div className="grid md:grid-cols-3 gap-4 md:gap-8">
@@ -809,8 +775,8 @@
                                 </div>
                             </section>
 
-                            {/* Price Menu */}
-                            <section id="menu" className="py-16 md:py-32 bg-[#0d0d0d] px-4 sophisticated-grid relative">
+                            {/* Price Menu - Mobile Optimized */}
+                            <section id="menu" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
                                     <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">The Menu</h2>
                                     <div className="grid md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-16">
@@ -829,8 +795,9 @@
                                 </div>
                             </section>
 
-                            {/* About */}
-                            <section id="about" className="py-16 md:py-32 bg-[#0a0a0a] px-4 relative sophisticated-grid">
+                            {/* About - Mobile Optimized */}
+                            <section id="about" className="py-16 md:py-32 bg-[#0a0a0a] px-4 relative">
+                                <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
                                     <div className="order-2 md:order-1">
                                         <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic text-white glow-text">Our Sanctuary</h2>
@@ -842,8 +809,8 @@
                                 </div>
                             </section>
 
-                            {/* Gallery */}
-                            <section id="gallery" className="py-16 md:py-32 bg-[#0d0d0d] px-4 sophisticated-grid relative">
+                            {/* Gallery - Mobile Optimized */}
+                            <section id="gallery" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
                                 <div className="relative z-10">
                                     <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">Visual Sanctuary</h2>
                                     <div className="max-w-7xl mx-auto masonry">
@@ -856,50 +823,28 @@
                                 </div>
                             </section>
 
-                            {/* Footer - WHITE TEXT DESIGN */}
+                            {/* Footer - Mobile Optimized */}
                             <footer className="bg-[#050505] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t border-[#cc73f8]/20">
-                                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
-                                    
-                                    {/* Address Section */}
-                                    <div className="text-center md:text-left">
-                                        <h5 className="footer-heading">Location</h5>
-                                        <p className="footer-text text-sm md:text-base leading-relaxed">
-                                            123 Luxury Lane<br />
-                                            Beverly Hills, CA 90210
-                                        </p>
+                                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
+                                    <div className="col-span-2 md:col-span-2">
+                                        {data.logo ? (
+                                            <img src={data.logo} className="h-10 md:h-14 mb-4 md:mb-6 brightness-0 invert object-contain" alt="Logo" />
+                                        ) : (
+                                            <h4 className="serif text-4xl md:text-6xl text-[#cc73f8] italic font-bold mb-4 md:mb-6 glow-text">{data.brand_name}</h4>
+                                        )}
+                                        <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-2 md:mb-3 tracking-widest font-bold">Address</h5>
+                                        <p className="text-xs md:text-sm italic text-white/50 max-w-sm mb-4 md:mb-6">{data.footer.address}</p>
                                     </div>
-
-                                    {/* Hours Section */}
-                                    <div className="text-center">
-                                        <h5 className="footer-heading">Hours</h5>
-                                        <p className="footer-text text-sm md:text-base">
-                                            Mon-Sun: 9AM - 9PM
-                                        </p>
+                                    <div>
+                                        <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold">Timing</h5>
+                                        <p className="text-xs md:text-sm serif italic text-white/50">{data.footer.hours}</p>
                                     </div>
-
-                                    {/* Contact Section */}
-                                    <div className="text-center md:text-right">
-                                        <h5 className="footer-heading">Contact</h5>
-                                        <a 
-                                            href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} 
-                                            target="_blank" 
-                                            className="footer-text text-sm md:text-base hover:text-[#cc73f8] transition-colors duration-300"
-                                        >
-                                            +1234567890
-                                        </a>
+                                    <div>
+                                        <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold">Contact</h5>
+                                        <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-xs md:text-sm serif italic text-white/50 underline hover:text-[#cc73f8] transition block break-all">{data.footer.whatsapp}</a>
                                     </div>
                                 </div>
-
-                                {/* Bottom Bar */}
-                                <div className="mt-8 md:mt-12 flex flex-col md:flex-row justify-between items-center gap-4">
-                                    <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40">
-                                        {data.footer.copyright}
-                                    </p>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-[#cc73f8] animate-pulse"></span>
-                                        <span className="text-[10px] text-white/40 uppercase tracking-wider">Open Now</span>
-                                    </div>
-                                </div>
+                                <p className="text-center mt-8 md:mt-12 text-[8px] md:text-[9px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-white/30">{data.footer.copyright}</p>
                             </footer>
                         </div>
                     )}
