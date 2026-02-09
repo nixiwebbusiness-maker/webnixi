@@ -20,6 +20,10 @@
         .cart-float { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 500; width: 90%; max-width: 500px; }
         .masonry { column-count: 2; column-gap: 1.5rem; }
         @media (min-width: 768px) { .masonry { column-count: 4; } }
+        /* Footer Custom Colors */
+        .bg-mahogany { background-color: var(--mahogany) !important; }
+        .text-footer-head { color: #000000 !important; font-weight: 800; }
+        .text-footer-small { font-size: 0.75rem !important; line-height: 1.4; opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -66,7 +70,7 @@
                     const res = await fetch(CLOUDINARY_URL, { method: "POST", body: fd });
                     const json = await res.json();
                     callback(json.secure_url);
-                    alert("Image Uploaded & Synced!");
+                    alert("Image Uploaded!");
                 } catch(err) { alert("Upload Failed!"); }
             };
 
@@ -78,7 +82,7 @@
 
             const sendWhatsApp = () => {
                 const items = cart.map(c => `- ${c.name} (${c.price})`).join('%0A');
-                const msg = `Booking from ${data.brand_name}:%0A${items}`;
+                const msg = `Booking Request from ${data.brand_name}:%0A${items}`;
                 window.open(`https://wa.me/${data.footer.whatsapp.replace(/\D/g,'')}?text=${msg}`);
             };
 
@@ -153,10 +157,9 @@
                                     </div>
                                 </div>
 
-                                {/* 4. THE EXPERIENCE (SERVICES) ADMIN SECTION */}
+                                {/* 4. THE EXPERIENCE (SERVICES) */}
                                 <div className="admin-card border-l-8 border-amber-600">
                                     <h3 className="font-bold text-xs tracking-widest text-amber-600 mb-6 uppercase">4. The Experience (Main Services)</h3>
-                                    <p className="text-[10px] mb-4 opacity-50 italic">Note: Manage the categories and services shown in the main scrolling section.</p>
                                     <button onClick={() => {
                                         const catName = prompt("New Category Name:");
                                         if(catName) setData({...data, services: {...data.services, [catName]: []}});
@@ -171,8 +174,8 @@
                                                 }} className="text-red-500 text-[10px]">Delete Category</button>
                                             </div>
                                             {data.services[cat].map((svc, si) => (
-                                                <div key={si} className="grid grid-cols-3 gap-2 mb-2 bg-white p-2 rounded shadow-sm">
-                                                    <input className="input-f !mt-0" placeholder="Name" value={svc.name} onChange={e => {
+                                                <div key={si} className="grid grid-cols-4 gap-2 mb-2 bg-white p-2 rounded shadow-sm">
+                                                    <input className="input-f !mt-0 col-span-2" placeholder="Name" value={svc.name} onChange={e => {
                                                         let d = {...data}; d.services[cat][si].name = e.target.value; setData(d);
                                                     }} />
                                                     <input className="input-f !mt-0" placeholder="Price" value={svc.price} onChange={e => {
@@ -180,7 +183,7 @@
                                                     }} />
                                                     <button onClick={() => {
                                                         let d = {...data}; d.services[cat].splice(si, 1); setData(d);
-                                                    }} className="text-red-400 text-xs text-right">✕</button>
+                                                    }} className="text-red-400 text-xs">✕</button>
                                                 </div>
                                             ))}
                                             <button onClick={() => {
@@ -243,9 +246,9 @@
                                 <div className="admin-card border-l-8 border-green-600">
                                     <h3 className="font-bold text-xs uppercase mb-6">8. Footer & Contacts</h3>
                                     <div className="grid md:grid-cols-2 gap-4">
-                                        <input className="input-f" placeholder="WhatsApp" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
-                                        <input className="input-f" placeholder="Hours" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
-                                        <input className="input-f" placeholder="Address" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
+                                        <input className="input-f" placeholder="WhatsApp Number" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
+                                        <input className="input-f" placeholder="Business Hours" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
+                                        <input className="input-f" placeholder="Full Address" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
                                         <input className="input-f" placeholder="Copyright Text" value={data.footer.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
                                     </div>
                                 </div>
@@ -257,7 +260,7 @@
                         <div>
                             {/* --- WEBSITE FRONTEND --- */}
                             {cart.length > 0 && (
-                                <div className="cart-float bg-black text-white p-5 rounded-full flex justify-between items-center shadow-2xl px-10">
+                                <div className="cart-float bg-black text-white p-5 rounded-full flex justify-between items-center shadow-2xl px-10 border border-white/20">
                                     <div className="text-[10px] font-bold uppercase tracking-widest">{cart.length} Selections</div>
                                     <button onClick={sendWhatsApp} className="btn-premium px-8 py-3 text-xs font-bold uppercase">Book Now ➔</button>
                                 </div>
@@ -268,7 +271,7 @@
                                     {data.logo ? <img src={data.logo} className="h-10 md:h-12" /> : <span className="serif text-3xl font-bold uppercase tracking-tighter">{data.brand_name}</span>}
                                 </div>
                                 <div className="hidden lg:flex space-x-12 text-[10px] font-bold uppercase opacity-50 tracking-[0.3em]">
-                                    <a href="#home">Home</a><a href="#services">Experience</a><a href="#about">About</a><a href="#gallery">Gallery</a>
+                                    <a href="#home">Home</a><a href="#services">Experience</a><a href="#prices">Menu</a><a href="#about">About</a><a href="#gallery">Gallery</a>
                                 </div>
                                 <button onClick={sendWhatsApp} className="btn-premium px-10 py-3 text-[10px] font-bold uppercase tracking-widest">Reserve</button>
                             </nav>
@@ -322,6 +325,21 @@
                                 </div>
                             </section>
 
+                            {/* REVIEWS SECTION */}
+                            <section id="reviews" className="py-24 bg-rose-50/20 px-6">
+                                <div className="max-w-6xl mx-auto">
+                                    <h2 className="serif text-6xl text-center mb-16 italic">Words of Luxe</h2>
+                                    <div className="grid md:grid-cols-3 gap-8">
+                                        {data.reviews.map((r, i) => (
+                                            <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm italic text-center">
+                                                <p className="serif text-lg opacity-60 mb-6">"{r.text}"</p>
+                                                <h5 className="font-bold text-[10px] uppercase tracking-widest text-rose-gold">— {r.name}</h5>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
                             {/* PRICE MENU */}
                             <section id="prices" className="py-32 bg-white px-6">
                                 <div className="max-w-5xl mx-auto">
@@ -366,16 +384,23 @@
                             </section>
 
                             {/* FOOTER */}
-                            <footer className="bg-[#0A0202] text-white pt-32 pb-16 px-10">
-                                <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20 border-b border-white/5 pb-24">
+                            <footer className="bg-mahogany text-white pt-24 pb-12 px-10">
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 border-b border-white/5 pb-20">
                                     <div className="col-span-2">
-                                        {data.logo ? <img src={data.logo} className="h-16 mb-8 brightness-0 invert" /> : <h4 className="serif text-7xl text-rose-gold italic font-bold mb-8">{data.brand_name}</h4>}
-                                        <p className="text-xl serif italic opacity-40 max-w-sm">{data.footer.address}</p>
+                                        {data.logo ? <img src={data.logo} className="h-14 mb-6 brightness-0 invert" /> : <h4 className="serif text-6xl text-rose-gold italic font-bold mb-6">{data.brand_name}</h4>}
+                                        <h5 className="text-footer-head uppercase text-[11px] mb-3 tracking-widest">Address</h5>
+                                        <p className="text-footer-small italic opacity-70 max-w-sm mb-6">{data.footer.address}</p>
                                     </div>
-                                    <div><h5 className="text-rose-gold uppercase text-[10px] font-bold mb-8 tracking-widest opacity-40">Timing</h5><p className="serif text-3xl italic">{data.footer.hours}</p></div>
-                                    <div><h5 className="text-rose-gold uppercase text-[10px] font-bold mb-8 tracking-widest opacity-40">Contact</h5><p className="text-2xl serif italic opacity-70 underline">{data.footer.whatsapp}</p></div>
+                                    <div>
+                                        <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">Timing</h5>
+                                        <p className="text-footer-small serif italic">{data.footer.hours}</p>
+                                    </div>
+                                    <div>
+                                        <h5 className="text-footer-head uppercase text-[11px] mb-6 tracking-widest">Contact</h5>
+                                        <p className="text-footer-small serif italic underline">{data.footer.whatsapp}</p>
+                                    </div>
                                 </div>
-                                <p className="text-center mt-16 text-[9px] uppercase tracking-[0.5em] opacity-20">{data.footer.copyright}</p>
+                                <p className="text-center mt-12 text-[9px] uppercase tracking-[0.5em] opacity-30">{data.footer.copyright}</p>
                             </footer>
                         </div>
                     )}
