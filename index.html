@@ -83,22 +83,20 @@
                 top: 20px;
                 padding: 14px 40px;
                 width: auto;
-                max-width: 900px; /* Increased from 600px */
+                max-width: 1000px;
             }
         }
 
-        /* Large Desktop - Even Wider */
         @media (min-width: 1024px) {
             .floating-nav {
-                max-width: 1100px; /* Extra wide for large screens */
+                max-width: 1200px;
                 padding: 16px 50px;
             }
         }
 
-        /* Extra Large Desktop */
         @media (min-width: 1280px) {
             .floating-nav {
-                max-width: 1300px; /* Full wide navbar */
+                max-width: 1400px;
                 padding: 18px 60px;
             }
         }
@@ -208,7 +206,7 @@
             border: 1px solid rgba(204, 115, 248, 0.3);
             border-radius: 12px;
             margin-top: 6px;
-            font-size: 16px; /* Prevents zoom on iOS */
+            font-size: 16px;
             outline: none;
             background: rgba(0, 0, 0, 0.3);
             color: white;
@@ -423,6 +421,60 @@
             background: #22c55e;
             color: white;
         }
+
+        /* Nav Item Purple Color */
+        .nav-item-purple {
+            color: #cc73f8 !important;
+        }
+
+        .nav-item-purple:hover {
+            color: #a855f7 !important;
+            text-shadow: 0 0 10px rgba(204, 115, 248, 0.5);
+        }
+
+        /* Menu Add Button */
+        .menu-add-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #cc73f8;
+            background: transparent;
+            color: #cc73f8;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .menu-add-btn:hover {
+            background: #cc73f8;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(204, 115, 248, 0.5);
+        }
+
+        .menu-add-btn.active {
+            background: #cc73f8;
+            color: white;
+        }
+
+        .menu-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .menu-item-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
     </style>
 </head>
 <body>
@@ -488,14 +540,19 @@
                 address: "123 Luxury Lane, Beverly Hills, CA 90210",
                 copyright: "© 2024 Lumina Luxe. All rights reserved."
             },
-            // Editable section titles
             section_titles: {
                 experience: "The Experience",
                 menu: "The Menu",
                 reviews: "Words of Luxe",
                 gallery: "Visual Sanctuary",
                 about: "Our Sanctuary"
-            }
+            },
+            nav_items: [
+                { id: "experience", label: "Experience", section: "experience" },
+                { id: "menu", label: "Menu", section: "menu" },
+                { id: "about", label: "About", section: "about" },
+                { id: "gallery", label: "Gallery", section: "gallery" }
+            ]
         };
 
         function App() {
@@ -512,13 +569,11 @@
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload ";
             const UPLOAD_PRESET = "faysal";
 
-            // Function to update browser tab title
             const updatePageTitle = (brandName) => {
                 const titleElement = document.getElementById('dynamic-title');
                 if (titleElement && brandName) {
                     titleElement.textContent = `${brandName} | Ultimate Business OS`;
                 }
-                // Also update document.title for compatibility
                 document.title = `${brandName} | Ultimate Business OS`;
             };
 
@@ -545,10 +600,10 @@
                         if (!mergedData.gallery) mergedData.gallery = DEFAULT_DATA.gallery;
                         if (!mergedData.footer) mergedData.footer = DEFAULT_DATA.footer;
                         if (!mergedData.section_titles) mergedData.section_titles = DEFAULT_DATA.section_titles;
+                        if (!mergedData.nav_items) mergedData.nav_items = DEFAULT_DATA.nav_items;
                         
                         setData(mergedData);
                         
-                        // Update title and favicon on load
                         if (mergedData.brand_name) {
                             updatePageTitle(mergedData.brand_name);
                         }
@@ -576,14 +631,12 @@
                 loadData();
             }, []);
 
-            // Update title when brand_name changes
             React.useEffect(() => {
                 if (data && data.brand_name) {
                     updatePageTitle(data.brand_name);
                 }
             }, [data?.brand_name]);
 
-            // Close mobile menu on scroll
             React.useEffect(() => {
                 const handleScroll = () => {
                     if (mobileMenuOpen) setMobileMenuOpen(false);
@@ -623,6 +676,16 @@
                 const exists = cart.find(c => c.name === svc.name);
                 if(exists) setCart(cart.filter(c => c.name !== svc.name));
                 else setCart([...cart, svc]);
+            };
+
+            // Toggle menu item in cart
+            const toggleMenuItem = (itemName, itemPrice) => {
+                const exists = cart.find(c => c.name === itemName);
+                if(exists) {
+                    setCart(cart.filter(c => c.name !== itemName));
+                } else {
+                    setCart([...cart, { name: itemName, price: itemPrice, desc: "Menu item", img: "" }]);
+                }
             };
 
             const sendWhatsApp = () => {
@@ -777,6 +840,26 @@
                 });
             };
 
+            const updateNavItem = (index, field, value) => {
+                const newNavItems = [...data.nav_items];
+                newNavItems[index][field] = value;
+                setData({ ...data, nav_items: newNavItems });
+            };
+
+            const addNavItem = () => {
+                const newId = `nav_${Date.now()}`;
+                setData({
+                    ...data,
+                    nav_items: [...data.nav_items, { id: newId, label: "New Item", section: "home" }]
+                });
+            };
+
+            const removeNavItem = (index) => {
+                const newNavItems = [...data.nav_items];
+                newNavItems.splice(index, 1);
+                setData({ ...data, nav_items: newNavItems });
+            };
+
             if (loading) {
                 return (
                     <div className="loader-container">
@@ -801,7 +884,7 @@
 
                                 {/* Admin Tabs */}
                                 <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-2">
-                                    {['branding', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer'].map(tab => (
+                                    {['branding', 'navbar', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer'].map(tab => (
                                         <button
                                             key={tab}
                                             onClick={() => setActiveAdminTab(tab)}
@@ -855,7 +938,6 @@
                                             </div>
                                         </div>
 
-                                        {/* Section Titles Editor */}
                                         <div className="admin-card border-l-8 border-[#cc73f8]">
                                             <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">2. Section Titles</h3>
                                             <div className="space-y-4">
@@ -874,7 +956,74 @@
                                     </div>
                                 )}
 
-                                {/* EXPERIENCE TAB (Services) */}
+                                {/* NAVBAR TAB */}
+                                {activeAdminTab === 'navbar' && (
+                                    <div className="space-y-6">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <h2 className="text-2xl font-bold text-white">Navigation Menu Editor</h2>
+                                            <button onClick={addNavItem} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Nav Item</button>
+                                        </div>
+
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Current Nav Items</h3>
+                                            <p className="text-xs text-white/50 mb-4">Note: Brand name acts as Home button. All nav items appear in purple color automatically.</p>
+                                            
+                                            <div className="space-y-4">
+                                                {data.nav_items.map((item, idx) => (
+                                                    <div key={item.id} className="admin-item-card">
+                                                        <div className="grid md:grid-cols-3 gap-4 items-center">
+                                                            <div>
+                                                                <label className="text-xs text-white/60">Label</label>
+                                                                <input 
+                                                                    className="input-f" 
+                                                                    value={item.label} 
+                                                                    onChange={e => updateNavItem(idx, 'label', e.target.value)} 
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-xs text-white/60">Section ID</label>
+                                                                <input 
+                                                                    className="input-f" 
+                                                                    value={item.section} 
+                                                                    onChange={e => updateNavItem(idx, 'section', e.target.value)} 
+                                                                    placeholder="e.g., experience, menu, about"
+                                                                />
+                                                            </div>
+                                                            <div className="flex items-end">
+                                                                <button 
+                                                                    onClick={() => removeNavItem(idx)} 
+                                                                    className="admin-btn-small admin-btn-danger w-full"
+                                                                >
+                                                                    Remove Item
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Preview</h3>
+                                            <div className="bg-black/30 p-4 rounded-lg">
+                                                <div className="flex items-center gap-4 flex-wrap">
+                                                    <span className="serif text-lg font-bold text-white">{data.brand_name} (Home)</span>
+                                                    <span className="text-white/30">→</span>
+                                                    {data.nav_items.map((item, idx) => (
+                                                        <span key={item.id} className="text-[#cc73f8] font-semibold text-sm">
+                                                            {item.label}
+                                                            {idx < data.nav_items.length - 1 && <span className="text-white/20 mx-2">|</span>}
+                                                        </span>
+                                                    ))}
+                                                    <span className="text-white/30">→</span>
+                                                    <span className="btn-premium px-4 py-1 text-xs">Contact</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* EXPERIENCE TAB */}
                                 {activeAdminTab === 'experience' && (
                                     <div className="space-y-6">
                                         <div className="flex justify-between items-center mb-6">
@@ -1181,54 +1330,62 @@
                             {/* Mobile Menu */}
                             <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
                                 <div className="flex flex-col gap-4">
-                                    {['Home', 'Experience', 'Menu', 'About', 'Gallery'].map((item) => (
+                                    <button
+                                        onClick={() => scrollToSection('home')}
+                                        className="text-[#cc73f8] text-lg font-bold py-3 px-4 rounded-xl hover:bg-[#cc73f8]/20 transition text-left border-b border-[#cc73f8]/30 mb-2"
+                                    >
+                                        {data.brand_name} (Home)
+                                    </button>
+                                    {data.nav_items.map((item) => (
                                         <button
-                                            key={item}
-                                            onClick={() => scrollToSection(item.toLowerCase())}
+                                            key={item.id}
+                                            onClick={() => scrollToSection(item.section)}
                                             className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-[#cc73f8]/20 transition text-left"
                                         >
-                                            {item}
+                                            {item.label}
                                         </button>
                                     ))}
                                     <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Contact</button>
                                 </div>
                             </div>
 
-                            {/* Floating Nav - WIDER FOR DESKTOP */}
+                            {/* Floating Nav */}
                             <nav className="floating-nav no-select">
                                 <div className="flex items-center justify-between w-full">
                                     <div 
-                                        className="flex items-center gap-3 cursor-pointer"
-                                        onClick={(e) => e.shiftKey && prompt("Password:") === ADMIN_PASS && setIsAdmin(true)}
+                                        className="flex items-center gap-3 cursor-pointer group"
+                                        onClick={(e) => {
+                                            if (e.shiftKey) {
+                                                if (prompt("Password:") === ADMIN_PASS) setIsAdmin(true);
+                                            } else {
+                                                scrollToSection('home');
+                                            }
+                                        }}
                                     >
-                                        {/* BRAND NAME ONLY - NO LOGO */}
-                                        <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter text-white whitespace-nowrap">
+                                        <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter text-white whitespace-nowrap group-hover:text-[#cc73f8] transition-colors">
                                             {data.brand_name}
                                         </span>
                                     </div>
                                     
-                                    {/* Desktop Nav - WIDER SPACING */}
-                                    <div className="hidden md:flex items-center gap-8 lg:gap-12 text-[11px] lg:text-[12px] font-semibold uppercase tracking-wider">
-                                        {['Home', 'Experience', 'Menu', 'About', 'Gallery'].map((item) => (
+                                    <div className="hidden md:flex items-center gap-6 lg:gap-10 text-[11px] lg:text-[12px] font-semibold uppercase tracking-wider ml-8 lg:ml-16">
+                                        {data.nav_items.map((item) => (
                                             <button
-                                                key={item}
-                                                onClick={() => scrollToSection(item.toLowerCase())}
-                                                className="text-white/70 hover:text-[#cc73f8] transition-colors whitespace-nowrap"
+                                                key={item.id}
+                                                onClick={() => scrollToSection(item.section)}
+                                                className="nav-item-purple whitespace-nowrap transition-all hover:scale-105"
                                             >
-                                                {item}
+                                                {item.label}
                                             </button>
                                         ))}
                                     </div>
                                     
-                                    <div className="flex items-center gap-2">
-                                        {/* CONTACT BUTTON */}
+                                    <div className="flex items-center gap-4 lg:gap-6 ml-auto">
                                         <button 
                                             onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} 
                                             className="hidden md:block btn-premium px-6 lg:px-8 py-2 lg:py-3 text-[10px] lg:text-[11px] font-bold uppercase whitespace-nowrap"
                                         >
                                             Contact
                                         </button>
-                                        {/* Mobile Hamburger */}
                                         <button 
                                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                                             className="md:hidden tap-target flex flex-col justify-center items-center gap-1.5 p-2"
@@ -1249,7 +1406,7 @@
                                 </div>
                             )}
 
-                            {/* Hero - Mobile Optimized */}
+                            {/* Hero */}
                             <header id="home" className="min-h-screen relative flex items-center justify-center text-white text-center overflow-hidden pt-20 px-4">
                                 <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero" />
@@ -1267,7 +1424,6 @@
                                         {data.section_titles?.experience || "The Experience"}
                                     </h2>
                                     
-                                    {/* Category Tabs */}
                                     <div className="flex overflow-x-auto no-scrollbar gap-4 md:gap-12 border-b border-[#cc73f8]/30 mb-8 md:mb-16 pb-4">
                                         {Object.keys(data.services || {}).map(cat => (
                                             <button 
@@ -1281,7 +1437,6 @@
                                     </div>
 
                                     <div className="grid md:grid-cols-12 gap-8 md:gap-16">
-                                        {/* Service List - Mobile: Horizontal scroll, Desktop: Vertical */}
                                         <div className="md:col-span-4 flex md:block overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 md:gap-6 md:max-h-[500px] md:pr-4 pb-4 md:pb-0">
                                             {data.services[activeCat]?.map((s, i) => (
                                                 <div 
@@ -1302,7 +1457,6 @@
                                             ))}
                                         </div>
 
-                                        {/* Selected Service Detail */}
                                         <div className="md:col-span-8">
                                             {selectedSvc && (
                                                 <div className="flex flex-col gap-6 md:gap-12">
@@ -1325,7 +1479,7 @@
                                 </div>
                             </section>
 
-                            {/* 2. THE MENU SECTION */}
+                            {/* 2. THE MENU SECTION - WITH ADD BUTTONS */}
                             <section id="menu" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
                                     <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
@@ -1336,9 +1490,19 @@
                                             <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border border-[#cc73f8]/10">
                                                 <h3 className="serif text-2xl md:text-4xl text-[#cc73f8] mb-6 md:mb-8 italic border-b border-[#cc73f8]/30 pb-4">~ {sec.cat} ~</h3>
                                                 {sec.items.map((it, i) => (
-                                                    <div key={i} className="flex justify-between items-baseline mb-4 md:mb-6 border-b border-dotted border-white/10 pb-2">
-                                                        <span className="serif text-lg md:text-2xl uppercase text-white/80">{it.n}</span>
-                                                        <span className="font-bold text-[#cc73f8] text-base md:text-lg">{it.p}</span>
+                                                    <div key={i} className="menu-item-row mb-4 md:mb-6 border-b border-dotted border-white/10 pb-2">
+                                                        <div className="menu-item-info">
+                                                            <span className="serif text-lg md:text-2xl uppercase text-white/80">{it.n}</span>
+                                                            <span className="font-bold text-[#cc73f8] text-base md:text-lg ml-4">{it.p}</span>
+                                                        </div>
+                                                        {/* ADD BUTTON FOR EACH MENU ITEM */}
+                                                        <button 
+                                                            onClick={() => toggleMenuItem(it.n, it.p)}
+                                                            className={`menu-add-btn ${cart.find(c => c.name === it.n) ? 'active' : ''}`}
+                                                            title={cart.find(c => c.name === it.n) ? 'Remove from cart' : 'Add to cart'}
+                                                        >
+                                                            {cart.find(c => c.name === it.n) ? '✕' : '+'}
+                                                        </button>
                                                     </div>
                                                 ))}
                                             </div>
@@ -1379,7 +1543,7 @@
                                 </div>
                             </section>
 
-                            {/* 5. WORDS OF LUXE (REVIEWS) SECTION - LAST MEIN */}
+                            {/* 5. WORDS OF LUXE (REVIEWS) SECTION */}
                             <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden">
                                 <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <div className="max-w-6xl mx-auto relative z-10">
@@ -1397,11 +1561,10 @@
                                 </div>
                             </section>
 
-                            {/* Footer - Mobile Optimized */}
+                            {/* Footer */}
                             <footer className="bg-[#050505] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t border-[#cc73f8]/20">
                                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
                                     <div className="col-span-2 md:col-span-2">
-                                        {/* BRAND NAME ONLY - NO LOGO */}
                                         <h4 className="serif text-4xl md:text-6xl text-[#cc73f8] italic font-bold mb-4 md:mb-6 glow-text">
                                             {data.brand_name}
                                         </h4>
