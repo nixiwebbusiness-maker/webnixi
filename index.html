@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lumina Luxe | Ultimate Business OS</title>
+    <!-- Dynamic Title - Will be updated by React -->
+    <title id="dynamic-title">Lumina Luxe | Ultimate Business OS</title>
     <!-- Dynamic Favicon -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg ' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com "></script>
@@ -76,11 +77,29 @@
             max-width: 600px;
         }
         
+        /* Desktop - Wider Navbar */
         @media (min-width: 768px) {
             .floating-nav {
                 top: 20px;
-                padding: 12px 32px;
+                padding: 14px 40px;
                 width: auto;
+                max-width: 900px; /* Increased from 600px */
+            }
+        }
+
+        /* Large Desktop - Even Wider */
+        @media (min-width: 1024px) {
+            .floating-nav {
+                max-width: 1100px; /* Extra wide for large screens */
+                padding: 16px 50px;
+            }
+        }
+
+        /* Extra Large Desktop */
+        @media (min-width: 1280px) {
+            .floating-nav {
+                max-width: 1300px; /* Full wide navbar */
+                padding: 18px 60px;
             }
         }
         
@@ -493,6 +512,16 @@
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload ";
             const UPLOAD_PRESET = "faysal";
 
+            // Function to update browser tab title
+            const updatePageTitle = (brandName) => {
+                const titleElement = document.getElementById('dynamic-title');
+                if (titleElement && brandName) {
+                    titleElement.textContent = `${brandName} | Ultimate Business OS`;
+                }
+                // Also update document.title for compatibility
+                document.title = `${brandName} | Ultimate Business OS`;
+            };
+
             const updateFavicon = (url) => {
                 const favicon = document.getElementById('dynamic-favicon');
                 if (favicon && url) {
@@ -519,6 +548,10 @@
                         
                         setData(mergedData);
                         
+                        // Update title and favicon on load
+                        if (mergedData.brand_name) {
+                            updatePageTitle(mergedData.brand_name);
+                        }
                         if (mergedData.favicon) {
                             updateFavicon(mergedData.favicon);
                         }
@@ -531,6 +564,7 @@
                     } catch (err) {
                         console.log("Using default data:", err);
                         setData(DEFAULT_DATA);
+                        updatePageTitle(DEFAULT_DATA.brand_name);
                         const cats = Object.keys(DEFAULT_DATA.services);
                         setActiveCat(cats[0]);
                         setSelectedSvc(DEFAULT_DATA.services[cats[0]][0]);
@@ -541,6 +575,13 @@
                 
                 loadData();
             }, []);
+
+            // Update title when brand_name changes
+            React.useEffect(() => {
+                if (data && data.brand_name) {
+                    updatePageTitle(data.brand_name);
+                }
+            }, [data?.brand_name]);
 
             // Close mobile menu on scroll
             React.useEffect(() => {
@@ -802,13 +843,14 @@
                                             <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Branding (Text Only)</h3>
                                             <div className="space-y-4">
                                                 <div>
-                                                    <label className="text-xs text-white/60 uppercase tracking-wider">Brand Name</label>
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider">Brand Name (Also updates Browser Tab)</label>
                                                     <input 
                                                         className="input-f" 
                                                         placeholder="Brand Name" 
                                                         value={data.brand_name} 
                                                         onChange={e => setData({...data, brand_name: e.target.value})} 
                                                     />
+                                                    <p className="text-xs text-white/40 mt-2">Current Tab Title: {data.brand_name} | Ultimate Business OS</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1152,26 +1194,26 @@
                                 </div>
                             </div>
 
-                            {/* Floating Nav - REMOVED LOGO, SHOWING BRAND NAME ONLY */}
+                            {/* Floating Nav - WIDER FOR DESKTOP */}
                             <nav className="floating-nav no-select">
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between w-full">
                                     <div 
                                         className="flex items-center gap-3 cursor-pointer"
                                         onClick={(e) => e.shiftKey && prompt("Password:") === ADMIN_PASS && setIsAdmin(true)}
                                     >
-                                        {/* REMOVED LOGO IMAGE - SHOWING BRAND NAME TEXT ONLY */}
-                                        <span className="serif text-lg md:text-xl font-bold uppercase tracking-tighter text-white">
+                                        {/* BRAND NAME ONLY - NO LOGO */}
+                                        <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter text-white whitespace-nowrap">
                                             {data.brand_name}
                                         </span>
                                     </div>
                                     
-                                    {/* Desktop Nav */}
-                                    <div className="hidden md:flex items-center gap-6 text-[11px] font-semibold uppercase tracking-wider">
+                                    {/* Desktop Nav - WIDER SPACING */}
+                                    <div className="hidden md:flex items-center gap-8 lg:gap-12 text-[11px] lg:text-[12px] font-semibold uppercase tracking-wider">
                                         {['Home', 'Experience', 'Menu', 'About', 'Gallery'].map((item) => (
                                             <button
                                                 key={item}
                                                 onClick={() => scrollToSection(item.toLowerCase())}
-                                                className="text-white/70 hover:text-[#cc73f8] transition-colors"
+                                                className="text-white/70 hover:text-[#cc73f8] transition-colors whitespace-nowrap"
                                             >
                                                 {item}
                                             </button>
@@ -1179,10 +1221,10 @@
                                     </div>
                                     
                                     <div className="flex items-center gap-2">
-                                        {/* REMOVED RESERVE BUTTON - REPLACED WITH CONTACT */}
+                                        {/* CONTACT BUTTON */}
                                         <button 
                                             onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} 
-                                            className="hidden md:block btn-premium px-4 py-2 text-[10px] font-bold uppercase"
+                                            className="hidden md:block btn-premium px-6 lg:px-8 py-2 lg:py-3 text-[10px] lg:text-[11px] font-bold uppercase whitespace-nowrap"
                                         >
                                             Contact
                                         </button>
@@ -1359,7 +1401,7 @@
                             <footer className="bg-[#050505] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t border-[#cc73f8]/20">
                                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
                                     <div className="col-span-2 md:col-span-2">
-                                        {/* REMOVED LOGO IMAGE - SHOWING BRAND NAME TEXT ONLY */}
+                                        {/* BRAND NAME ONLY - NO LOGO */}
                                         <h4 className="serif text-4xl md:text-6xl text-[#cc73f8] italic font-bold mb-4 md:mb-6 glow-text">
                                             {data.brand_name}
                                         </h4>
