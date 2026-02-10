@@ -1,5 +1,5 @@
 {
-  "brand_name": "LUMINA luxe",
+  "brand_name": "LUMINA",
   "favicon": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770648342/vynfrkyvg8ggypxjxxi2.png",
   "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770728889/g0ugfpbbxicrqh73inb3.png",
   "hero": {
@@ -101,9 +101,16 @@
   ],
   "footer": {
     "whatsapp": "03155075343",
-    "hours": "MONDAY=FRIDAY  10;00AM=10;0PM,SUNDAY          09;00AM=09;00PM",
+    "hours": "MONDAY=FRIDAY  10;00AM=10;0PM",
     "address": "attock city ",
     "copyright": "you are lucky "
+  },
+  "section_titles": {
+    "experience": "The Experience",
+    "menu": "The Menu",
+    "reviews": "Words of Luxe",
+    "gallery": "Visual Sanctuary",
+    "about": "Our Sanctuary"
   },
   "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics."
 }
