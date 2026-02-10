@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lumina Luxe | Ultimate Business OS</title>
     <!-- Dynamic Favicon -->
-    <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg ' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <script src="https://cdn.tailwindcss.com "></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js "></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js "></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js "></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital ,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&display=swap');
         
         :root {
             --primary-purple: #cc73f8;
@@ -348,6 +348,62 @@
             -webkit-user-select: none;
             user-select: none;
         }
+
+        /* Admin Section Styles */
+        .admin-section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #cc73f8;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(204, 115, 248, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .admin-item-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(204, 115, 248, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .admin-btn-small {
+            background: rgba(204, 115, 248, 0.2);
+            border: 1px solid #cc73f8;
+            color: #cc73f8;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-btn-small:hover {
+            background: #cc73f8;
+            color: white;
+        }
+
+        .admin-btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .admin-btn-danger:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .admin-btn-success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .admin-btn-success:hover {
+            background: #22c55e;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -362,20 +418,20 @@
             hero: {
                 title: "LUMINA LUXE",
                 subtitle: "Experience Ultimate Luxury",
-                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop"
+                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop "
             },
             about: {
                 text: "Welcome to Lumina Luxe, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
-                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop"
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop "
             },
             services: {
                 "Spa": [
-                    {name: "Royal Massage", price: "$150", desc: "Full body relaxation massage", img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop"},
-                    {name: "Facial Treatment", price: "$120", desc: "Premium skincare treatment", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop"}
+                    {name: "Royal Massage", price: "$150", desc: "Full body relaxation massage", img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop "},
+                    {name: "Facial Treatment", price: "$120", desc: "Premium skincare treatment", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop "}
                 ],
                 "Salon": [
-                    {name: "Hair Styling", price: "$80", desc: "Professional hair styling", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop"},
-                    {name: "Manicure", price: "$50", desc: "Luxury nail care", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop"}
+                    {name: "Hair Styling", price: "$80", desc: "Professional hair styling", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop "},
+                    {name: "Manicure", price: "$50", desc: "Luxury nail care", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop "}
                 ]
             },
             full_menu: [
@@ -402,16 +458,24 @@
                 {name: "Michael Brown", text: "Luxurious atmosphere and top-notch service."}
             ],
             gallery: [
-                "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop",
-                "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
-                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop",
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+                "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop ",
+                "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop ",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop ",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop "
             ],
             footer: {
                 whatsapp: "+1234567890",
                 hours: "Mon-Sun: 9AM - 9PM",
                 address: "123 Luxury Lane, Beverly Hills, CA 90210",
                 copyright: "© 2024 Lumina Luxe. All rights reserved."
+            },
+            // Editable section titles
+            section_titles: {
+                experience: "The Experience",
+                menu: "The Menu",
+                reviews: "Words of Luxe",
+                gallery: "Visual Sanctuary",
+                about: "Our Sanctuary"
             }
         };
 
@@ -423,9 +487,10 @@
             const [cart, setCart] = React.useState([]);
             const [loading, setLoading] = React.useState(true);
             const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+            const [activeAdminTab, setActiveAdminTab] = React.useState('branding');
 
             const ADMIN_PASS = "admin123";
-            const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
+            const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload ";
             const UPLOAD_PRESET = "faysal";
 
             const updateFavicon = (url) => {
@@ -450,6 +515,7 @@
                         if (!mergedData.reviews) mergedData.reviews = DEFAULT_DATA.reviews;
                         if (!mergedData.gallery) mergedData.gallery = DEFAULT_DATA.gallery;
                         if (!mergedData.footer) mergedData.footer = DEFAULT_DATA.footer;
+                        if (!mergedData.section_titles) mergedData.section_titles = DEFAULT_DATA.section_titles;
                         
                         setData(mergedData);
                         
@@ -526,12 +592,12 @@
                 const items = cart.map(c => `- ${c.name} (${c.price})`).join('%0A');
                 const msg = `Booking Request from ${data.brand_name}:%0A${items}`;
                 const phone = data.footer.whatsapp.replace(/\D/g,'');
-                window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+                window.open(`https://wa.me/ ${phone}?text=${msg}`, '_blank');
             };
 
             const saveToGithub = async () => {
                 try {
-                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json ');
                     const fileData = await fileRes.json();
                     const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
                     await fetch('/api/update', {
@@ -552,6 +618,122 @@
                     element.scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                 }
+            };
+
+            // Admin helper functions
+            const updateService = (category, index, field, value) => {
+                const newServices = { ...data.services };
+                newServices[category][index][field] = value;
+                setData({ ...data, services: newServices });
+            };
+
+            const addService = (category) => {
+                const newServices = { ...data.services };
+                newServices[category].push({
+                    name: "New Service",
+                    price: "$0",
+                    desc: "Description here",
+                    img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop "
+                });
+                setData({ ...data, services: newServices });
+            };
+
+            const removeService = (category, index) => {
+                const newServices = { ...data.services };
+                newServices[category].splice(index, 1);
+                setData({ ...data, services: newServices });
+            };
+
+            const addCategory = () => {
+                const catName = prompt("Enter new category name:");
+                if (catName && !data.services[catName]) {
+                    const newServices = { ...data.services, [catName]: [] };
+                    setData({ ...data, services: newServices });
+                }
+            };
+
+            const removeCategory = (category) => {
+                if (confirm(`Delete category "${category}" and all its services?`)) {
+                    const newServices = { ...data.services };
+                    delete newServices[category];
+                    setData({ ...data, services: newServices });
+                    if (activeCat === category) {
+                        const cats = Object.keys(newServices);
+                        if (cats.length > 0) setActiveCat(cats[0]);
+                    }
+                }
+            };
+
+            const updateMenu = (catIndex, itemIndex, field, value) => {
+                const newMenu = [...data.full_menu];
+                if (itemIndex === null) {
+                    newMenu[catIndex].cat = value;
+                } else {
+                    newMenu[catIndex].items[itemIndex][field] = value;
+                }
+                setData({ ...data, full_menu: newMenu });
+            };
+
+            const addMenuCategory = () => {
+                const newMenu = [...data.full_menu, { cat: "New Category", items: [] }];
+                setData({ ...data, full_menu: newMenu });
+            };
+
+            const addMenuItem = (catIndex) => {
+                const newMenu = [...data.full_menu];
+                newMenu[catIndex].items.push({ n: "New Item", p: "$0" });
+                setData({ ...data, full_menu: newMenu });
+            };
+
+            const removeMenuItem = (catIndex, itemIndex) => {
+                const newMenu = [...data.full_menu];
+                newMenu[catIndex].items.splice(itemIndex, 1);
+                setData({ ...data, full_menu: newMenu });
+            };
+
+            const removeMenuCategory = (catIndex) => {
+                const newMenu = [...data.full_menu];
+                newMenu.splice(catIndex, 1);
+                setData({ ...data, full_menu: newMenu });
+            };
+
+            const updateReview = (index, field, value) => {
+                const newReviews = [...data.reviews];
+                newReviews[index][field] = value;
+                setData({ ...data, reviews: newReviews });
+            };
+
+            const addReview = () => {
+                setData({ ...data, reviews: [...data.reviews, { name: "New Reviewer", text: "Review text here" }] });
+            };
+
+            const removeReview = (index) => {
+                const newReviews = [...data.reviews];
+                newReviews.splice(index, 1);
+                setData({ ...data, reviews: newReviews });
+            };
+
+            const updateGallery = (index, value) => {
+                const newGallery = [...data.gallery];
+                newGallery[index] = value;
+                setData({ ...data, gallery: newGallery });
+            };
+
+            const addGalleryImage = (url) => {
+                setData({ ...data, gallery: [...data.gallery, url] });
+            };
+
+            const removeGalleryImage = (index) => {
+                const newGallery = [...data.gallery];
+                newGallery.splice(index, 1);
+                setData({ ...data, gallery: newGallery });
+            };
+
+            const updateSectionTitle = (section, value) => {
+                setData({
+                    ...data,
+                    section_titles: { ...data.section_titles, [section]: value }
+                });
             };
 
             if (loading) {
@@ -576,41 +758,377 @@
                             <div className="max-w-6xl mx-auto relative z-10">
                                 <h1 className="serif text-4xl md:text-6xl font-bold mb-6 md:mb-10 border-b border-[#cc73f8]/30 pb-4 text-white">Business Controller</h1>
 
-                                {/* Admin sections - Mobile optimized */}
-                                <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 md:mb-6 uppercase">0. Browser Favicon</h3>
-                                    <div className="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
-                                        <div>
+                                {/* Admin Tabs */}
+                                <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-2">
+                                    {['branding', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer'].map(tab => (
+                                        <button
+                                            key={tab}
+                                            onClick={() => setActiveAdminTab(tab)}
+                                            className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${activeAdminTab === tab ? 'bg-[#cc73f8] text-white' : 'bg-white/10 text-white/60 hover:bg-white/20'}`}
+                                        >
+                                            {tab}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {/* BRANDING TAB */}
+                                {activeAdminTab === 'branding' && (
+                                    <div className="space-y-6">
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">0. Browser Favicon</h3>
+                                            <div className="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
+                                                <div>
+                                                    <input 
+                                                        type="file" 
+                                                        accept="image/*,.ico,.svg" 
+                                                        className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8]" 
+                                                        onChange={e => uploadImg(e, (url) => {
+                                                            setData({...data, favicon: url});
+                                                            updateFavicon(url);
+                                                        })} 
+                                                    />
+                                                </div>
+                                                <div className="flex items-center gap-4">
+                                                    {data.favicon ? (
+                                                        <img src={data.favicon} className="favicon-preview" alt="Favicon" />
+                                                    ) : (
+                                                        <span className="text-2xl">✨</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Branding (Text Only)</h3>
+                                            <div className="space-y-4">
+                                                <div>
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider">Brand Name</label>
+                                                    <input 
+                                                        className="input-f" 
+                                                        placeholder="Brand Name" 
+                                                        value={data.brand_name} 
+                                                        onChange={e => setData({...data, brand_name: e.target.value})} 
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Section Titles Editor */}
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">2. Section Titles</h3>
+                                            <div className="space-y-4">
+                                                {Object.entries(data.section_titles || {}).map(([key, value]) => (
+                                                    <div key={key}>
+                                                        <label className="text-xs text-white/60 uppercase tracking-wider">{key} Section Title</label>
+                                                        <input 
+                                                            className="input-f" 
+                                                            value={value} 
+                                                            onChange={e => updateSectionTitle(key, e.target.value)} 
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* EXPERIENCE TAB (Services) */}
+                                {activeAdminTab === 'experience' && (
+                                    <div className="space-y-6">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <h2 className="text-2xl font-bold text-white">Services Management</h2>
+                                            <button onClick={addCategory} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Category</button>
+                                        </div>
+
+                                        {Object.entries(data.services || {}).map(([category, services]) => (
+                                            <div key={category} className="admin-card">
+                                                <div className="flex justify-between items-center mb-4">
+                                                    <h3 className="text-xl font-bold text-[#cc73f8]">{category}</h3>
+                                                    <div className="flex gap-2">
+                                                        <button onClick={() => addService(category)} className="admin-btn-small admin-btn-success">+ Add Service</button>
+                                                        <button onClick={() => removeCategory(category)} className="admin-btn-small admin-btn-danger">Delete Category</button>
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-4">
+                                                    {services.map((service, idx) => (
+                                                        <div key={idx} className="admin-item-card">
+                                                            <div className="grid md:grid-cols-2 gap-4">
+                                                                <div>
+                                                                    <label className="text-xs text-white/60">Service Name</label>
+                                                                    <input 
+                                                                        className="input-f" 
+                                                                        value={service.name} 
+                                                                        onChange={e => updateService(category, idx, 'name', e.target.value)} 
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label className="text-xs text-white/60">Price</label>
+                                                                    <input 
+                                                                        className="input-f" 
+                                                                        value={service.price} 
+                                                                        onChange={e => updateService(category, idx, 'price', e.target.value)} 
+                                                                    />
+                                                                </div>
+                                                                <div className="md:col-span-2">
+                                                                    <label className="text-xs text-white/60">Description</label>
+                                                                    <textarea 
+                                                                        className="input-f" 
+                                                                        rows="2"
+                                                                        value={service.desc} 
+                                                                        onChange={e => updateService(category, idx, 'desc', e.target.value)} 
+                                                                    />
+                                                                </div>
+                                                                <div className="md:col-span-2">
+                                                                    <label className="text-xs text-white/60">Image URL</label>
+                                                                    <div className="flex gap-2">
+                                                                        <input 
+                                                                            className="input-f flex-1" 
+                                                                            value={service.img} 
+                                                                            onChange={e => updateService(category, idx, 'img', e.target.value)} 
+                                                                        />
+                                                                        <input 
+                                                                            type="file" 
+                                                                            accept="image/*" 
+                                                                            className="hidden" 
+                                                                            id={`svc-img-${category}-${idx}`}
+                                                                            onChange={e => uploadImg(e, (url) => updateService(category, idx, 'img', url))} 
+                                                                        />
+                                                                        <label htmlFor={`svc-img-${category}-${idx}`} className="admin-btn-small cursor-pointer flex items-center">
+                                                                            Upload
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button 
+                                                                onClick={() => removeService(category, idx)} 
+                                                                className="admin-btn-small admin-btn-danger mt-4 w-full"
+                                                            >
+                                                                Remove Service
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* MENU TAB */}
+                                {activeAdminTab === 'menu' && (
+                                    <div className="space-y-6">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <h2 className="text-2xl font-bold text-white">Menu Management</h2>
+                                            <button onClick={addMenuCategory} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Category</button>
+                                        </div>
+
+                                        {data.full_menu.map((section, catIdx) => (
+                                            <div key={catIdx} className="admin-card">
+                                                <div className="flex justify-between items-center mb-4">
+                                                    <input 
+                                                        className="input-f text-xl font-bold bg-transparent border-none p-0 text-[#cc73f8]" 
+                                                        value={section.cat} 
+                                                        onChange={e => updateMenu(catIdx, null, null, e.target.value)} 
+                                                    />
+                                                    <div className="flex gap-2">
+                                                        <button onClick={() => addMenuItem(catIdx)} className="admin-btn-small admin-btn-success">+ Add Item</button>
+                                                        <button onClick={() => removeMenuCategory(catIdx)} className="admin-btn-small admin-btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    {section.items.map((item, itemIdx) => (
+                                                        <div key={itemIdx} className="flex gap-4 items-center admin-item-card">
+                                                            <input 
+                                                                className="input-f flex-1" 
+                                                                value={item.n} 
+                                                                placeholder="Item Name"
+                                                                onChange={e => updateMenu(catIdx, itemIdx, 'n', e.target.value)} 
+                                                            />
+                                                            <input 
+                                                                className="input-f w-24" 
+                                                                value={item.p} 
+                                                                placeholder="Price"
+                                                                onChange={e => updateMenu(catIdx, itemIdx, 'p', e.target.value)} 
+                                                            />
+                                                            <button 
+                                                                onClick={() => removeMenuItem(catIdx, itemIdx)} 
+                                                                className="admin-btn-small admin-btn-danger"
+                                                            >
+                                                                ✕
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* ABOUT TAB */}
+                                {activeAdminTab === 'about' && (
+                                    <div className="admin-card">
+                                        <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Our Sanctuary Section</h3>
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label className="text-xs text-white/60">About Text</label>
+                                                <textarea 
+                                                    className="input-f" 
+                                                    rows="6"
+                                                    value={data.about.text} 
+                                                    onChange={e => setData({...data, about: {...data.about, text: e.target.value}})} 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60">About Image</label>
+                                                <div className="flex gap-2">
+                                                    <input 
+                                                        className="input-f flex-1" 
+                                                        value={data.about.image} 
+                                                        onChange={e => setData({...data, about: {...data.about, image: e.target.value}})} 
+                                                    />
+                                                    <input 
+                                                        type="file" 
+                                                        accept="image/*" 
+                                                        className="hidden" 
+                                                        id="about-img"
+                                                        onChange={e => uploadImg(e, (url) => setData({...data, about: {...data.about, image: url}}))} 
+                                                    />
+                                                    <label htmlFor="about-img" className="admin-btn-small cursor-pointer flex items-center">
+                                                        Upload
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* GALLERY TAB */}
+                                {activeAdminTab === 'gallery' && (
+                                    <div className="space-y-6">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <h2 className="text-2xl font-bold text-white">Gallery Management</h2>
                                             <input 
                                                 type="file" 
-                                                accept="image/*,.ico,.svg" 
-                                                className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8]" 
-                                                onChange={e => uploadImg(e, (url) => {
-                                                    setData({...data, favicon: url});
-                                                    updateFavicon(url);
-                                                })} 
+                                                accept="image/*" 
+                                                className="hidden" 
+                                                id="gallery-upload"
+                                                onChange={e => uploadImg(e, (url) => addGalleryImage(url))} 
                                             />
+                                            <label htmlFor="gallery-upload" className="btn-premium px-6 py-2 text-xs font-bold uppercase cursor-pointer">
+                                                + Add Image
+                                            </label>
                                         </div>
-                                        <div className="flex items-center gap-4">
-                                            {data.favicon ? (
-                                                <img src={data.favicon} className="favicon-preview" alt="Favicon" />
-                                            ) : (
-                                                <span className="text-2xl">✨</span>
-                                            )}
+
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                            {data.gallery.map((img, idx) => (
+                                                <div key={idx} className="relative group">
+                                                    <img src={img} className="w-full h-32 object-cover rounded-lg" alt={`Gallery ${idx}`} />
+                                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 rounded-lg">
+                                                        <input 
+                                                            type="file" 
+                                                            accept="image/*" 
+                                                            className="hidden" 
+                                                            id={`gallery-edit-${idx}`}
+                                                            onChange={e => uploadImg(e, (url) => updateGallery(idx, url))} 
+                                                        />
+                                                        <label htmlFor={`gallery-edit-${idx}`} className="admin-btn-small cursor-pointer">
+                                                            Change
+                                                        </label>
+                                                        <button 
+                                                            onClick={() => removeGalleryImage(idx)} 
+                                                            className="admin-btn-small admin-btn-danger"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
+                                )}
 
-                                {/* Other admin cards... (simplified for mobile) */}
-                                <div className="admin-card border-l-8 border-[#cc73f8]">
-                                    <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Branding</h3>
-                                    <div className="space-y-4">
-                                        <input className="input-f" placeholder="Brand Name" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
-                                        <input type="file" accept="image/*" className="text-xs w-full" onChange={e => uploadImg(e, (url) => setData({...data, logo: url}))} />
+                                {/* REVIEWS TAB */}
+                                {activeAdminTab === 'reviews' && (
+                                    <div className="space-y-6">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <h2 className="text-2xl font-bold text-white">Reviews Management</h2>
+                                            <button onClick={addReview} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Review</button>
+                                        </div>
+
+                                        {data.reviews.map((review, idx) => (
+                                            <div key={idx} className="admin-item-card">
+                                                <div className="space-y-4">
+                                                    <div>
+                                                        <label className="text-xs text-white/60">Reviewer Name</label>
+                                                        <input 
+                                                            className="input-f" 
+                                                            value={review.name} 
+                                                            onChange={e => updateReview(idx, 'name', e.target.value)} 
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-xs text-white/60">Review Text</label>
+                                                        <textarea 
+                                                            className="input-f" 
+                                                            rows="3"
+                                                            value={review.text} 
+                                                            onChange={e => updateReview(idx, 'text', e.target.value)} 
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <button 
+                                                    onClick={() => removeReview(idx)} 
+                                                    className="admin-btn-small admin-btn-danger mt-4 w-full"
+                                                >
+                                                    Remove Review
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
-                                </div>
+                                )}
 
-                                <button onClick={saveToGithub} className="btn-premium w-full py-6 md:py-8 text-lg md:text-xl font-bold uppercase tracking-widest shadow-2xl sticky bottom-6 border-2 border-[#cc73f8]/30">Deploy Update</button>
+                                {/* FOOTER TAB */}
+                                {activeAdminTab === 'footer' && (
+                                    <div className="admin-card">
+                                        <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Footer Information</h3>
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label className="text-xs text-white/60">WhatsApp Number</label>
+                                                <input 
+                                                    className="input-f" 
+                                                    value={data.footer.whatsapp} 
+                                                    onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60">Business Hours</label>
+                                                <input 
+                                                    className="input-f" 
+                                                    value={data.footer.hours} 
+                                                    onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60">Address</label>
+                                                <textarea 
+                                                    className="input-f" 
+                                                    rows="2"
+                                                    value={data.footer.address} 
+                                                    onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60">Copyright Text</label>
+                                                <input 
+                                                    className="input-f" 
+                                                    value={data.footer.copyright} 
+                                                    onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} 
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <button onClick={saveToGithub} className="btn-premium w-full py-6 md:py-8 text-lg md:text-xl font-bold uppercase tracking-widest shadow-2xl sticky bottom-6 border-2 border-[#cc73f8]/30 mt-8">Deploy Update</button>
                             </div>
                         </div>
                     ) : (
@@ -630,21 +1148,21 @@
                                             {item}
                                         </button>
                                     ))}
-                                    <button onClick={sendWhatsApp} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Reserve Now</button>
+                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Contact</button>
                                 </div>
                             </div>
 
-                            {/* Floating Nav */}
+                            {/* Floating Nav - REMOVED LOGO, SHOWING BRAND NAME ONLY */}
                             <nav className="floating-nav no-select">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div onClick={(e) => e.shiftKey && prompt("Password:") === ADMIN_PASS && setIsAdmin(true)}>
-                                            {data.logo ? (
-                                                <img src={data.logo} className="h-6 md:h-8 object-contain brightness-0 invert" alt="Logo" />
-                                            ) : (
-                                                <span className="serif text-lg md:text-xl font-bold uppercase tracking-tighter text-white">{data.brand_name}</span>
-                                            )}
-                                        </div>
+                                    <div 
+                                        className="flex items-center gap-3 cursor-pointer"
+                                        onClick={(e) => e.shiftKey && prompt("Password:") === ADMIN_PASS && setIsAdmin(true)}
+                                    >
+                                        {/* REMOVED LOGO IMAGE - SHOWING BRAND NAME TEXT ONLY */}
+                                        <span className="serif text-lg md:text-xl font-bold uppercase tracking-tighter text-white">
+                                            {data.brand_name}
+                                        </span>
                                     </div>
                                     
                                     {/* Desktop Nav */}
@@ -661,8 +1179,12 @@
                                     </div>
                                     
                                     <div className="flex items-center gap-2">
-                                        <button onClick={sendWhatsApp} className="hidden md:block btn-premium px-4 py-2 text-[10px] font-bold uppercase">
-                                            Reserve
+                                        {/* REMOVED RESERVE BUTTON - REPLACED WITH CONTACT */}
+                                        <button 
+                                            onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} 
+                                            className="hidden md:block btn-premium px-4 py-2 text-[10px] font-bold uppercase"
+                                        >
+                                            Contact
                                         </button>
                                         {/* Mobile Hamburger */}
                                         <button 
@@ -696,10 +1218,12 @@
                                 </div>
                             </header>
 
-                            {/* Services - Mobile Optimized */}
+                            {/* 1. THE EXPERIENCE SECTION */}
                             <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">The Experience</h2>
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
+                                        {data.section_titles?.experience || "The Experience"}
+                                    </h2>
                                     
                                     {/* Category Tabs */}
                                     <div className="flex overflow-x-auto no-scrollbar gap-4 md:gap-12 border-b border-[#cc73f8]/30 mb-8 md:mb-16 pb-4">
@@ -759,26 +1283,12 @@
                                 </div>
                             </section>
 
-                            {/* Reviews - Mobile Optimized */}
-                            <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden">
-                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
-                                <div className="max-w-6xl mx-auto relative z-10">
-                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic text-white glow-text">Words of Luxe</h2>
-                                    <div className="grid md:grid-cols-3 gap-4 md:gap-8">
-                                        {data.reviews.map((r, i) => (
-                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-[#cc73f8]/20 text-center hover:border-[#cc73f8]/50 transition-all">
-                                                <p className="serif text-base md:text-lg text-white/60 mb-4 md:mb-6 italic">"{r.text}"</p>
-                                                <h5 className="font-bold text-[10px] uppercase tracking-widest text-[#cc73f8]">— {r.name}</h5>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </section>
-
-                            {/* Price Menu - Mobile Optimized */}
+                            {/* 2. THE MENU SECTION */}
                             <section id="menu" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">The Menu</h2>
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
+                                        {data.section_titles?.menu || "The Menu"}
+                                    </h2>
                                     <div className="grid md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-16">
                                         {data.full_menu.map((sec, idx) => (
                                             <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border border-[#cc73f8]/10">
@@ -795,12 +1305,14 @@
                                 </div>
                             </section>
 
-                            {/* About - Mobile Optimized */}
+                            {/* 3. OUR SANCTUARY (ABOUT) SECTION */}
                             <section id="about" className="py-16 md:py-32 bg-[#0a0a0a] px-4 relative">
                                 <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
                                     <div className="order-2 md:order-1">
-                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic text-white glow-text">Our Sanctuary</h2>
+                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic text-white glow-text">
+                                            {data.section_titles?.about || "Our Sanctuary"}
+                                        </h2>
                                         <p className="text-lg md:text-2xl serif italic text-white/60 leading-relaxed">{data.about.text}</p>
                                     </div>
                                     <div className="order-1 md:order-2">
@@ -809,10 +1321,12 @@
                                 </div>
                             </section>
 
-                            {/* Gallery - Mobile Optimized */}
+                            {/* 4. VISUAL SANCTUARY (GALLERY) SECTION */}
                             <section id="gallery" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">Visual Sanctuary</h2>
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
+                                        {data.section_titles?.gallery || "Visual Sanctuary"}
+                                    </h2>
                                     <div className="max-w-7xl mx-auto masonry">
                                         {data.gallery.map((img, i) => (
                                             <div key={i} className="break-inside-avoid overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl border-2 border-[#cc73f8]/20 hover:border-[#cc73f8]/50 transition-all">
@@ -823,15 +1337,32 @@
                                 </div>
                             </section>
 
+                            {/* 5. WORDS OF LUXE (REVIEWS) SECTION - LAST MEIN */}
+                            <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden">
+                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
+                                <div className="max-w-6xl mx-auto relative z-10">
+                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic text-white glow-text">
+                                        {data.section_titles?.reviews || "Words of Luxe"}
+                                    </h2>
+                                    <div className="grid md:grid-cols-3 gap-4 md:gap-8">
+                                        {data.reviews.map((r, i) => (
+                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-[#cc73f8]/20 text-center hover:border-[#cc73f8]/50 transition-all">
+                                                <p className="serif text-base md:text-lg text-white/60 mb-4 md:mb-6 italic">"{r.text}"</p>
+                                                <h5 className="font-bold text-[10px] uppercase tracking-widest text-[#cc73f8]">— {r.name}</h5>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
                             {/* Footer - Mobile Optimized */}
                             <footer className="bg-[#050505] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t border-[#cc73f8]/20">
                                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
                                     <div className="col-span-2 md:col-span-2">
-                                        {data.logo ? (
-                                            <img src={data.logo} className="h-10 md:h-14 mb-4 md:mb-6 brightness-0 invert object-contain" alt="Logo" />
-                                        ) : (
-                                            <h4 className="serif text-4xl md:text-6xl text-[#cc73f8] italic font-bold mb-4 md:mb-6 glow-text">{data.brand_name}</h4>
-                                        )}
+                                        {/* REMOVED LOGO IMAGE - SHOWING BRAND NAME TEXT ONLY */}
+                                        <h4 className="serif text-4xl md:text-6xl text-[#cc73f8] italic font-bold mb-4 md:mb-6 glow-text">
+                                            {data.brand_name}
+                                        </h4>
                                         <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-2 md:mb-3 tracking-widest font-bold">Address</h5>
                                         <p className="text-xs md:text-sm italic text-white/50 max-w-sm mb-4 md:mb-6">{data.footer.address}</p>
                                     </div>
