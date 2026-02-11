@@ -6,13 +6,13 @@
     <!-- Dynamic Title -->
     <title id="dynamic-title">Lumina Luxe</title>
     <!-- Dynamic Favicon -->
-    <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg ' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
-    <script src="https://cdn.tailwindcss.com "></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js "></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js "></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js "></script>
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital ,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&display=swap');
         
         :root {
             --primary-purple: #cc73f8;
@@ -506,6 +506,60 @@
             margin-left: 10px;
             vertical-align: middle;
         }
+
+        /* Social Icons Styles */
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(204, 115, 248, 0.4);
+            color: var(--primary-purple);
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-purple);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(204, 115, 248, 0.4);
+        }
+
+        /* Review Link Button */
+        .review-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(204, 115, 248, 0.4);
+            color: var(--primary-purple);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+
+        .review-link-btn:hover {
+            background: var(--primary-purple);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .review-links-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(204, 115, 248, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -525,20 +579,20 @@
             hero: {
                 title: "LUMINA LUXE",
                 subtitle: "Experience Ultimate Luxury",
-                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop "
+                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop"
             },
             about: {
                 text: "Welcome to Lumina Luxe, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
-                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop "
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop"
             },
             services: {
                 "Spa": [
-                    {name: "Royal Massage", price: "$150", desc: "Full body relaxation massage", img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop "},
-                    {name: "Facial Treatment", price: "$120", desc: "Premium skincare treatment", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop "}
+                    {name: "Royal Massage", price: "$150", desc: "Full body relaxation massage", img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop"},
+                    {name: "Facial Treatment", price: "$120", desc: "Premium skincare treatment", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop"}
                 ],
                 "Salon": [
-                    {name: "Hair Styling", price: "$80", desc: "Professional hair styling", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop "},
-                    {name: "Manicure", price: "$50", desc: "Luxury nail care", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop "}
+                    {name: "Hair Styling", price: "$80", desc: "Professional hair styling", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop"},
+                    {name: "Manicure", price: "$50", desc: "Luxury nail care", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop"}
                 ]
             },
             full_menu: [
@@ -560,21 +614,32 @@
                 }
             ],
             reviews: [
-                {name: "Sarah Johnson", text: "Absolutely amazing experience! The staff was so professional.", rating: 5},
-                {name: "Emily Davis", text: "Best spa day I've ever had. Highly recommend!", rating: 5},
-                {name: "Michael Brown", text: "Luxurious atmosphere and top-notch service.", rating: 4}
+                {name: "Sarah Johnson", text: "Absolutely amazing experience! The staff was so professional.", rating: 5, links: [
+                    {name: "Google Maps", url: "https://maps.google.com"},
+                    {name: "Yelp", url: "https://yelp.com"}
+                ]},
+                {name: "Emily Davis", text: "Best spa day I've ever had. Highly recommend!", rating: 5, links: []},
+                {name: "Michael Brown", text: "Luxurious atmosphere and top-notch service.", rating: 4, links: [
+                    {name: "Google Maps", url: "https://maps.google.com"}
+                ]}
             ],
             gallery: [
-                "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop ",
-                "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop ",
-                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop ",
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop "
+                "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop",
+                "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
             ],
             footer: {
                 whatsapp: "+1234567890",
                 hours: "Mon-Sun: 9AM - 9PM",
                 address: "123 Luxury Lane, Beverly Hills, CA 90210",
-                copyright: "© 2024 Lumina Luxe. All rights reserved."
+                copyright: "© 2024 Lumina Luxe. All rights reserved.",
+                social_links: [
+                    {name: "Yelp", url: "https://yelp.com", icon: "★"},
+                    {name: "Instagram", url: "https://instagram.com", icon: "📷"},
+                    {name: "TikTok", url: "https://tiktok.com", icon: "🎵"},
+                    {name: "X", url: "https://x.com", icon: "𝕏"}
+                ]
             },
             section_titles: {
                 experience: "The Experience",
@@ -602,7 +667,7 @@
             const [activeAdminTab, setActiveAdminTab] = React.useState('branding');
 
             const ADMIN_PASS = "admin123";
-            const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload ";
+            const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
             const UPLOAD_PRESET = "faysal";
 
             // Update CSS variables when colors change
@@ -648,6 +713,12 @@
                         if (!mergedData.section_titles) mergedData.section_titles = DEFAULT_DATA.section_titles;
                         if (!mergedData.nav_items) mergedData.nav_items = DEFAULT_DATA.nav_items;
                         if (!mergedData.colors) mergedData.colors = DEFAULT_DATA.colors;
+                        
+                        // Ensure new fields exist
+                        if (!mergedData.footer.social_links) mergedData.footer.social_links = DEFAULT_DATA.footer.social_links;
+                        mergedData.reviews.forEach(review => {
+                            if (!review.links) review.links = [];
+                        });
                         
                         setData(mergedData);
                         updateColors(mergedData.colors);
@@ -747,12 +818,12 @@
                 const items = cart.map(c => `- ${c.name} (${c.price})`).join('%0A');
                 const msg = `Booking Request from ${data.brand_name}:%0A${items}`;
                 const phone = data.footer.whatsapp.replace(/\D/g,'');
-                window.open(`https://wa.me/ ${phone}?text=${msg}`, '_blank');
+                window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
             };
 
             const saveToGithub = async () => {
                 try {
-                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json ');
+                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
                     const fileData = await fileRes.json();
                     const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
                     await fetch('/api/update', {
@@ -788,7 +859,7 @@
                     name: "New Service",
                     price: "$0",
                     desc: "Description here",
-                    img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop "
+                    img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop"
                 });
                 setData({ ...data, services: newServices });
             };
@@ -859,12 +930,31 @@
             };
 
             const addReview = () => {
-                setData({ ...data, reviews: [...data.reviews, { name: "New Reviewer", text: "Review text here", rating: 5 }] });
+                setData({ ...data, reviews: [...data.reviews, { name: "New Reviewer", text: "Review text here", rating: 5, links: [] }] });
             };
 
             const removeReview = (index) => {
                 const newReviews = [...data.reviews];
                 newReviews.splice(index, 1);
+                setData({ ...data, reviews: newReviews });
+            };
+
+            const updateReviewLink = (reviewIndex, linkIndex, field, value) => {
+                const newReviews = [...data.reviews];
+                newReviews[reviewIndex].links[linkIndex][field] = value;
+                setData({ ...data, reviews: newReviews });
+            };
+
+            const addReviewLink = (reviewIndex) => {
+                const newReviews = [...data.reviews];
+                if (!newReviews[reviewIndex].links) newReviews[reviewIndex].links = [];
+                newReviews[reviewIndex].links.push({ name: "Google Maps", url: "https://maps.google.com" });
+                setData({ ...data, reviews: newReviews });
+            };
+
+            const removeReviewLink = (reviewIndex, linkIndex) => {
+                const newReviews = [...data.reviews];
+                newReviews[reviewIndex].links.splice(linkIndex, 1);
                 setData({ ...data, reviews: newReviews });
             };
 
@@ -927,6 +1017,33 @@
                 });
             };
 
+            // Social Links Admin Functions
+            const updateSocialLink = (index, field, value) => {
+                const newSocialLinks = [...data.footer.social_links];
+                newSocialLinks[index][field] = value;
+                setData({
+                    ...data,
+                    footer: { ...data.footer, social_links: newSocialLinks }
+                });
+            };
+
+            const addSocialLink = () => {
+                const newSocialLinks = [...data.footer.social_links, { name: "New Link", url: "https://", icon: "🔗" }];
+                setData({
+                    ...data,
+                    footer: { ...data.footer, social_links: newSocialLinks }
+                });
+            };
+
+            const removeSocialLink = (index) => {
+                const newSocialLinks = [...data.footer.social_links];
+                newSocialLinks.splice(index, 1);
+                setData({
+                    ...data,
+                    footer: { ...data.footer, social_links: newSocialLinks }
+                });
+            };
+
             // Star Rating Component
             const StarRating = ({ rating }) => {
                 return (
@@ -964,7 +1081,7 @@
 
                                 {/* Admin Tabs */}
                                 <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-2">
-                                    {['branding', 'colors', 'hero', 'navbar', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer'].map(tab => (
+                                    {['branding', 'colors', 'hero', 'navbar', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer', 'social'].map(tab => (
                                         <button
                                             key={tab}
                                             onClick={() => setActiveAdminTab(tab)}
@@ -1502,6 +1619,41 @@
                                                             onChange={e => updateReview(idx, 'text', e.target.value)} 
                                                         />
                                                     </div>
+                                                    
+                                                    {/* Review Links Section */}
+                                                    <div className="border-t border-white/10 pt-4 mt-4">
+                                                        <div className="flex justify-between items-center mb-3">
+                                                            <label className="text-xs text-white/60 uppercase tracking-wider">Review Links (Google Maps, Yelp, etc.)</label>
+                                                            <button 
+                                                                onClick={() => addReviewLink(idx)} 
+                                                                className="admin-btn-small admin-btn-success text-xs"
+                                                            >
+                                                                + Add Link
+                                                            </button>
+                                                        </div>
+                                                        {review.links && review.links.map((link, linkIdx) => (
+                                                            <div key={linkIdx} className="flex gap-2 mb-2">
+                                                                <input 
+                                                                    className="input-f flex-1 text-sm" 
+                                                                    placeholder="Link Name (e.g., Google Maps)"
+                                                                    value={link.name} 
+                                                                    onChange={e => updateReviewLink(idx, linkIdx, 'name', e.target.value)} 
+                                                                />
+                                                                <input 
+                                                                    className="input-f flex-[2] text-sm" 
+                                                                    placeholder="URL"
+                                                                    value={link.url} 
+                                                                    onChange={e => updateReviewLink(idx, linkIdx, 'url', e.target.value)} 
+                                                                />
+                                                                <button 
+                                                                    onClick={() => removeReviewLink(idx, linkIdx)} 
+                                                                    className="admin-btn-small admin-btn-danger px-3"
+                                                                >
+                                                                    ✕
+                                                                </button>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                                 <button 
                                                     onClick={() => removeReview(idx)} 
@@ -1551,6 +1703,87 @@
                                                     value={data.footer.copyright} 
                                                     onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} 
                                                 />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* SOCIAL LINKS TAB - NEW */}
+                                {activeAdminTab === 'social' && (
+                                    <div className="space-y-6">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <h2 className="text-2xl font-bold text-white">Social Media Links</h2>
+                                            <button onClick={addSocialLink} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Social Link</button>
+                                        </div>
+
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Footer Social Icons</h3>
+                                            <p className="text-xs text-white/50 mb-4">These links appear in the footer next to Address, Timing, and Contact.</p>
+                                            
+                                            <div className="space-y-4">
+                                                {data.footer.social_links.map((link, idx) => (
+                                                    <div key={idx} className="admin-item-card">
+                                                        <div className="grid md:grid-cols-4 gap-4 items-center">
+                                                            <div>
+                                                                <label className="text-xs text-white/60">Platform Name</label>
+                                                                <input 
+                                                                    className="input-f" 
+                                                                    value={link.name} 
+                                                                    onChange={e => updateSocialLink(idx, 'name', e.target.value)} 
+                                                                    placeholder="e.g., Instagram"
+                                                                />
+                                                            </div>
+                                                            <div className="md:col-span-2">
+                                                                <label className="text-xs text-white/60">URL</label>
+                                                                <input 
+                                                                    className="input-f" 
+                                                                    value={link.url} 
+                                                                    onChange={e => updateSocialLink(idx, 'url', e.target.value)} 
+                                                                    placeholder="https://..."
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-xs text-white/60">Icon (Emoji or Text)</label>
+                                                                <input 
+                                                                    className="input-f" 
+                                                                    value={link.icon} 
+                                                                    onChange={e => updateSocialLink(idx, 'icon', e.target.value)} 
+                                                                    placeholder="📷 or IG"
+                                                                />
+                                                            </div>
+                                                            <div className="flex items-end">
+                                                                <button 
+                                                                    onClick={() => removeSocialLink(idx)} 
+                                                                    className="admin-btn-small admin-btn-danger w-full"
+                                                                >
+                                                                    Remove
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Preview</h3>
+                                            <div className="bg-black/30 p-6 rounded-lg">
+                                                <div className="flex items-center gap-4 flex-wrap">
+                                                    <span className="text-white/60 text-sm">Follow us:</span>
+                                                    {data.footer.social_links.map((link, idx) => (
+                                                        <a 
+                                                            key={idx}
+                                                            href={link.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="social-icon"
+                                                            style={{borderColor: data.colors.primary, color: data.colors.primary}}
+                                                            title={link.name}
+                                                        >
+                                                            {link.icon}
+                                                        </a>
+                                                    ))}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1845,6 +2078,24 @@
                                                 <StarRating rating={r.rating || 5} />
                                                 <p className="serif text-base md:text-lg mb-4 md:mb-6 italic" style={{color: data.colors.text_regular}}>"{r.text}"</p>
                                                 <h5 className="font-bold text-[10px] uppercase tracking-widest" style={{color: data.colors.primary}}>— {r.name}</h5>
+                                                
+                                                {/* REVIEW LINKS */}
+                                                {r.links && r.links.length > 0 && (
+                                                    <div className="review-links-container">
+                                                        {r.links.map((link, idx) => (
+                                                            <a 
+                                                                key={idx}
+                                                                href={link.url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="review-link-btn"
+                                                                style={{borderColor: data.colors.primary, color: data.colors.primary}}
+                                                            >
+                                                                {link.name}
+                                                            </a>
+                                                        ))}
+                                                    </div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -1873,7 +2124,28 @@
                                         <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-xs md:text-sm serif italic underline transition block break-all" style={{color: data.colors.text_regular}}>{data.footer.whatsapp}</a>
                                     </div>
                                 </div>
-                                <p className="text-center mt-8 md:mt-12 text-[8px] md:text-[9px] uppercase tracking-[0.3em] md:tracking-[0.5em]" style={{color: `${data.colors.text_white}4D`}}>{data.footer.copyright}</p>
+                                
+                                {/* Social Links Row */}
+                                <div className="max-w-7xl mx-auto mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                                    <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] order-2 md:order-1" style={{color: `${data.colors.text_white}4D`}}>{data.footer.copyright}</p>
+                                    
+                                    <div className="flex items-center gap-4 order-1 md:order-2">
+                                        <span className="text-xs uppercase tracking-widest font-bold mr-2" style={{color: data.colors.primary}}>Follow:</span>
+                                        {data.footer.social_links.map((link, idx) => (
+                                            <a 
+                                                key={idx}
+                                                href={link.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="social-icon"
+                                                style={{borderColor: data.colors.primary, color: data.colors.primary}}
+                                                title={link.name}
+                                            >
+                                                {link.icon}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
                             </footer>
                         </div>
                     )}
