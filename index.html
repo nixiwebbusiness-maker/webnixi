@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Dynamic Title - Will be updated by React -->
-    <title id="dynamic-title">Lumina Luxe | Ultimate Business OS</title>
+    <!-- Dynamic Title -->
+    <title id="dynamic-title">Lumina Luxe</title>
     <!-- Dynamic Favicon -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg ' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com "></script>
@@ -18,6 +18,8 @@
             --primary-purple: #cc73f8;
             --deep-purple: #1a0b2e;
             --dark-bg: #0d0d0d;
+            --text-white: #ffffff;
+            --text-regular: #ffffff60;
         }
         
         * {
@@ -27,7 +29,7 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--dark-bg);
-            color: #ffffff;
+            color: var(--text-white);
             scroll-behavior: smooth;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -39,7 +41,7 @@
         
         /* Custom Button Color */
         .btn-premium {
-            background: linear-gradient(135deg, #cc73f8 0%, #a855f7 100%);
+            background: linear-gradient(135deg, var(--primary-purple) 0%, #a855f7 100%);
             color: white;
             transition: all 0.4s ease;
             cursor: pointer;
@@ -57,7 +59,7 @@
             transform: scale(0.98);
         }
         
-        /* Floating Nav Styles - Mobile Optimized */
+        /* Floating Nav Styles */
         .floating-nav {
             position: fixed;
             top: 12px;
@@ -77,7 +79,6 @@
             max-width: 600px;
         }
         
-        /* Desktop - Wider Navbar */
         @media (min-width: 768px) {
             .floating-nav {
                 top: 20px;
@@ -232,7 +233,7 @@
             max-width: 500px;
         }
         
-        /* Masonry Grid - Mobile Optimized */
+        /* Masonry Grid */
         .masonry {
             column-count: 1;
             column-gap: 1rem;
@@ -287,7 +288,7 @@
             font-size: 2.5rem;
             font-weight: 300;
             letter-spacing: 0.3em;
-            background: linear-gradient(90deg, #cc73f8, #a855f7, #cc73f8);
+            background: linear-gradient(90deg, var(--primary-purple), #a855f7, var(--primary-purple));
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -330,9 +331,9 @@
             top: 0;
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #cc73f8, #a855f7);
+            background: linear-gradient(90deg, var(--primary-purple), #a855f7);
             animation: loading 2s ease-in-out infinite;
-            box-shadow: 0 0 10px #cc73f8;
+            box-shadow: 0 0 10px var(--primary-purple);
         }
         
         @keyframes loading {
@@ -370,7 +371,7 @@
         .admin-section-title {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #cc73f8;
+            color: var(--primary-purple);
             margin-bottom: 1rem;
             border-bottom: 2px solid rgba(204, 115, 248, 0.3);
             padding-bottom: 0.5rem;
@@ -386,8 +387,8 @@
 
         .admin-btn-small {
             background: rgba(204, 115, 248, 0.2);
-            border: 1px solid #cc73f8;
-            color: #cc73f8;
+            border: 1px solid var(--primary-purple);
+            color: var(--primary-purple);
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 12px;
@@ -396,7 +397,7 @@
         }
 
         .admin-btn-small:hover {
-            background: #cc73f8;
+            background: var(--primary-purple);
             color: white;
         }
 
@@ -424,7 +425,7 @@
 
         /* Nav Item Purple Color */
         .nav-item-purple {
-            color: #cc73f8 !important;
+            color: var(--primary-purple) !important;
         }
 
         .nav-item-purple:hover {
@@ -437,9 +438,9 @@
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            border: 2px solid #cc73f8;
+            border: 2px solid var(--primary-purple);
             background: transparent;
-            color: #cc73f8;
+            color: var(--primary-purple);
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
@@ -451,14 +452,14 @@
         }
 
         .menu-add-btn:hover {
-            background: #cc73f8;
+            background: var(--primary-purple);
             color: white;
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(204, 115, 248, 0.5);
         }
 
         .menu-add-btn.active {
-            background: #cc73f8;
+            background: var(--primary-purple);
             color: white;
         }
 
@@ -475,6 +476,36 @@
             justify-content: space-between;
             align-items: baseline;
         }
+
+        /* Star Rating Styles */
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .star {
+            font-size: 20px;
+            color: #4a4a4a;
+            cursor: default;
+        }
+
+        .star.filled {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Color Preview Box */
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.2);
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -486,6 +517,11 @@
             brand_name: "LUMINA LUXE",
             favicon: "",
             logo: "",
+            colors: {
+                primary: "#cc73f8",      // Purple color
+                text_white: "#ffffff",    // White text
+                text_regular: "#ffffff60" // Regular text (60% opacity)
+            },
             hero: {
                 title: "LUMINA LUXE",
                 subtitle: "Experience Ultimate Luxury",
@@ -524,9 +560,9 @@
                 }
             ],
             reviews: [
-                {name: "Sarah Johnson", text: "Absolutely amazing experience! The staff was so professional."},
-                {name: "Emily Davis", text: "Best spa day I've ever had. Highly recommend!"},
-                {name: "Michael Brown", text: "Luxurious atmosphere and top-notch service."}
+                {name: "Sarah Johnson", text: "Absolutely amazing experience! The staff was so professional.", rating: 5},
+                {name: "Emily Davis", text: "Best spa day I've ever had. Highly recommend!", rating: 5},
+                {name: "Michael Brown", text: "Luxurious atmosphere and top-notch service.", rating: 4}
             ],
             gallery: [
                 "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop ",
@@ -569,12 +605,20 @@
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload ";
             const UPLOAD_PRESET = "faysal";
 
+            // Update CSS variables when colors change
+            const updateColors = (colors) => {
+                const root = document.documentElement;
+                if (colors.primary) root.style.setProperty('--primary-purple', colors.primary);
+                if (colors.text_white) root.style.setProperty('--text-white', colors.text_white);
+                if (colors.text_regular) root.style.setProperty('--text-regular', colors.text_regular);
+            };
+
             const updatePageTitle = (brandName) => {
                 const titleElement = document.getElementById('dynamic-title');
                 if (titleElement && brandName) {
-                    titleElement.textContent = `${brandName} | Ultimate Business OS`;
+                    titleElement.textContent = brandName;
                 }
-                document.title = `${brandName} | Ultimate Business OS`;
+                document.title = brandName;
             };
 
             const updateFavicon = (url) => {
@@ -592,6 +636,8 @@
                         const jsonData = await response.json();
                         
                         const mergedData = { ...DEFAULT_DATA, ...jsonData };
+                        
+                        // Ensure all nested objects exist
                         if (!mergedData.hero) mergedData.hero = DEFAULT_DATA.hero;
                         if (!mergedData.about) mergedData.about = DEFAULT_DATA.about;
                         if (!mergedData.services) mergedData.services = DEFAULT_DATA.services;
@@ -601,8 +647,10 @@
                         if (!mergedData.footer) mergedData.footer = DEFAULT_DATA.footer;
                         if (!mergedData.section_titles) mergedData.section_titles = DEFAULT_DATA.section_titles;
                         if (!mergedData.nav_items) mergedData.nav_items = DEFAULT_DATA.nav_items;
+                        if (!mergedData.colors) mergedData.colors = DEFAULT_DATA.colors;
                         
                         setData(mergedData);
+                        updateColors(mergedData.colors);
                         
                         if (mergedData.brand_name) {
                             updatePageTitle(mergedData.brand_name);
@@ -619,6 +667,7 @@
                     } catch (err) {
                         console.log("Using default data:", err);
                         setData(DEFAULT_DATA);
+                        updateColors(DEFAULT_DATA.colors);
                         updatePageTitle(DEFAULT_DATA.brand_name);
                         const cats = Object.keys(DEFAULT_DATA.services);
                         setActiveCat(cats[0]);
@@ -635,7 +684,10 @@
                 if (data && data.brand_name) {
                     updatePageTitle(data.brand_name);
                 }
-            }, [data?.brand_name]);
+                if (data && data.colors) {
+                    updateColors(data.colors);
+                }
+            }, [data?.brand_name, data?.colors]);
 
             React.useEffect(() => {
                 const handleScroll = () => {
@@ -678,7 +730,6 @@
                 else setCart([...cart, svc]);
             };
 
-            // Toggle menu item in cart
             const toggleMenuItem = (itemName, itemPrice) => {
                 const exists = cart.find(c => c.name === itemName);
                 if(exists) {
@@ -808,7 +859,7 @@
             };
 
             const addReview = () => {
-                setData({ ...data, reviews: [...data.reviews, { name: "New Reviewer", text: "Review text here" }] });
+                setData({ ...data, reviews: [...data.reviews, { name: "New Reviewer", text: "Review text here", rating: 5 }] });
             };
 
             const removeReview = (index) => {
@@ -860,11 +911,40 @@
                 setData({ ...data, nav_items: newNavItems });
             };
 
+            // Hero section admin functions
+            const updateHero = (field, value) => {
+                setData({
+                    ...data,
+                    hero: { ...data.hero, [field]: value }
+                });
+            };
+
+            // Color update functions
+            const updateColor = (colorType, value) => {
+                setData({
+                    ...data,
+                    colors: { ...data.colors, [colorType]: value }
+                });
+            };
+
+            // Star Rating Component
+            const StarRating = ({ rating }) => {
+                return (
+                    <div className="star-rating">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <span key={star} className={`star ${star <= rating ? 'filled' : ''}`}>
+                                ★
+                            </span>
+                        ))}
+                    </div>
+                );
+            };
+
             if (loading) {
                 return (
                     <div className="loader-container">
                         <div className="loader-grid"></div>
-                        <h1 className="loader-text serif">LUMINA LUXE</h1>
+                        <h1 className="loader-text serif">{data?.brand_name || "LUMINA LUXE"}</h1>
                         <div className="loader-bar">
                             <div className="loader-progress"></div>
                         </div>
@@ -884,7 +964,7 @@
 
                                 {/* Admin Tabs */}
                                 <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-2">
-                                    {['branding', 'navbar', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer'].map(tab => (
+                                    {['branding', 'colors', 'hero', 'navbar', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer'].map(tab => (
                                         <button
                                             key={tab}
                                             onClick={() => setActiveAdminTab(tab)}
@@ -923,17 +1003,18 @@
                                         </div>
 
                                         <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Branding (Text Only)</h3>
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Brand Name (Updates Hero Title & Browser Tab)</h3>
                                             <div className="space-y-4">
                                                 <div>
-                                                    <label className="text-xs text-white/60 uppercase tracking-wider">Brand Name (Also updates Browser Tab)</label>
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider">Brand Name</label>
                                                     <input 
                                                         className="input-f" 
                                                         placeholder="Brand Name" 
                                                         value={data.brand_name} 
                                                         onChange={e => setData({...data, brand_name: e.target.value})} 
                                                     />
-                                                    <p className="text-xs text-white/40 mt-2">Current Tab Title: {data.brand_name} | Ultimate Business OS</p>
+                                                    <p className="text-xs text-white/40 mt-2">Current Tab Title: {data.brand_name}</p>
+                                                    <p className="text-xs text-white/40">Hero Title will also update to: {data.brand_name}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -951,6 +1032,147 @@
                                                         />
                                                     </div>
                                                 ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* COLORS TAB - NEW */}
+                                {activeAdminTab === 'colors' && (
+                                    <div className="space-y-6">
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Theme Colors</h3>
+                                            <p className="text-xs text-white/50 mb-4">Change these colors to update the entire website theme.</p>
+                                            
+                                            <div className="space-y-6">
+                                                <div>
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center">
+                                                        Primary Purple Color (Buttons, Links, Accents)
+                                                        <span className="color-preview" style={{backgroundColor: data.colors.primary}}></span>
+                                                    </label>
+                                                    <input 
+                                                        type="color"
+                                                        className="input-f h-12 cursor-pointer"
+                                                        value={data.colors.primary}
+                                                        onChange={e => updateColor('primary', e.target.value)} 
+                                                    />
+                                                    <input 
+                                                        className="input-f mt-2"
+                                                        value={data.colors.primary}
+                                                        onChange={e => updateColor('primary', e.target.value)} 
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center">
+                                                        White Text Color (Headings, Main Text)
+                                                        <span className="color-preview" style={{backgroundColor: data.colors.text_white}}></span>
+                                                    </label>
+                                                    <input 
+                                                        type="color"
+                                                        className="input-f h-12 cursor-pointer"
+                                                        value={data.colors.text_white}
+                                                        onChange={e => updateColor('text_white', e.target.value)} 
+                                                    />
+                                                    <input 
+                                                        className="input-f mt-2"
+                                                        value={data.colors.text_white}
+                                                        onChange={e => updateColor('text_white', e.target.value)} 
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center">
+                                                        Regular Text Color (Descriptions, Secondary Text)
+                                                        <span className="color-preview" style={{backgroundColor: data.colors.text_regular}}></span>
+                                                    </label>
+                                                    <input 
+                                                        type="color"
+                                                        className="input-f h-12 cursor-pointer"
+                                                        value={data.colors.text_regular}
+                                                        onChange={e => updateColor('text_regular', e.target.value)} 
+                                                    />
+                                                    <input 
+                                                        className="input-f mt-2"
+                                                        value={data.colors.text_regular}
+                                                        onChange={e => updateColor('text_regular', e.target.value)} 
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Live Preview</h3>
+                                            <div className="bg-black/50 p-6 rounded-lg space-y-4">
+                                                <h4 style={{color: data.colors.text_white, fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem'}}>
+                                                    Sample Heading (White Text)
+                                                </h4>
+                                                <p style={{color: data.colors.primary, fontSize: '1.2rem'}}>
+                                                    Sample Purple Text / Links
+                                                </p>
+                                                <p style={{color: data.colors.text_regular}}>
+                                                    Sample regular description text. This is how your secondary text will look.
+                                                </p>
+                                                <button style={{backgroundColor: data.colors.primary, padding: '10px 20px', borderRadius: '20px', color: 'white'}}>
+                                                    Sample Button
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* HERO TAB - NEW */}
+                                {activeAdminTab === 'hero' && (
+                                    <div className="space-y-6">
+                                        <div className="admin-card border-l-8 border-[#cc73f8]">
+                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Hero Section Settings</h3>
+                                            
+                                            <div className="space-y-6">
+                                                <div>
+                                                    <label className="text-xs text-white/60">Hero Title (Default: Brand Name)</label>
+                                                    <input 
+                                                        className="input-f" 
+                                                        placeholder={data.brand_name}
+                                                        value={data.hero.title} 
+                                                        onChange={e => updateHero('title', e.target.value)} 
+                                                    />
+                                                    <p className="text-xs text-white/40 mt-1">Leave empty to use Brand Name: {data.brand_name}</p>
+                                                </div>
+
+                                                <div>
+                                                    <label className="text-xs text-white/60">Hero Subtitle</label>
+                                                    <input 
+                                                        className="input-f" 
+                                                        value={data.hero.subtitle} 
+                                                        onChange={e => updateHero('subtitle', e.target.value)} 
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="text-xs text-white/60">Hero Image</label>
+                                                    <div className="flex gap-2">
+                                                        <input 
+                                                            className="input-f flex-1" 
+                                                            value={data.hero.image} 
+                                                            onChange={e => updateHero('image', e.target.value)} 
+                                                        />
+                                                        <input 
+                                                            type="file" 
+                                                            accept="image/*" 
+                                                            className="hidden" 
+                                                            id="hero-img-upload"
+                                                            onChange={e => uploadImg(e, (url) => updateHero('image', url))} 
+                                                        />
+                                                        <label htmlFor="hero-img-upload" className="admin-btn-small cursor-pointer flex items-center">
+                                                            Upload
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="mt-4">
+                                                    <p className="text-xs text-white/60 mb-2">Current Hero Image Preview:</p>
+                                                    <img src={data.hero.image} className="w-full h-48 object-cover rounded-lg" alt="Hero Preview" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1010,7 +1232,7 @@
                                                     <span className="serif text-lg font-bold text-white">{data.brand_name} (Home)</span>
                                                     <span className="text-white/30">→</span>
                                                     {data.nav_items.map((item, idx) => (
-                                                        <span key={item.id} className="text-[#cc73f8] font-semibold text-sm">
+                                                        <span key={item.id} className="font-semibold text-sm" style={{color: data.colors.primary}}>
                                                             {item.label}
                                                             {idx < data.nav_items.length - 1 && <span className="text-white/20 mx-2">|</span>}
                                                         </span>
@@ -1034,7 +1256,7 @@
                                         {Object.entries(data.services || {}).map(([category, services]) => (
                                             <div key={category} className="admin-card">
                                                 <div className="flex justify-between items-center mb-4">
-                                                    <h3 className="text-xl font-bold text-[#cc73f8]">{category}</h3>
+                                                    <h3 className="text-xl font-bold" style={{color: data.colors.primary}}>{category}</h3>
                                                     <div className="flex gap-2">
                                                         <button onClick={() => addService(category)} className="admin-btn-small admin-btn-success">+ Add Service</button>
                                                         <button onClick={() => removeCategory(category)} className="admin-btn-small admin-btn-danger">Delete Category</button>
@@ -1116,7 +1338,8 @@
                                             <div key={catIdx} className="admin-card">
                                                 <div className="flex justify-between items-center mb-4">
                                                     <input 
-                                                        className="input-f text-xl font-bold bg-transparent border-none p-0 text-[#cc73f8]" 
+                                                        className="input-f text-xl font-bold bg-transparent border-none p-0" 
+                                                        style={{color: data.colors.primary}}
                                                         value={section.cat} 
                                                         onChange={e => updateMenu(catIdx, null, null, e.target.value)} 
                                                     />
@@ -1157,7 +1380,7 @@
                                 {/* ABOUT TAB */}
                                 {activeAdminTab === 'about' && (
                                     <div className="admin-card">
-                                        <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Our Sanctuary Section</h3>
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Our Sanctuary Section</h3>
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="text-xs text-white/60">About Text</label>
@@ -1257,6 +1480,20 @@
                                                         />
                                                     </div>
                                                     <div>
+                                                        <label className="text-xs text-white/60">Rating (1-5)</label>
+                                                        <input 
+                                                            type="number"
+                                                            min="1"
+                                                            max="5"
+                                                            className="input-f" 
+                                                            value={review.rating || 5} 
+                                                            onChange={e => updateReview(idx, 'rating', parseInt(e.target.value) || 5)} 
+                                                        />
+                                                        <div className="mt-2">
+                                                            <StarRating rating={review.rating || 5} />
+                                                        </div>
+                                                    </div>
+                                                    <div>
                                                         <label className="text-xs text-white/60">Review Text</label>
                                                         <textarea 
                                                             className="input-f" 
@@ -1280,7 +1517,7 @@
                                 {/* FOOTER TAB */}
                                 {activeAdminTab === 'footer' && (
                                     <div className="admin-card">
-                                        <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Footer Information</h3>
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Footer Information</h3>
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="text-xs text-white/60">WhatsApp Number</label>
@@ -1332,7 +1569,8 @@
                                 <div className="flex flex-col gap-4">
                                     <button
                                         onClick={() => scrollToSection('home')}
-                                        className="text-[#cc73f8] text-lg font-bold py-3 px-4 rounded-xl hover:bg-[#cc73f8]/20 transition text-left border-b border-[#cc73f8]/30 mb-2"
+                                        className="text-lg font-bold py-3 px-4 rounded-xl hover:bg-opacity-20 transition text-left border-b mb-2"
+                                        style={{color: data.colors.primary, borderColor: data.colors.primary}}
                                     >
                                         {data.brand_name} (Home)
                                     </button>
@@ -1340,7 +1578,8 @@
                                         <button
                                             key={item.id}
                                             onClick={() => scrollToSection(item.section)}
-                                            className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-[#cc73f8]/20 transition text-left"
+                                            className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-opacity-20 transition text-left"
+                                            style={{'--tw-bg-opacity': 1, '--tw-hover-bg': data.colors.primary}}
                                         >
                                             {item.label}
                                         </button>
@@ -1352,6 +1591,7 @@
                             {/* Floating Nav */}
                             <nav className="floating-nav no-select">
                                 <div className="flex items-center justify-between w-full">
+                                    {/* BRAND NAME AS HOME BUTTON */}
                                     <div 
                                         className="flex items-center gap-3 cursor-pointer group"
                                         onClick={(e) => {
@@ -1362,30 +1602,39 @@
                                             }
                                         }}
                                     >
-                                        <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter text-white whitespace-nowrap group-hover:text-[#cc73f8] transition-colors">
+                                        <span 
+                                            className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter whitespace-nowrap group-hover:opacity-80 transition-opacity"
+                                            style={{color: data.colors.text_white}}
+                                        >
                                             {data.brand_name}
                                         </span>
                                     </div>
                                     
+                                    {/* Desktop Nav */}
                                     <div className="hidden md:flex items-center gap-6 lg:gap-10 text-[11px] lg:text-[12px] font-semibold uppercase tracking-wider ml-8 lg:ml-16">
                                         {data.nav_items.map((item) => (
                                             <button
                                                 key={item.id}
                                                 onClick={() => scrollToSection(item.section)}
                                                 className="nav-item-purple whitespace-nowrap transition-all hover:scale-105"
+                                                style={{color: data.colors.primary}}
                                             >
                                                 {item.label}
                                             </button>
                                         ))}
                                     </div>
                                     
-                                    <div className="flex items-center gap-4 lg:gap-6 ml-auto">
+                                    {/* RIGHT SIDE: Gallery (if exists) + Contact with GAP */}
+                                    <div className="flex items-center gap-6 lg:gap-10 ml-auto">
+                                        {/* Contact Button with extra gap */}
                                         <button 
                                             onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} 
                                             className="hidden md:block btn-premium px-6 lg:px-8 py-2 lg:py-3 text-[10px] lg:text-[11px] font-bold uppercase whitespace-nowrap"
+                                            style={{background: `linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}
                                         >
                                             Contact
                                         </button>
+                                        {/* Mobile Hamburger */}
                                         <button 
                                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                                             className="md:hidden tap-target flex flex-col justify-center items-center gap-1.5 p-2"
@@ -1407,29 +1656,43 @@
                             )}
 
                             {/* Hero */}
-                            <header id="home" className="min-h-screen relative flex items-center justify-center text-white text-center overflow-hidden pt-20 px-4">
+                            <header id="home" className="min-h-screen relative flex items-center justify-center text-center overflow-hidden pt-20 px-4">
                                 <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
                                 <div className="relative z-10 max-w-4xl mx-auto">
-                                    <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text text-white mb-6">{data.hero.title || data.brand_name}</h1>
-                                    <p className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold text-[#cc73f8] italic">{data.hero.subtitle}</p>
+                                    <h1 
+                                        className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text mb-6"
+                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                    >
+                                        {data.hero.title || data.brand_name}
+                                    </h1>
+                                    <p 
+                                        className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold italic"
+                                        style={{color: data.colors.primary}}
+                                    >
+                                        {data.hero.subtitle}
+                                    </p>
                                 </div>
                             </header>
 
                             {/* 1. THE EXPERIENCE SECTION */}
                             <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
+                                    <h2 
+                                        className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text"
+                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                    >
                                         {data.section_titles?.experience || "The Experience"}
                                     </h2>
                                     
-                                    <div className="flex overflow-x-auto no-scrollbar gap-4 md:gap-12 border-b border-[#cc73f8]/30 mb-8 md:mb-16 pb-4">
+                                    <div className="flex overflow-x-auto no-scrollbar gap-4 md:gap-12 border-b mb-8 md:mb-16 pb-4" style={{borderColor: `${data.colors.primary}4D`}}>
                                         {Object.keys(data.services || {}).map(cat => (
                                             <button 
                                                 key={cat} 
                                                 onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
-                                                className={`pb-2 md:pb-6 text-xs md:text-[11px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${activeCat === cat ? 'border-b-2 border-[#cc73f8] text-[#cc73f8]' : 'text-white/30'}`}
+                                                className={`pb-2 md:pb-6 text-xs md:text-[11px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${activeCat === cat ? 'border-b-2' : 'opacity-30'}`}
+                                                style={{color: activeCat === cat ? data.colors.primary : data.colors.text_white, borderColor: data.colors.primary}}
                                             >
                                                 {cat}
                                             </button>
@@ -1441,15 +1704,17 @@
                                             {data.services[activeCat]?.map((s, i) => (
                                                 <div 
                                                     key={i} 
-                                                    className={`flex-shrink-0 w-64 md:w-full p-4 md:p-8 rounded-2xl md:rounded-[2rem] flex justify-between items-center transition-all cursor-pointer border ${selectedSvc?.name === s.name ? 'bg-[#cc73f8]/10 border-[#cc73f8]' : 'bg-white/5 border-white/10'}`}
+                                                    className={`flex-shrink-0 w-64 md:w-full p-4 md:p-8 rounded-2xl md:rounded-[2rem] flex justify-between items-center transition-all cursor-pointer border ${selectedSvc?.name === s.name ? 'bg-opacity-10' : 'bg-white/5 border-white/10'}`}
+                                                    style={{backgroundColor: selectedSvc?.name === s.name ? `${data.colors.primary}1A` : '', borderColor: selectedSvc?.name === s.name ? data.colors.primary : ''}}
                                                 >
                                                     <div onClick={() => setSelectedSvc(s)} className="flex-1 min-w-0">
-                                                        <h4 className="serif text-lg md:text-2xl font-bold uppercase text-white truncate">{s.name}</h4>
-                                                        <p className="text-[10px] font-bold text-[#cc73f8] mt-1">{s.price}</p>
+                                                        <h4 className="serif text-lg md:text-2xl font-bold uppercase truncate" style={{color: data.colors.text_white}}>{s.name}</h4>
+                                                        <p className="text-[10px] font-bold mt-1" style={{color: data.colors.primary}}>{s.price}</p>
                                                     </div>
                                                     <button 
                                                         onClick={(e) => {e.stopPropagation(); toggleCart(s);}} 
-                                                        className={`w-8 h-8 md:w-10 md:h-10 rounded-full font-bold text-sm md:text-lg flex items-center justify-center flex-shrink-0 ml-2 ${cart.find(c => c.name === s.name) ? 'bg-[#cc73f8] text-white' : 'bg-white/10 text-white border border-[#cc73f8]'}`}
+                                                        className={`w-8 h-8 md:w-10 md:h-10 rounded-full font-bold text-sm md:text-lg flex items-center justify-center flex-shrink-0 ml-2 ${cart.find(c => c.name === s.name) ? 'text-white' : 'bg-white/10 border'}`}
+                                                        style={{backgroundColor: cart.find(c => c.name === s.name) ? data.colors.primary : '', borderColor: data.colors.primary}}
                                                     >
                                                         {cart.find(c => c.name === s.name) ? '✕' : '+'}
                                                     </button>
@@ -1460,14 +1725,20 @@
                                         <div className="md:col-span-8">
                                             {selectedSvc && (
                                                 <div className="flex flex-col gap-6 md:gap-12">
-                                                    <img src={selectedSvc.img} className="w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl shadow-[#cc73f8]/20" alt={selectedSvc.name} />
+                                                    <img src={selectedSvc.img} className="w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl" style={{boxShadow: `0 25px 50px -12px ${data.colors.primary}33`}} alt={selectedSvc.name} />
                                                     <div>
-                                                        <h3 className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic text-white glow-text">{selectedSvc.name}</h3>
-                                                        <p className="text-2xl md:text-3xl font-bold text-[#cc73f8] mb-4 md:mb-8">{selectedSvc.price}</p>
-                                                        <p className="text-base md:text-xl text-white/50 mb-6 md:mb-10 italic serif">{selectedSvc.desc}</p>
+                                                        <h3 
+                                                            className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic glow-text"
+                                                            style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                                        >
+                                                            {selectedSvc.name}
+                                                        </h3>
+                                                        <p className="text-2xl md:text-3xl font-bold mb-4 md:mb-8" style={{color: data.colors.primary}}>{selectedSvc.price}</p>
+                                                        <p className="text-base md:text-xl mb-6 md:mb-10 italic serif" style={{color: data.colors.text_regular}}>{selectedSvc.desc}</p>
                                                         <button 
                                                             onClick={() => toggleCart(selectedSvc)} 
                                                             className="btn-premium w-full py-4 md:py-5 text-xs md:text-[11px] font-bold uppercase tracking-widest"
+                                                            style={{background: `linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}
                                                         >
                                                             {cart.find(c => c.name === selectedSvc.name) ? 'Remove' : 'Add to Booking'}
                                                         </button>
@@ -1479,26 +1750,34 @@
                                 </div>
                             </section>
 
-                            {/* 2. THE MENU SECTION - WITH ADD BUTTONS */}
-                            <section id="menu" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
+                            {/* 2. THE MENU SECTION */}
+                            <section id="menu" className="py-16 md:py-32 px-4 tech-grid-bg relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
+                                    <h2 
+                                        className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text"
+                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                    >
                                         {data.section_titles?.menu || "The Menu"}
                                     </h2>
                                     <div className="grid md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-16">
                                         {data.full_menu.map((sec, idx) => (
-                                            <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border border-[#cc73f8]/10">
-                                                <h3 className="serif text-2xl md:text-4xl text-[#cc73f8] mb-6 md:mb-8 italic border-b border-[#cc73f8]/30 pb-4">~ {sec.cat} ~</h3>
+                                            <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border" style={{borderColor: `${data.colors.primary}1A`}}>
+                                                <h3 
+                                                    className="serif text-2xl md:text-4xl mb-6 md:mb-8 italic border-b pb-4"
+                                                    style={{color: data.colors.primary, borderColor: `${data.colors.primary}4D`}}
+                                                >
+                                                    ~ {sec.cat} ~
+                                                </h3>
                                                 {sec.items.map((it, i) => (
-                                                    <div key={i} className="menu-item-row mb-4 md:mb-6 border-b border-dotted border-white/10 pb-2">
+                                                    <div key={i} className="menu-item-row mb-4 md:mb-6 border-b border-dotted pb-2" style={{borderColor: `${data.colors.text_white}1A`}}>
                                                         <div className="menu-item-info">
-                                                            <span className="serif text-lg md:text-2xl uppercase text-white/80">{it.n}</span>
-                                                            <span className="font-bold text-[#cc73f8] text-base md:text-lg ml-4">{it.p}</span>
+                                                            <span className="serif text-lg md:text-2xl uppercase" style={{color: `${data.colors.text_white}CC`}}>{it.n}</span>
+                                                            <span className="font-bold text-base md:text-lg ml-4" style={{color: data.colors.primary}}>{it.p}</span>
                                                         </div>
-                                                        {/* ADD BUTTON FOR EACH MENU ITEM */}
                                                         <button 
                                                             onClick={() => toggleMenuItem(it.n, it.p)}
                                                             className={`menu-add-btn ${cart.find(c => c.name === it.n) ? 'active' : ''}`}
+                                                            style={{borderColor: data.colors.primary, color: cart.find(c => c.name === it.n) ? 'white' : data.colors.primary, backgroundColor: cart.find(c => c.name === it.n) ? data.colors.primary : 'transparent'}}
                                                             title={cart.find(c => c.name === it.n) ? 'Remove from cart' : 'Add to cart'}
                                                         >
                                                             {cart.find(c => c.name === it.n) ? '✕' : '+'}
@@ -1512,30 +1791,36 @@
                             </section>
 
                             {/* 3. OUR SANCTUARY (ABOUT) SECTION */}
-                            <section id="about" className="py-16 md:py-32 bg-[#0a0a0a] px-4 relative">
+                            <section id="about" className="py-16 md:py-32 px-4 relative">
                                 <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
                                     <div className="order-2 md:order-1">
-                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic text-white glow-text">
+                                        <h2 
+                                            className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic glow-text"
+                                            style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                        >
                                             {data.section_titles?.about || "Our Sanctuary"}
                                         </h2>
-                                        <p className="text-lg md:text-2xl serif italic text-white/60 leading-relaxed">{data.about.text}</p>
+                                        <p className="text-lg md:text-2xl serif italic leading-relaxed" style={{color: data.colors.text_regular}}>{data.about.text}</p>
                                     </div>
                                     <div className="order-1 md:order-2">
-                                        <img src={data.about.image} className="w-full rounded-3xl md:rounded-[4rem] aspect-[4/5] object-cover shadow-2xl shadow-[#cc73f8]/20 grayscale hover:grayscale-0 transition duration-1000 border border-[#cc73f8]/20" alt="About" />
+                                        <img src={data.about.image} className="w-full rounded-3xl md:rounded-[4rem] aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000 border" style={{boxShadow: `0 25px 50px -12px ${data.colors.primary}33`, borderColor: `${data.colors.primary}33`}} alt="About" />
                                     </div>
                                 </div>
                             </section>
 
                             {/* 4. VISUAL SANCTUARY (GALLERY) SECTION */}
-                            <section id="gallery" className="py-16 md:py-32 bg-[#0d0d0d] px-4 tech-grid-bg relative">
+                            <section id="gallery" className="py-16 md:py-32 px-4 tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic text-white glow-text">
+                                    <h2 
+                                        className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text"
+                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                    >
                                         {data.section_titles?.gallery || "Visual Sanctuary"}
                                     </h2>
                                     <div className="max-w-7xl mx-auto masonry">
                                         {data.gallery.map((img, i) => (
-                                            <div key={i} className="break-inside-avoid overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl border-2 border-[#cc73f8]/20 hover:border-[#cc73f8]/50 transition-all">
+                                            <div key={i} className="break-inside-avoid overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl border-2 transition-all hover:border-opacity-50" style={{borderColor: `${data.colors.primary}33`}}>
                                                 <img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" alt={`Gallery ${i}`} loading="lazy" />
                                             </div>
                                         ))}
@@ -1544,17 +1829,22 @@
                             </section>
 
                             {/* 5. WORDS OF LUXE (REVIEWS) SECTION */}
-                            <section id="reviews" className="py-16 md:py-24 bg-[#0d0d0d] px-4 relative overflow-hidden">
+                            <section id="reviews" className="py-16 md:py-24 px-4 relative overflow-hidden">
                                 <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <div className="max-w-6xl mx-auto relative z-10">
-                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic text-white glow-text">
+                                    <h2 
+                                        className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic glow-text"
+                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                    >
                                         {data.section_titles?.reviews || "Words of Luxe"}
                                     </h2>
                                     <div className="grid md:grid-cols-3 gap-4 md:gap-8">
                                         {data.reviews.map((r, i) => (
-                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-[#cc73f8]/20 text-center hover:border-[#cc73f8]/50 transition-all">
-                                                <p className="serif text-base md:text-lg text-white/60 mb-4 md:mb-6 italic">"{r.text}"</p>
-                                                <h5 className="font-bold text-[10px] uppercase tracking-widest text-[#cc73f8]">— {r.name}</h5>
+                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border text-center hover:border-opacity-50 transition-all" style={{borderColor: `${data.colors.primary}33`}}>
+                                                {/* STAR RATING */}
+                                                <StarRating rating={r.rating || 5} />
+                                                <p className="serif text-base md:text-lg mb-4 md:mb-6 italic" style={{color: data.colors.text_regular}}>"{r.text}"</p>
+                                                <h5 className="font-bold text-[10px] uppercase tracking-widest" style={{color: data.colors.primary}}>— {r.name}</h5>
                                             </div>
                                         ))}
                                     </div>
@@ -1562,25 +1852,28 @@
                             </section>
 
                             {/* Footer */}
-                            <footer className="bg-[#050505] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t border-[#cc73f8]/20">
+                            <footer className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t" style={{backgroundColor: '#050505', borderColor: `${data.colors.primary}33`}}>
                                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
                                     <div className="col-span-2 md:col-span-2">
-                                        <h4 className="serif text-4xl md:text-6xl text-[#cc73f8] italic font-bold mb-4 md:mb-6 glow-text">
+                                        <h4 
+                                            className="serif text-4xl md:text-6xl italic font-bold mb-4 md:mb-6 glow-text"
+                                            style={{color: data.colors.primary, textShadow: `0 0 20px ${data.colors.primary}80`}}
+                                        >
                                             {data.brand_name}
                                         </h4>
-                                        <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-2 md:mb-3 tracking-widest font-bold">Address</h5>
-                                        <p className="text-xs md:text-sm italic text-white/50 max-w-sm mb-4 md:mb-6">{data.footer.address}</p>
+                                        <h5 className="uppercase text-[10px] md:text-[11px] mb-2 md:mb-3 tracking-widest font-bold" style={{color: data.colors.primary}}>Address</h5>
+                                        <p className="text-xs md:text-sm italic max-w-sm mb-4 md:mb-6" style={{color: data.colors.text_regular}}>{data.footer.address}</p>
                                     </div>
                                     <div>
-                                        <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold">Timing</h5>
-                                        <p className="text-xs md:text-sm serif italic text-white/50">{data.footer.hours}</p>
+                                        <h5 className="uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold" style={{color: data.colors.primary}}>Timing</h5>
+                                        <p className="text-xs md:text-sm serif italic" style={{color: data.colors.text_regular}}>{data.footer.hours}</p>
                                     </div>
                                     <div>
-                                        <h5 className="text-[#cc73f8] uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold">Contact</h5>
-                                        <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-xs md:text-sm serif italic text-white/50 underline hover:text-[#cc73f8] transition block break-all">{data.footer.whatsapp}</a>
+                                        <h5 className="uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold" style={{color: data.colors.primary}}>Contact</h5>
+                                        <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-xs md:text-sm serif italic underline transition block break-all" style={{color: data.colors.text_regular}}>{data.footer.whatsapp}</a>
                                     </div>
                                 </div>
-                                <p className="text-center mt-8 md:mt-12 text-[8px] md:text-[9px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-white/30">{data.footer.copyright}</p>
+                                <p className="text-center mt-8 md:mt-12 text-[8px] md:text-[9px] uppercase tracking-[0.3em] md:tracking-[0.5em]" style={{color: `${data.colors.text_white}4D`}}>{data.footer.copyright}</p>
                             </footer>
                         </div>
                     )}
