@@ -1,7 +1,12 @@
 {
-  "brand_name": "below zero                      ",
+  "brand_name": "webzario          ",
   "favicon": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770648342/vynfrkyvg8ggypxjxxi2.png",
   "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770728889/g0ugfpbbxicrqh73inb3.png",
+  "colors": {
+    "primary": "#cc73f8",
+    "text_white": "#ffffff",
+    "text_regular": "#ffffff60"
+  },
   "hero": {
     "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770389651/ips58e7amcd34sxy2a1h.png",
     "subtitle": "WELCOME TO LUMINA",
@@ -112,5 +117,27 @@
     "gallery": "Visual Sanctuary",
     "about": "Our Sanctuary"
   },
+  "nav_items": [
+    {
+      "id": "experience",
+      "label": "Experience",
+      "section": "experience"
+    },
+    {
+      "id": "menu",
+      "label": "Menu",
+      "section": "menu"
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "section": "about"
+    },
+    {
+      "id": "gallery",
+      "label": "Gallery",
+      "section": "gallery"
+    }
+  ],
   "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics."
 }
