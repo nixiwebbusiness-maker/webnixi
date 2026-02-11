@@ -88,15 +88,18 @@
   "reviews": [
     {
       "name": "Emily R.",
-      "text": "The best Russian manicure in Santa Monica! Highly recommended."
+      "text": "The best Russian manicure in Santa Monica! Highly recommended.",
+      "links": []
     },
     {
       "name": "Sarah M.",
-      "text": "Sasha's attention to detail is unmatched. Luxury experience."
+      "text": "Sasha's attention to detail is unmatched. Luxury experience.",
+      "links": []
     },
     {
       "name": "faysal sario",
-      "text": "solan service is next level."
+      "text": "solan service is next level.",
+      "links": []
     }
   ],
   "gallery": [
@@ -108,7 +111,29 @@
     "whatsapp": "823154076344",
     "hours": "MONDAY=FRIDAY  10:00AM / 10:00PM",
     "address": "LOS ANGELES",
-    "copyright": "2026"
+    "copyright": "2026",
+    "social_links": [
+      {
+        "name": "Yelp",
+        "url": "https://yelp.com",
+        "icon": "Yelp"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/faysalsario._/",
+        "icon": "📷"
+      },
+      {
+        "name": "TikTok",
+        "url": "https://tiktok.com",
+        "icon": "tiktok"
+      },
+      {
+        "name": "X",
+        "url": "https://x.com",
+        "icon": "𝕏"
+      }
+    ]
   },
   "section_titles": {
     "experience": "The Experience",
