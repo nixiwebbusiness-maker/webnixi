@@ -65,8 +65,20 @@
           "p": "$80"
         },
         {
-          "n": "Acrylic Full Set",
+          "n": "Acrylic Powder Extension (starts)",
           "p": "$140"
+        },
+        {
+          "n": "Hard Gel Full Set (starts)",
+          "p": "$130"
+        },
+        {
+          "n": "Hard Gel Fill (starts) $110 * Removal Extra $10",
+          "p": "$110"
+        },
+        {
+          "n": "Gel X (ANY LENGTH)",
+          "p": "$130"
         }
       ]
     },
@@ -81,6 +93,151 @@
         {
           "n": "Gel Pedicure",
           "p": "$95"
+        },
+        {
+          "n": "24k Gold SPA Pedicure",
+          "p": "$120"
+        },
+        {
+          "n": "RUSSIAN STYLE GEL PEDICURE",
+          "p": "$95"
+        }
+      ]
+    },
+    {
+      "cat": "RUSSIAN STYLE ",
+      "items": [
+        {
+          "n": "Regular Manicure",
+          "p": "$60"
+        },
+        {
+          "n": "Gel Manicure",
+          "p": "$80"
+        },
+        {
+          "n": "Acrylic Powder Extension (starts)",
+          "p": "$140"
+        },
+        {
+          "n": "Hard Gel Full Set (starts)",
+          "p": "$130"
+        },
+        {
+          "n": "Hard Gel Fill (starts) Removal Extra $10",
+          "p": "$110"
+        },
+        {
+          "n": "Gel X (ANY LENGTH)",
+          "p": "$130"
+        }
+      ]
+    },
+    {
+      "cat": "ADD ON",
+      "items": [
+        {
+          "n": "Gel Removal",
+          "p": "$10"
+        },
+        {
+          "n": "French / Chrome / Design",
+          "p": "$20"
+        },
+        {
+          "n": "Hard Gel/Extension Removal",
+          "p": "$20"
+        }
+      ]
+    },
+    {
+      "cat": "WAX",
+      "items": [
+        {
+          "n": "Brazilian deep bikini",
+          "p": "$80"
+        },
+        {
+          "n": "full legs",
+          "p": "$70"
+        },
+        {
+          "n": "full hands",
+          "p": "$60"
+        },
+        {
+          "n": "half legs",
+          "p": "$40"
+        },
+        {
+          "n": "half hands",
+          "p": "$35"
+        },
+        {
+          "n": "underarm",
+          "p": "$30"
+        },
+        {
+          "n": "face (any zone)",
+          "p": "$30"
+        },
+        {
+          "n": "full body",
+          "p": "$190"
+        }
+      ]
+    },
+    {
+      "cat": "LASHES",
+      "items": [
+        {
+          "n": "Lash Extension Classic",
+          "p": "$120"
+        },
+        {
+          "n": "Lash Extension 1.5D",
+          "p": "$140"
+        },
+        {
+          "n": "Lash Extension 2D",
+          "p": "$160"
+        },
+        {
+          "n": "Lash Extension 3D",
+          "p": "$180"
+        },
+        {
+          "n": "Lash Extension 4D",
+          "p": "$190"
+        },
+        {
+          "n": "Lash Extension 5D",
+          "p": "$220"
+        },
+        {
+          "n": "Lash Lift",
+          "p": "$99"
+        }
+      ]
+    },
+    {
+      "cat": "BROWS",
+      "items": [
+        {
+          "n": "Brow Lamination",
+          "p": "$99"
+        },
+        {
+          "n": "brow design full set",
+          "p": "$120"
+        },
+        {
+          "n": "Brow Tint",
+          "p": "$30"
+        },
+        {
+          "n": "brow architecture (henna)",
+          "p": "$80"
         }
       ]
     }
