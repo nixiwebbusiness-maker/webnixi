@@ -8,7 +8,7 @@
     "text_regular": "#ffffff60"
   },
   "hero": {
-    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770919962/ah2ywzoqujidzzj8xhfh.png",
+    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770920621/rxmr1pj0jbcrh3zioj91.png",
     "subtitle": "WELCOME TO WEBNIXI",
     "title": "WEBNIXI"
   },
@@ -332,11 +332,6 @@
       "id": "gallery",
       "label": "Gallery",
       "section": "gallery"
-    },
-    {
-      "id": "nav_1770919977060",
-      "label": "New Item",
-      "section": "you"
     }
   ],
   "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics."
