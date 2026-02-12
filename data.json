@@ -5,7 +5,7 @@
   "colors": {
     "primary": "#A020F0",
     "text_white": "#ffffff",
-    "text_regular": "#D6E6F3"
+    "text_regular": "\t#EADDCA"
   },
   "hero": {
     "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770920621/rxmr1pj0jbcrh3zioj91.png",
