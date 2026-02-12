@@ -306,7 +306,7 @@
     ]
   },
   "section_titles": {
-    "experience": "The Experience",
+    "experience": "The services ",
     "menu": "The Menu",
     "reviews": "Words of Luxe",
     "gallery": "Visual Sanctuary",
@@ -315,8 +315,8 @@
   "nav_items": [
     {
       "id": "experience",
-      "label": "Experience",
-      "section": "experience"
+      "label": "services ",
+      "section": "services "
     },
     {
       "id": "menu",
