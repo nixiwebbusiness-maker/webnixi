@@ -3,10 +3,10 @@
   "favicon": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770648342/vynfrkyvg8ggypxjxxi2.png",
   "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770728889/g0ugfpbbxicrqh73inb3.png",
   "colors": {
-    "primary": "#A020F0",
-    "text_white": "#F7A1B5",
-    "text_regular": "#EAEFFE",
-    "shadow": "#cc73f8"
+    "primary": "#FF007F",
+    "text_white": "#FFFFFF",
+    "text_regular": "#D6CCD0",
+    "shadow": "#FF007F"
   },
   "hero": {
     "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770920621/rxmr1pj0jbcrh3zioj91.png",
