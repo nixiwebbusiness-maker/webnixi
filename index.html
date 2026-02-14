@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Dynamic Title -->
     <title id="dynamic-title">webnixi</title>
-    <!-- Dynamic Favicon -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -20,11 +18,10 @@
             --dark-bg: #0d0d0d;
             --text-white: #ffffff;
             --text-regular: #ffffff60;
+            --shadow-color: #cc73f8;
         }
         
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Montserrat', sans-serif;
@@ -35,11 +32,8 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        .serif {
-            font-family: 'Cormorant Garamond', serif;
-        }
+        .serif { font-family: 'Cormorant Garamond', serif; }
         
-        /* Custom Button Color */
         .btn-premium {
             background: linear-gradient(135deg, var(--primary-purple) 0%, #a855f7 100%);
             color: white;
@@ -55,11 +49,8 @@
             box-shadow: 0 6px 20px rgba(204, 115, 248, 0.6);
         }
         
-        .btn-premium:active {
-            transform: scale(0.98);
-        }
+        .btn-premium:active { transform: scale(0.98); }
         
-        /* Floating Nav Styles */
         .floating-nav {
             position: fixed;
             top: 12px;
@@ -72,42 +63,23 @@
             border: 2px solid rgba(204, 115, 248, 0.3);
             border-radius: 50px;
             padding: 10px 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             width: calc(100% - 24px);
             max-width: 600px;
         }
         
         @media (min-width: 768px) {
-            .floating-nav {
-                top: 20px;
-                padding: 14px 40px;
-                width: auto;
-                max-width: 1000px;
-            }
+            .floating-nav { top: 20px; padding: 14px 40px; width: auto; max-width: 1000px; }
         }
-
-        @media (min-width: 1024px) {
-            .floating-nav {
-                max-width: 1200px;
-                padding: 16px 50px;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .floating-nav {
-                max-width: 1400px;
-                padding: 18px 60px;
-            }
-        }
+        @media (min-width: 1024px) { .floating-nav { max-width: 1200px; padding: 16px 50px; } }
+        @media (min-width: 1280px) { .floating-nav { max-width: 1400px; padding: 18px 60px; } }
         
         .floating-nav:hover {
             background: rgba(13, 13, 13, 0.95);
             border-color: rgba(204, 115, 248, 0.5);
         }
         
-        /* Mobile Menu Overlay */
         .mobile-menu-overlay {
             position: fixed;
             inset: 0;
@@ -119,10 +91,7 @@
             transition: all 0.3s ease;
         }
         
-        .mobile-menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
         
         .mobile-menu {
             position: fixed;
@@ -141,65 +110,43 @@
             transition: all 0.3s ease;
         }
         
-        .mobile-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) scale(1);
-        }
+        .mobile-menu.active { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
         
-        /* Grid Background Pattern */
         .tech-grid-bg {
-            background-image: 
-                linear-gradient(rgba(204, 115, 248, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(204, 115, 248, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
             position: relative;
         }
         
-        @media (min-width: 768px) {
-            .tech-grid-bg {
-                background-size: 50px 50px;
-            }
-        }
+        @media (min-width: 768px) { .tech-grid-bg { background-size: 50px 50px; } }
         
         .tech-grid-bg::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.8) 100%);
             pointer-events: none;
         }
         
-        /* Deep Purple Blur for Cart */
         .cart-blur {
             background: rgba(88, 28, 135, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(204, 115, 248, 0.4);
-            box-shadow: 0 8px 32px rgba(88, 28, 135, 0.5),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(88, 28, 135, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
-        /* Admin Cards */
         .admin-card {
             background: rgba(30, 30, 40, 0.8);
             border-radius: 24px;
-            padding: 20px;
+            padding: 16px;
             border: 1px solid rgba(204, 115, 248, 0.2);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
         }
         
-        @media (min-width: 768px) {
-            .admin-card {
-                padding: 30px;
-                margin-bottom: 25px;
-            }
-        }
+        @media (min-width: 768px) { .admin-card { padding: 30px; margin-bottom: 25px; } }
         
         .input-f {
             width: 100%;
@@ -219,9 +166,7 @@
             box-shadow: 0 0 0 3px rgba(204, 115, 248, 0.1);
         }
         
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
         
         .cart-float {
             position: fixed;
@@ -233,30 +178,13 @@
             max-width: 500px;
         }
         
-        /* Masonry Grid */
-        .masonry {
-            column-count: 1;
-            column-gap: 1rem;
-        }
+        .masonry { column-count: 1; column-gap: 1rem; }
+        @media (min-width: 640px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 4; } }
         
-        @media (min-width: 640px) {
-            .masonry {
-                column-count: 2;
-            }
-        }
+        .break-inside-avoid { break-inside: avoid; margin-bottom: 1rem; }
         
-        @media (min-width: 1024px) {
-            .masonry {
-                column-count: 4;
-            }
-        }
-        
-        .break-inside-avoid {
-            break-inside: avoid;
-            margin-bottom: 1rem;
-        }
-        
-        /* Loading Screen Animation */
+        /* Loading Screen - Fixed to prevent flash */
         .loader-container {
             position: fixed;
             inset: 0;
@@ -272,9 +200,7 @@
         .loader-grid {
             position: absolute;
             inset: 0;
-            background-image: 
-                linear-gradient(rgba(204, 115, 248, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(204, 115, 248, 0.05) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(204, 115, 248, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 115, 248, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 20s linear infinite;
         }
@@ -285,28 +211,24 @@
         }
         
         .loader-text {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 300;
             letter-spacing: 0.3em;
             background: linear-gradient(90deg, var(--primary-purple), #a855f7, var(--primary-purple));
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
             z-index: 10;
             text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards, shimmer 3s linear infinite;
         }
         
-        @media (min-width: 768px) {
-            .loader-text {
-                font-size: 4rem;
-                letter-spacing: 0.5em;
-            }
-        }
+        @keyframes fadeIn { to { opacity: 1; } }
         
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
+        @media (min-width: 768px) { .loader-text { font-size: 3rem; letter-spacing: 0.5em; } }
+        
+        @keyframes shimmer { to { background-position: 200% center; } }
         
         .loader-bar {
             width: 150px;
@@ -318,12 +240,7 @@
             position: relative;
         }
         
-        @media (min-width: 768px) {
-            .loader-bar {
-                width: 200px;
-                margin-top: 40px;
-            }
-        }
+        @media (min-width: 768px) { .loader-bar { width: 200px; margin-top: 40px; } }
         
         .loader-progress {
             position: absolute;
@@ -350,90 +267,56 @@
             border: 2px solid rgba(204, 115, 248, 0.5);
         }
         
-        /* Glow Text */
-        .glow-text {
-            text-shadow: 0 0 20px rgba(204, 115, 248, 0.5);
-        }
+        .glow-text { text-shadow: 0 0 20px var(--shadow-color); }
         
-        /* Touch-friendly tap targets */
-        .tap-target {
-            min-height: 44px;
-            min-width: 44px;
-        }
+        .tap-target { min-height: 44px; min-width: 44px; }
         
-        /* Prevent text selection on UI elements */
-        .no-select {
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        /* Admin Section Styles */
+        .no-select { -webkit-user-select: none; user-select: none; }
+        
         .admin-section-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: bold;
             color: var(--primary-purple);
             margin-bottom: 1rem;
             border-bottom: 2px solid rgba(204, 115, 248, 0.3);
             padding-bottom: 0.5rem;
         }
-
+        
+        @media (min-width: 768px) { .admin-section-title { font-size: 1.5rem; } }
+        
         .admin-item-card {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(204, 115, 248, 0.2);
             border-radius: 12px;
-            padding: 16px;
+            padding: 12px;
             margin-bottom: 12px;
         }
-
+        
+        @media (min-width: 768px) { .admin-item-card { padding: 16px; } }
+        
         .admin-btn-small {
             background: rgba(204, 115, 248, 0.2);
             border: 1px solid var(--primary-purple);
             color: var(--primary-purple);
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             transition: all 0.3s;
+            min-height: 36px;
         }
-
-        .admin-btn-small:hover {
-            background: var(--primary-purple);
-            color: white;
-        }
-
-        .admin-btn-danger {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-        }
-
-        .admin-btn-danger:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .admin-btn-success {
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid #22c55e;
-            color: #22c55e;
-        }
-
-        .admin-btn-success:hover {
-            background: #22c55e;
-            color: white;
-        }
-
-        /* Nav Item Purple Color */
-        .nav-item-purple {
-            color: var(--primary-purple) !important;
-        }
-
-        .nav-item-purple:hover {
-            color: #a855f7 !important;
-            text-shadow: 0 0 10px rgba(204, 115, 248, 0.5);
-        }
-
-        /* Menu Add Button */
+        
+        .admin-btn-small:hover { background: var(--primary-purple); color: white; }
+        
+        .admin-btn-danger { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; }
+        .admin-btn-danger:hover { background: #ef4444; color: white; }
+        
+        .admin-btn-success { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #22c55e; }
+        .admin-btn-success:hover { background: #22c55e; color: white; }
+        
+        .nav-item-purple { color: var(--primary-purple) !important; }
+        .nav-item-purple:hover { color: #a855f7 !important; text-shadow: 0 0 10px rgba(204, 115, 248, 0.5); }
+        
         .menu-add-btn {
             width: 28px;
             height: 28px;
@@ -450,53 +333,23 @@
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
-
+        
         .menu-add-btn:hover {
             background: var(--primary-purple);
             color: white;
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(204, 115, 248, 0.5);
         }
-
-        .menu-add-btn.active {
-            background: var(--primary-purple);
-            color: white;
-        }
-
-        .menu-item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .menu-item-info {
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        /* Star Rating Styles */
-        .star-rating {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-            margin-bottom: 12px;
-        }
-
-        .star {
-            font-size: 20px;
-            color: #4a4a4a;
-            cursor: default;
-        }
-
-        .star.filled {
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* Color Preview Box */
+        
+        .menu-add-btn.active { background: var(--primary-purple); color: white; }
+        
+        .menu-item-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .menu-item-info { flex: 1; display: flex; justify-content: space-between; align-items: baseline; }
+        
+        .star-rating { display: flex; gap: 4px; justify-content: center; margin-bottom: 12px; }
+        .star { font-size: 20px; color: #4a4a4a; cursor: default; }
+        .star.filled { color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        
         .color-preview {
             width: 40px;
             height: 40px;
@@ -506,8 +359,7 @@
             margin-left: 10px;
             vertical-align: middle;
         }
-
-        /* Social Icons Styles - UPDATED FOR IMAGES */
+        
         .social-icon {
             width: 40px;
             height: 40px;
@@ -522,7 +374,7 @@
             overflow: hidden;
             background: rgba(0, 0, 0, 0.3);
         }
-
+        
         .social-icon img {
             width: 20px;
             height: 20px;
@@ -530,19 +382,16 @@
             filter: brightness(0) saturate(100%) invert(56%) sepia(95%) saturate(1234%) hue-rotate(242deg) brightness(101%) contrast(101%);
             transition: all 0.3s ease;
         }
-
+        
         .social-icon:hover {
             background: var(--primary-purple);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(204, 115, 248, 0.4);
             border-color: var(--primary-purple);
         }
-
-        .social-icon:hover img {
-            filter: brightness(0) invert(1);
-        }
-
-        /* Review Link Button */
+        
+        .social-icon:hover img { filter: brightness(0) invert(1); }
+        
         .review-link-btn {
             display: inline-flex;
             align-items: center;
@@ -558,13 +407,9 @@
             transition: all 0.3s ease;
             margin-top: 12px;
         }
-
-        .review-link-btn:hover {
-            background: var(--primary-purple);
-            color: white;
-            transform: translateY(-2px);
-        }
-
+        
+        .review-link-btn:hover { background: var(--primary-purple); color: white; transform: translateY(-2px); }
+        
         .review-links-container {
             display: flex;
             flex-wrap: wrap;
@@ -574,8 +419,7 @@
             padding-top: 16px;
             border-top: 1px solid rgba(204, 115, 248, 0.2);
         }
-
-        /* Social Icon Preview in Admin */
+        
         .social-icon-preview {
             width: 40px;
             height: 40px;
@@ -585,29 +429,82 @@
             padding: 8px;
             background: rgba(0, 0, 0, 0.5);
         }
+        
+        /* Mobile Admin Specific Styles */
+        @media (max-width: 768px) {
+            .admin-grid { display: flex; flex-direction: column; gap: 12px; }
+            
+            .admin-tabs-scroll {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 8px;
+            }
+            
+            .admin-tabs-scroll::-webkit-scrollbar { display: none; }
+            
+            .admin-tab-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 10px 16px;
+                font-size: 11px;
+            }
+            
+            .mobile-full-width { width: 100%; }
+            .mobile-stack { flex-direction: column; }
+            .mobile-text-sm { font-size: 12px; }
+        }
+        
+        .admin-panel { min-height: 100vh; padding: 16px; padding-bottom: 100px; }
+        @media (min-width: 768px) { .admin-panel { padding: 48px; padding-bottom: 120px; } }
+        
+        .sticky-save-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: linear-gradient(to top, rgba(13,13,13,1) 0%, rgba(13,13,13,0.9) 100%);
+            padding: 16px;
+            border-top: 1px solid rgba(204, 115, 248, 0.3);
+        }
+        
+        @media (min-width: 768px) {
+            .sticky-save-btn {
+                position: sticky;
+                bottom: 24px;
+                left: auto;
+                right: auto;
+                background: transparent;
+                border-top: none;
+                padding: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // DEFAULT DATA
+        // DEFAULT DATA - Changed default brand to webnixi
         const DEFAULT_DATA = {
-            brand_name: "LUMINA LUXE",
+            brand_name: "webnixi",
             favicon: "",
             logo: "",
             colors: {
-                primary: "#cc73f8",      // Purple color
-                text_white: "#ffffff",    // White text
-                text_regular: "#ffffff60" // Regular text (60% opacity)
+                primary: "#cc73f8",
+                text_white: "#ffffff",
+                text_regular: "#ffffff60",
+                shadow: "#cc73f8"
             },
             hero: {
-                title: "LUMINA LUXE",
+                title: "",
                 subtitle: "Experience Ultimate Luxury",
                 image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop"
             },
             about: {
-                text: "Welcome to Lumina Luxe, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
+                text: "Welcome to our sanctuary, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
                 image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop"
             },
             services: {
@@ -658,7 +555,7 @@
                 whatsapp: "+1234567890",
                 hours: "Mon-Sun: 9AM - 9PM",
                 address: "123 Luxury Lane, Beverly Hills, CA 90210",
-                copyright: "© 2024 Lumina Luxe. All rights reserved.",
+                copyright: "© 2024 webnixi. All rights reserved.",
                 social_links: [
                     {name: "Yelp", url: "https://yelp.com", icon_url: "https://cdn-icons-png.flaticon.com/512/174/174882.png"},
                     {name: "Instagram", url: "https://instagram.com", icon_url: "https://cdn-icons-png.flaticon.com/512/174/174855.png"},
@@ -690,42 +587,54 @@
             const [loading, setLoading] = React.useState(true);
             const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
             const [activeAdminTab, setActiveAdminTab] = React.useState('branding');
+            const [isMobile, setIsMobile] = React.useState(false);
 
             const ADMIN_PASS = "admin123";
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
             const UPLOAD_PRESET = "faysal";
 
-            // Update CSS variables when colors change
+            // Check if mobile
+            React.useEffect(() => {
+                const checkMobile = () => setIsMobile(window.innerWidth < 768);
+                checkMobile();
+                window.addEventListener('resize', checkMobile);
+                return () => window.removeEventListener('resize', checkMobile);
+            }, []);
+
             const updateColors = (colors) => {
                 const root = document.documentElement;
                 if (colors.primary) root.style.setProperty('--primary-purple', colors.primary);
                 if (colors.text_white) root.style.setProperty('--text-white', colors.text_white);
                 if (colors.text_regular) root.style.setProperty('--text-regular', colors.text_regular);
+                if (colors.shadow) root.style.setProperty('--shadow-color', colors.shadow);
             };
 
             const updatePageTitle = (brandName) => {
                 const titleElement = document.getElementById('dynamic-title');
-                if (titleElement && brandName) {
-                    titleElement.textContent = brandName;
-                }
+                if (titleElement && brandName) titleElement.textContent = brandName;
                 document.title = brandName;
             };
 
             const updateFavicon = (url) => {
                 const favicon = document.getElementById('dynamic-favicon');
-                if (favicon && url) {
-                    favicon.href = url;
-                }
+                if (favicon && url) favicon.href = url;
             };
 
             React.useEffect(() => {
                 const loadData = async () => {
                     try {
                         const response = await fetch('data.json');
-                        if (!response.ok) throw new Error('Failed to load');
-                        const jsonData = await response.json();
+                        let jsonData = {};
                         
-                        const mergedData = { ...DEFAULT_DATA, ...jsonData };
+                        if (response.ok) jsonData = await response.json();
+                        
+                        // Merge with defaults - ensure brand_name is set immediately
+                        const mergedData = { 
+                            ...DEFAULT_DATA, 
+                            ...jsonData,
+                            brand_name: jsonData.brand_name || DEFAULT_DATA.brand_name,
+                            colors: { ...DEFAULT_DATA.colors, ...(jsonData.colors || {}) }
+                        };
                         
                         // Ensure all nested objects exist
                         if (!mergedData.hero) mergedData.hero = DEFAULT_DATA.hero;
@@ -739,21 +648,17 @@
                         if (!mergedData.nav_items) mergedData.nav_items = DEFAULT_DATA.nav_items;
                         if (!mergedData.colors) mergedData.colors = DEFAULT_DATA.colors;
                         
-                        // Ensure new fields exist
+                        // Ensure shadow color exists
+                        if (!mergedData.colors.shadow) mergedData.colors.shadow = mergedData.colors.primary;
+                        
                         if (!mergedData.footer.social_links) mergedData.footer.social_links = DEFAULT_DATA.footer.social_links;
-                        mergedData.reviews.forEach(review => {
-                            if (!review.links) review.links = [];
-                        });
+                        mergedData.reviews.forEach(review => { if (!review.links) review.links = []; });
                         
                         setData(mergedData);
                         updateColors(mergedData.colors);
                         
-                        if (mergedData.brand_name) {
-                            updatePageTitle(mergedData.brand_name);
-                        }
-                        if (mergedData.favicon) {
-                            updateFavicon(mergedData.favicon);
-                        }
+                        if (mergedData.brand_name) updatePageTitle(mergedData.brand_name);
+                        if (mergedData.favicon) updateFavicon(mergedData.favicon);
                         
                         const cats = Object.keys(mergedData.services || {});
                         if (cats.length > 0) { 
@@ -769,7 +674,7 @@
                         setActiveCat(cats[0]);
                         setSelectedSvc(DEFAULT_DATA.services[cats[0]][0]);
                     } finally {
-                        setTimeout(() => setLoading(false), 2500);
+                        setTimeout(() => setLoading(false), 2000);
                     }
                 };
                 
@@ -777,18 +682,12 @@
             }, []);
 
             React.useEffect(() => {
-                if (data && data.brand_name) {
-                    updatePageTitle(data.brand_name);
-                }
-                if (data && data.colors) {
-                    updateColors(data.colors);
-                }
+                if (data?.brand_name) updatePageTitle(data.brand_name);
+                if (data?.colors) updateColors(data.colors);
             }, [data?.brand_name, data?.colors]);
 
             React.useEffect(() => {
-                const handleScroll = () => {
-                    if (mobileMenuOpen) setMobileMenuOpen(false);
-                };
+                const handleScroll = () => { if (mobileMenuOpen) setMobileMenuOpen(false); };
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, [mobileMenuOpen]);
@@ -811,9 +710,7 @@
                     if (json.secure_url) {
                         callback(json.secure_url);
                         alert("Image Uploaded Successfully!");
-                    } else {
-                        throw new Error("Upload failed");
-                    }
+                    } else throw new Error("Upload failed");
                 } catch(err) { 
                     alert("Upload Failed! Please try again."); 
                     console.error(err);
@@ -828,15 +725,12 @@
 
             const toggleMenuItem = (itemName, itemPrice) => {
                 const exists = cart.find(c => c.name === itemName);
-                if(exists) {
-                    setCart(cart.filter(c => c.name !== itemName));
-                } else {
-                    setCart([...cart, { name: itemName, price: itemPrice, desc: "Menu item", img: "" }]);
-                }
+                if(exists) setCart(cart.filter(c => c.name !== itemName));
+                else setCart([...cart, { name: itemName, price: itemPrice, desc: "Menu item", img: "" }]);
             };
 
             const sendWhatsApp = () => {
-                if (!data || !data.footer || !data.footer.whatsapp) {
+                if (!data?.footer?.whatsapp) {
                     alert("WhatsApp number not configured!");
                     return;
                 }
@@ -871,7 +765,6 @@
                 }
             };
 
-            // Admin helper functions
             const updateService = (category, index, field, value) => {
                 const newServices = { ...data.services };
                 newServices[category][index][field] = value;
@@ -880,12 +773,7 @@
 
             const addService = (category) => {
                 const newServices = { ...data.services };
-                newServices[category].push({
-                    name: "New Service",
-                    price: "$0",
-                    desc: "Description here",
-                    img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop"
-                });
+                newServices[category].push({ name: "New Service", price: "$0", desc: "Description here", img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop" });
                 setData({ ...data, services: newServices });
             };
 
@@ -917,11 +805,8 @@
 
             const updateMenu = (catIndex, itemIndex, field, value) => {
                 const newMenu = [...data.full_menu];
-                if (itemIndex === null) {
-                    newMenu[catIndex].cat = value;
-                } else {
-                    newMenu[catIndex].items[itemIndex][field] = value;
-                }
+                if (itemIndex === null) newMenu[catIndex].cat = value;
+                else newMenu[catIndex].items[itemIndex][field] = value;
                 setData({ ...data, full_menu: newMenu });
             };
 
@@ -1000,10 +885,7 @@
             };
 
             const updateSectionTitle = (section, value) => {
-                setData({
-                    ...data,
-                    section_titles: { ...data.section_titles, [section]: value }
-                });
+                setData({ ...data, section_titles: { ...data.section_titles, [section]: value } });
             };
 
             const updateNavItem = (index, field, value) => {
@@ -1014,10 +896,7 @@
 
             const addNavItem = () => {
                 const newId = `nav_${Date.now()}`;
-                setData({
-                    ...data,
-                    nav_items: [...data.nav_items, { id: newId, label: "New Item", section: "home" }]
-                });
+                setData({ ...data, nav_items: [...data.nav_items, { id: newId, label: "New Item", section: "home" }] });
             };
 
             const removeNavItem = (index) => {
@@ -1026,70 +905,52 @@
                 setData({ ...data, nav_items: newNavItems });
             };
 
-            // Hero section admin functions
             const updateHero = (field, value) => {
-                setData({
-                    ...data,
-                    hero: { ...data.hero, [field]: value }
-                });
+                setData({ ...data, hero: { ...data.hero, [field]: value } });
             };
 
-            // Color update functions
             const updateColor = (colorType, value) => {
-                setData({
-                    ...data,
-                    colors: { ...data.colors, [colorType]: value }
-                });
+                setData({ ...data, colors: { ...data.colors, [colorType]: value } });
             };
 
-            // Social Links Admin Functions - UPDATED FOR ICON_URL
             const updateSocialLink = (index, field, value) => {
                 const newSocialLinks = [...data.footer.social_links];
                 newSocialLinks[index][field] = value;
-                setData({
-                    ...data,
-                    footer: { ...data.footer, social_links: newSocialLinks }
-                });
+                setData({ ...data, footer: { ...data.footer, social_links: newSocialLinks } });
             };
 
             const addSocialLink = () => {
                 const newSocialLinks = [...data.footer.social_links, { name: "New Link", url: "https://", icon_url: "" }];
-                setData({
-                    ...data,
-                    footer: { ...data.footer, social_links: newSocialLinks }
-                });
+                setData({ ...data, footer: { ...data.footer, social_links: newSocialLinks } });
             };
 
             const removeSocialLink = (index) => {
                 const newSocialLinks = [...data.footer.social_links];
                 newSocialLinks.splice(index, 1);
-                setData({
-                    ...data,
-                    footer: { ...data.footer, social_links: newSocialLinks }
-                });
+                setData({ ...data, footer: { ...data.footer, social_links: newSocialLinks } });
             };
 
-            // Star Rating Component
-            const StarRating = ({ rating }) => {
-                return (
-                    <div className="star-rating">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <span key={star} className={`star ${star <= rating ? 'filled' : ''}`}>
-                                ★
-                            </span>
-                        ))}
-                    </div>
-                );
-            };
+            const StarRating = ({ rating }) => (
+                <div className="star-rating">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <span key={star} className={`star ${star <= rating ? 'filled' : ''}`}>★</span>
+                    ))}
+                </div>
+            );
 
+            // Fixed Loading Screen - Only shows after data is loaded
             if (loading) {
                 return (
                     <div className="loader-container">
                         <div className="loader-grid"></div>
-                        <h1 className="loader-text serif">{data?.brand_name || "LUMINA LUXE"}</h1>
-                        <div className="loader-bar">
-                            <div className="loader-progress"></div>
-                        </div>
+                        {data && (
+                            <>
+                                <h1 className="loader-text serif">{data.brand_name}</h1>
+                                <div className="loader-bar">
+                                    <div className="loader-progress"></div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 );
             }
@@ -1099,35 +960,45 @@
             return (
                 <div className="bg-[#0d0d0d] min-h-screen">
                     {isAdmin ? (
-                        <div className="min-h-screen p-4 md:p-12 pb-32 tech-grid-bg">
-                            <button onClick={() => setIsAdmin(false)} className="fixed top-4 right-4 md:top-8 md:right-8 bg-[#cc73f8] text-white w-10 h-10 md:w-12 md:h-12 rounded-full z-[100] shadow-2xl font-bold italic hover:bg-[#a855f7] transition text-sm md:text-base">✕</button>
+                        <div className="admin-panel tech-grid-bg">
+                            <button 
+                                onClick={() => setIsAdmin(false)} 
+                                className="fixed top-4 right-4 z-[100] text-white w-10 h-10 rounded-full shadow-2xl font-bold hover:opacity-80 transition flex items-center justify-center"
+                                style={{background: data.colors.primary}}
+                            >✕</button>
+                            
                             <div className="max-w-6xl mx-auto relative z-10">
-                                <h1 className="serif text-4xl md:text-6xl font-bold mb-6 md:mb-10 border-b border-[#cc73f8]/30 pb-4 text-white">Business Controller</h1>
+                                <h1 className="serif text-3xl md:text-6xl font-bold mb-4 md:mb-10 border-b pb-4 text-white" style={{borderColor: data.colors.primary + '4D'}}>
+                                    Business Controller
+                                </h1>
 
-                                {/* Admin Tabs */}
-                                <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-2">
+                                {/* Admin Tabs - Mobile Scrollable */}
+                                <div className="admin-tabs-scroll flex gap-2 mb-6 md:mb-8">
                                     {['branding', 'colors', 'hero', 'navbar', 'experience', 'menu', 'about', 'gallery', 'reviews', 'footer', 'social'].map(tab => (
                                         <button
                                             key={tab}
                                             onClick={() => setActiveAdminTab(tab)}
-                                            className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${activeAdminTab === tab ? 'bg-[#cc73f8] text-white' : 'bg-white/10 text-white/60 hover:bg-white/20'}`}
-                                        >
-                                            {tab}
-                                        </button>
+                                            className="admin-tab-btn rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap"
+                                            style={{
+                                                backgroundColor: activeAdminTab === tab ? data.colors.primary : 'rgba(255,255,255,0.1)',
+                                                color: activeAdminTab === tab ? 'white' : 'rgba(255,255,255,0.6)'
+                                            }}
+                                        >{tab}</button>
                                     ))}
                                 </div>
 
                                 {/* BRANDING TAB */}
                                 {activeAdminTab === 'branding' && (
-                                    <div className="space-y-6">
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">0. Browser Favicon</h3>
-                                            <div className="grid md:grid-cols-2 gap-4 md:gap-6 items-center">
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Browser Favicon</h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                                 <div>
                                                     <input 
                                                         type="file" 
                                                         accept="image/*,.ico,.svg" 
-                                                        className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#cc73f8]/20 file:text-[#cc73f8]" 
+                                                        className="text-xs w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold"
+                                                        style={{fileBackgroundColor: data.colors.primary + '33'}} 
                                                         onChange={e => uploadImg(e, (url) => {
                                                             setData({...data, favicon: url});
                                                             updateFavicon(url);
@@ -1135,43 +1006,29 @@
                                                     />
                                                 </div>
                                                 <div className="flex items-center gap-4">
-                                                    {data.favicon ? (
-                                                        <img src={data.favicon} className="favicon-preview" alt="Favicon" />
-                                                    ) : (
-                                                        <span className="text-2xl">✨</span>
-                                                    )}
+                                                    {data.favicon ? <img src={data.favicon} className="favicon-preview" alt="Favicon" /> : <span className="text-2xl">✨</span>}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">1. Brand Name (Updates Hero Title & Browser Tab)</h3>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Brand Name</h3>
                                             <div className="space-y-4">
                                                 <div>
                                                     <label className="text-xs text-white/60 uppercase tracking-wider">Brand Name</label>
-                                                    <input 
-                                                        className="input-f" 
-                                                        placeholder="Brand Name" 
-                                                        value={data.brand_name} 
-                                                        onChange={e => setData({...data, brand_name: e.target.value})} 
-                                                    />
-                                                    <p className="text-xs text-white/40 mt-2">Current Tab Title: {data.brand_name}</p>
-                                                    <p className="text-xs text-white/40">Hero Title will also update to: {data.brand_name}</p>
+                                                    <input className="input-f" placeholder="Brand Name" value={data.brand_name} onChange={e => setData({...data, brand_name: e.target.value})} />
+                                                    <p className="text-xs text-white/40 mt-2">Current: {data.brand_name}</p>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">2. Section Titles</h3>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Section Titles</h3>
                                             <div className="space-y-4">
                                                 {Object.entries(data.section_titles || {}).map(([key, value]) => (
                                                     <div key={key}>
-                                                        <label className="text-xs text-white/60 uppercase tracking-wider">{key} Section Title</label>
-                                                        <input 
-                                                            className="input-f" 
-                                                            value={value} 
-                                                            onChange={e => updateSectionTitle(key, e.target.value)} 
-                                                        />
+                                                        <label className="text-xs text-white/60 uppercase tracking-wider">{key} Title</label>
+                                                        <input className="input-f" value={value} onChange={e => updateSectionTitle(key, e.target.value)} />
                                                     </div>
                                                 ))}
                                             </div>
@@ -1179,141 +1036,97 @@
                                     </div>
                                 )}
 
-                                {/* COLORS TAB - NEW */}
+                                {/* COLORS TAB - WITH SHADOW COLOR */}
                                 {activeAdminTab === 'colors' && (
-                                    <div className="space-y-6">
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Theme Colors</h3>
-                                            <p className="text-xs text-white/50 mb-4">Change these colors to update the entire website theme.</p>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Theme Colors</h3>
                                             
                                             <div className="space-y-6">
                                                 <div>
-                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center">
-                                                        Primary Purple Color (Buttons, Links, Accents)
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center flex-wrap gap-2">
+                                                        Primary Color
                                                         <span className="color-preview" style={{backgroundColor: data.colors.primary}}></span>
                                                     </label>
-                                                    <input 
-                                                        type="color"
-                                                        className="input-f h-12 cursor-pointer"
-                                                        value={data.colors.primary}
-                                                        onChange={e => updateColor('primary', e.target.value)} 
-                                                    />
-                                                    <input 
-                                                        className="input-f mt-2"
-                                                        value={data.colors.primary}
-                                                        onChange={e => updateColor('primary', e.target.value)} 
-                                                    />
+                                                    <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.primary} onChange={e => updateColor('primary', e.target.value)} />
+                                                    <input className="input-f mt-2" value={data.colors.primary} onChange={e => updateColor('primary', e.target.value)} />
                                                 </div>
 
                                                 <div>
-                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center">
-                                                        White Text Color (Headings, Main Text)
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center flex-wrap gap-2">
+                                                        White Text Color
                                                         <span className="color-preview" style={{backgroundColor: data.colors.text_white}}></span>
                                                     </label>
-                                                    <input 
-                                                        type="color"
-                                                        className="input-f h-12 cursor-pointer"
-                                                        value={data.colors.text_white}
-                                                        onChange={e => updateColor('text_white', e.target.value)} 
-                                                    />
-                                                    <input 
-                                                        className="input-f mt-2"
-                                                        value={data.colors.text_white}
-                                                        onChange={e => updateColor('text_white', e.target.value)} 
-                                                    />
+                                                    <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.text_white} onChange={e => updateColor('text_white', e.target.value)} />
+                                                    <input className="input-f mt-2" value={data.colors.text_white} onChange={e => updateColor('text_white', e.target.value)} />
                                                 </div>
 
                                                 <div>
-                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center">
-                                                        Regular Text Color (Descriptions, Secondary Text)
+                                                    <label className="text-xs text-white/60 uppercase tracking-wider flex items-center flex-wrap gap-2">
+                                                        Regular Text Color
                                                         <span className="color-preview" style={{backgroundColor: data.colors.text_regular}}></span>
                                                     </label>
-                                                    <input 
-                                                        type="color"
-                                                        className="input-f h-12 cursor-pointer"
-                                                        value={data.colors.text_regular}
-                                                        onChange={e => updateColor('text_regular', e.target.value)} 
-                                                    />
-                                                    <input 
-                                                        className="input-f mt-2"
-                                                        value={data.colors.text_regular}
-                                                        onChange={e => updateColor('text_regular', e.target.value)} 
-                                                    />
+                                                    <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.text_regular} onChange={e => updateColor('text_regular', e.target.value)} />
+                                                    <input className="input-f mt-2" value={data.colors.text_regular} onChange={e => updateColor('text_regular', e.target.value)} />
+                                                </div>
+
+                                                {/* NEW: Shadow Color Control */}
+                                                <div className="border-t pt-6" style={{borderColor: data.colors.primary + '33'}}>
+                                                    <h4 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Glow Effects</h4>
+                                                    
+                                                    <div>
+                                                        <label className="text-xs text-white/60 uppercase tracking-wider flex items-center flex-wrap gap-2">
+                                                            Text Shadow / Glow Color
+                                                            <span className="color-preview" style={{backgroundColor: data.colors.shadow || data.colors.primary, boxShadow: `0 0 10px ${data.colors.shadow || data.colors.primary}`}}></span>
+                                                        </label>
+                                                        <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.shadow || data.colors.primary} onChange={e => updateColor('shadow', e.target.value)} />
+                                                        <input className="input-f mt-2" value={data.colors.shadow || data.colors.primary} onChange={e => updateColor('shadow', e.target.value)} />
+                                                        <p className="text-xs text-white/40 mt-1">Controls glow effect behind headings and hero text</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Live Preview</h3>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Live Preview</h3>
                                             <div className="bg-black/50 p-6 rounded-lg space-y-4">
-                                                <h4 style={{color: data.colors.text_white, fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem'}}>
-                                                    Sample Heading (White Text)
+                                                <h4 style={{color: data.colors.text_white, fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}`}}>
+                                                    Sample Heading (with Glow)
                                                 </h4>
-                                                <p style={{color: data.colors.primary, fontSize: '1.2rem'}}>
-                                                    Sample Purple Text / Links
-                                                </p>
-                                                <p style={{color: data.colors.text_regular}}>
-                                                    Sample regular description text. This is how your secondary text will look.
-                                                </p>
-                                                <button style={{backgroundColor: data.colors.primary, padding: '10px 20px', borderRadius: '20px', color: 'white'}}>
-                                                    Sample Button
-                                                </button>
+                                                <p style={{color: data.colors.primary, fontSize: '1.2rem'}}>Sample Purple Text / Links</p>
+                                                <p style={{color: data.colors.text_regular}}>Sample regular description text.</p>
+                                                <button style={{backgroundColor: data.colors.primary, padding: '10px 20px', borderRadius: '20px', color: 'white'}}>Sample Button</button>
                                             </div>
                                         </div>
                                     </div>
                                 )}
 
-                                {/* HERO TAB - NEW */}
+                                {/* HERO TAB */}
                                 {activeAdminTab === 'hero' && (
-                                    <div className="space-y-6">
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Hero Section Settings</h3>
-                                            
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Hero Section</h3>
                                             <div className="space-y-6">
                                                 <div>
                                                     <label className="text-xs text-white/60">Hero Title (Default: Brand Name)</label>
-                                                    <input 
-                                                        className="input-f" 
-                                                        placeholder={data.brand_name}
-                                                        value={data.hero.title} 
-                                                        onChange={e => updateHero('title', e.target.value)} 
-                                                    />
-                                                    <p className="text-xs text-white/40 mt-1">Leave empty to use Brand Name: {data.brand_name}</p>
+                                                    <input className="input-f" placeholder={data.brand_name} value={data.hero.title} onChange={e => updateHero('title', e.target.value)} />
+                                                    <p className="text-xs text-white/40 mt-1">Leave empty to use: {data.brand_name}</p>
                                                 </div>
-
                                                 <div>
                                                     <label className="text-xs text-white/60">Hero Subtitle</label>
-                                                    <input 
-                                                        className="input-f" 
-                                                        value={data.hero.subtitle} 
-                                                        onChange={e => updateHero('subtitle', e.target.value)} 
-                                                    />
+                                                    <input className="input-f" value={data.hero.subtitle} onChange={e => updateHero('subtitle', e.target.value)} />
                                                 </div>
-
                                                 <div>
                                                     <label className="text-xs text-white/60">Hero Image</label>
-                                                    <div className="flex gap-2">
-                                                        <input 
-                                                            className="input-f flex-1" 
-                                                            value={data.hero.image} 
-                                                            onChange={e => updateHero('image', e.target.value)} 
-                                                        />
-                                                        <input 
-                                                            type="file" 
-                                                            accept="image/*" 
-                                                            className="hidden" 
-                                                            id="hero-img-upload"
-                                                            onChange={e => uploadImg(e, (url) => updateHero('image', url))} 
-                                                        />
-                                                        <label htmlFor="hero-img-upload" className="admin-btn-small cursor-pointer flex items-center">
-                                                            Upload
-                                                        </label>
+                                                    <div className="flex flex-col md:flex-row gap-2">
+                                                        <input className="input-f flex-1" value={data.hero.image} onChange={e => updateHero('image', e.target.value)} />
+                                                        <input type="file" accept="image/*" className="hidden" id="hero-img-upload" onChange={e => uploadImg(e, (url) => updateHero('image', url))} />
+                                                        <label htmlFor="hero-img-upload" className="admin-btn-small cursor-pointer flex items-center justify-center">Upload</label>
                                                     </div>
                                                 </div>
-
                                                 <div className="mt-4">
-                                                    <p className="text-xs text-white/60 mb-2">Current Hero Image Preview:</p>
-                                                    <img src={data.hero.image} className="w-full h-48 object-cover rounded-lg" alt="Hero Preview" />
+                                                    <p className="text-xs text-white/60 mb-2">Preview:</p>
+                                                    <img src={data.hero.image} className="w-full h-48 object-cover rounded-lg" alt="Hero" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1322,66 +1135,34 @@
 
                                 {/* NAVBAR TAB */}
                                 {activeAdminTab === 'navbar' && (
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-2xl font-bold text-white">Navigation Menu Editor</h2>
-                                            <button onClick={addNavItem} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Nav Item</button>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
+                                            <h2 className="text-xl md:text-2xl font-bold text-white">Navigation Menu</h2>
+                                            <button onClick={addNavItem} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary}}>+ Add Item</button>
                                         </div>
 
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Current Nav Items</h3>
-                                            <p className="text-xs text-white/50 mb-4">Note: Brand name acts as Home button. All nav items appear in purple color automatically.</p>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Nav Items</h3>
+                                            <p className="text-xs text-white/50 mb-4">Brand name acts as Home button</p>
                                             
                                             <div className="space-y-4">
                                                 {data.nav_items.map((item, idx) => (
                                                     <div key={item.id} className="admin-item-card">
-                                                        <div className="grid md:grid-cols-3 gap-4 items-center">
+                                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                                                             <div>
                                                                 <label className="text-xs text-white/60">Label</label>
-                                                                <input 
-                                                                    className="input-f" 
-                                                                    value={item.label} 
-                                                                    onChange={e => updateNavItem(idx, 'label', e.target.value)} 
-                                                                />
+                                                                <input className="input-f" value={item.label} onChange={e => updateNavItem(idx, 'label', e.target.value)} />
                                                             </div>
                                                             <div>
                                                                 <label className="text-xs text-white/60">Section ID</label>
-                                                                <input 
-                                                                    className="input-f" 
-                                                                    value={item.section} 
-                                                                    onChange={e => updateNavItem(idx, 'section', e.target.value)} 
-                                                                    placeholder="e.g., experience, menu, about"
-                                                                />
+                                                                <input className="input-f" value={item.section} onChange={e => updateNavItem(idx, 'section', e.target.value)} placeholder="e.g., experience" />
                                                             </div>
                                                             <div className="flex items-end">
-                                                                <button 
-                                                                    onClick={() => removeNavItem(idx)} 
-                                                                    className="admin-btn-small admin-btn-danger w-full"
-                                                                >
-                                                                    Remove Item
-                                                                </button>
+                                                                <button onClick={() => removeNavItem(idx)} className="admin-btn-small admin-btn-danger w-full">Remove</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Preview</h3>
-                                            <div className="bg-black/30 p-4 rounded-lg">
-                                                <div className="flex items-center gap-4 flex-wrap">
-                                                    <span className="serif text-lg font-bold text-white">{data.brand_name} (Home)</span>
-                                                    <span className="text-white/30">→</span>
-                                                    {data.nav_items.map((item, idx) => (
-                                                        <span key={item.id} className="font-semibold text-sm" style={{color: data.colors.primary}}>
-                                                            {item.label}
-                                                            {idx < data.nav_items.length - 1 && <span className="text-white/20 mx-2">|</span>}
-                                                        </span>
-                                                    ))}
-                                                    <span className="text-white/30">→</span>
-                                                    <span className="btn-premium px-4 py-1 text-xs">Contact</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1389,77 +1170,47 @@
 
                                 {/* EXPERIENCE TAB */}
                                 {activeAdminTab === 'experience' && (
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-2xl font-bold text-white">Services Management</h2>
-                                            <button onClick={addCategory} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Category</button>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
+                                            <h2 className="text-xl md:text-2xl font-bold text-white">Services</h2>
+                                            <button onClick={addCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary}}>+ Add Category</button>
                                         </div>
 
                                         {Object.entries(data.services || {}).map(([category, services]) => (
                                             <div key={category} className="admin-card">
-                                                <div className="flex justify-between items-center mb-4">
-                                                    <h3 className="text-xl font-bold" style={{color: data.colors.primary}}>{category}</h3>
-                                                    <div className="flex gap-2">
-                                                        <button onClick={() => addService(category)} className="admin-btn-small admin-btn-success">+ Add Service</button>
-                                                        <button onClick={() => removeCategory(category)} className="admin-btn-small admin-btn-danger">Delete Category</button>
+                                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-4">
+                                                    <h3 className="text-lg md:text-xl font-bold" style={{color: data.colors.primary}}>{category}</h3>
+                                                    <div className="flex gap-2 w-full md:w-auto">
+                                                        <button onClick={() => addService(category)} className="admin-btn-small admin-btn-success flex-1 md:flex-none">+ Service</button>
+                                                        <button onClick={() => removeCategory(category)} className="admin-btn-small admin-btn-danger flex-1 md:flex-none">Delete</button>
                                                     </div>
                                                 </div>
                                                 <div className="space-y-4">
                                                     {services.map((service, idx) => (
                                                         <div key={idx} className="admin-item-card">
-                                                            <div className="grid md:grid-cols-2 gap-4">
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                                 <div>
-                                                                    <label className="text-xs text-white/60">Service Name</label>
-                                                                    <input 
-                                                                        className="input-f" 
-                                                                        value={service.name} 
-                                                                        onChange={e => updateService(category, idx, 'name', e.target.value)} 
-                                                                    />
+                                                                    <label className="text-xs text-white/60">Name</label>
+                                                                    <input className="input-f" value={service.name} onChange={e => updateService(category, idx, 'name', e.target.value)} />
                                                                 </div>
                                                                 <div>
                                                                     <label className="text-xs text-white/60">Price</label>
-                                                                    <input 
-                                                                        className="input-f" 
-                                                                        value={service.price} 
-                                                                        onChange={e => updateService(category, idx, 'price', e.target.value)} 
-                                                                    />
+                                                                    <input className="input-f" value={service.price} onChange={e => updateService(category, idx, 'price', e.target.value)} />
                                                                 </div>
                                                                 <div className="md:col-span-2">
                                                                     <label className="text-xs text-white/60">Description</label>
-                                                                    <textarea 
-                                                                        className="input-f" 
-                                                                        rows="2"
-                                                                        value={service.desc} 
-                                                                        onChange={e => updateService(category, idx, 'desc', e.target.value)} 
-                                                                    />
+                                                                    <textarea className="input-f" rows="2" value={service.desc} onChange={e => updateService(category, idx, 'desc', e.target.value)} />
                                                                 </div>
                                                                 <div className="md:col-span-2">
-                                                                    <label className="text-xs text-white/60">Image URL</label>
-                                                                    <div className="flex gap-2">
-                                                                        <input 
-                                                                            className="input-f flex-1" 
-                                                                            value={service.img} 
-                                                                            onChange={e => updateService(category, idx, 'img', e.target.value)} 
-                                                                        />
-                                                                        <input 
-                                                                            type="file" 
-                                                                            accept="image/*" 
-                                                                            className="hidden" 
-                                                                            id={`svc-img-${category}-${idx}`}
-                                                                            onChange={e => uploadImg(e, (url) => updateService(category, idx, 'img', url))} 
-                                                                        />
-                                                                        <label htmlFor={`svc-img-${category}-${idx}`} className="admin-btn-small cursor-pointer flex items-center">
-                                                                            Upload
-                                                                        </label>
+                                                                    <label className="text-xs text-white/60">Image</label>
+                                                                    <div className="flex flex-col md:flex-row gap-2">
+                                                                        <input className="input-f flex-1" value={service.img} onChange={e => updateService(category, idx, 'img', e.target.value)} />
+                                                                        <input type="file" accept="image/*" className="hidden" id={`svc-img-${category}-${idx}`} onChange={e => uploadImg(e, (url) => updateService(category, idx, 'img', url))} />
+                                                                        <label htmlFor={`svc-img-${category}-${idx}`} className="admin-btn-small cursor-pointer flex items-center justify-center">Upload</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <button 
-                                                                onClick={() => removeService(category, idx)} 
-                                                                className="admin-btn-small admin-btn-danger mt-4 w-full"
-                                                            >
-                                                                Remove Service
-                                                            </button>
+                                                            <button onClick={() => removeService(category, idx)} className="admin-btn-small admin-btn-danger mt-4 w-full">Remove Service</button>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -1470,47 +1221,27 @@
 
                                 {/* MENU TAB */}
                                 {activeAdminTab === 'menu' && (
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-2xl font-bold text-white">Menu Management</h2>
-                                            <button onClick={addMenuCategory} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Category</button>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
+                                            <h2 className="text-xl md:text-2xl font-bold text-white">Menu</h2>
+                                            <button onClick={addMenuCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary}}>+ Add Category</button>
                                         </div>
 
                                         {data.full_menu.map((section, catIdx) => (
                                             <div key={catIdx} className="admin-card">
-                                                <div className="flex justify-between items-center mb-4">
-                                                    <input 
-                                                        className="input-f text-xl font-bold bg-transparent border-none p-0" 
-                                                        style={{color: data.colors.primary}}
-                                                        value={section.cat} 
-                                                        onChange={e => updateMenu(catIdx, null, null, e.target.value)} 
-                                                    />
-                                                    <div className="flex gap-2">
-                                                        <button onClick={() => addMenuItem(catIdx)} className="admin-btn-small admin-btn-success">+ Add Item</button>
-                                                        <button onClick={() => removeMenuCategory(catIdx)} className="admin-btn-small admin-btn-danger">Delete</button>
+                                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-4">
+                                                    <input className="input-f text-lg md:text-xl font-bold bg-transparent border-none p-0" style={{color: data.colors.primary}} value={section.cat} onChange={e => updateMenu(catIdx, null, null, e.target.value)} />
+                                                    <div className="flex gap-2 w-full md:w-auto">
+                                                        <button onClick={() => addMenuItem(catIdx)} className="admin-btn-small admin-btn-success flex-1 md:flex-none">+ Item</button>
+                                                        <button onClick={() => removeMenuCategory(catIdx)} className="admin-btn-small admin-btn-danger flex-1 md:flex-none">Delete</button>
                                                     </div>
                                                 </div>
                                                 <div className="space-y-3">
                                                     {section.items.map((item, itemIdx) => (
-                                                        <div key={itemIdx} className="flex gap-4 items-center admin-item-card">
-                                                            <input 
-                                                                className="input-f flex-1" 
-                                                                value={item.n} 
-                                                                placeholder="Item Name"
-                                                                onChange={e => updateMenu(catIdx, itemIdx, 'n', e.target.value)} 
-                                                            />
-                                                            <input 
-                                                                className="input-f w-24" 
-                                                                value={item.p} 
-                                                                placeholder="Price"
-                                                                onChange={e => updateMenu(catIdx, itemIdx, 'p', e.target.value)} 
-                                                            />
-                                                            <button 
-                                                                onClick={() => removeMenuItem(catIdx, itemIdx)} 
-                                                                className="admin-btn-small admin-btn-danger"
-                                                            >
-                                                                ✕
-                                                            </button>
+                                                        <div key={itemIdx} className="flex flex-col md:flex-row gap-2 md:gap-4 items-center admin-item-card">
+                                                            <input className="input-f flex-1" value={item.n} placeholder="Item Name" onChange={e => updateMenu(catIdx, itemIdx, 'n', e.target.value)} />
+                                                            <input className="input-f w-full md:w-24" value={item.p} placeholder="Price" onChange={e => updateMenu(catIdx, itemIdx, 'p', e.target.value)} />
+                                                            <button onClick={() => removeMenuItem(catIdx, itemIdx)} className="admin-btn-small admin-btn-danger w-full md:w-auto">✕</button>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -1522,35 +1253,18 @@
                                 {/* ABOUT TAB */}
                                 {activeAdminTab === 'about' && (
                                     <div className="admin-card">
-                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Our Sanctuary Section</h3>
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>About Section</h3>
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="text-xs text-white/60">About Text</label>
-                                                <textarea 
-                                                    className="input-f" 
-                                                    rows="6"
-                                                    value={data.about.text} 
-                                                    onChange={e => setData({...data, about: {...data.about, text: e.target.value}})} 
-                                                />
+                                                <textarea className="input-f" rows="6" value={data.about.text} onChange={e => setData({...data, about: {...data.about, text: e.target.value}})} />
                                             </div>
                                             <div>
                                                 <label className="text-xs text-white/60">About Image</label>
-                                                <div className="flex gap-2">
-                                                    <input 
-                                                        className="input-f flex-1" 
-                                                        value={data.about.image} 
-                                                        onChange={e => setData({...data, about: {...data.about, image: e.target.value}})} 
-                                                    />
-                                                    <input 
-                                                        type="file" 
-                                                        accept="image/*" 
-                                                        className="hidden" 
-                                                        id="about-img"
-                                                        onChange={e => uploadImg(e, (url) => setData({...data, about: {...data.about, image: url}}))} 
-                                                    />
-                                                    <label htmlFor="about-img" className="admin-btn-small cursor-pointer flex items-center">
-                                                        Upload
-                                                    </label>
+                                                <div className="flex flex-col md:flex-row gap-2">
+                                                    <input className="input-f flex-1" value={data.about.image} onChange={e => setData({...data, about: {...data.about, image: e.target.value}})} />
+                                                    <input type="file" accept="image/*" className="hidden" id="about-img" onChange={e => uploadImg(e, (url) => setData({...data, about: {...data.about, image: url}}))} />
+                                                    <label htmlFor="about-img" className="admin-btn-small cursor-pointer flex items-center justify-center">Upload</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -1559,19 +1273,11 @@
 
                                 {/* GALLERY TAB */}
                                 {activeAdminTab === 'gallery' && (
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-2xl font-bold text-white">Gallery Management</h2>
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
-                                                className="hidden" 
-                                                id="gallery-upload"
-                                                onChange={e => uploadImg(e, (url) => addGalleryImage(url))} 
-                                            />
-                                            <label htmlFor="gallery-upload" className="btn-premium px-6 py-2 text-xs font-bold uppercase cursor-pointer">
-                                                + Add Image
-                                            </label>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
+                                            <h2 className="text-xl md:text-2xl font-bold text-white">Gallery</h2>
+                                            <input type="file" accept="image/*" className="hidden" id="gallery-upload" onChange={e => uploadImg(e, (url) => addGalleryImage(url))} />
+                                            <label htmlFor="gallery-upload" className="btn-premium px-4 py-2 text-xs font-bold uppercase cursor-pointer w-full md:w-auto text-center" style={{background: data.colors.primary}}>+ Add Image</label>
                                         </div>
 
                                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1579,22 +1285,9 @@
                                                 <div key={idx} className="relative group">
                                                     <img src={img} className="w-full h-32 object-cover rounded-lg" alt={`Gallery ${idx}`} />
                                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 rounded-lg">
-                                                        <input 
-                                                            type="file" 
-                                                            accept="image/*" 
-                                                            className="hidden" 
-                                                            id={`gallery-edit-${idx}`}
-                                                            onChange={e => uploadImg(e, (url) => updateGallery(idx, url))} 
-                                                        />
-                                                        <label htmlFor={`gallery-edit-${idx}`} className="admin-btn-small cursor-pointer">
-                                                            Change
-                                                        </label>
-                                                        <button 
-                                                            onClick={() => removeGalleryImage(idx)} 
-                                                            className="admin-btn-small admin-btn-danger"
-                                                        >
-                                                            Delete
-                                                        </button>
+                                                        <input type="file" accept="image/*" className="hidden" id={`gallery-edit-${idx}`} onChange={e => uploadImg(e, (url) => updateGallery(idx, url))} />
+                                                        <label htmlFor={`gallery-edit-${idx}`} className="admin-btn-small cursor-pointer">Change</label>
+                                                        <button onClick={() => removeGalleryImage(idx)} className="admin-btn-small admin-btn-danger">Delete</button>
                                                     </div>
                                                 </div>
                                             ))}
@@ -1604,10 +1297,10 @@
 
                                 {/* REVIEWS TAB */}
                                 {activeAdminTab === 'reviews' && (
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-2xl font-bold text-white">Reviews Management</h2>
-                                            <button onClick={addReview} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Review</button>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
+                                            <h2 className="text-xl md:text-2xl font-bold text-white">Reviews</h2>
+                                            <button onClick={addReview} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary}}>+ Add Review</button>
                                         </div>
 
                                         {data.reviews.map((review, idx) => (
@@ -1615,77 +1308,33 @@
                                                 <div className="space-y-4">
                                                     <div>
                                                         <label className="text-xs text-white/60">Reviewer Name</label>
-                                                        <input 
-                                                            className="input-f" 
-                                                            value={review.name} 
-                                                            onChange={e => updateReview(idx, 'name', e.target.value)} 
-                                                        />
+                                                        <input className="input-f" value={review.name} onChange={e => updateReview(idx, 'name', e.target.value)} />
                                                     </div>
                                                     <div>
                                                         <label className="text-xs text-white/60">Rating (1-5)</label>
-                                                        <input 
-                                                            type="number"
-                                                            min="1"
-                                                            max="5"
-                                                            className="input-f" 
-                                                            value={review.rating || 5} 
-                                                            onChange={e => updateReview(idx, 'rating', parseInt(e.target.value) || 5)} 
-                                                        />
-                                                        <div className="mt-2">
-                                                            <StarRating rating={review.rating || 5} />
-                                                        </div>
+                                                        <input type="number" min="1" max="5" className="input-f" value={review.rating || 5} onChange={e => updateReview(idx, 'rating', parseInt(e.target.value) || 5)} />
+                                                        <div className="mt-2"><StarRating rating={review.rating || 5} /></div>
                                                     </div>
                                                     <div>
                                                         <label className="text-xs text-white/60">Review Text</label>
-                                                        <textarea 
-                                                            className="input-f" 
-                                                            rows="3"
-                                                            value={review.text} 
-                                                            onChange={e => updateReview(idx, 'text', e.target.value)} 
-                                                        />
+                                                        <textarea className="input-f" rows="3" value={review.text} onChange={e => updateReview(idx, 'text', e.target.value)} />
                                                     </div>
                                                     
-                                                    {/* Review Links Section */}
                                                     <div className="border-t border-white/10 pt-4 mt-4">
-                                                        <div className="flex justify-between items-center mb-3">
-                                                            <label className="text-xs text-white/60 uppercase tracking-wider">Review Links (Google Maps, Yelp, etc.)</label>
-                                                            <button 
-                                                                onClick={() => addReviewLink(idx)} 
-                                                                className="admin-btn-small admin-btn-success text-xs"
-                                                            >
-                                                                + Add Link
-                                                            </button>
+                                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-3">
+                                                            <label className="text-xs text-white/60 uppercase tracking-wider">Review Links</label>
+                                                            <button onClick={() => addReviewLink(idx)} className="admin-btn-small admin-btn-success">+ Add Link</button>
                                                         </div>
                                                         {review.links && review.links.map((link, linkIdx) => (
-                                                            <div key={linkIdx} className="flex gap-2 mb-2">
-                                                                <input 
-                                                                    className="input-f flex-1 text-sm" 
-                                                                    placeholder="Link Name (e.g., Google Maps)"
-                                                                    value={link.name} 
-                                                                    onChange={e => updateReviewLink(idx, linkIdx, 'name', e.target.value)} 
-                                                                />
-                                                                <input 
-                                                                    className="input-f flex-[2] text-sm" 
-                                                                    placeholder="URL"
-                                                                    value={link.url} 
-                                                                    onChange={e => updateReviewLink(idx, linkIdx, 'url', e.target.value)} 
-                                                                />
-                                                                <button 
-                                                                    onClick={() => removeReviewLink(idx, linkIdx)} 
-                                                                    className="admin-btn-small admin-btn-danger px-3"
-                                                                >
-                                                                    ✕
-                                                                </button>
+                                                            <div key={linkIdx} className="flex flex-col md:flex-row gap-2 mb-2">
+                                                                <input className="input-f flex-1 text-sm" placeholder="Link Name" value={link.name} onChange={e => updateReviewLink(idx, linkIdx, 'name', e.target.value)} />
+                                                                <input className="input-f flex-1 md:flex-[2] text-sm" placeholder="URL" value={link.url} onChange={e => updateReviewLink(idx, linkIdx, 'url', e.target.value)} />
+                                                                <button onClick={() => removeReviewLink(idx, linkIdx)} className="admin-btn-small admin-btn-danger w-full md:w-auto">✕</button>
                                                             </div>
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <button 
-                                                    onClick={() => removeReview(idx)} 
-                                                    className="admin-btn-small admin-btn-danger mt-4 w-full"
-                                                >
-                                                    Remove Review
-                                                </button>
+                                                <button onClick={() => removeReview(idx)} className="admin-btn-small admin-btn-danger mt-4 w-full">Remove Review</button>
                                             </div>
                                         ))}
                                     </div>
@@ -1694,152 +1343,80 @@
                                 {/* FOOTER TAB */}
                                 {activeAdminTab === 'footer' && (
                                     <div className="admin-card">
-                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Footer Information</h3>
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Footer Info</h3>
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="text-xs text-white/60">WhatsApp Number</label>
-                                                <input 
-                                                    className="input-f" 
-                                                    value={data.footer.whatsapp} 
-                                                    onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} 
-                                                />
+                                                <label className="text-xs text-white/60">WhatsApp</label>
+                                                <input className="input-f" value={data.footer.whatsapp} onChange={e => setData({...data, footer: {...data.footer, whatsapp: e.target.value}})} />
                                             </div>
                                             <div>
-                                                <label className="text-xs text-white/60">Business Hours</label>
-                                                <input 
-                                                    className="input-f" 
-                                                    value={data.footer.hours} 
-                                                    onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} 
-                                                />
+                                                <label className="text-xs text-white/60">Hours</label>
+                                                <input className="input-f" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
                                             </div>
                                             <div>
                                                 <label className="text-xs text-white/60">Address</label>
-                                                <textarea 
-                                                    className="input-f" 
-                                                    rows="2"
-                                                    value={data.footer.address} 
-                                                    onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} 
-                                                />
+                                                <textarea className="input-f" rows="2" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
                                             </div>
                                             <div>
-                                                <label className="text-xs text-white/60">Copyright Text</label>
-                                                <input 
-                                                    className="input-f" 
-                                                    value={data.footer.copyright} 
-                                                    onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} 
-                                                />
+                                                <label className="text-xs text-white/60">Copyright</label>
+                                                <input className="input-f" value={data.footer.copyright} onChange={e => setData({...data, footer: {...data.footer, copyright: e.target.value}})} />
                                             </div>
                                         </div>
                                     </div>
                                 )}
 
-                                {/* SOCIAL LINKS TAB - UPDATED FOR ICON_URL */}
+                                {/* SOCIAL LINKS TAB */}
                                 {activeAdminTab === 'social' && (
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-2xl font-bold text-white">Social Media Links</h2>
-                                            <button onClick={addSocialLink} className="btn-premium px-6 py-2 text-xs font-bold uppercase">+ Add Social Link</button>
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
+                                            <h2 className="text-xl md:text-2xl font-bold text-white">Social Links</h2>
+                                            <button onClick={addSocialLink} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary}}>+ Add Link</button>
                                         </div>
 
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Footer Social Icons</h3>
-                                            <p className="text-xs text-white/50 mb-4">Add logo/image URLs for social media icons. Paste any image URL from Google/Flaticon/etc.</p>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Social Media</h3>
                                             
                                             <div className="space-y-4">
                                                 {data.footer.social_links.map((link, idx) => (
                                                     <div key={idx} className="admin-item-card">
-                                                        <div className="grid md:grid-cols-4 gap-4 items-center">
+                                                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                                                             <div>
-                                                                <label className="text-xs text-white/60">Platform Name</label>
-                                                                <input 
-                                                                    className="input-f" 
-                                                                    value={link.name} 
-                                                                    onChange={e => updateSocialLink(idx, 'name', e.target.value)} 
-                                                                    placeholder="e.g., Instagram"
-                                                                />
+                                                                <label className="text-xs text-white/60">Platform</label>
+                                                                <input className="input-f" value={link.name} onChange={e => updateSocialLink(idx, 'name', e.target.value)} placeholder="e.g., Instagram" />
                                                             </div>
                                                             <div className="md:col-span-2">
-                                                                <label className="text-xs text-white/60">Profile URL</label>
-                                                                <input 
-                                                                    className="input-f" 
-                                                                    value={link.url} 
-                                                                    onChange={e => updateSocialLink(idx, 'url', e.target.value)} 
-                                                                    placeholder="https://..."
-                                                                />
+                                                                <label className="text-xs text-white/60">URL</label>
+                                                                <input className="input-f" value={link.url} onChange={e => updateSocialLink(idx, 'url', e.target.value)} placeholder="https://..." />
                                                             </div>
                                                             <div>
-                                                                <label className="text-xs text-white/60">Icon Preview</label>
+                                                                <label className="text-xs text-white/60">Preview</label>
                                                                 <div className="flex items-center gap-2">
-                                                                    {link.icon_url ? (
-                                                                        <img src={link.icon_url} className="social-icon-preview" alt={link.name} />
-                                                                    ) : (
-                                                                        <div className="social-icon-preview flex items-center justify-center text-xs text-white/30">No Icon</div>
-                                                                    )}
-                                                                    <button 
-                                                                        onClick={() => removeSocialLink(idx)} 
-                                                                        className="admin-btn-small admin-btn-danger"
-                                                                    >
-                                                                        Remove
-                                                                    </button>
+                                                                    {link.icon_url ? <img src={link.icon_url} className="social-icon-preview" alt={link.name} /> : <div className="social-icon-preview flex items-center justify-center text-xs text-white/30">No Icon</div>}
+                                                                    <button onClick={() => removeSocialLink(idx)} className="admin-btn-small admin-btn-danger">Remove</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="mt-3">
-                                                            <label className="text-xs text-white/60">Logo/Image URL</label>
-                                                            <div className="flex gap-2">
-                                                                <input 
-                                                                    className="input-f flex-1" 
-                                                                    value={link.icon_url || ""} 
-                                                                    onChange={e => updateSocialLink(idx, 'icon_url', e.target.value)} 
-                                                                    placeholder="Paste image URL here (e.g., https://cdn-icons-png.flaticon.com/...)"
-                                                                />
-                                                                <input 
-                                                                    type="file" 
-                                                                    accept="image/*" 
-                                                                    className="hidden" 
-                                                                    id={`social-icon-upload-${idx}`}
-                                                                    onChange={e => uploadImg(e, (url) => updateSocialLink(idx, 'icon_url', url))} 
-                                                                />
-                                                                <label htmlFor={`social-icon-upload-${idx}`} className="admin-btn-small cursor-pointer flex items-center whitespace-nowrap">
-                                                                    Upload
-                                                                </label>
+                                                            <label className="text-xs text-white/60">Icon URL</label>
+                                                            <div className="flex flex-col md:flex-row gap-2">
+                                                                <input className="input-f flex-1" value={link.icon_url || ""} onChange={e => updateSocialLink(idx, 'icon_url', e.target.value)} placeholder="Paste image URL" />
+                                                                <input type="file" accept="image/*" className="hidden" id={`social-icon-upload-${idx}`} onChange={e => uploadImg(e, (url) => updateSocialLink(idx, 'icon_url', url))} />
+                                                                <label htmlFor={`social-icon-upload-${idx}`} className="admin-btn-small cursor-pointer flex items-center justify-center whitespace-nowrap">Upload</label>
                                                             </div>
-                                                            <p className="text-xs text-white/30 mt-1">Tip: Find icons on flaticon.com or icons8.com and copy the image URL</p>
                                                         </div>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
-
-                                        <div className="admin-card border-l-8 border-[#cc73f8]">
-                                            <h3 className="font-bold text-xs tracking-widest text-[#cc73f8] mb-4 uppercase">Live Preview</h3>
-                                            <div className="bg-black/30 p-6 rounded-lg">
-                                                <div className="flex items-center gap-4 flex-wrap">
-                                                    <span className="text-xs uppercase tracking-widest font-bold mr-2" style={{color: data.colors.primary}}>Follow us:</span>
-                                                    {data.footer.social_links.map((link, idx) => (
-                                                        <a 
-                                                            key={idx}
-                                                            href={link.url}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="social-icon"
-                                                            style={{borderColor: data.colors.primary}}
-                                                            title={link.name}
-                                                        >
-                                                            {link.icon_url ? (
-                                                                <img src={link.icon_url} alt={link.name} />
-                                                            ) : (
-                                                                <span style={{color: data.colors.primary}}>?</span>
-                                                            )}
-                                                        </a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 )}
 
-                                <button onClick={saveToGithub} className="btn-premium w-full py-6 md:py-8 text-lg md:text-xl font-bold uppercase tracking-widest shadow-2xl sticky bottom-6 border-2 border-[#cc73f8]/30 mt-8">Deploy Update</button>
+                                {/* Sticky Save Button */}
+                                <div className="sticky-save-btn md:relative md:bg-transparent md:border-none md:p-0 md:mt-8">
+                                    <button onClick={saveToGithub} className="btn-premium w-full py-4 text-sm md:text-base font-bold uppercase tracking-widest shadow-2xl border-2" style={{background: data.colors.primary, borderColor: data.colors.primary + '4D'}}>
+                                        Deploy Update
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ) : (
@@ -1850,78 +1427,46 @@
                             {/* Mobile Menu */}
                             <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
                                 <div className="flex flex-col gap-4">
-                                    <button
-                                        onClick={() => scrollToSection('home')}
-                                        className="text-lg font-bold py-3 px-4 rounded-xl hover:bg-opacity-20 transition text-left border-b mb-2"
-                                        style={{color: data.colors.primary, borderColor: data.colors.primary}}
-                                    >
+                                    <button onClick={() => scrollToSection('home')} className="text-lg font-bold py-3 px-4 rounded-xl text-left border-b mb-2" style={{color: data.colors.primary, borderColor: data.colors.primary}}>
                                         {data.brand_name} (Home)
                                     </button>
                                     {data.nav_items.map((item) => (
-                                        <button
-                                            key={item.id}
-                                            onClick={() => scrollToSection(item.section)}
-                                            className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-opacity-20 transition text-left"
-                                            style={{'--tw-bg-opacity': 1, '--tw-hover-bg': data.colors.primary}}
-                                        >
+                                        <button key={item.id} onClick={() => scrollToSection(item.section)} className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-white/10 transition text-left">
                                             {item.label}
                                         </button>
                                     ))}
-                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase">Contact</button>
+                                    <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase" style={{background: data.colors.primary}}>Contact</button>
                                 </div>
                             </div>
 
                             {/* Floating Nav */}
                             <nav className="floating-nav no-select">
                                 <div className="flex items-center justify-between w-full">
-                                    {/* BRAND NAME AS HOME BUTTON */}
                                     <div 
                                         className="flex items-center gap-3 cursor-pointer group"
                                         onClick={(e) => {
-                                            if (e.shiftKey) {
-                                                if (prompt("Password:") === ADMIN_PASS) setIsAdmin(true);
-                                            } else {
-                                                scrollToSection('home');
-                                            }
+                                            if (e.shiftKey) { if (prompt("Password:") === ADMIN_PASS) setIsAdmin(true); }
+                                            else scrollToSection('home');
                                         }}
                                     >
-                                        <span 
-                                            className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter whitespace-nowrap group-hover:opacity-80 transition-opacity"
-                                            style={{color: data.colors.text_white}}
-                                        >
+                                        <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter whitespace-nowrap group-hover:opacity-80 transition-opacity" style={{color: data.colors.text_white}}>
                                             {data.brand_name}
                                         </span>
                                     </div>
                                     
-                                    {/* Desktop Nav */}
                                     <div className="hidden md:flex items-center gap-6 lg:gap-10 text-[11px] lg:text-[12px] font-semibold uppercase tracking-wider ml-8 lg:ml-16">
                                         {data.nav_items.map((item) => (
-                                            <button
-                                                key={item.id}
-                                                onClick={() => scrollToSection(item.section)}
-                                                className="nav-item-purple whitespace-nowrap transition-all hover:scale-105"
-                                                style={{color: data.colors.primary}}
-                                            >
+                                            <button key={item.id} onClick={() => scrollToSection(item.section)} className="nav-item-purple whitespace-nowrap transition-all hover:scale-105" style={{color: data.colors.primary}}>
                                                 {item.label}
                                             </button>
                                         ))}
                                     </div>
                                     
-                                    {/* RIGHT SIDE: Gallery (if exists) + Contact with GAP */}
                                     <div className="flex items-center gap-6 lg:gap-10 ml-auto">
-                                        {/* Contact Button with extra gap */}
-                                        <button 
-                                            onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} 
-                                            className="hidden md:block btn-premium px-6 lg:px-8 py-2 lg:py-3 text-[10px] lg:text-[11px] font-bold uppercase whitespace-nowrap"
-                                            style={{background: `linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}
-                                        >
+                                        <button onClick={() => window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} className="hidden md:block btn-premium px-6 lg:px-8 py-2 lg:py-3 text-[10px] lg:text-[11px] font-bold uppercase whitespace-nowrap" style={{background: `linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}>
                                             Contact
                                         </button>
-                                        {/* Mobile Hamburger */}
-                                        <button 
-                                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                            className="md:hidden tap-target flex flex-col justify-center items-center gap-1.5 p-2"
-                                        >
+                                        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden tap-target flex flex-col justify-center items-center gap-1.5 p-2">
                                             <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
                                             <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
                                             <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
@@ -1934,7 +1479,7 @@
                             {cart.length > 0 && (
                                 <div className="cart-float cart-blur p-4 rounded-full flex justify-between items-center px-6">
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-white">{cart.length} Items</div>
-                                    <button onClick={sendWhatsApp} className="btn-premium px-6 py-2 text-xs font-bold uppercase">Book</button>
+                                    <button onClick={sendWhatsApp} className="btn-premium px-6 py-2 text-xs font-bold uppercase" style={{background: data.colors.primary}}>Book</button>
                                 </div>
                             )}
 
@@ -1944,39 +1489,25 @@
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
                                 <div className="relative z-10 max-w-4xl mx-auto">
-                                    <h1 
-                                        className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text mb-6"
-                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                    >
+                                    <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text mb-6" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                         {data.hero.title || data.brand_name}
                                     </h1>
-                                    <p 
-                                        className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold italic"
-                                        style={{color: data.colors.primary}}
-                                    >
+                                    <p className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold italic" style={{color: data.colors.primary}}>
                                         {data.hero.subtitle}
                                     </p>
                                 </div>
                             </header>
 
-                            {/* 1. THE EXPERIENCE SECTION */}
+                            {/* Experience Section */}
                             <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 
-                                        className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text"
-                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                    >
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                         {data.section_titles?.experience || "The Experience"}
                                     </h2>
                                     
                                     <div className="flex overflow-x-auto no-scrollbar gap-4 md:gap-12 border-b mb-8 md:mb-16 pb-4" style={{borderColor: `${data.colors.primary}4D`}}>
                                         {Object.keys(data.services || {}).map(cat => (
-                                            <button 
-                                                key={cat} 
-                                                onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} 
-                                                className={`pb-2 md:pb-6 text-xs md:text-[11px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${activeCat === cat ? 'border-b-2' : 'opacity-30'}`}
-                                                style={{color: activeCat === cat ? data.colors.primary : data.colors.text_white, borderColor: data.colors.primary}}
-                                            >
+                                            <button key={cat} onClick={() => {setActiveCat(cat); setSelectedSvc(data.services[cat][0]);}} className={`pb-2 md:pb-6 text-xs md:text-[11px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${activeCat === cat ? 'border-b-2' : 'opacity-30'}`} style={{color: activeCat === cat ? data.colors.primary : data.colors.text_white, borderColor: data.colors.primary}}>
                                                 {cat}
                                             </button>
                                         ))}
@@ -1985,20 +1516,12 @@
                                     <div className="grid md:grid-cols-12 gap-8 md:gap-16">
                                         <div className="md:col-span-4 flex md:block overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 md:gap-6 md:max-h-[500px] md:pr-4 pb-4 md:pb-0">
                                             {data.services[activeCat]?.map((s, i) => (
-                                                <div 
-                                                    key={i} 
-                                                    className={`flex-shrink-0 w-64 md:w-full p-4 md:p-8 rounded-2xl md:rounded-[2rem] flex justify-between items-center transition-all cursor-pointer border ${selectedSvc?.name === s.name ? 'bg-opacity-10' : 'bg-white/5 border-white/10'}`}
-                                                    style={{backgroundColor: selectedSvc?.name === s.name ? `${data.colors.primary}1A` : '', borderColor: selectedSvc?.name === s.name ? data.colors.primary : ''}}
-                                                >
+                                                <div key={i} className={`flex-shrink-0 w-64 md:w-full p-4 md:p-8 rounded-2xl md:rounded-[2rem] flex justify-between items-center transition-all cursor-pointer border ${selectedSvc?.name === s.name ? 'bg-opacity-10' : 'bg-white/5 border-white/10'}`} style={{backgroundColor: selectedSvc?.name === s.name ? `${data.colors.primary}1A` : '', borderColor: selectedSvc?.name === s.name ? data.colors.primary : ''}}>
                                                     <div onClick={() => setSelectedSvc(s)} className="flex-1 min-w-0">
                                                         <h4 className="serif text-lg md:text-2xl font-bold uppercase truncate" style={{color: data.colors.text_white}}>{s.name}</h4>
                                                         <p className="text-[10px] font-bold mt-1" style={{color: data.colors.primary}}>{s.price}</p>
                                                     </div>
-                                                    <button 
-                                                        onClick={(e) => {e.stopPropagation(); toggleCart(s);}} 
-                                                        className={`w-8 h-8 md:w-10 md:h-10 rounded-full font-bold text-sm md:text-lg flex items-center justify-center flex-shrink-0 ml-2 ${cart.find(c => c.name === s.name) ? 'text-white' : 'bg-white/10 border'}`}
-                                                        style={{backgroundColor: cart.find(c => c.name === s.name) ? data.colors.primary : '', borderColor: data.colors.primary}}
-                                                    >
+                                                    <button onClick={(e) => {e.stopPropagation(); toggleCart(s);}} className={`w-8 h-8 md:w-10 md:h-10 rounded-full font-bold text-sm md:text-lg flex items-center justify-center flex-shrink-0 ml-2 ${cart.find(c => c.name === s.name) ? 'text-white' : 'bg-white/10 border'}`} style={{backgroundColor: cart.find(c => c.name === s.name) ? data.colors.primary : '', borderColor: data.colors.primary}}>
                                                         {cart.find(c => c.name === s.name) ? '✕' : '+'}
                                                     </button>
                                                 </div>
@@ -2010,19 +1533,12 @@
                                                 <div className="flex flex-col gap-6 md:gap-12">
                                                     <img src={selectedSvc.img} className="w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl" style={{boxShadow: `0 25px 50px -12px ${data.colors.primary}33`}} alt={selectedSvc.name} />
                                                     <div>
-                                                        <h3 
-                                                            className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic glow-text"
-                                                            style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                                        >
+                                                        <h3 className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                                             {selectedSvc.name}
                                                         </h3>
                                                         <p className="text-2xl md:text-3xl font-bold mb-4 md:mb-8" style={{color: data.colors.primary}}>{selectedSvc.price}</p>
                                                         <p className="text-base md:text-xl mb-6 md:mb-10 italic serif" style={{color: data.colors.text_regular}}>{selectedSvc.desc}</p>
-                                                        <button 
-                                                            onClick={() => toggleCart(selectedSvc)} 
-                                                            className="btn-premium w-full py-4 md:py-5 text-xs md:text-[11px] font-bold uppercase tracking-widest"
-                                                            style={{background: `linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}
-                                                        >
+                                                        <button onClick={() => toggleCart(selectedSvc)} className="btn-premium w-full py-4 md:py-5 text-xs md:text-[11px] font-bold uppercase tracking-widest" style={{background: `linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}>
                                                             {cart.find(c => c.name === selectedSvc.name) ? 'Remove' : 'Add to Booking'}
                                                         </button>
                                                     </div>
@@ -2033,22 +1549,16 @@
                                 </div>
                             </section>
 
-                            {/* 2. THE MENU SECTION */}
+                            {/* Menu Section */}
                             <section id="menu" className="py-16 md:py-32 px-4 tech-grid-bg relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
-                                    <h2 
-                                        className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text"
-                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                    >
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                         {data.section_titles?.menu || "The Menu"}
                                     </h2>
                                     <div className="grid md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-16">
                                         {data.full_menu.map((sec, idx) => (
                                             <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border" style={{borderColor: `${data.colors.primary}1A`}}>
-                                                <h3 
-                                                    className="serif text-2xl md:text-4xl mb-6 md:mb-8 italic border-b pb-4"
-                                                    style={{color: data.colors.primary, borderColor: `${data.colors.primary}4D`}}
-                                                >
+                                                <h3 className="serif text-2xl md:text-4xl mb-6 md:mb-8 italic border-b pb-4" style={{color: data.colors.primary, borderColor: `${data.colors.primary}4D`}}>
                                                     ~ {sec.cat} ~
                                                 </h3>
                                                 {sec.items.map((it, i) => (
@@ -2057,12 +1567,7 @@
                                                             <span className="serif text-lg md:text-2xl uppercase" style={{color: `${data.colors.text_white}CC`}}>{it.n}</span>
                                                             <span className="font-bold text-base md:text-lg ml-4" style={{color: data.colors.primary}}>{it.p}</span>
                                                         </div>
-                                                        <button 
-                                                            onClick={() => toggleMenuItem(it.n, it.p)}
-                                                            className={`menu-add-btn ${cart.find(c => c.name === it.n) ? 'active' : ''}`}
-                                                            style={{borderColor: data.colors.primary, color: cart.find(c => c.name === it.n) ? 'white' : data.colors.primary, backgroundColor: cart.find(c => c.name === it.n) ? data.colors.primary : 'transparent'}}
-                                                            title={cart.find(c => c.name === it.n) ? 'Remove from cart' : 'Add to cart'}
-                                                        >
+                                                        <button onClick={() => toggleMenuItem(it.n, it.p)} className={`menu-add-btn ${cart.find(c => c.name === it.n) ? 'active' : ''}`} style={{borderColor: data.colors.primary, color: cart.find(c => c.name === it.n) ? 'white' : data.colors.primary, backgroundColor: cart.find(c => c.name === it.n) ? data.colors.primary : 'transparent'}} title={cart.find(c => c.name === it.n) ? 'Remove from cart' : 'Add to cart'}>
                                                             {cart.find(c => c.name === it.n) ? '✕' : '+'}
                                                         </button>
                                                     </div>
@@ -2073,15 +1578,12 @@
                                 </div>
                             </section>
 
-                            {/* 3. OUR SANCTUARY (ABOUT) SECTION */}
+                            {/* About Section */}
                             <section id="about" className="py-16 md:py-32 px-4 relative">
                                 <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
                                     <div className="order-2 md:order-1">
-                                        <h2 
-                                            className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic glow-text"
-                                            style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                        >
+                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                             {data.section_titles?.about || "Our Sanctuary"}
                                         </h2>
                                         <p className="text-lg md:text-2xl serif italic leading-relaxed" style={{color: data.colors.text_regular}}>{data.about.text}</p>
@@ -2092,13 +1594,10 @@
                                 </div>
                             </section>
 
-                            {/* 4. VISUAL SANCTUARY (GALLERY) SECTION */}
+                            {/* Gallery Section */}
                             <section id="gallery" className="py-16 md:py-32 px-4 tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 
-                                        className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text"
-                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                    >
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                         {data.section_titles?.gallery || "Visual Sanctuary"}
                                     </h2>
                                     <div className="max-w-7xl mx-auto masonry">
@@ -2111,36 +1610,24 @@
                                 </div>
                             </section>
 
-                            {/* 5. WORDS OF LUXE (REVIEWS) SECTION */}
+                            {/* Reviews Section */}
                             <section id="reviews" className="py-16 md:py-24 px-4 relative overflow-hidden">
                                 <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <div className="max-w-6xl mx-auto relative z-10">
-                                    <h2 
-                                        className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic glow-text"
-                                        style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                    >
+                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                         {data.section_titles?.reviews || "Words of Luxe"}
                                     </h2>
                                     <div className="grid md:grid-cols-3 gap-4 md:gap-8">
                                         {data.reviews.map((r, i) => (
                                             <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border text-center hover:border-opacity-50 transition-all" style={{borderColor: `${data.colors.primary}33`}}>
-                                                {/* STAR RATING */}
                                                 <StarRating rating={r.rating || 5} />
                                                 <p className="serif text-base md:text-lg mb-4 md:mb-6 italic" style={{color: data.colors.text_regular}}>"{r.text}"</p>
                                                 <h5 className="font-bold text-[10px] uppercase tracking-widest" style={{color: data.colors.primary}}>— {r.name}</h5>
                                                 
-                                                {/* REVIEW LINKS */}
                                                 {r.links && r.links.length > 0 && (
                                                     <div className="review-links-container">
                                                         {r.links.map((link, idx) => (
-                                                            <a 
-                                                                key={idx}
-                                                                href={link.url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="review-link-btn"
-                                                                style={{borderColor: data.colors.primary, color: data.colors.primary}}
-                                                            >
+                                                            <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="review-link-btn" style={{borderColor: data.colors.primary, color: data.colors.primary}}>
                                                                 {link.name}
                                                             </a>
                                                         ))}
@@ -2156,10 +1643,7 @@
                             <footer className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t" style={{backgroundColor: '#050505', borderColor: `${data.colors.primary}33`}}>
                                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
                                     <div className="col-span-2 md:col-span-2">
-                                        <h4 
-                                            className="serif text-4xl md:text-6xl italic font-bold mb-4 md:mb-6 glow-text"
-                                            style={{color: data.colors.primary, textShadow: `0 0 20px ${data.colors.primary}80`}}
-                                        >
+                                        <h4 className="serif text-4xl md:text-6xl italic font-bold mb-4 md:mb-6 glow-text" style={{color: data.colors.primary, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
                                             {data.brand_name}
                                         </h4>
                                         <h5 className="uppercase text-[10px] md:text-[11px] mb-2 md:mb-3 tracking-widest font-bold" style={{color: data.colors.primary}}>Address</h5>
@@ -2175,27 +1659,14 @@
                                     </div>
                                 </div>
                                 
-                                {/* Social Links Row - UPDATED FOR ICON_URL */}
                                 <div className="max-w-7xl mx-auto mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
                                     <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.5em] order-2 md:order-1" style={{color: `${data.colors.text_white}4D`}}>{data.footer.copyright}</p>
                                     
                                     <div className="flex items-center gap-4 order-1 md:order-2">
                                         <span className="text-xs uppercase tracking-widest font-bold mr-2" style={{color: data.colors.primary}}>Follow:</span>
                                         {data.footer.social_links.map((link, idx) => (
-                                            <a 
-                                                key={idx}
-                                                href={link.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="social-icon"
-                                                style={{borderColor: data.colors.primary}}
-                                                title={link.name}
-                                            >
-                                                {link.icon_url ? (
-                                                    <img src={link.icon_url} alt={link.name} />
-                                                ) : (
-                                                    <span style={{color: data.colors.primary, fontSize: '14px'}}>?</span>
-                                                )}
+                                            <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="social-icon" style={{borderColor: data.colors.primary}} title={link.name}>
+                                                {link.icon_url ? <img src={link.icon_url} alt={link.name} /> : <span style={{color: data.colors.primary, fontSize: '14px'}}>?</span>}
                                             </a>
                                         ))}
                                     </div>
@@ -2206,8 +1677,8 @@
                 </div>
             );
         }
+
         ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
-
