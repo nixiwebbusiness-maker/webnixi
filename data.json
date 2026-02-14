@@ -4,7 +4,7 @@
   "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770728889/g0ugfpbbxicrqh73inb3.png",
   "colors": {
     "primary": "#A020F0",
-    "text_white": "#ffffff",
+    "text_white": "#F7A1B5",
     "text_regular": "#ffffff"
   },
   "hero": {
@@ -308,7 +308,7 @@
     {
       "id": "experience",
       "label": "services ",
-      "section": "services"
+      "section": "experience"
     },
     {
       "id": "menu",
