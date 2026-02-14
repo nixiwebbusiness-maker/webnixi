@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Dynamic Title -->
     <title id="dynamic-title">webnixi</title>
+    <!-- Dynamic Favicon -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -21,7 +23,9 @@
             --shadow-color: #cc73f8;
         }
         
-        * { -webkit-tap-highlight-color: transparent; }
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
         
         body {
             font-family: 'Montserrat', sans-serif;
@@ -32,8 +36,11 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        .serif { font-family: 'Cormorant Garamond', serif; }
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
         
+        /* Custom Button Color */
         .btn-premium {
             background: linear-gradient(135deg, var(--primary-purple) 0%, #a855f7 100%);
             color: white;
@@ -49,8 +56,11 @@
             box-shadow: 0 6px 20px rgba(204, 115, 248, 0.6);
         }
         
-        .btn-premium:active { transform: scale(0.98); }
+        .btn-premium:active {
+            transform: scale(0.98);
+        }
         
+        /* Floating Nav Styles */
         .floating-nav {
             position: fixed;
             top: 12px;
@@ -63,23 +73,42 @@
             border: 2px solid rgba(204, 115, 248, 0.3);
             border-radius: 50px;
             padding: 10px 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             width: calc(100% - 24px);
             max-width: 600px;
         }
         
         @media (min-width: 768px) {
-            .floating-nav { top: 20px; padding: 14px 40px; width: auto; max-width: 1000px; }
+            .floating-nav {
+                top: 20px;
+                padding: 14px 40px;
+                width: auto;
+                max-width: 1000px;
+            }
         }
-        @media (min-width: 1024px) { .floating-nav { max-width: 1200px; padding: 16px 50px; } }
-        @media (min-width: 1280px) { .floating-nav { max-width: 1400px; padding: 18px 60px; } }
+
+        @media (min-width: 1024px) {
+            .floating-nav {
+                max-width: 1200px;
+                padding: 16px 50px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .floating-nav {
+                max-width: 1400px;
+                padding: 18px 60px;
+            }
+        }
         
         .floating-nav:hover {
             background: rgba(13, 13, 13, 0.95);
             border-color: rgba(204, 115, 248, 0.5);
         }
         
+        /* Mobile Menu Overlay */
         .mobile-menu-overlay {
             position: fixed;
             inset: 0;
@@ -91,7 +120,10 @@
             transition: all 0.3s ease;
         }
         
-        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
         
         .mobile-menu {
             position: fixed;
@@ -110,32 +142,49 @@
             transition: all 0.3s ease;
         }
         
-        .mobile-menu.active { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
         
+        /* Grid Background Pattern */
         .tech-grid-bg {
-            background-image: linear-gradient(rgba(204, 115, 248, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px);
+            background-image: 
+                linear-gradient(rgba(204, 115, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(204, 115, 248, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
             position: relative;
         }
         
-        @media (min-width: 768px) { .tech-grid-bg { background-size: 50px 50px; } }
+        @media (min-width: 768px) {
+            .tech-grid-bg {
+                background-size: 50px 50px;
+            }
+        }
         
         .tech-grid-bg::before {
             content: '';
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.8) 100%);
             pointer-events: none;
         }
         
+        /* Deep Purple Blur for Cart */
         .cart-blur {
             background: rgba(88, 28, 135, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(204, 115, 248, 0.4);
-            box-shadow: 0 8px 32px rgba(88, 28, 135, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(88, 28, 135, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
+        /* Admin Cards - Mobile Optimized */
         .admin-card {
             background: rgba(30, 30, 40, 0.8);
             border-radius: 24px;
@@ -146,7 +195,12 @@
             backdrop-filter: blur(10px);
         }
         
-        @media (min-width: 768px) { .admin-card { padding: 30px; margin-bottom: 25px; } }
+        @media (min-width: 768px) {
+            .admin-card {
+                padding: 30px;
+                margin-bottom: 25px;
+            }
+        }
         
         .input-f {
             width: 100%;
@@ -166,7 +220,9 @@
             box-shadow: 0 0 0 3px rgba(204, 115, 248, 0.1);
         }
         
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
         
         .cart-float {
             position: fixed;
@@ -178,13 +234,30 @@
             max-width: 500px;
         }
         
-        .masonry { column-count: 1; column-gap: 1rem; }
-        @media (min-width: 640px) { .masonry { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry { column-count: 4; } }
+        /* Masonry Grid */
+        .masonry {
+            column-count: 1;
+            column-gap: 1rem;
+        }
         
-        .break-inside-avoid { break-inside: avoid; margin-bottom: 1rem; }
+        @media (min-width: 640px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
         
-        /* Loading Screen - Fixed to prevent flash */
+        @media (min-width: 1024px) {
+            .masonry {
+                column-count: 4;
+            }
+        }
+        
+        .break-inside-avoid {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+        
+        /* Loading Screen Animation - Fixed for no flash */
         .loader-container {
             position: fixed;
             inset: 0;
@@ -200,7 +273,9 @@
         .loader-grid {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(rgba(204, 115, 248, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 115, 248, 0.05) 1px, transparent 1px);
+            background-image: 
+                linear-gradient(rgba(204, 115, 248, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(204, 115, 248, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 20s linear infinite;
         }
@@ -224,11 +299,20 @@
             animation: fadeIn 0.5s ease forwards, shimmer 3s linear infinite;
         }
         
-        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
         
-        @media (min-width: 768px) { .loader-text { font-size: 3rem; letter-spacing: 0.5em; } }
+        @media (min-width: 768px) {
+            .loader-text {
+                font-size: 3rem;
+                letter-spacing: 0.5em;
+            }
+        }
         
-        @keyframes shimmer { to { background-position: 200% center; } }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
         
         .loader-bar {
             width: 150px;
@@ -240,7 +324,12 @@
             position: relative;
         }
         
-        @media (min-width: 768px) { .loader-bar { width: 200px; margin-top: 40px; } }
+        @media (min-width: 768px) {
+            .loader-bar {
+                width: 200px;
+                margin-top: 40px;
+            }
+        }
         
         .loader-progress {
             position: absolute;
@@ -267,12 +356,24 @@
             border: 2px solid rgba(204, 115, 248, 0.5);
         }
         
-        .glow-text { text-shadow: 0 0 20px var(--shadow-color); }
+        /* Glow Text - Uses CSS variable */
+        .glow-text {
+            text-shadow: 0 0 20px var(--shadow-color);
+        }
         
-        .tap-target { min-height: 44px; min-width: 44px; }
+        /* Touch-friendly tap targets */
+        .tap-target {
+            min-height: 44px;
+            min-width: 44px;
+        }
         
-        .no-select { -webkit-user-select: none; user-select: none; }
-        
+        /* Prevent text selection on UI elements */
+        .no-select {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Admin Section Styles - Mobile Optimized */
         .admin-section-title {
             font-size: 1.25rem;
             font-weight: bold;
@@ -281,9 +382,13 @@
             border-bottom: 2px solid rgba(204, 115, 248, 0.3);
             padding-bottom: 0.5rem;
         }
-        
-        @media (min-width: 768px) { .admin-section-title { font-size: 1.5rem; } }
-        
+
+        @media (min-width: 768px) {
+            .admin-section-title {
+                font-size: 1.5rem;
+            }
+        }
+
         .admin-item-card {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(204, 115, 248, 0.2);
@@ -291,9 +396,13 @@
             padding: 12px;
             margin-bottom: 12px;
         }
-        
-        @media (min-width: 768px) { .admin-item-card { padding: 16px; } }
-        
+
+        @media (min-width: 768px) {
+            .admin-item-card {
+                padding: 16px;
+            }
+        }
+
         .admin-btn-small {
             background: rgba(204, 115, 248, 0.2);
             border: 1px solid var(--primary-purple);
@@ -305,18 +414,45 @@
             transition: all 0.3s;
             min-height: 36px;
         }
-        
-        .admin-btn-small:hover { background: var(--primary-purple); color: white; }
-        
-        .admin-btn-danger { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; }
-        .admin-btn-danger:hover { background: #ef4444; color: white; }
-        
-        .admin-btn-success { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #22c55e; }
-        .admin-btn-success:hover { background: #22c55e; color: white; }
-        
-        .nav-item-purple { color: var(--primary-purple) !important; }
-        .nav-item-purple:hover { color: #a855f7 !important; text-shadow: 0 0 10px rgba(204, 115, 248, 0.5); }
-        
+
+        .admin-btn-small:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .admin-btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .admin-btn-danger:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .admin-btn-success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .admin-btn-success:hover {
+            background: #22c55e;
+            color: white;
+        }
+
+        /* Nav Item Purple Color */
+        .nav-item-purple {
+            color: var(--primary-purple) !important;
+        }
+
+        .nav-item-purple:hover {
+            color: #a855f7 !important;
+            text-shadow: 0 0 10px rgba(204, 115, 248, 0.5);
+        }
+
+        /* Menu Add Button */
         .menu-add-btn {
             width: 28px;
             height: 28px;
@@ -333,23 +469,53 @@
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
-        
+
         .menu-add-btn:hover {
             background: var(--primary-purple);
             color: white;
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(204, 115, 248, 0.5);
         }
-        
-        .menu-add-btn.active { background: var(--primary-purple); color: white; }
-        
-        .menu-item-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .menu-item-info { flex: 1; display: flex; justify-content: space-between; align-items: baseline; }
-        
-        .star-rating { display: flex; gap: 4px; justify-content: center; margin-bottom: 12px; }
-        .star { font-size: 20px; color: #4a4a4a; cursor: default; }
-        .star.filled { color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-        
+
+        .menu-add-btn.active {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .menu-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .menu-item-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        /* Star Rating Styles */
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .star {
+            font-size: 20px;
+            color: #4a4a4a;
+            cursor: default;
+        }
+
+        .star.filled {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Color Preview Box */
         .color-preview {
             width: 40px;
             height: 40px;
@@ -359,7 +525,8 @@
             margin-left: 10px;
             vertical-align: middle;
         }
-        
+
+        /* Social Icons Styles - UPDATED FOR IMAGES */
         .social-icon {
             width: 40px;
             height: 40px;
@@ -374,7 +541,7 @@
             overflow: hidden;
             background: rgba(0, 0, 0, 0.3);
         }
-        
+
         .social-icon img {
             width: 20px;
             height: 20px;
@@ -382,16 +549,19 @@
             filter: brightness(0) saturate(100%) invert(56%) sepia(95%) saturate(1234%) hue-rotate(242deg) brightness(101%) contrast(101%);
             transition: all 0.3s ease;
         }
-        
+
         .social-icon:hover {
             background: var(--primary-purple);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(204, 115, 248, 0.4);
             border-color: var(--primary-purple);
         }
-        
-        .social-icon:hover img { filter: brightness(0) invert(1); }
-        
+
+        .social-icon:hover img {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Review Link Button */
         .review-link-btn {
             display: inline-flex;
             align-items: center;
@@ -407,9 +577,13 @@
             transition: all 0.3s ease;
             margin-top: 12px;
         }
-        
-        .review-link-btn:hover { background: var(--primary-purple); color: white; transform: translateY(-2px); }
-        
+
+        .review-link-btn:hover {
+            background: var(--primary-purple);
+            color: white;
+            transform: translateY(-2px);
+        }
+
         .review-links-container {
             display: flex;
             flex-wrap: wrap;
@@ -419,7 +593,8 @@
             padding-top: 16px;
             border-top: 1px solid rgba(204, 115, 248, 0.2);
         }
-        
+
+        /* Social Icon Preview in Admin */
         .social-icon-preview {
             width: 40px;
             height: 40px;
@@ -429,10 +604,14 @@
             padding: 8px;
             background: rgba(0, 0, 0, 0.5);
         }
-        
+
         /* Mobile Admin Specific Styles */
         @media (max-width: 768px) {
-            .admin-grid { display: flex; flex-direction: column; gap: 12px; }
+            .admin-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
             
             .admin-tabs-scroll {
                 overflow-x: auto;
@@ -442,7 +621,9 @@
                 padding-bottom: 8px;
             }
             
-            .admin-tabs-scroll::-webkit-scrollbar { display: none; }
+            .admin-tabs-scroll::-webkit-scrollbar {
+                display: none;
+            }
             
             .admin-tab-btn {
                 white-space: nowrap;
@@ -451,14 +632,34 @@
                 font-size: 11px;
             }
             
-            .mobile-full-width { width: 100%; }
-            .mobile-stack { flex-direction: column; }
-            .mobile-text-sm { font-size: 12px; }
+            .mobile-full-width {
+                width: 100%;
+            }
+            
+            .mobile-stack {
+                flex-direction: column;
+            }
+            
+            .mobile-text-sm {
+                font-size: 12px;
+            }
         }
-        
-        .admin-panel { min-height: 100vh; padding: 16px; padding-bottom: 100px; }
-        @media (min-width: 768px) { .admin-panel { padding: 48px; padding-bottom: 120px; } }
-        
+
+        /* Admin Panel Mobile Optimization */
+        .admin-panel {
+            min-height: 100vh;
+            padding: 16px;
+            padding-bottom: 100px;
+        }
+
+        @media (min-width: 768px) {
+            .admin-panel {
+                padding: 48px;
+                padding-bottom: 120px;
+            }
+        }
+
+        /* Sticky Save Button for Mobile */
         .sticky-save-btn {
             position: fixed;
             bottom: 0;
@@ -469,7 +670,7 @@
             padding: 16px;
             border-top: 1px solid rgba(204, 115, 248, 0.3);
         }
-        
+
         @media (min-width: 768px) {
             .sticky-save-btn {
                 position: sticky;
@@ -481,10 +682,32 @@
                 padding: 0;
             }
         }
+
+        /* Triple tap hint - hidden by default */
+        .tap-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .tap-hint.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
+    <div id="tap-hint" class="tap-hint">Triple tap brand name for admin</div>
 
     <script type="text/babel">
         // DEFAULT DATA - Changed default brand to webnixi
@@ -588,6 +811,9 @@
             const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
             const [activeAdminTab, setActiveAdminTab] = React.useState('branding');
             const [isMobile, setIsMobile] = React.useState(false);
+            
+            // Triple tap detection ref
+            const tapRef = React.useRef({ taps: [], lastTap: 0 });
 
             const ADMIN_PASS = "admin123";
             const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
@@ -628,7 +854,6 @@
                         
                         if (response.ok) jsonData = await response.json();
                         
-                        // Merge with defaults - ensure brand_name is set immediately
                         const mergedData = { 
                             ...DEFAULT_DATA, 
                             ...jsonData,
@@ -636,7 +861,6 @@
                             colors: { ...DEFAULT_DATA.colors, ...(jsonData.colors || {}) }
                         };
                         
-                        // Ensure all nested objects exist
                         if (!mergedData.hero) mergedData.hero = DEFAULT_DATA.hero;
                         if (!mergedData.about) mergedData.about = DEFAULT_DATA.about;
                         if (!mergedData.services) mergedData.services = DEFAULT_DATA.services;
@@ -648,9 +872,7 @@
                         if (!mergedData.nav_items) mergedData.nav_items = DEFAULT_DATA.nav_items;
                         if (!mergedData.colors) mergedData.colors = DEFAULT_DATA.colors;
                         
-                        // Ensure shadow color exists
                         if (!mergedData.colors.shadow) mergedData.colors.shadow = mergedData.colors.primary;
-                        
                         if (!mergedData.footer.social_links) mergedData.footer.social_links = DEFAULT_DATA.footer.social_links;
                         mergedData.reviews.forEach(review => { if (!review.links) review.links = []; });
                         
@@ -691,6 +913,51 @@
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, [mobileMenuOpen]);
+
+            // Triple tap handler for mobile admin access
+            const handleBrandTap = (e) => {
+                const now = Date.now();
+                const tapData = tapRef.current;
+                
+                // Add current tap
+                tapData.taps.push(now);
+                
+                // Keep only last 3 taps
+                if (tapData.taps.length > 3) {
+                    tapData.taps.shift();
+                }
+                
+                // Check for triple tap (3 taps within 600ms)
+                if (tapData.taps.length === 3) {
+                    const timeDiff = tapData.taps[2] - tapData.taps[0];
+                    if (timeDiff < 600) {
+                        // Triple tap detected
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const password = prompt("Admin Password:");
+                        if (password === ADMIN_PASS) {
+                            setIsAdmin(true);
+                        } else if (password !== null) {
+                            alert("Wrong password!");
+                        }
+                        // Reset taps
+                        tapData.taps = [];
+                        return;
+                    }
+                }
+                
+                // Normal click - go to home
+                scrollToSection('home');
+                
+                // Show hint on first tap if mobile
+                if (isMobile && tapData.taps.length === 1) {
+                    const hint = document.getElementById('tap-hint');
+                    if (hint) {
+                        hint.classList.add('show');
+                        setTimeout(() => hint.classList.remove('show'), 2000);
+                    }
+                }
+            };
 
             const uploadImg = async (e, callback) => {
                 const file = e.target.files[0];
@@ -765,6 +1032,7 @@
                 }
             };
 
+            // Admin helper functions
             const updateService = (category, index, field, value) => {
                 const newServices = { ...data.services };
                 newServices[category][index][field] = value;
@@ -1070,7 +1338,6 @@
                                                     <input className="input-f mt-2" value={data.colors.text_regular} onChange={e => updateColor('text_regular', e.target.value)} />
                                                 </div>
 
-                                                {/* NEW: Shadow Color Control */}
                                                 <div className="border-t pt-6" style={{borderColor: data.colors.primary + '33'}}>
                                                     <h4 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Glow Effects</h4>
                                                     
@@ -1081,7 +1348,7 @@
                                                         </label>
                                                         <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.shadow || data.colors.primary} onChange={e => updateColor('shadow', e.target.value)} />
                                                         <input className="input-f mt-2" value={data.colors.shadow || data.colors.primary} onChange={e => updateColor('shadow', e.target.value)} />
-                                                        <p className="text-xs text-white/40 mt-1">Controls glow effect behind headings and hero text</p>
+                                                        <p className="text-xs text-white/40 mt-1">Controls glow effect behind headings</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1143,7 +1410,7 @@
 
                                         <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
                                             <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Nav Items</h3>
-                                            <p className="text-xs text-white/50 mb-4">Brand name acts as Home button</p>
+                                            <p className="text-xs text-white/50 mb-4">Brand name acts as Home button. Triple tap on mobile for admin.</p>
                                             
                                             <div className="space-y-4">
                                                 {data.nav_items.map((item, idx) => (
@@ -1444,10 +1711,7 @@
                                 <div className="flex items-center justify-between w-full">
                                     <div 
                                         className="flex items-center gap-3 cursor-pointer group"
-                                        onClick={(e) => {
-                                            if (e.shiftKey) { if (prompt("Password:") === ADMIN_PASS) setIsAdmin(true); }
-                                            else scrollToSection('home');
-                                        }}
+                                        onClick={handleBrandTap}
                                     >
                                         <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter whitespace-nowrap group-hover:opacity-80 transition-opacity" style={{color: data.colors.text_white}}>
                                             {data.brand_name}
