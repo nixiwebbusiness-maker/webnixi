@@ -289,13 +289,23 @@
         "name": "Yelp",
         "url": "https://yelp.com",
         "icon": "Yelp",
-        "icon_url": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770983088/qqog51hpkchgu4iaqzs8.png"
+        "icon_url": "https://cdn-icons-png.flaticon.com/512/174/174882.png"
       },
       {
         "name": "Instagram",
         "url": "https://www.instagram.com/faysalsario._/",
         "icon": "📷",
-        "icon_url": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770983110/ndq5nl4zbk8dqijhzx1y.png"
+        "icon_url": "https://cdn-icons-png.flaticon.com/512/174/174855.png"
+      },
+      {
+        "name": "New Link",
+        "url": "https://",
+        "icon_url": "https://cdn-icons-png.flaticon.com/512/174/174882.png"
+      },
+      {
+        "name": "New Link",
+        "url": "https://",
+        "icon_url": "https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
       }
     ]
   },
