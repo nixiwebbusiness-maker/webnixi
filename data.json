@@ -299,11 +299,6 @@
       },
       {
         "name": "New Link",
-        "url": "https://yelp.com",
-        "icon_url": "https://cdn-icons-png.flaticon.com/512/174/174882.png"
-      },
-      {
-        "name": "New Link",
         "url": "https://tiktok.com",
         "icon_url": "https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
       }
