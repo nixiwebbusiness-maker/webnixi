@@ -19,7 +19,8 @@
             --text-white: #ffffff;
             --text-regular: #ffffff60;
             --shadow-color: #cc73f8;
-            --nav-color: #cc73f8; /* NEW: Nav items color */
+            --nav-color: #cc73f8;
+            --glow-color: #cc73f8; /* NEW: Dynamic glow color */
         }
         
         * { -webkit-tap-highlight-color: transparent; }
@@ -42,17 +43,17 @@
             cursor: pointer;
             border: none;
             border-radius: 99px;
-            box-shadow: 0 4px 15px var(--shadow-color); /* Uses shadow color */
+            box-shadow: 0 4px 15px var(--glow-color); /* UPDATED: Uses glow-color */
         }
         
         .btn-premium:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--shadow-color);
+            box-shadow: 0 6px 20px var(--glow-color); /* UPDATED: Uses glow-color */
         }
         
         .btn-premium:active { transform: scale(0.98); }
         
-        /* Floating Nav with dynamic border */
+        /* Floating Nav with dynamic border and glow */
         .floating-nav {
             position: fixed;
             top: 12px;
@@ -62,11 +63,11 @@
             background: rgba(13, 13, 13, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 2px solid var(--primary-purple); /* Uses primary color */
+            border: 2px solid var(--primary-purple);
             border-radius: 50px;
             padding: 10px 16px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
-                        0 0 20px var(--primary-purple), /* Purple glow */
+                        0 0 20px var(--glow-color), /* UPDATED: Uses glow-color */
                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             width: calc(100% - 24px);
@@ -83,7 +84,7 @@
             background: rgba(13, 13, 13, 0.95);
             border-color: var(--primary-purple);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
-                        0 0 30px var(--primary-purple),
+                        0 0 30px var(--glow-color), /* UPDATED: Uses glow-color */
                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
@@ -135,13 +136,13 @@
             pointer-events: none;
         }
         
-        /* Cart bar with primary color */
+        /* Cart bar with dynamic glow */
         .cart-blur {
             background: rgba(88, 28, 135, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--primary-purple);
-            box-shadow: 0 8px 32px var(--primary-purple),
+            box-shadow: 0 8px 32px var(--glow-color), /* UPDATED: Uses glow-color */
                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
@@ -171,7 +172,7 @@
         }
         
         .input-f:focus {
-            border-color: #cc73f8;
+            border-color: var(--primary-purple);
             box-shadow: 0 0 0 3px rgba(204, 115, 248, 0.1);
         }
         
@@ -258,7 +259,7 @@
             width: 0%;
             background: linear-gradient(90deg, var(--primary-purple), #a855f7);
             animation: loading 2s ease-in-out infinite;
-            box-shadow: 0 0 10px var(--primary-purple);
+            box-shadow: 0 0 10px var(--glow-color); /* UPDATED: Uses glow-color */
         }
         
         @keyframes loading {
@@ -275,7 +276,8 @@
             border: 2px solid rgba(204, 115, 248, 0.5);
         }
         
-        .glow-text { text-shadow: 0 0 20px var(--shadow-color); }
+        /* UPDATED: Glow text uses glow-color */
+        .glow-text { text-shadow: 0 0 20px var(--glow-color); }
         
         .tap-target { min-height: 44px; min-width: 44px; }
         
@@ -322,9 +324,8 @@
         .admin-btn-success { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #22c55e; }
         .admin-btn-success:hover { background: #22c55e; color: white; }
         
-        /* Nav items use CSS variable */
         .nav-item-purple { color: var(--nav-color) !important; }
-        .nav-item-purple:hover { color: var(--primary-purple) !important; text-shadow: 0 0 10px var(--shadow-color); }
+        .nav-item-purple:hover { color: var(--primary-purple) !important; text-shadow: 0 0 10px var(--glow-color); } /* UPDATED */
         
         .menu-add-btn {
             width: 28px;
@@ -347,7 +348,7 @@
             background: var(--primary-purple);
             color: white;
             transform: scale(1.1);
-            box-shadow: 0 0 15px var(--shadow-color);
+            box-shadow: 0 0 15px var(--glow-color); /* UPDATED: Uses glow-color */
         }
         
         .menu-add-btn.active { background: var(--primary-purple); color: white; }
@@ -355,7 +356,6 @@
         .menu-item-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
         .menu-item-info { flex: 1; display: flex; justify-content: space-between; align-items: baseline; }
         
-        /* Menu item name uses text-regular color */
         .menu-item-name { color: var(--text-regular); }
         
         .star-rating { display: flex; gap: 4px; justify-content: center; margin-bottom: 12px; }
@@ -398,7 +398,7 @@
         .social-icon:hover {
             background: var(--primary-purple);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--shadow-color);
+            box-shadow: 0 5px 15px var(--glow-color); /* UPDATED: Uses glow-color */
             border-color: var(--primary-purple);
         }
         
@@ -420,7 +420,12 @@
             margin-top: 12px;
         }
         
-        .review-link-btn:hover { background: var(--primary-purple); color: white; transform: translateY(-2px); }
+        .review-link-btn:hover { 
+            background: var(--primary-purple); 
+            color: white; 
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color); /* UPDATED */
+        }
         
         .review-links-container {
             display: flex;
@@ -510,6 +515,18 @@
         }
 
         .tap-hint.show { opacity: 1; }
+
+        /* NEW: Address link styling */
+        .address-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .address-link:hover {
+            color: var(--primary-purple);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
     </style>
 </head>
 <body>
@@ -526,7 +543,8 @@
                 text_white: "#ffffff",
                 text_regular: "#ffffff60",
                 shadow: "#cc73f8",
-                nav: "#cc73f8" // NEW: Nav items color
+                nav: "#cc73f8",
+                glow: "#cc73f8" // NEW: Glow color
             },
             hero: {
                 title: "",
@@ -639,6 +657,8 @@
                 if (colors.text_regular) root.style.setProperty('--text-regular', colors.text_regular);
                 if (colors.shadow) root.style.setProperty('--shadow-color', colors.shadow);
                 if (colors.nav) root.style.setProperty('--nav-color', colors.nav);
+                if (colors.glow) root.style.setProperty('--glow-color', colors.glow); // NEW
+                else if (colors.primary) root.style.setProperty('--glow-color', colors.primary); // Fallback
             };
 
             const updatePageTitle = (brandName) => {
@@ -680,6 +700,7 @@
                         
                         if (!mergedData.colors.shadow) mergedData.colors.shadow = mergedData.colors.primary;
                         if (!mergedData.colors.nav) mergedData.colors.nav = mergedData.colors.primary;
+                        if (!mergedData.colors.glow) mergedData.colors.glow = mergedData.colors.primary; // NEW
                         if (!mergedData.footer.social_links) mergedData.footer.social_links = DEFAULT_DATA.footer.social_links;
                         mergedData.reviews.forEach(review => { if (!review.links) review.links = []; });
                         
@@ -804,6 +825,13 @@
                 const msg = `Booking Request from ${data.brand_name}:%0A${items}`;
                 const phone = data.footer.whatsapp.replace(/\D/g,'');
                 window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+            };
+
+            // NEW: Open Google Maps with address
+            const openGoogleMaps = () => {
+                if (!data?.footer?.address) return;
+                const query = encodeURIComponent(data.footer.address);
+                window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
             };
 
             const saveToGithub = async () => {
@@ -1100,7 +1128,7 @@
                                     </div>
                                 )}
 
-                                {/* COLORS TAB - UPDATED WITH NAV COLOR */}
+                                {/* COLORS TAB - UPDATED WITH GLOW COLOR */}
                                 {activeAdminTab === 'colors' && (
                                     <div className="space-y-4 md:space-y-6">
                                         <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
@@ -1135,7 +1163,6 @@
                                                     <p className="text-xs text-white/40 mt-1">This changes menu service names color (not price)</p>
                                                 </div>
 
-                                                {/* NEW: Nav Color */}
                                                 <div>
                                                     <label className="text-xs text-white/60 uppercase tracking-wider flex items-center flex-wrap gap-2">
                                                         Navbar Items Color
@@ -1146,17 +1173,18 @@
                                                     <p className="text-xs text-white/40 mt-1">Navigation menu items color</p>
                                                 </div>
 
+                                                {/* NEW: Glow Color Control */}
                                                 <div className="border-t pt-6" style={{borderColor: data.colors.primary + '33'}}>
-                                                    <h4 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Glow Effects</h4>
+                                                    <h4 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Glow & Blur Effects</h4>
                                                     
                                                     <div>
                                                         <label className="text-xs text-white/60 uppercase tracking-wider flex items-center flex-wrap gap-2">
-                                                            Text Shadow / Glow Color (Button Shadows)
-                                                            <span className="color-preview" style={{backgroundColor: data.colors.shadow || data.colors.primary, boxShadow: `0 0 10px ${data.colors.shadow || data.colors.primary}`}}></span>
+                                                            Glow/Blur Color (Shadows, Glows, Effects)
+                                                            <span className="color-preview" style={{backgroundColor: data.colors.glow || data.colors.primary, boxShadow: `0 0 10px ${data.colors.glow || data.colors.primary}`}}></span>
                                                         </label>
-                                                        <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.shadow || data.colors.primary} onChange={e => updateColor('shadow', e.target.value)} />
-                                                        <input className="input-f mt-2" value={data.colors.shadow || data.colors.primary} onChange={e => updateColor('shadow', e.target.value)} />
-                                                        <p className="text-xs text-white/40 mt-1">Controls button shadows and text glow</p>
+                                                        <input type="color" className="input-f h-12 cursor-pointer mt-2" value={data.colors.glow || data.colors.primary} onChange={e => updateColor('glow', e.target.value)} />
+                                                        <input className="input-f mt-2" value={data.colors.glow || data.colors.primary} onChange={e => updateColor('glow', e.target.value)} />
+                                                        <p className="text-xs text-white/40 mt-1">Controls all glow effects, shadows, and blurs throughout the site</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1165,14 +1193,14 @@
                                         <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
                                             <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color: data.colors.primary}}>Live Preview</h3>
                                             <div className="bg-black/50 p-6 rounded-lg space-y-4">
-                                                <h4 style={{color: data.colors.text_white, fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}`}}>
+                                                <h4 style={{color: data.colors.text_white, fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}`}}>
                                                     Sample Heading (with Glow)
                                                 </h4>
                                                 <p style={{color: data.colors.nav || data.colors.primary, fontSize: '1.2rem'}}>Sample Nav Item Color</p>
                                                 <p style={{color: data.colors.text_regular}}>Sample Menu Item Name (Regular Text)</p>
                                                 <p style={{color: data.colors.primary, fontSize: '1.1rem'}}>Sample Price Color (Primary)</p>
-                                                <button style={{background: data.colors.primary, padding: '10px 20px', borderRadius: '20px', color: 'white', boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>
-                                                    Sample Button (with Shadow)
+                                                <button style={{background: data.colors.primary, padding: '10px 20px', borderRadius: '20px', color: 'white', boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>
+                                                    Sample Button (with Glow)
                                                 </button>
                                             </div>
                                         </div>
@@ -1216,7 +1244,7 @@
                                     <div className="space-y-4 md:space-y-6">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
                                             <h2 className="text-xl md:text-2xl font-bold text-white">Navigation Menu</h2>
-                                            <button onClick={addNavItem} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>+ Add Item</button>
+                                            <button onClick={addNavItem} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>+ Add Item</button>
                                         </div>
 
                                         <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
@@ -1251,7 +1279,7 @@
                                     <div className="space-y-4 md:space-y-6">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
                                             <h2 className="text-xl md:text-2xl font-bold text-white">Services</h2>
-                                            <button onClick={addCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>+ Add Category</button>
+                                            <button onClick={addCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>+ Add Category</button>
                                         </div>
 
                                         {Object.entries(data.services || {}).map(([category, services]) => (
@@ -1302,7 +1330,7 @@
                                     <div className="space-y-4 md:space-y-6">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
                                             <h2 className="text-xl md:text-2xl font-bold text-white">Menu</h2>
-                                            <button onClick={addMenuCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>+ Add Category</button>
+                                            <button onClick={addMenuCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>+ Add Category</button>
                                         </div>
 
                                         {data.full_menu.map((section, catIdx) => (
@@ -1355,7 +1383,7 @@
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
                                             <h2 className="text-xl md:text-2xl font-bold text-white">Gallery</h2>
                                             <input type="file" accept="image/*" className="hidden" id="gallery-upload" onChange={e => uploadImg(e, (url) => addGalleryImage(url))} />
-                                            <label htmlFor="gallery-upload" className="btn-premium px-4 py-2 text-xs font-bold uppercase cursor-pointer w-full md:w-auto text-center" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>+ Add Image</label>
+                                            <label htmlFor="gallery-upload" className="btn-premium px-4 py-2 text-xs font-bold uppercase cursor-pointer w-full md:w-auto text-center" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>+ Add Image</label>
                                         </div>
 
                                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1378,7 +1406,7 @@
                                     <div className="space-y-4 md:space-y-6">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
                                             <h2 className="text-xl md:text-2xl font-bold text-white">Reviews</h2>
-                                            <button onClick={addReview} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>+ Add Review</button>
+                                            <button onClick={addReview} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>+ Add Review</button>
                                         </div>
 
                                         {data.reviews.map((review, idx) => (
@@ -1432,8 +1460,9 @@
                                                 <input className="input-f" value={data.footer.hours} onChange={e => setData({...data, footer: {...data.footer, hours: e.target.value}})} />
                                             </div>
                                             <div>
-                                                <label className="text-xs text-white/60">Address</label>
+                                                <label className="text-xs text-white/60">Address (Clickable - Opens Google Maps)</label>
                                                 <textarea className="input-f" rows="2" value={data.footer.address} onChange={e => setData({...data, footer: {...data.footer, address: e.target.value}})} />
+                                                <p className="text-xs text-white/40 mt-1">This address will be clickable on the website</p>
                                             </div>
                                             <div>
                                                 <label className="text-xs text-white/60">Copyright</label>
@@ -1448,7 +1477,7 @@
                                     <div className="space-y-4 md:space-y-6">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 md:mb-6">
                                             <h2 className="text-xl md:text-2xl font-bold text-white">Social Links</h2>
-                                            <button onClick={addSocialLink} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>+ Add Link</button>
+                                            <button onClick={addSocialLink} className="btn-premium px-4 py-2 text-xs font-bold uppercase w-full md:w-auto" style={{background: data.colors.primary, boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>+ Add Link</button>
                                         </div>
 
                                         <div className="admin-card border-l-4 md:border-l-8" style={{borderColor: data.colors.primary}}>
@@ -1491,7 +1520,7 @@
 
                                 {/* Sticky Save Button */}
                                 <div className="sticky-save-btn md:relative md:bg-transparent md:border-none md:p-0 md:mt-8">
-                                    <button onClick={saveToGithub} className="btn-premium w-full py-4 text-sm md:text-base font-bold uppercase tracking-widest shadow-2xl border-2" style={{background: data.colors.primary, borderColor: data.colors.primary + '4D', boxShadow: `0 4px 15px ${data.colors.shadow || data.colors.primary}`}}>
+                                    <button onClick={saveToGithub} className="btn-premium w-full py-4 text-sm md:text-base font-bold uppercase tracking-widest shadow-2xl border-2" style={{background: data.colors.primary, borderColor: data.colors.primary + '4D', boxShadow: `0 4px 15px ${data.colors.glow || data.colors.primary}`}}>
                                         Deploy Update
                                     </button>
                                 </div>
@@ -1564,7 +1593,7 @@
                                 <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
                                 <div className="relative z-10 max-w-4xl mx-auto">
-                                    <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text mb-6" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                    <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text mb-6" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                         {data.hero.title || data.brand_name}
                                     </h1>
                                     <p className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold italic" style={{color: data.colors.primary}}>
@@ -1576,7 +1605,7 @@
                             {/* Experience Section */}
                             <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                         {data.section_titles?.experience || "The Experience"}
                                     </h2>
                                     
@@ -1606,9 +1635,9 @@
                                         <div className="md:col-span-8">
                                             {selectedSvc && (
                                                 <div className="flex flex-col gap-6 md:gap-12">
-                                                    <img src={selectedSvc.img} className="w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl" style={{boxShadow: `0 25px 50px -12px ${data.colors.primary}33`}} alt={selectedSvc.name} />
+                                                    <img src={selectedSvc.img} className="w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl" style={{boxShadow: `0 25px 50px -12px ${data.colors.glow || data.colors.primary}33`}} alt={selectedSvc.name} />
                                                     <div>
-                                                        <h3 className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                                        <h3 className="serif text-3xl md:text-6xl mb-4 md:mb-6 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                                             {selectedSvc.name}
                                                         </h3>
                                                         <p className="text-2xl md:text-3xl font-bold mb-4 md:mb-8" style={{color: data.colors.primary}}>{selectedSvc.price}</p>
@@ -1624,10 +1653,10 @@
                                 </div>
                             </section>
 
-                            {/* Menu Section - UPDATED WITH REGULAR TEXT COLOR FOR NAMES */}
+                            {/* Menu Section */}
                             <section id="menu" className="py-16 md:py-32 px-4 tech-grid-bg relative">
                                 <div className="relative z-10 max-w-5xl mx-auto">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                         {data.section_titles?.menu || "The Menu"}
                                     </h2>
                                     <div className="grid md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-16">
@@ -1639,9 +1668,7 @@
                                                 {sec.items.map((it, i) => (
                                                     <div key={i} className="menu-item-row mb-4 md:mb-6 border-b border-dotted pb-2" style={{borderColor: `${data.colors.text_white}1A`}}>
                                                         <div className="menu-item-info">
-                                                            {/* Service name uses text_regular color */}
                                                             <span className="serif text-lg md:text-2xl uppercase menu-item-name">{it.n}</span>
-                                                            {/* Price uses primary color */}
                                                             <span className="font-bold text-base md:text-lg ml-4" style={{color: data.colors.primary}}>{it.p}</span>
                                                         </div>
                                                         <button onClick={() => toggleMenuItem(it.n, it.p)} className={`menu-add-btn ${cart.find(c => c.name === it.n) ? 'active' : ''}`} style={{borderColor: data.colors.primary, color: cart.find(c => c.name === it.n) ? 'white' : data.colors.primary, backgroundColor: cart.find(c => c.name === it.n) ? data.colors.primary : 'transparent'}} title={cart.find(c => c.name === it.n) ? 'Remove from cart' : 'Add to cart'}>
@@ -1660,13 +1687,13 @@
                                 <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
                                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
                                     <div className="order-2 md:order-1">
-                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                        <h2 className="serif text-5xl md:text-8xl mb-6 md:mb-12 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                             {data.section_titles?.about || "Our Sanctuary"}
                                         </h2>
                                         <p className="text-lg md:text-2xl serif italic leading-relaxed" style={{color: data.colors.text_regular}}>{data.about.text}</p>
                                     </div>
                                     <div className="order-1 md:order-2">
-                                        <img src={data.about.image} className="w-full rounded-3xl md:rounded-[4rem] aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000 border" style={{boxShadow: `0 25px 50px -12px ${data.colors.primary}33`, borderColor: `${data.colors.primary}33`}} alt="About" />
+                                        <img src={data.about.image} className="w-full rounded-3xl md:rounded-[4rem] aspect-[4/5] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-1000 border" style={{boxShadow: `0 25px 50px -12px ${data.colors.glow || data.colors.primary}33`, borderColor: `${data.colors.primary}33`}} alt="About" />
                                     </div>
                                 </div>
                             </section>
@@ -1674,7 +1701,7 @@
                             {/* Gallery Section */}
                             <section id="gallery" className="py-16 md:py-32 px-4 tech-grid-bg relative">
                                 <div className="relative z-10">
-                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                         {data.section_titles?.gallery || "Visual Sanctuary"}
                                     </h2>
                                     <div className="max-w-7xl mx-auto masonry">
@@ -1691,7 +1718,7 @@
                             <section id="reviews" className="py-16 md:py-24 px-4 relative overflow-hidden">
                                 <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
                                 <div className="max-w-6xl mx-auto relative z-10">
-                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic glow-text" style={{color: data.colors.text_white, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                         {data.section_titles?.reviews || "Words of Luxe"}
                                     </h2>
                                     <div className="grid md:grid-cols-3 gap-4 md:gap-8">
@@ -1720,11 +1747,19 @@
                             <footer className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-10 border-t" style={{backgroundColor: '#050505', borderColor: `${data.colors.primary}33`}}>
                                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
                                     <div className="col-span-2 md:col-span-2">
-                                        <h4 className="serif text-4xl md:text-6xl italic font-bold mb-4 md:mb-6 glow-text" style={{color: data.colors.primary, textShadow: `0 0 20px ${data.colors.shadow || data.colors.primary}80`}}>
+                                        <h4 className="serif text-4xl md:text-6xl italic font-bold mb-4 md:mb-6 glow-text" style={{color: data.colors.primary, textShadow: `0 0 20px ${data.colors.glow || data.colors.primary}80`}}>
                                             {data.brand_name}
                                         </h4>
                                         <h5 className="uppercase text-[10px] md:text-[11px] mb-2 md:mb-3 tracking-widest font-bold" style={{color: data.colors.primary}}>Address</h5>
-                                        <p className="text-xs md:text-sm italic max-w-sm mb-4 md:mb-6" style={{color: data.colors.text_regular}}>{data.footer.address}</p>
+                                        {/* UPDATED: Address is now clickable */}
+                                        <p 
+                                            onClick={openGoogleMaps}
+                                            className="text-xs md:text-sm italic max-w-sm mb-4 md:mb-6 address-link underline decoration-dotted" 
+                                            style={{color: data.colors.text_regular}}
+                                            title="Click to open in Google Maps"
+                                        >
+                                            {data.footer.address} ↗
+                                        </p>
                                     </div>
                                     <div>
                                         <h5 className="uppercase text-[10px] md:text-[11px] mb-3 md:mb-6 tracking-widest font-bold" style={{color: data.colors.primary}}>Timing</h5>
