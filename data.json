@@ -5,8 +5,8 @@
   "announcement": {
     "enabled": true,
     "text": "🎉 SALE — Use code SAVE10OFF for 10% off all bookings!",
-    "bg_color": "#cc73f8",
-    "text_color": "#ffffff"
+    "bg_color": "#FF007F",
+    "text_color": "#F7A1B5"
   },
   "seo": {
     "description": "webnixi – Premium Spa & Salon in Los Angeles. Book luxury hair, massage, facial treatments.",
