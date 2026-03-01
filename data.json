@@ -40,21 +40,14 @@
         "id": 1772338771234,
         "label": "New Buttons",
         "link": "#experience",
-        "position": "center",
+        "position": "bottom-right",
         "style": "filled"
       },
       {
         "id": 1772338771689,
         "label": "New Buttona",
         "link": "#experience",
-        "position": "center",
-        "style": "filled"
-      },
-      {
-        "id": 1772338772794,
-        "label": "New Buttonq",
-        "link": "#experience",
-        "position": "center",
+        "position": "bottom-left",
         "style": "filled"
       }
     ]
