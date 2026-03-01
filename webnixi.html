@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="dynamic-title">webnixi</title>
+    <!-- SEO META TAGS (dynamic, updated by JS) -->
+    <meta name="description" id="meta-description" content="webnixi – Premium Spa & Salon in Los Angeles. Book luxury hair, massage, facial treatments. Experience ultimate luxury.">
+    <meta name="keywords" id="meta-keywords" content="webnixi, webnixi los angeles, luxury spa los angeles, premium salon beverly hills, massage los angeles, facial treatment, hair styling, luxury beauty">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" id="og-title" content="webnixi – Luxury Spa & Salon">
+    <meta property="og:description" id="og-description" content="Experience ultimate luxury at webnixi. Premium spa and salon services in Los Angeles.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" id="og-url" content="https://webnixi.com">
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <!-- Google Tag Manager placeholder (injected by admin scripts) -->
+    <div id="gtm-head-scripts"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,500&family=Montserrat:wght@200;400;600&display=swap');
+        
+        :root {
+            --primary-purple: #cc73f8;
+            --deep-purple: #1a0b2e;
+            --dark-bg: #0d0d0d;
+            --text-white: #ffffff;
+            --text-regular: #ffffff60;
+            --shadow-color: #cc73f8;
+            --nav-color: #cc73f8;
+            --glow-color: #cc73f8;
+            --brand-name-color: #ffffff;
+            --announcement-bg: #cc73f8;
+            --announcement-text: #ffffff;
+        }
+        
+        * { -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .serif { font-family: 'Cormorant Garamond', serif; }
+        
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announcement-bar {
+            width: 100%;
+            background: var(--announcement-bg);
+            color: var(--announcement-text);
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        /* ===== AI CHAT WIDGET ===== */
+
+        /* ===== EXISTING STYLES ===== */
+        .btn-premium {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, #a855f7 100%);
+            color: white;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: none;
+            border-radius: 99px;
+            box-shadow: 0 4px 15px var(--glow-color);
+        }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--glow-color); }
+        .btn-premium:active { transform: scale(0.98); }
+        
+        .floating-nav {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 2px solid rgba(204,115,248,0.65);
+            border-radius: 50px;
+            padding: 10px 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 20px var(--glow-color)33, inset 0 1px 0 rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+            width: calc(100% - 24px);
+            max-width: 600px;
+        }
+        
+        @media (min-width: 768px) { .floating-nav { top: 20px; padding: 14px 40px; width: auto; max-width: 1000px; } }
+        @media (min-width: 1024px) { .floating-nav { max-width: 1200px; padding: 16px 50px; } }
+        @media (min-width: 1280px) { .floating-nav { max-width: 1400px; padding: 18px 60px; } }
+        
+        .floating-nav:hover {
+            background: rgba(13,13,13,0.55);
+            border-color: rgba(204,115,248,0.9);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 25px var(--glow-color)40, inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: rgba(20,20,30,0.95);
+            border: 1px solid var(--primary-purple);
+            border-radius: 24px;
+            padding: 20px;
+            width: calc(100% - 48px);
+            max-width: 320px;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-menu.active { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+        
+        .tech-grid-bg {
+            background-image: linear-gradient(rgba(204,115,248,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(204,115,248,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: relative;
+        }
+        @media (min-width: 768px) { .tech-grid-bg { background-size: 50px 50px; } }
+        .tech-grid-bg::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 0%, rgba(13,13,13,0.8) 100%); pointer-events:none; }
+        
+        .cart-blur {
+            background: rgba(88,28,135,0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--primary-purple);
+            box-shadow: 0 8px 32px var(--glow-color), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .admin-card { background:rgba(30,30,40,0.8); border-radius:24px; padding:16px; border:1px solid rgba(204,115,248,0.2); margin-bottom:16px; box-shadow:0 10px 40px rgba(0,0,0,0.3); backdrop-filter:blur(10px); }
+        @media (min-width: 768px) { .admin-card { padding:30px; margin-bottom:25px; } }
+        
+        .input-f { width:100%; padding:12px; border:1px solid rgba(204,115,248,0.3); border-radius:12px; margin-top:6px; font-size:16px; outline:none; background:rgba(0,0,0,0.3); color:white; transition:all 0.3s ease; }
+        .input-f:focus { border-color:var(--primary-purple); box-shadow:0 0 0 3px rgba(204,115,248,0.1); }
+        
+        .no-scrollbar::-webkit-scrollbar { display:none; }
+        
+        .cart-float { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:500; width:calc(100% - 32px); max-width:500px; }
+        
+        .masonry { column-count:1; column-gap:1rem; }
+        @media (min-width: 640px) { .masonry { column-count:2; } }
+        @media (min-width: 1024px) { .masonry { column-count:4; } }
+        .break-inside-avoid { break-inside:avoid; margin-bottom:1rem; }
+        
+        .loader-container { position:fixed; inset:0; background:var(--dark-bg); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; overflow:hidden; }
+        .loader-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(204,115,248,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(204,115,248,0.05) 1px, transparent 1px); background-size:40px 40px; animation:gridMove 20s linear infinite; }
+        @keyframes gridMove { 0%{transform:perspective(500px) rotateX(60deg) translateY(0)} 100%{transform:perspective(500px) rotateX(60deg) translateY(40px)} }
+        .loader-text { font-size:2rem; font-weight:300; letter-spacing:0.3em; background:linear-gradient(90deg, var(--primary-purple), #a855f7, var(--primary-purple)); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; z-index:10; text-align:center; opacity:0; animation:fadeIn 0.5s ease forwards, shimmer 3s linear infinite; }
+        @keyframes fadeIn { to { opacity:1; } }
+        @media (min-width: 768px) { .loader-text { font-size:3rem; letter-spacing:0.5em; } }
+        @keyframes shimmer { to { background-position:200% center; } }
+        .loader-bar { width:150px; height:2px; background:rgba(204,115,248,0.2); margin-top:30px; border-radius:2px; overflow:hidden; position:relative; }
+        @media (min-width: 768px) { .loader-bar { width:200px; margin-top:40px; } }
+        .loader-progress { position:absolute; left:0; top:0; height:100%; width:0%; background:linear-gradient(90deg, var(--primary-purple), #a855f7); animation:loading 2s ease-in-out infinite; box-shadow:0 0 10px var(--glow-color); }
+        @keyframes loading { 0%{width:0%;left:0} 50%{width:100%;left:0} 100%{width:0%;left:100%} }
+        
+        .favicon-preview { width:32px; height:32px; border-radius:6px; object-fit:cover; border:2px solid rgba(204,115,248,0.5); }
+        .glow-text { text-shadow:0 0 20px var(--glow-color); }
+        .tap-target { min-height:44px; min-width:44px; }
+        .no-select { -webkit-user-select:none; user-select:none; }
+        
+        .admin-section-title { font-size:1.25rem; font-weight:bold; color:var(--primary-purple); margin-bottom:1rem; border-bottom:2px solid rgba(204,115,248,0.3); padding-bottom:0.5rem; }
+        @media (min-width: 768px) { .admin-section-title { font-size:1.5rem; } }
+        
+        .admin-item-card { background:rgba(0,0,0,0.3); border:1px solid rgba(204,115,248,0.2); border-radius:12px; padding:12px; margin-bottom:12px; }
+        @media (min-width: 768px) { .admin-item-card { padding:16px; } }
+        
+        .admin-btn-small { background:rgba(204,115,248,0.2); border:1px solid var(--primary-purple); color:var(--primary-purple); padding:8px 12px; border-radius:8px; font-size:11px; cursor:pointer; transition:all 0.3s; min-height:36px; }
+        .admin-btn-small:hover { background:var(--primary-purple); color:white; }
+        .admin-btn-danger { background:rgba(239,68,68,0.2); border:1px solid #ef4444; color:#ef4444; }
+        .admin-btn-danger:hover { background:#ef4444; color:white; }
+        .admin-btn-success { background:rgba(34,197,94,0.2); border:1px solid #22c55e; color:#22c55e; }
+        .admin-btn-success:hover { background:#22c55e; color:white; }
+        
+        .nav-item-purple { color:var(--nav-color) !important; }
+        .nav-item-purple:hover { color:var(--primary-purple) !important; text-shadow:0 0 10px var(--glow-color); }
+        
+        .menu-add-btn { width:28px; height:28px; border-radius:50%; border:2px solid var(--primary-purple); background:transparent; color:var(--primary-purple); font-size:16px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; flex-shrink:0; }
+        .menu-add-btn:hover { background:var(--primary-purple); color:white; transform:scale(1.1); box-shadow:0 0 15px var(--glow-color); }
+        .menu-add-btn.active { background:var(--primary-purple); color:white; }
+        
+        .menu-item-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+        .menu-item-info { flex:1; display:flex; justify-content:space-between; align-items:baseline; }
+        .menu-item-name { color:var(--text-regular); }
+        
+        .star-rating { display:flex; gap:4px; justify-content:center; margin-bottom:12px; }
+        .star { font-size:20px; color:#4a4a4a; cursor:default; }
+        .star.filled { color:#ffd700; text-shadow:0 0 10px rgba(255,215,0,0.5); }
+        
+        .color-preview { width:40px; height:40px; border-radius:8px; border:2px solid rgba(255,255,255,0.2); display:inline-block; margin-left:10px; vertical-align:middle; }
+        
+        .social-icon { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--primary-purple); color:var(--primary-purple); transition:all 0.3s ease; font-size:18px; overflow:hidden; background:rgba(0,0,0,0.3); }
+        .social-icon img { width:20px; height:20px; object-fit:contain; filter:brightness(0) saturate(100%) invert(56%) sepia(95%) saturate(1234%) hue-rotate(242deg) brightness(101%) contrast(101%); transition:all 0.3s ease; }
+        .social-icon:hover { background:var(--primary-purple); transform:translateY(-3px); box-shadow:0 5px 15px var(--glow-color); border-color:var(--primary-purple); }
+        .social-icon:hover img { filter:brightness(0) invert(1); }
+        
+        .review-link-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:20px; border:1px solid var(--primary-purple); color:var(--primary-purple); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:all 0.3s ease; margin-top:12px; }
+        .review-link-btn:hover { background:var(--primary-purple); color:white; transform:translateY(-2px); box-shadow:0 0 15px var(--glow-color); }
+        .review-links-container { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:16px; padding-top:16px; border-top:1px solid rgba(204,115,248,0.2); }
+        
+        .social-icon-preview { width:40px; height:40px; border-radius:50%; border:2px solid rgba(204,115,248,0.5); object-fit:contain; padding:8px; background:rgba(0,0,0,0.5); }
+        
+        @media (max-width: 768px) {
+            .admin-grid { display:flex; flex-direction:column; gap:12px; }
+            .admin-tabs-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none; padding-bottom:8px; }
+            .admin-tabs-scroll::-webkit-scrollbar { display:none; }
+            .admin-tab-btn { white-space:nowrap; flex-shrink:0; padding:10px 16px; font-size:11px; }
+            .mobile-full-width { width:100%; }
+            .mobile-stack { flex-direction:column; }
+            .mobile-text-sm { font-size:12px; }
+        }
+        
+        .admin-panel { min-height:100vh; padding:16px; padding-bottom:100px; }
+        @media (min-width: 768px) { .admin-panel { padding:48px; padding-bottom:120px; } }
+        
+        .sticky-save-btn { position:fixed; bottom:0; left:0; right:0; z-index:100; background:linear-gradient(to top, rgba(13,13,13,1) 0%, rgba(13,13,13,0.9) 100%); padding:16px; border-top:1px solid rgba(204,115,248,0.3); }
+        @media (min-width: 768px) { .sticky-save-btn { position:sticky; bottom:24px; left:auto; right:auto; background:transparent; border-top:none; padding:0; } }
+        
+        .tap-hint { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:8px 16px; border-radius:20px; font-size:12px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:9999; }
+        .tap-hint.show { opacity:1; }
+        
+        .address-link { transition:all 0.3s ease; cursor:pointer; display:inline-block; }
+        .address-link:hover { color:var(--primary-purple); text-shadow:0 0 10px var(--glow-color); }
+
+
+        /* ===== HERO BUTTONS ===== */
+        .hero-btn-center {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            white-space: nowrap;
+        }
+        .hero-btn-bottom-right {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            z-index: 20;
+        }
+        .hero-btn-bottom-left {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            z-index: 20;
+        }
+        .hero-cta-filled {
+            display: inline-block;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 2px solid var(--primary-purple);
+            background: var(--primary-purple);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--glow-color)60;
+            text-decoration: none;
+        }
+        .hero-cta-filled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--glow-color)80;
+        }
+        .hero-cta-outline {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .hero-cta-outline:hover {
+            border-color: var(--primary-purple);
+            background: rgba(204,115,248,0.15);
+            transform: translateY(-2px);
+        }
+        /* ===== EXPERIENCE CATEGORY NAV ===== */
+        .exp-cat-nav {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(13,13,13,0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 50px;
+            padding: 5px;
+            gap: 4px;
+            overflow-x: auto;
+            max-width: calc(100vw - 32px);
+            border: 2px solid rgba(204,115,248,0.65);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        .exp-cat-nav::-webkit-scrollbar { display: none; }
+        .exp-cat-btn {
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .exp-cat-btn:hover { opacity: 0.85; transform: scale(1.03); }
+
+        /* ===== SELECTED SERVICE IMAGE FADE ===== */
+        .svc-detail-img {
+            transition: opacity 0.4s ease, transform 0.4s ease !important;
+        }
+
+
+        /* ===== ABOUT ARCH FRAME ===== */
+        .about-arch-frame {
+            position: relative;
+            width: 320px;
+            height: 400px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .about-arch-frame { width: 400px; height: 500px; }
+        }
+        .arch-bg {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 90%;
+            border-radius: 140px 140px 20px 20px;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+        .arch-img {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 78%;
+            height: 88%;
+            object-fit: cover;
+            border-radius: 130px 130px 16px 16px;
+            z-index: 2;
+            transition: transform 0.6s ease;
+        }
+        .about-arch-frame:hover .arch-img {
+            transform: translateX(-50%) scale(1.03);
+        }
+        .arch-badge {
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            z-index: 4;
+            border-radius: 50%;
+            width: 68px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        .arch-badge-text {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .arch-dot {
+            position: absolute;
+            font-size: 18px;
+            z-index: 5;
+            opacity: 0.7;
+            animation: floatDot 3s ease-in-out infinite;
+        }
+        .arch-dot-tr { top: 30px; right: 20px; animation-delay: 0s; }
+        .arch-dot-bl { bottom: 60px; left: 10px; animation-delay: 1.5s; font-size: 12px; }
+        @keyframes floatDot {
+            0%,100% { transform: translateY(0); opacity:0.5; }
+            50% { transform: translateY(-6px); opacity:1; }
+        }
+        .arch-line-tl {
+            position: absolute;
+            top: 10px; right: 10px;
+            width: 30px; height: 30px;
+            border-top: 1.5px solid; border-right: 1.5px solid;
+            border-radius: 0 6px 0 0;
+            z-index: 3; opacity: 0.5;
+        }
+        .arch-line-br {
+            position: absolute;
+            bottom: 10px; left: 10px;
+            width: 30px; height: 30px;
+            border-bottom: 1.5px solid; border-left: 1.5px solid;
+            border-radius: 0 0 0 6px;
+            z-index: 3; opacity: 0.5;
+        }
+        /* Nav shift when announcement bar is visible */
+        .has-announcement .floating-nav { top: 52px !important; }
+        @media (min-width: 768px) { .has-announcement .floating-nav { top: 60px !important; } }
+        .has-announcement #home { padding-top: 60px; }
+
+        /* ===== NAV CART DROPDOWN ===== */
+        .nav-cart-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: color-mix(in srgb, var(--primary-purple) 15%, transparent);
+            border: 1.5px solid var(--primary-purple);
+            color: var(--primary-purple);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .nav-cart-btn:hover {
+            background: color-mix(in srgb, var(--primary-purple) 30%, transparent);
+            box-shadow: 0 0 14px var(--glow-color);
+        }
+        .nav-cart-badge { display: none !important; }
+        .nav-cart-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 300px;
+            background: rgba(15,10,25,0.97);
+            border: 1px solid var(--primary-purple);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(204,115,248,0.2);
+            z-index: 2000;
+            overflow: hidden;
+            transform: scale(0.92) translateY(-8px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+            transform-origin: top right;
+        }
+        .nav-cart-dropdown.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        .nav-cart-dropdown-header {
+            padding: 14px 16px 10px;
+            border-bottom: 1px solid rgba(204,115,248,0.2);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-purple);
+        }
+        .nav-cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 8px;
+            animation: msgIn 0.25s ease;
+        }
+        .nav-cart-item:last-child { border-bottom: none; }
+        .nav-cart-item-name {
+            font-size: 12px;
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 14px;
+            flex: 1;
+        }
+        .nav-cart-item-price {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-purple);
+            white-space: nowrap;
+        }
+        .nav-cart-remove {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.4);
+            color: #ef4444;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .nav-cart-remove:hover { background: #ef4444; color: white; }
+        .nav-cart-empty {
+            padding: 20px 16px;
+            text-align: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+            font-style: italic;
+        }
+        .nav-cart-footer {
+            padding: 12px 16px;
+            border-top: 1px solid color-mix(in srgb, var(--primary-purple) 20%, transparent);
+            background: rgba(204,115,248,0.05);
+        }
+        .nav-cart-items-list {
+            max-height: 240px;
+            overflow-y: auto;
+        }
+        .nav-cart-items-list::-webkit-scrollbar { width: 3px; }
+        .nav-cart-items-list::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--primary-purple) 30%, transparent); border-radius:2px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="tap-hint" class="tap-hint">Triple tap brand name for admin</div>
+
+    <script type="text/babel">
+        const DEFAULT_DATA = {
+            brand_name: "webnixi",
+            favicon: "",
+            logo: "",
+            announcement: {
+                enabled: true,
+                text: "🎉 SALE — Use code SAVE10OFF for 10% off all bookings!",
+                bg_color: "#cc73f8",
+                text_color: "#ffffff"
+            },
+            seo: {
+                description: "webnixi – Premium Spa & Salon in Los Angeles. Book luxury hair, massage, facial treatments.",
+                keywords: "webnixi, webnixi los angeles, luxury spa los angeles, premium salon beverly hills, massage los angeles",
+                location: "Los Angeles, CA"
+            },
+            header_scripts: "",
+            cart_icon: "",  // custom flaticon URL for cart button
+            colors: {
+                primary: "#cc73f8",
+                text_white: "#ffffff",
+                text_regular: "#ffffff60",
+                shadow: "#cc73f8",
+                nav: "#cc73f8",
+                glow: "#cc73f8",
+                brand_name: "#ffffff"
+            },
+            hero: {
+                title: "",
+                subtitle: "Experience Ultimate Luxury",
+                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&h=1080&fit=crop",
+                buttons: [
+                    { id: 1, label: "Book Now", link: "#experience", position: "center", style: "filled" },
+                    { id: 2, label: "Our Services", link: "#experience", position: "bottom-right", style: "outline" },
+                    { id: 3, label: "Contact Us", link: "#footer", position: "bottom-left", style: "outline" }
+                ]
+            },
+            about: {
+                text: "Welcome to our sanctuary, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop"
+            },
+            services: {
+                "Spa": [
+                    {name: "Royal Massage", price: "$150", desc: "Full body relaxation massage", img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop"},
+                    {name: "Facial Treatment", price: "$120", desc: "Premium skincare treatment", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop"}
+                ],
+                "Salon": [
+                    {name: "Hair Styling", price: "$80", desc: "Professional hair styling", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop"},
+                    {name: "Manicure", price: "$50", desc: "Luxury nail care", img: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop"}
+                ]
+            },
+            full_menu: [
+                { cat: "Hair Services", items: [{n:"Haircut & Style",p:"$65"},{n:"Color & Highlights",p:"$120"},{n:"Keratin Treatment",p:"$200"}] },
+                { cat: "Body Treatments", items: [{n:"Swedish Massage",p:"$90"},{n:"Deep Tissue",p:"$110"},{n:"Hot Stone Therapy",p:"$130"}] }
+            ],
+            reviews: [
+                {name:"Sarah Johnson", text:"Absolutely amazing experience! The staff was so professional.", rating:5, links:[{name:"Google Maps",url:"https://maps.google.com"},{name:"Yelp",url:"https://yelp.com"}]},
+                {name:"Emily Davis", text:"Best spa day I've ever had. Highly recommend!", rating:5, links:[]},
+                {name:"Michael Brown", text:"Luxurious atmosphere and top-notch service.", rating:4, links:[{name:"Google Maps",url:"https://maps.google.com"}]}
+            ],
+            gallery: [
+                "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop",
+                "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+            ],
+            footer: {
+                whatsapp: "+1234567890",
+                hours: "Mon-Sun: 9AM - 9PM",
+                address: "123 Luxury Lane, Beverly Hills, CA 90210",
+                copyright: "© 2024 webnixi. All rights reserved.",
+                social_links: [
+                    {name:"Yelp",url:"https://yelp.com",icon_url:"https://cdn-icons-png.flaticon.com/512/174/174882.png"},
+                    {name:"Instagram",url:"https://instagram.com",icon_url:"https://cdn-icons-png.flaticon.com/512/174/174855.png"},
+                    {name:"TikTok",url:"https://tiktok.com",icon_url:"https://cdn-icons-png.flaticon.com/512/3046/3046121.png"},
+                    {name:"X",url:"https://x.com",icon_url:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"}
+                ]
+            },
+            section_titles: { experience:"The Experience", menu:"The Menu", reviews:"Words of Luxe", gallery:"Visual Sanctuary", about:"Our Sanctuary" },
+            nav_items: [
+                {id:"experience",label:"Experience",section:"experience"},
+                {id:"menu",label:"Menu",section:"menu"},
+                {id:"about",label:"About",section:"about"},
+                {id:"gallery",label:"Gallery",section:"gallery"}
+            ]
+        };
+
+        // ===== AI CHAT COMPONENT =====
+        function App() {
+            const [data, setData] = React.useState(null);
+            const [isAdmin, setIsAdmin] = React.useState(false);
+            const [activeCat, setActiveCat] = React.useState('');
+            const [selectedSvc, setSelectedSvc] = React.useState(null);
+            const [cart, setCart] = React.useState([]);
+            const [loading, setLoading] = React.useState(true);
+            const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+            const [cartOpen, setCartOpen] = React.useState(false);
+            const [seoAdminOpen, setSeoAdminOpen] = React.useState(false);
+            const [seoAdminTab, setSeoAdminTab] = React.useState('seo');
+            const cartRef = React.useRef(null);
+            const bizTitleRef = React.useRef({ clicks:[], timer:null });
+            const [activeAdminTab, setActiveAdminTab] = React.useState('branding');
+            const [isMobile, setIsMobile] = React.useState(false);
+            const tapRef = React.useRef({ taps: [], lastTap: 0 });
+
+            const ADMIN_PASS = "admin123";
+            const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dgoc9andq/image/upload";
+            const UPLOAD_PRESET = "faysal";
+
+            React.useEffect(() => {
+                const checkMobile = () => setIsMobile(window.innerWidth < 768);
+                checkMobile();
+                window.addEventListener('resize', checkMobile);
+                return () => window.removeEventListener('resize', checkMobile);
+            }, []);
+
+            const updateColors = (colors) => {
+                const root = document.documentElement;
+                if (colors.primary) {
+                    root.style.setProperty('--primary-purple', colors.primary);
+                    // Set a slightly darker variant for gradients (mix with purple)
+                    root.style.setProperty('--primary-purple-dark', colors.primary);
+                }
+                if (colors.text_white) root.style.setProperty('--text-white', colors.text_white);
+                if (colors.text_regular) root.style.setProperty('--text-regular', colors.text_regular);
+                if (colors.shadow) root.style.setProperty('--shadow-color', colors.shadow);
+                if (colors.nav) root.style.setProperty('--nav-color', colors.nav);
+                if (colors.glow) root.style.setProperty('--glow-color', colors.glow);
+                else if (colors.primary) root.style.setProperty('--glow-color', colors.primary);
+                if (colors.brand_name) root.style.setProperty('--brand-name-color', colors.brand_name);
+            };
+
+            const updateAnnouncementCss = (ann) => {
+                if (!ann) return;
+                document.documentElement.style.setProperty('--announcement-bg', ann.bg_color || '#cc73f8');
+                document.documentElement.style.setProperty('--announcement-text', ann.text_color || '#ffffff');
+                if (ann.enabled) document.body.classList.add('has-announcement');
+                else document.body.classList.remove('has-announcement');
+            };
+
+            const updateSeoMeta = (seo, brandName) => {
+                if (!seo) return;
+                const desc = document.getElementById('meta-description');
+                const kw = document.getElementById('meta-keywords');
+                const ogTitle = document.getElementById('og-title');
+                const ogDesc = document.getElementById('og-description');
+                if (desc && seo.description) desc.content = seo.description;
+                if (kw && seo.keywords) kw.content = seo.keywords;
+                if (ogTitle) ogTitle.content = `${brandName} – ${seo.location || 'Luxury Spa & Salon'}`;
+                if (ogDesc && seo.description) ogDesc.content = seo.description;
+            };
+
+            const injectHeaderScripts = (scripts) => {
+                const container = document.getElementById('gtm-head-scripts');
+                if (container && scripts) container.innerHTML = scripts;
+            };
+
+            const updatePageTitle = (brandName) => {
+                const el = document.getElementById('dynamic-title');
+                if (el && brandName) el.textContent = brandName;
+                document.title = brandName;
+            };
+
+            const updateFavicon = (url) => {
+                const favicon = document.getElementById('dynamic-favicon');
+                if (favicon && url) favicon.href = url;
+            };
+
+            React.useEffect(() => {
+                const loadData = async () => {
+                    try {
+                        const response = await fetch('data.json');
+                        let jsonData = {};
+                        if (response.ok) jsonData = await response.json();
+                        const merged = {
+                            ...DEFAULT_DATA, ...jsonData,
+                            brand_name: jsonData.brand_name || DEFAULT_DATA.brand_name,
+                            colors: { ...DEFAULT_DATA.colors, ...(jsonData.colors || {}) },
+                            announcement: { ...DEFAULT_DATA.announcement, ...(jsonData.announcement || {}) },
+                            seo: { ...DEFAULT_DATA.seo, ...(jsonData.seo || {}) },
+                            cart_icon: jsonData.cart_icon || DEFAULT_DATA.cart_icon
+                        };
+                        ['hero','about','services','full_menu','reviews','gallery','footer','section_titles','nav_items'].forEach(k => {
+                            if (!merged[k]) merged[k] = DEFAULT_DATA[k];
+                        });
+                        if (!merged.colors.shadow) merged.colors.shadow = merged.colors.primary;
+                        if (!merged.colors.nav) merged.colors.nav = merged.colors.primary;
+                        if (!merged.colors.glow) merged.colors.glow = merged.colors.primary;
+                        if (!merged.footer.social_links) merged.footer.social_links = DEFAULT_DATA.footer.social_links;
+                        merged.reviews.forEach(r => { if (!r.links) r.links = []; });
+                        setData(merged);
+                        updateColors(merged.colors);
+                        updateAnnouncementCss(merged.announcement);
+                        updateSeoMeta(merged.seo, merged.brand_name);
+                        if (merged.header_scripts) injectHeaderScripts(merged.header_scripts);
+                        if (merged.brand_name) updatePageTitle(merged.brand_name);
+                        if (merged.favicon) updateFavicon(merged.favicon);
+                        const cats = Object.keys(merged.services || {});
+                        if (cats.length > 0) { setActiveCat(cats[0]); setSelectedSvc(merged.services[cats[0]][0]); }
+                    } catch (err) {
+                        setData(DEFAULT_DATA);
+                        updateColors(DEFAULT_DATA.colors);
+                        updateAnnouncementCss(DEFAULT_DATA.announcement);
+                        updateSeoMeta(DEFAULT_DATA.seo, DEFAULT_DATA.brand_name);
+                        updatePageTitle(DEFAULT_DATA.brand_name);
+                        const cats = Object.keys(DEFAULT_DATA.services);
+                        setActiveCat(cats[0]);
+                        setSelectedSvc(DEFAULT_DATA.services[cats[0]][0]);
+                    } finally {
+                        setTimeout(() => setLoading(false), 2000);
+                    }
+                };
+                loadData();
+            }, []);
+
+            React.useEffect(() => {
+                if (data?.brand_name) updatePageTitle(data.brand_name);
+                if (data?.colors) updateColors(data.colors);
+                if (data?.announcement) updateAnnouncementCss(data.announcement);
+                if (data?.seo) updateSeoMeta(data.seo, data.brand_name);
+            }, [data?.brand_name, data?.colors, data?.announcement, data?.seo]);
+
+            React.useEffect(() => {
+                const handleScroll = () => { if (mobileMenuOpen) setMobileMenuOpen(false); };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, [mobileMenuOpen]);
+
+            // Close cart dropdown when clicking outside
+            React.useEffect(() => {
+                const handleClickOutside = (e) => {
+                    if (cartRef.current && !cartRef.current.contains(e.target)) setCartOpen(false);
+                };
+                document.addEventListener("mousedown", handleClickOutside);
+                return () => document.removeEventListener("mousedown", handleClickOutside);
+            }, []);
+
+            const handleBrandTap = (e) => {
+                const now = Date.now();
+                const td = tapRef.current;
+                td.taps.push(now);
+                if (td.taps.length > 3) td.taps.shift();
+                if (td.taps.length === 3 && (td.taps[2] - td.taps[0]) < 600) {
+                    e.preventDefault(); e.stopPropagation();
+                    const password = prompt("Admin Password:");
+                    if (password === ADMIN_PASS) setIsAdmin(true);
+                    else if (password !== null) alert("Wrong password!");
+                    td.taps = [];
+                    return;
+                }
+                scrollToSection('home');
+                if (isMobile && td.taps.length === 1) {
+                    const hint = document.getElementById('tap-hint');
+                    if (hint) { hint.classList.add('show'); setTimeout(() => hint.classList.remove('show'), 2000); }
+                }
+            };
+
+            const handleBizTitleClick = () => {
+                const ref = bizTitleRef.current;
+                const now = Date.now();
+                ref.clicks.push(now);
+                if (ref.clicks.length > 3) ref.clicks.shift();
+                if (ref.timer) clearTimeout(ref.timer);
+                ref.timer = setTimeout(() => { ref.clicks = []; }, 600);
+                if (ref.clicks.length === 3 && (ref.clicks[2] - ref.clicks[0]) < 600) {
+                    setSeoAdminOpen(true);
+                    ref.clicks = [];
+                }
+            };
+
+            const uploadImg = async (e, callback) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (!file.type.startsWith('image/')) { alert("Please select an image file only!"); return; }
+                const fd = new FormData();
+                fd.append("file", file); fd.append("upload_preset", UPLOAD_PRESET);
+                try {
+                    const res = await fetch(CLOUDINARY_URL, { method: "POST", body: fd });
+                    const json = await res.json();
+                    if (json.secure_url) { callback(json.secure_url); alert("Image Uploaded Successfully!"); }
+                    else throw new Error("Upload failed");
+                } catch(err) { alert("Upload Failed!"); console.error(err); }
+            };
+
+            const toggleCart = (svc) => {
+                const exists = cart.find(c => c.name === svc.name);
+                setCart(exists ? cart.filter(c => c.name !== svc.name) : [...cart, svc]);
+            };
+
+            const toggleMenuItem = (name, price) => {
+                const exists = cart.find(c => c.name === name);
+                setCart(exists ? cart.filter(c => c.name !== name) : [...cart, {name, price, desc:"Menu item", img:""}]);
+            };
+
+            const sendWhatsApp = () => {
+                if (!data?.footer?.whatsapp) { alert("WhatsApp not configured!"); return; }
+                const items = cart.map(c => `- ${c.name} (${c.price})`).join('%0A');
+                const msg = `Booking Request from ${data.brand_name}:%0A${items}`;
+                const phone = data.footer.whatsapp.replace(/\D/g,'');
+                window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+            };
+
+            const openGoogleMaps = () => {
+                if (!data?.footer?.address) return;
+                window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.footer.address)}`, '_blank');
+            };
+
+            const saveToGithub = async () => {
+                try {
+                    const fileRes = await fetch('https://api.github.com/repos/nixiwebbusiness-maker/LUMINA-_LUXE/contents/data.json');
+                    const fileData = await fileRes.json();
+                    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                    await fetch('/api/update', {
+                        method:'POST', headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify({ content: b64, sha: fileData.sha })
+                    });
+                    alert("Settings Updated!"); window.location.reload();
+                } catch(e) { alert("Update Failed."); console.error(e); }
+            };
+
+            const scrollToSection = (id) => {
+                const el = document.getElementById(id);
+                if (el) { el.scrollIntoView({ behavior: 'smooth' }); setMobileMenuOpen(false); }
+            };
+
+            // Data update helpers
+            const updateService = (cat, idx, field, val) => { const s={...data.services}; s[cat][idx][field]=val; setData({...data,services:s}); };
+            const addService = (cat) => { const s={...data.services}; s[cat].push({name:"New Service",price:"$0",desc:"Description",img:"https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop"}); setData({...data,services:s}); };
+            const removeService = (cat, idx) => { const s={...data.services}; s[cat].splice(idx,1); setData({...data,services:s}); };
+            const addCategory = () => { const n=prompt("New category name:"); if(n&&!data.services[n]){setData({...data,services:{...data.services,[n]:[]}});} };
+            const removeCategory = (cat) => { if(confirm(`Delete "${cat}"?`)){const s={...data.services};delete s[cat];setData({...data,services:s});if(activeCat===cat){const c=Object.keys(s);if(c.length)setActiveCat(c[0]);}} };
+            const updateMenu = (ci,ii,f,v) => { const m=[...data.full_menu]; if(ii===null)m[ci].cat=v; else m[ci].items[ii][f]=v; setData({...data,full_menu:m}); };
+            const addMenuCategory = () => setData({...data,full_menu:[...data.full_menu,{cat:"New Category",items:[]}]});
+            const addMenuItem = (ci) => { const m=[...data.full_menu]; m[ci].items.push({n:"New Item",p:"$0"}); setData({...data,full_menu:m}); };
+            const removeMenuItem = (ci,ii) => { const m=[...data.full_menu]; m[ci].items.splice(ii,1); setData({...data,full_menu:m}); };
+            const removeMenuCategory = (ci) => { const m=[...data.full_menu]; m.splice(ci,1); setData({...data,full_menu:m}); };
+            const updateReview = (i,f,v) => { const r=[...data.reviews]; r[i][f]=v; setData({...data,reviews:r}); };
+            const addReview = () => setData({...data,reviews:[...data.reviews,{name:"New Reviewer",text:"Review text",rating:5,links:[]}]});
+            const removeReview = (i) => { const r=[...data.reviews]; r.splice(i,1); setData({...data,reviews:r}); };
+            const updateReviewLink = (ri,li,f,v) => { const r=[...data.reviews]; r[ri].links[li][f]=v; setData({...data,reviews:r}); };
+            const addReviewLink = (ri) => { const r=[...data.reviews]; if(!r[ri].links)r[ri].links=[]; r[ri].links.push({name:"Google Maps",url:"https://maps.google.com"}); setData({...data,reviews:r}); };
+            const removeReviewLink = (ri,li) => { const r=[...data.reviews]; r[ri].links.splice(li,1); setData({...data,reviews:r}); };
+            const updateGallery = (i,v) => { const g=[...data.gallery]; g[i]=v; setData({...data,gallery:g}); };
+            const addGalleryImage = (url) => setData({...data,gallery:[...data.gallery,url]});
+            const removeGalleryImage = (i) => { const g=[...data.gallery]; g.splice(i,1); setData({...data,gallery:g}); };
+            const updateSectionTitle = (sec,val) => setData({...data,section_titles:{...data.section_titles,[sec]:val}});
+            const updateNavItem = (i,f,v) => { const n=[...data.nav_items]; n[i][f]=v; setData({...data,nav_items:n}); };
+            const addNavItem = () => setData({...data,nav_items:[...data.nav_items,{id:`nav_${Date.now()}`,label:"New Item",section:"home"}]});
+            const removeNavItem = (i) => { const n=[...data.nav_items]; n.splice(i,1); setData({...data,nav_items:n}); };
+            const updateHero = (f,v) => setData({...data,hero:{...data.hero,[f]:v}});
+            const updateColor = (t,v) => setData({...data,colors:{...data.colors,[t]:v}});
+            const updateSocialLink = (i,f,v) => { const s=[...data.footer.social_links]; s[i][f]=v; setData({...data,footer:{...data.footer,social_links:s}}); };
+            const addSocialLink = () => setData({...data,footer:{...data.footer,social_links:[...data.footer.social_links,{name:"New Link",url:"https://",icon_url:""}]}});
+            const removeSocialLink = (i) => { const s=[...data.footer.social_links]; s.splice(i,1); setData({...data,footer:{...data.footer,social_links:s}}); };
+
+            const StarRating = ({ rating }) => (
+                <div className="star-rating">
+                    {[1,2,3,4,5].map(s => <span key={s} className={`star ${s<=rating?'filled':''}`}>★</span>)}
+                </div>
+            );
+
+            if (loading) {
+                return (
+                    <div className="loader-container">
+                        <div className="loader-grid"></div>
+                        {data && (<><h1 className="loader-text serif">{data.brand_name}</h1><div className="loader-bar"><div className="loader-progress"></div></div></>)}
+                    </div>
+                );
+            }
+
+            if (!data) return null;
+
+            const AdminTabs = ['branding','colors','announcement','hero','navbar','experience','menu','about','gallery','reviews','footer','social'];
+
+            return (
+                <div className="bg-[#0d0d0d] min-h-screen">
+                    {isAdmin ? (
+                        <div className="admin-panel tech-grid-bg">
+                            <button onClick={() => setIsAdmin(false)} className="fixed top-4 right-4 z-[100] text-white w-10 h-10 rounded-full shadow-2xl font-bold hover:opacity-80 transition flex items-center justify-center" style={{background: data.colors.primary}}>✕</button>
+                            
+                            <div className="max-w-6xl mx-auto relative z-10">
+                                <h1 className="serif text-3xl md:text-6xl font-bold mb-4 md:mb-10 border-b pb-4 text-white cursor-pointer select-none" style={{borderColor: data.colors.primary+'4D'}} onClick={handleBizTitleClick} title="Triple click for SEO panel">
+                                    Business Controller
+                                </h1>
+
+                                <div className="admin-tabs-scroll flex flex-wrap gap-2 mb-6 md:mb-8">
+                                    {AdminTabs.map(tab => (
+                                        <button key={tab} onClick={() => setActiveAdminTab(tab)}
+                                            className="admin-tab-btn transition-all whitespace-nowrap"
+                                            style={{
+                                                background: activeAdminTab===tab
+                                                    ? `linear-gradient(135deg, ${data.colors.primary}, ${data.colors.primary}cc)`
+                                                    : 'rgba(255,255,255,0.07)',
+                                                color: activeAdminTab===tab ? 'white' : 'rgba(255,255,255,0.55)',
+                                                border: activeAdminTab===tab
+                                                    ? `1.5px solid ${data.colors.primary}`
+                                                    : '1.5px solid rgba(255,255,255,0.12)',
+                                                borderRadius: '12px',
+                                                padding: '10px 18px',
+                                                fontSize: '11px',
+                                                fontWeight: '700',
+                                                letterSpacing: '0.08em',
+                                                textTransform: 'uppercase',
+                                                boxShadow: activeAdminTab===tab ? `0 4px 15px ${data.colors.glow||data.colors.primary}40` : 'none',
+                                                transform: activeAdminTab===tab ? 'translateY(-1px)' : 'none',
+                                            }}>
+                                            {tab}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {/* BRANDING */}
+                                {activeAdminTab==='branding' && (
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>🛒 Cart Button Icon</h3>
+                                            <p className="text-xs text-white/50 mb-4">Flaticon ya kisi bhi site se icon URL paste karein. Default: 🛒 emoji.</p>
+                                            <div className="flex flex-col md:flex-row gap-4 items-start">
+                                                <div className="flex-1">
+                                                    <label className="text-xs text-white/60">Icon Image URL (Flaticon / PNG / SVG)</label>
+                                                    <input className="input-f" placeholder="https://cdn-icons-png.flaticon.com/512/..." value={data.cart_icon||''} onChange={e=>setData({...data,cart_icon:e.target.value})}/>
+                                                </div>
+                                                <div>
+                                                    <input type="file" accept="image/*,.svg,.png" className="hidden" id="cart-icon-upload" onChange={e=>uploadImg(e,url=>setData({...data,cart_icon:url}))}/>
+                                                    <label htmlFor="cart-icon-upload" className="admin-btn-small cursor-pointer flex items-center mt-6">Upload</label>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-4 mt-4">
+                                                <p className="text-xs text-white/60">Preview:</p>
+                                                <div className="w-10 h-10 rounded-full flex items-center justify-center border" style={{background:'rgba(204,115,248,0.15)',borderColor:data.colors.primary}}>
+                                                    {data.cart_icon
+                                                        ? <img src={data.cart_icon} alt="cart" style={{width:'22px',height:'22px',objectFit:'contain',filter:'brightness(0) saturate(100%) invert(56%) sepia(95%) saturate(1234%) hue-rotate(242deg) brightness(101%) contrast(101%)'}}/>
+                                                        : <span style={{fontSize:'18px'}}>🛒</span>
+                                                    }
+                                                </div>
+                                                {data.cart_icon && <button onClick={()=>setData({...data,cart_icon:''})} className="admin-btn-small admin-btn-danger text-xs">Reset to Default 🛒</button>}
+                                            </div>
+                                        </div>
+
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Browser Favicon</h3>
+                                            <input type="file" accept="image/*,.ico,.svg" className="text-xs w-full" onChange={e=>uploadImg(e,url=>{setData({...data,favicon:url});updateFavicon(url);})} />
+                                            {data.favicon && <img src={data.favicon} className="favicon-preview mt-2" alt="Favicon"/>}
+                                        </div>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Brand Name</h3>
+                                            <input className="input-f" value={data.brand_name} onChange={e=>setData({...data,brand_name:e.target.value})} />
+                                        </div>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Section Titles</h3>
+                                            <div className="space-y-4">
+                                                {Object.entries(data.section_titles||{}).map(([k,v])=>(
+                                                    <div key={k}><label className="text-xs text-white/60 uppercase">{k}</label><input className="input-f" value={v} onChange={e=>updateSectionTitle(k,e.target.value)}/></div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* ANNOUNCEMENT BAR */}
+                                {activeAdminTab==='announcement' && (
+                                    <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>📢 Announcement Bar</h3>
+                                        <p className="text-xs text-white/50 mb-4">This bar appears at the top of your site. No close button is shown to visitors.</p>
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-3">
+                                                <label className="text-xs text-white/60 uppercase">Enable Bar</label>
+                                                <button onClick={()=>setData({...data,announcement:{...data.announcement,enabled:!data.announcement?.enabled}})} className={`w-12 h-6 rounded-full transition-all relative ${data.announcement?.enabled?'bg-green-500':'bg-white/20'}`}>
+                                                    <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${data.announcement?.enabled?'left-7':'left-1'}`}></span>
+                                                </button>
+                                                <span className="text-xs" style={{color:data.announcement?.enabled?'#22c55e':'#ffffff40'}}>{data.announcement?.enabled?'Visible':'Hidden'}</span>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60">Announcement Text</label>
+                                                <input className="input-f" value={data.announcement?.text||''} onChange={e=>setData({...data,announcement:{...data.announcement,text:e.target.value}})} placeholder="🎉 SALE — Use code SAVE10OFF..."/>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60 flex items-center gap-2">
+                                                    Background Color
+                                                    <span className="color-preview" style={{backgroundColor:data.announcement?.bg_color}}></span>
+                                                </label>
+                                                <input type="color" className="input-f h-12 mt-2" value={data.announcement?.bg_color||'#cc73f8'} onChange={e=>setData({...data,announcement:{...data.announcement,bg_color:e.target.value}})}/>
+                                                <input className="input-f mt-2" value={data.announcement?.bg_color||''} onChange={e=>setData({...data,announcement:{...data.announcement,bg_color:e.target.value}})}/>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-white/60 flex items-center gap-2">
+                                                    Text Color
+                                                    <span className="color-preview" style={{backgroundColor:data.announcement?.text_color}}></span>
+                                                </label>
+                                                <input type="color" className="input-f h-12 mt-2" value={data.announcement?.text_color||'#ffffff'} onChange={e=>setData({...data,announcement:{...data.announcement,text_color:e.target.value}})}/>
+                                                <input className="input-f mt-2" value={data.announcement?.text_color||''} onChange={e=>setData({...data,announcement:{...data.announcement,text_color:e.target.value}})}/>
+                                            </div>
+                                            {/* Live Preview */}
+                                            <div>
+                                                <label className="text-xs text-white/60 mb-2 block">Live Preview</label>
+                                                <div className="rounded-lg overflow-hidden">
+                                                    {data.announcement?.enabled
+                                                        ? <div style={{background:data.announcement.bg_color,color:data.announcement.text_color,padding:'10px 16px',textAlign:'center',fontSize:'13px',fontWeight:600}}>{data.announcement.text||'Announcement text'}</div>
+                                                        : <div className="text-white/30 text-xs p-3 text-center border border-white/10 rounded-lg">Bar is hidden</div>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* SEO */}
+                                {/* COLORS */}
+                                {activeAdminTab==='colors' && (
+                                    <div className="space-y-4 md:space-y-6">
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Theme Colors</h3>
+                                            <div className="space-y-6">
+                                                {[['primary','Primary Color (Buttons, Borders)'],['brand_name','Brand Name Color (Navbar)'],['text_white','White Text'],['text_regular','Regular Text (Menu Items)'],['nav','Navbar Items Color'],['glow','Glow / Shadow Effects']].map(([k,label])=>(
+                                                    <div key={k}>
+                                                        <label className="text-xs text-white/60 uppercase flex items-center flex-wrap gap-2">{label}<span className="color-preview" style={{backgroundColor:data.colors[k]||data.colors.primary,boxShadow:k==='glow'?`0 0 8px ${data.colors[k]||data.colors.primary}`:''}}></span></label>
+                                                        <input type="color" className="input-f h-12 mt-2" value={data.colors[k]||data.colors.primary} onChange={e=>updateColor(k,e.target.value)}/>
+                                                        <input className="input-f mt-2" value={data.colors[k]||''} onChange={e=>updateColor(k,e.target.value)}/>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="admin-card border-l-4 md:border-l-8" style={{borderColor:data.colors.primary}}>
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Live Preview</h3>
+                                            <div className="bg-black/50 p-6 rounded-lg space-y-4">
+                                                <h4 style={{color:data.colors.text_white,fontFamily:'Cormorant Garamond,serif',fontSize:'2rem',textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}`}}>Sample Heading</h4>
+                                                <p style={{color:data.colors.nav||data.colors.primary,fontSize:'1.2rem'}}>Nav Item Color</p>
+                                                <p style={{color:data.colors.text_regular}}>Menu Item Name (Regular)</p>
+                                                <p style={{color:data.colors.primary}}>Price Color (Primary)</p>
+                                                <button style={{background:data.colors.primary,padding:'10px 20px',borderRadius:'20px',color:'white',boxShadow:`0 4px 15px ${data.colors.glow||data.colors.primary}`}}>Button Glow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* HERO */}
+                                {activeAdminTab==='hero' && (
+                                    <div className="space-y-4">
+                                        <div className="admin-card">
+                                            <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Hero Section</h3>
+                                            <div className="space-y-4">
+                                                <div><label className="text-xs text-white/60">Hero Title (leave empty = Brand Name)</label><input className="input-f" value={data.hero.title} onChange={e=>updateHero('title',e.target.value)}/></div>
+                                                <div><label className="text-xs text-white/60">Hero Subtitle</label><input className="input-f" value={data.hero.subtitle} onChange={e=>updateHero('subtitle',e.target.value)}/></div>
+                                                <div>
+                                                    <label className="text-xs text-white/60">Hero Image</label>
+                                                    <div className="flex gap-2 mt-1">
+                                                        <input className="input-f flex-1" value={data.hero.image} onChange={e=>updateHero('image',e.target.value)}/>
+                                                        <input type="file" accept="image/*" className="hidden" id="hero-img-upload" onChange={e=>uploadImg(e,url=>updateHero('image',url))}/>
+                                                        <label htmlFor="hero-img-upload" className="admin-btn-small cursor-pointer flex items-center">Upload</label>
+                                                    </div>
+                                                    <img src={data.hero.image} className="w-full h-48 object-cover rounded-lg mt-3" alt="Hero Preview"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Hero Buttons Admin */}
+                                        <div className="admin-card">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <h3 className="font-bold text-xs tracking-widest uppercase" style={{color:data.colors.primary}}>🎯 Hero Buttons</h3>
+                                                <button
+                                                    onClick={()=>setData({...data,hero:{...data.hero,buttons:[...(data.hero.buttons||[]),{id:Date.now(),label:'New Button',link:'#experience',position:'center',style:'outline'}]}})}
+                                                    className="admin-btn-small"
+                                                    style={{borderColor:data.colors.primary,color:data.colors.primary}}
+                                                >+ Add Button</button>
+                                            </div>
+                                            <p className="text-xs text-white/40 mb-4">Position: center (middle), bottom-right, bottom-left</p>
+                                            {(data.hero.buttons||[]).map((btn,bi)=>(
+                                                <div key={btn.id} className="admin-item-card mb-3">
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <span className="text-xs font-bold uppercase tracking-wider" style={{color:data.colors.primary}}>Button {bi+1}</span>
+                                                        <button onClick={()=>setData({...data,hero:{...data.hero,buttons:data.hero.buttons.filter((_,i)=>i!==bi)}})} className="admin-btn-small admin-btn-danger text-xs">Remove</button>
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <div>
+                                                            <label className="text-xs text-white/50">Button Label</label>
+                                                            <input className="input-f" value={btn.label} placeholder="e.g. Book Now" onChange={e=>{const b=[...data.hero.buttons];b[bi]={...b[bi],label:e.target.value};setData({...data,hero:{...data.hero,buttons:b}});}}/>
+                                                        </div>
+                                                        <div>
+                                                            <label className="text-xs text-white/50">Link (e.g. #experience, #footer)</label>
+                                                            <input className="input-f" value={btn.link} placeholder="#experience" onChange={e=>{const b=[...data.hero.buttons];b[bi]={...b[bi],link:e.target.value};setData({...data,hero:{...data.hero,buttons:b}});}}/>
+                                                        </div>
+                                                        <div className="grid grid-cols-2 gap-2">
+                                                            <div>
+                                                                <label className="text-xs text-white/50">Position</label>
+                                                                <select className="input-f" value={btn.position} onChange={e=>{const b=[...data.hero.buttons];b[bi]={...b[bi],position:e.target.value};setData({...data,hero:{...data.hero,buttons:b}});}}>
+                                                                    <option value="center">Center</option>
+                                                                    <option value="bottom-right">Bottom Right</option>
+                                                                    <option value="bottom-left">Bottom Left</option>
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-xs text-white/50">Style</label>
+                                                                <select className="input-f" value={btn.style} onChange={e=>{const b=[...data.hero.buttons];b[bi]={...b[bi],style:e.target.value};setData({...data,hero:{...data.hero,buttons:b}});}}>
+                                                                    <option value="filled">Filled</option>
+                                                                    <option value="outline">Outline</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* NAVBAR */}
+                                {activeAdminTab==='navbar' && (
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h2 className="text-xl font-bold text-white">Navigation</h2>
+                                            <button onClick={addNavItem} className="btn-premium px-4 py-2 text-xs font-bold uppercase" style={{background:data.colors.primary}}>+ Add Item</button>
+                                        </div>
+                                        <div className="admin-card">
+                                            {data.nav_items.map((item,idx)=>(
+                                                <div key={item.id} className="admin-item-card">
+                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                                                        <div><label className="text-xs text-white/60">Label</label><input className="input-f" value={item.label} onChange={e=>updateNavItem(idx,'label',e.target.value)}/></div>
+                                                        <div><label className="text-xs text-white/60">Section ID</label><input className="input-f" value={item.section} onChange={e=>updateNavItem(idx,'section',e.target.value)}/></div>
+                                                        <div className="flex items-end"><button onClick={()=>removeNavItem(idx)} className="admin-btn-small admin-btn-danger w-full">Remove</button></div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* EXPERIENCE */}
+                                {activeAdminTab==='experience' && (
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h2 className="text-xl font-bold text-white">Services</h2>
+                                            <button onClick={addCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase" style={{background:data.colors.primary}}>+ Add Category</button>
+                                        </div>
+                                        {Object.entries(data.services||{}).map(([cat,services])=>(
+                                            <div key={cat} className="admin-card">
+                                                <div className="flex justify-between items-center mb-4">
+                                                    <h3 className="text-xl font-bold" style={{color:data.colors.primary}}>{cat}</h3>
+                                                    <div className="flex gap-2">
+                                                        <button onClick={()=>addService(cat)} className="admin-btn-small admin-btn-success">+ Service</button>
+                                                        <button onClick={()=>removeCategory(cat)} className="admin-btn-small admin-btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                                {services.map((svc,idx)=>(
+                                                    <div key={idx} className="admin-item-card">
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <div><label className="text-xs text-white/60">Name</label><input className="input-f" value={svc.name} onChange={e=>updateService(cat,idx,'name',e.target.value)}/></div>
+                                                            <div><label className="text-xs text-white/60">Price</label><input className="input-f" value={svc.price} onChange={e=>updateService(cat,idx,'price',e.target.value)}/></div>
+                                                            <div className="md:col-span-2"><label className="text-xs text-white/60">Description</label><textarea className="input-f" rows="2" value={svc.desc} onChange={e=>updateService(cat,idx,'desc',e.target.value)}/></div>
+                                                            <div className="md:col-span-2">
+                                                                <label className="text-xs text-white/60">Image</label>
+                                                                <div className="flex gap-2 mt-1">
+                                                                    <input className="input-f flex-1" value={svc.img} onChange={e=>updateService(cat,idx,'img',e.target.value)}/>
+                                                                    <input type="file" accept="image/*" className="hidden" id={`svc-${cat}-${idx}`} onChange={e=>uploadImg(e,url=>updateService(cat,idx,'img',url))}/>
+                                                                    <label htmlFor={`svc-${cat}-${idx}`} className="admin-btn-small cursor-pointer flex items-center">Upload</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button onClick={()=>removeService(cat,idx)} className="admin-btn-small admin-btn-danger mt-4 w-full">Remove Service</button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* MENU */}
+                                {activeAdminTab==='menu' && (
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h2 className="text-xl font-bold text-white">Menu</h2>
+                                            <button onClick={addMenuCategory} className="btn-premium px-4 py-2 text-xs font-bold uppercase" style={{background:data.colors.primary}}>+ Add Category</button>
+                                        </div>
+                                        {data.full_menu.map((sec,ci)=>(
+                                            <div key={ci} className="admin-card">
+                                                <div className="flex justify-between items-center mb-4">
+                                                    <input className="input-f text-xl font-bold bg-transparent border-none p-0 flex-1 mr-4" style={{color:data.colors.primary}} value={sec.cat} onChange={e=>updateMenu(ci,null,null,e.target.value)}/>
+                                                    <div className="flex gap-2">
+                                                        <button onClick={()=>addMenuItem(ci)} className="admin-btn-small admin-btn-success">+ Item</button>
+                                                        <button onClick={()=>removeMenuCategory(ci)} className="admin-btn-small admin-btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                                {sec.items.map((item,ii)=>(
+                                                    <div key={ii} className="admin-item-card">
+                                                        <div className="flex gap-2 items-end">
+                                                            <div className="flex-1">
+                                                                <label className="text-xs text-white/50 uppercase tracking-wider">Service Name</label>
+                                                                <input className="input-f" placeholder="e.g. Swedish Massage" value={item.n} onChange={e=>updateMenu(ci,ii,'n',e.target.value)}/>
+                                                            </div>
+                                                            <div className="w-28">
+                                                                <label className="text-xs text-white/50 uppercase tracking-wider">Price</label>
+                                                                <input className="input-f" placeholder="$0" value={item.p} onChange={e=>updateMenu(ci,ii,'p',e.target.value)}/>
+                                                            </div>
+                                                            <button onClick={()=>removeMenuItem(ci,ii)} className="admin-btn-small admin-btn-danger mb-1">✕</button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* ABOUT */}
+                                {activeAdminTab==='about' && (
+                                    <div className="admin-card">
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>About Section</h3>
+                                        <div className="space-y-4">
+                                            <div><label className="text-xs text-white/60">About Text</label><textarea className="input-f" rows="6" value={data.about.text} onChange={e=>setData({...data,about:{...data.about,text:e.target.value}})}/></div>
+                                            <div>
+                                                <label className="text-xs text-white/60">About Image</label>
+                                                <div className="flex gap-2 mt-1">
+                                                    <input className="input-f flex-1" value={data.about.image} onChange={e=>setData({...data,about:{...data.about,image:e.target.value}})}/>
+                                                    <input type="file" accept="image/*" className="hidden" id="about-img" onChange={e=>uploadImg(e,url=>setData({...data,about:{...data.about,image:url}}))}/>
+                                                    <label htmlFor="about-img" className="admin-btn-small cursor-pointer flex items-center">Upload</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* GALLERY */}
+                                {activeAdminTab==='gallery' && (
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h2 className="text-xl font-bold text-white">Gallery</h2>
+                                            <input type="file" accept="image/*" className="hidden" id="gallery-upload" onChange={e=>uploadImg(e,url=>addGalleryImage(url))}/>
+                                            <label htmlFor="gallery-upload" className="btn-premium px-4 py-2 text-xs font-bold uppercase cursor-pointer" style={{background:data.colors.primary}}>+ Add Image</label>
+                                        </div>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                            {data.gallery.map((img,idx)=>(
+                                                <div key={idx} className="relative group">
+                                                    <img src={img} className="w-full h-32 object-cover rounded-lg" alt={`Gallery ${idx}`}/>
+                                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 rounded-lg">
+                                                        <input type="file" accept="image/*" className="hidden" id={`gallery-edit-${idx}`} onChange={e=>uploadImg(e,url=>updateGallery(idx,url))}/>
+                                                        <label htmlFor={`gallery-edit-${idx}`} className="admin-btn-small cursor-pointer">Change</label>
+                                                        <button onClick={()=>removeGalleryImage(idx)} className="admin-btn-small admin-btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* REVIEWS */}
+                                {activeAdminTab==='reviews' && (
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h2 className="text-xl font-bold text-white">Reviews</h2>
+                                            <button onClick={addReview} className="btn-premium px-4 py-2 text-xs font-bold uppercase" style={{background:data.colors.primary}}>+ Add Review</button>
+                                        </div>
+                                        {data.reviews.map((review,idx)=>(
+                                            <div key={idx} className="admin-item-card">
+                                                <div className="space-y-3">
+                                                    <div><label className="text-xs text-white/60">Name</label><input className="input-f" value={review.name} onChange={e=>updateReview(idx,'name',e.target.value)}/></div>
+                                                    <div><label className="text-xs text-white/60">Rating (1-5)</label><input type="number" min="1" max="5" className="input-f" value={review.rating||5} onChange={e=>updateReview(idx,'rating',parseInt(e.target.value)||5)}/><div className="mt-2"><StarRating rating={review.rating||5}/></div></div>
+                                                    <div><label className="text-xs text-white/60">Review Text</label><textarea className="input-f" rows="3" value={review.text} onChange={e=>updateReview(idx,'text',e.target.value)}/></div>
+                                                    <div className="border-t border-white/10 pt-3">
+                                                        <div className="flex justify-between items-center mb-2">
+                                                            <label className="text-xs text-white/60 uppercase">Review Links</label>
+                                                            <button onClick={()=>addReviewLink(idx)} className="admin-btn-small admin-btn-success">+ Link</button>
+                                                        </div>
+                                                        {review.links?.map((link,li)=>(
+                                                            <div key={li} className="flex gap-2 mb-2">
+                                                                <input className="input-f flex-1 text-sm" value={link.name} onChange={e=>updateReviewLink(idx,li,'name',e.target.value)}/>
+                                                                <input className="input-f flex-[2] text-sm" value={link.url} onChange={e=>updateReviewLink(idx,li,'url',e.target.value)}/>
+                                                                <button onClick={()=>removeReviewLink(idx,li)} className="admin-btn-small admin-btn-danger">✕</button>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <button onClick={()=>removeReview(idx)} className="admin-btn-small admin-btn-danger mt-3 w-full">Remove Review</button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* FOOTER */}
+                                {activeAdminTab==='footer' && (
+                                    <div className="admin-card">
+                                        <h3 className="font-bold text-xs tracking-widest mb-4 uppercase" style={{color:data.colors.primary}}>Footer Info</h3>
+                                        <div className="space-y-4">
+                                            <div><label className="text-xs text-white/60">WhatsApp</label><input className="input-f" value={data.footer.whatsapp} onChange={e=>setData({...data,footer:{...data.footer,whatsapp:e.target.value}})}/></div>
+                                            <div><label className="text-xs text-white/60">Hours</label><input className="input-f" value={data.footer.hours} onChange={e=>setData({...data,footer:{...data.footer,hours:e.target.value}})}/></div>
+                                            <div><label className="text-xs text-white/60">Address (clickable → Google Maps)</label><textarea className="input-f" rows="2" value={data.footer.address} onChange={e=>setData({...data,footer:{...data.footer,address:e.target.value}})}/></div>
+                                            <div><label className="text-xs text-white/60">Copyright</label><input className="input-f" value={data.footer.copyright} onChange={e=>setData({...data,footer:{...data.footer,copyright:e.target.value}})}/></div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* SOCIAL */}
+                                {activeAdminTab==='social' && (
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h2 className="text-xl font-bold text-white">Social Links</h2>
+                                            <button onClick={addSocialLink} className="btn-premium px-4 py-2 text-xs font-bold uppercase" style={{background:data.colors.primary}}>+ Add Link</button>
+                                        </div>
+                                        <div className="admin-card">
+                                            {data.footer.social_links.map((link,idx)=>(
+                                                <div key={idx} className="admin-item-card">
+                                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                                                        <div><label className="text-xs text-white/60">Platform</label><input className="input-f" value={link.name} onChange={e=>updateSocialLink(idx,'name',e.target.value)}/></div>
+                                                        <div className="md:col-span-2"><label className="text-xs text-white/60">URL</label><input className="input-f" value={link.url} onChange={e=>updateSocialLink(idx,'url',e.target.value)}/></div>
+                                                        <div><label className="text-xs text-white/60">Preview</label><div className="flex items-center gap-2">{link.icon_url?<img src={link.icon_url} className="social-icon-preview" alt={link.name}/>:<span className="text-white/30 text-xs">No icon</span>}<button onClick={()=>removeSocialLink(idx)} className="admin-btn-small admin-btn-danger">Remove</button></div></div>
+                                                    </div>
+                                                    <div className="mt-3">
+                                                        <label className="text-xs text-white/60">Icon URL</label>
+                                                        <div className="flex gap-2 mt-1">
+                                                            <input className="input-f flex-1" value={link.icon_url||''} onChange={e=>updateSocialLink(idx,'icon_url',e.target.value)}/>
+                                                            <input type="file" accept="image/*" className="hidden" id={`social-icon-${idx}`} onChange={e=>uploadImg(e,url=>updateSocialLink(idx,'icon_url',url))}/>
+                                                            <label htmlFor={`social-icon-${idx}`} className="admin-btn-small cursor-pointer flex items-center">Upload</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+
+                                {/* SEO Admin Overlay - triggered by triple click on title */}
+                                {seoAdminOpen && (
+                                    <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.88)',backdropFilter:'blur(16px)',zIndex:99999,display:'flex',alignItems:'center',justifyContent:'center',padding:'16px'}}>
+                                        <div style={{background:'rgba(15,10,25,0.98)',border:`2px solid ${data.colors.primary}`,borderRadius:'24px',width:'100%',maxWidth:'640px',maxHeight:'90vh',overflowY:'auto',padding:'24px',boxShadow:`0 0 40px ${data.colors.glow||data.colors.primary}40`}}>
+                                            <div className="flex items-center justify-between mb-6">
+                                                <h2 className="serif text-2xl font-bold italic" style={{color:data.colors.primary}}>🔒 SEO &amp; Scripts Panel</h2>
+                                                <button onClick={()=>setSeoAdminOpen(false)} className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white hover:opacity-70 transition" style={{background:data.colors.primary}}>✕</button>
+                                            </div>
+                                            <div className="flex gap-2 mb-6">
+                                                {['seo','scripts'].map(t=>(
+                                                    <button key={t} onClick={()=>setSeoAdminTab(t)} className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all" style={{background:seoAdminTab===t?data.colors.primary:'rgba(255,255,255,0.1)',color:seoAdminTab===t?'white':'rgba(255,255,255,0.6)'}}>
+                                                        {t==='seo'?'🔍 SEO':'🏷️ Scripts'}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            {seoAdminTab==='seo' && (
+                                                <div className="space-y-4">
+                                                    <p className="text-xs text-white/50 mb-2">These tags help Google find your site.</p>
+                                                    <div><label className="text-xs text-white/60">Location</label><input className="input-f" value={data.seo?.location||''} placeholder="Los Angeles, CA" onChange={e=>setData({...data,seo:{...data.seo,location:e.target.value}})}/></div>
+                                                    <div><label className="text-xs text-white/60">Meta Description</label><textarea className="input-f" rows="3" value={data.seo?.description||''} onChange={e=>setData({...data,seo:{...data.seo,description:e.target.value}})}/><p className="text-xs text-white/40 mt-1">{(data.seo?.description||'').length}/160 chars</p></div>
+                                                    <div><label className="text-xs text-white/60">Keywords</label><textarea className="input-f" rows="3" value={data.seo?.keywords||''} onChange={e=>setData({...data,seo:{...data.seo,keywords:e.target.value}})}/></div>
+                                                    <div className="bg-black/30 p-4 rounded-xl border border-white/10 mt-2">
+                                                        <p className="text-xs text-white/60 uppercase tracking-wider mb-2 font-bold">Google Preview</p>
+                                                        <p className="text-blue-400 text-sm font-medium">{data.brand_name} – {data.seo?.location||'Luxury Spa & Salon'}</p>
+                                                        <p className="text-green-500 text-xs mt-1">https://webnixi.com</p>
+                                                        <p className="text-white/60 text-xs mt-1">{(data.seo?.description||'').slice(0,160)||'Add description...'}</p>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {seoAdminTab==='scripts' && (
+                                                <div className="space-y-4">
+                                                    <p className="text-xs text-white/50">Paste GTM, Google Verification, or any head scripts.</p>
+                                                    <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-3">
+                                                        <p className="text-yellow-400 text-xs font-bold mb-1">⚠️ Examples:</p>
+                                                        <p className="text-white/50 text-xs font-mono">meta name google-site-verification</p>
+                                                    </div>
+                                                    <textarea className="input-f font-mono text-xs" rows="10" value={data.header_scripts||''} placeholder="Paste GTM or verification code" onChange={e=>setData({...data,header_scripts:e.target.value})}/>
+                                                    <button onClick={()=>injectHeaderScripts(data.header_scripts)} className="admin-btn-small admin-btn-success w-full">Preview Inject</button>
+                                                </div>
+                                            )}
+                                            <button onClick={()=>{saveToGithub();setSeoAdminOpen(false);}} className="btn-premium w-full py-3 mt-6 text-sm font-bold uppercase tracking-wider" style={{background:data.colors.primary}}>
+                                                💾 Save &amp; Deploy
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Sticky Save */}
+                                <div className="sticky-save-btn md:relative md:bg-transparent md:border-none md:p-0 md:mt-8">
+                                    <button onClick={saveToGithub} className="btn-premium w-full py-4 text-sm font-bold uppercase tracking-widest shadow-2xl border-2" style={{background:data.colors.primary,borderColor:data.colors.primary+'4D',boxShadow:`0 4px 15px ${data.colors.glow||data.colors.primary}`}}>
+                                        Deploy Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    ) : (
+                        <div className="bg-[#0d0d0d]">
+                            {/* Mobile Menu Overlay */}
+                            <div className={`mobile-menu-overlay ${mobileMenuOpen?'active':''}`} onClick={()=>setMobileMenuOpen(false)}></div>
+                            <div className={`mobile-menu ${mobileMenuOpen?'active':''}`}>
+                                <div className="flex flex-col gap-4">
+                                    <button onClick={()=>scrollToSection('home')} className="text-lg font-bold py-3 px-4 rounded-xl text-left border-b mb-2" style={{color:data.colors.primary,borderColor:data.colors.primary}}>{data.brand_name} (Home)</button>
+                                    {data.nav_items.map(item=>(
+                                        <button key={item.id} onClick={()=>scrollToSection(item.section)} className="text-white text-lg font-semibold py-3 px-4 rounded-xl hover:bg-white/10 transition text-left">{item.label}</button>
+                                    ))}
+                                    <button onClick={()=>window.open(`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`, '_blank')} className="btn-premium w-full py-3 mt-2 text-sm font-bold uppercase" style={{background:data.colors.primary}}>Contact</button>
+                                </div>
+                            </div>
+
+                            {/* Announcement Bar (no close button) */}
+                            {data.announcement?.enabled && (
+                                <div className="announcement-bar" style={{background:data.announcement.bg_color||'var(--announcement-bg)',color:data.announcement.text_color||'var(--announcement-text)'}}>
+                                    {data.announcement.text}
+                                </div>
+                            )}
+
+                            {/* Floating Nav */}
+                            <nav className="floating-nav no-select">
+                                <div className="flex items-center justify-between w-full">
+                                    <div className="flex items-center gap-3 cursor-pointer group" onClick={handleBrandTap}>
+                                        <span className="serif text-lg md:text-2xl font-bold uppercase tracking-tighter whitespace-nowrap group-hover:opacity-80 transition-opacity" style={{color:data.colors.brand_name||data.colors.text_white}}>
+                                            {data.brand_name}
+                                        </span>
+                                    </div>
+                                    <div className="hidden md:flex items-center gap-6 lg:gap-10 text-[11px] font-semibold uppercase tracking-wider ml-8 lg:ml-16">
+                                        {data.nav_items.map(item=>(
+                                            <button key={item.id} onClick={()=>scrollToSection(item.section)} className="nav-item-purple whitespace-nowrap transition-all hover:scale-105" style={{color:data.colors.nav||data.colors.primary}}>{item.label}</button>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center gap-6 ml-auto">
+                                        {/* Cart Icon in Navbar */}
+                                        <div className="relative" ref={cartRef}>
+                                            <button
+                                                className="nav-cart-btn"
+                                                onClick={()=>setCartOpen(o=>!o)}
+                                                style={{color:data.colors.primary}}
+                                                aria-label="Cart"
+                                            >
+                                                {data.cart_icon
+                                                    ? <img src={data.cart_icon} alt="cart" style={{width:'22px',height:'22px',objectFit:'contain',filter:`brightness(0) saturate(100%) invert(56%) sepia(95%) saturate(1234%) hue-rotate(242deg) brightness(101%) contrast(101%)`}} />
+                                                    : <span style={{fontSize:'18px'}}>🛒</span>
+                                                }
+                                                {cart.length > 0 && (
+                                                    <span key={cart.length} className="nav-cart-badge" style={{background:data.colors.primary}}>
+                                                        {cart.length}
+                                                    </span>
+                                                )}
+                                            </button>
+
+                                            {/* Cart Dropdown */}
+                                            <div className={`nav-cart-dropdown ${cartOpen?'open':''}`} style={{borderColor:data.colors.primary}}>
+                                                <div className="nav-cart-dropdown-header" style={{color:data.colors.primary}}>
+                                                    🛍️ Your Booking ({cart.length} {cart.length===1?'item':'items'})
+                                                </div>
+                                                <div className="nav-cart-items-list">
+                                                    {cart.length === 0 ? (
+                                                        <div className="nav-cart-empty">No items added yet</div>
+                                                    ) : (
+                                                        cart.map((item,i)=>(
+                                                            <div key={i} className="nav-cart-item">
+                                                                <span className="nav-cart-item-name">{item.name}</span>
+                                                                <span className="nav-cart-item-price" style={{color:data.colors.primary}}>{item.price}</span>
+                                                                <button
+                                                                    className="nav-cart-remove"
+                                                                    onClick={()=>toggleCart(item)}
+                                                                    title="Remove"
+                                                                >✕</button>
+                                                            </div>
+                                                        ))
+                                                    )}
+                                                </div>
+                                                {cart.length > 0 && (
+                                                    <div className="nav-cart-footer">
+                                                        <button
+                                                            onClick={()=>{setCartOpen(false);sendWhatsApp();}}
+                                                            className="btn-premium w-full py-2.5 text-xs font-bold uppercase tracking-wider"
+                                                            style={{background:`linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}
+                                                        >
+                                                            📲 Book via WhatsApp
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <button onClick={()=>setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden tap-target flex flex-col justify-center items-center gap-1.5 p-2">
+                                            <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen?'rotate-45 translate-y-2':''}`}></span>
+                                            <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen?'opacity-0':''}`}></span>
+                                            <span className={`w-5 h-0.5 bg-white transition-all ${mobileMenuOpen?'-rotate-45 -translate-y-2':''}`}></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </nav>
+
+                            {/* Cart */}
+                            {cart.length > 0 && (
+                                <div className="cart-float cart-blur p-4 rounded-full flex justify-between items-center px-6">
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-white">{cart.length} Items</div>
+                                    <button onClick={sendWhatsApp} className="btn-premium px-6 py-2 text-xs font-bold uppercase" style={{background:data.colors.primary}}>Book</button>
+                                </div>
+                            )}
+
+                            {/* Hero */}
+                            <header id="home" className="min-h-screen relative flex items-center justify-center text-center overflow-hidden pt-20 px-4">
+                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
+                                <img src={data.hero.image} className="absolute inset-0 w-full h-full object-cover opacity-40" alt="Hero"/>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent"></div>
+                                <div className="relative z-10 max-w-4xl mx-auto">
+                                    <h1 className="serif text-5xl sm:text-7xl md:text-[10rem] italic leading-none glow-text mb-6" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>
+                                        {data.hero.title || data.brand_name}
+                                    </h1>
+                                    <p className="tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-[12px] font-bold italic" style={{color:data.colors.primary}}>
+                                        {data.hero.subtitle}
+                                    </p>
+                                </div>
+                                {/* Hero Buttons */}
+                                {(data.hero.buttons||[]).map(btn=>(
+                                    <div key={btn.id} className={`hero-btn-${btn.position}`}>
+                                        <a
+                                            href={btn.link||'#'}
+                                            className={btn.style==='filled'?'hero-cta-filled':'hero-cta-outline'}
+                                            style={btn.style==='filled'?{background:data.colors.primary,borderColor:data.colors.primary,boxShadow:`0 4px 20px ${data.colors.glow||data.colors.primary}60`}:{}}
+                                            onClick={e=>{e.preventDefault();const t=document.querySelector(btn.link||'#');if(t)t.scrollIntoView({behavior:'smooth'});}}
+                                        >
+                                            {btn.label}
+                                        </a>
+                                    </div>
+                                ))}
+                            </header>
+
+                            {/* Experience */}
+                            <section id="experience" className="py-16 md:py-32 px-4 max-w-7xl mx-auto tech-grid-bg relative">
+                                <div className="relative z-10">
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>
+                                        {data.section_titles?.experience || "The Experience"}
+                                    </h2>
+                                    {/* Experience Category Floating Navbar */}
+                                    <div className="flex justify-center mb-8 md:mb-16">
+                                        <div className="exp-cat-nav" style={{
+                                            borderColor:data.colors.primary,
+                                            boxShadow:`0 8px 32px rgba(0,0,0,0.25), 0 0 18px ${data.colors.glow||data.colors.primary}30, inset 0 1px 0 rgba(255,255,255,0.08)`
+                                        }}>
+                                            {Object.keys(data.services||{}).map(cat=>(
+                                                <button
+                                                    key={cat}
+                                                    onClick={()=>{setActiveCat(cat);setSelectedSvc(data.services[cat][0]);}}
+                                                    className="exp-cat-btn"
+                                                    style={activeCat===cat ? {
+                                                        background:data.colors.primary,
+                                                        color:'#fff',
+                                                        boxShadow:`0 0 12px ${data.colors.glow||data.colors.primary}80`
+                                                    } : {
+                                                        color:data.colors.nav||data.colors.primary,
+                                                        background:'transparent'
+                                                    }}
+                                                >{cat}</button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="grid md:grid-cols-12 gap-8 md:gap-16">
+                                        <div className="md:col-span-4 flex md:block overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 md:gap-6 md:max-h-[500px] pb-4 md:pb-0">
+                                            {data.services[activeCat]?.map((s,i)=>(
+                                                <div key={i} className={`flex-shrink-0 w-64 md:w-full p-4 md:p-8 rounded-2xl md:rounded-[2rem] flex justify-between items-center cursor-pointer border`} style={{backgroundColor:selectedSvc?.name===s.name?`${data.colors.primary}1A`:'rgba(255,255,255,0.05)',borderColor:selectedSvc?.name===s.name?data.colors.primary:'rgba(255,255,255,0.1)'}}>
+                                                    <div onClick={()=>setSelectedSvc(s)} className="flex-1 min-w-0">
+                                                        <h4 className="serif text-lg md:text-2xl font-bold uppercase truncate" style={{color:data.colors.text_white}}>{s.name}</h4>
+                                                        <p className="text-[10px] font-bold mt-1" style={{color:data.colors.primary}}>{s.price}</p>
+                                                    </div>
+                                                    <button onClick={e=>{e.stopPropagation();toggleCart(s);}} className="w-8 h-8 md:w-10 md:h-10 rounded-full font-bold text-sm md:text-lg flex items-center justify-center flex-shrink-0 ml-2" style={{backgroundColor:cart.find(c=>c.name===s.name)?data.colors.primary:'transparent',borderColor:data.colors.primary,border:`2px solid ${data.colors.primary}`,color:cart.find(c=>c.name===s.name)?'white':data.colors.primary}}>
+                                                        {cart.find(c=>c.name===s.name)?'✕':'+'}
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="md:col-span-8">
+                                            {selectedSvc && (
+                                                <div className="flex flex-col gap-6 md:gap-12">
+                                                    <img key={selectedSvc.img} src={selectedSvc.img} className="svc-detail-img w-full aspect-video md:aspect-square object-cover rounded-2xl md:rounded-[3rem] shadow-2xl" style={{boxShadow:`0 25px 50px -12px ${data.colors.glow||data.colors.primary}33`}} alt={selectedSvc.name}/>
+                                                    <div>
+                                                        <h3 className="serif text-3xl md:text-6xl mb-4 italic glow-text" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>{selectedSvc.name}</h3>
+                                                        <p className="text-2xl md:text-3xl font-bold mb-4" style={{color:data.colors.primary}}>{selectedSvc.price}</p>
+                                                        <p className="text-base md:text-xl mb-6 italic serif" style={{color:data.colors.text_regular}}>{selectedSvc.desc}</p>
+                                                        <button onClick={()=>toggleCart(selectedSvc)} className="btn-premium w-full py-4 text-xs font-bold uppercase tracking-widest" style={{background:`linear-gradient(135deg, ${data.colors.primary} 0%, #a855f7 100%)`}}>
+                                                            {cart.find(c=>c.name===selectedSvc.name)?'Remove':'Add to Booking'}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Menu */}
+                            <section id="menu" className="py-16 md:py-32 px-4 tech-grid-bg relative">
+                                <div className="relative z-10 max-w-5xl mx-auto">
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>
+                                        {data.section_titles?.menu || "The Menu"}
+                                    </h2>
+                                    <div className="grid md:grid-cols-2 gap-8 md:gap-x-20">
+                                        {data.full_menu.map((sec,idx)=>(
+                                            <div key={idx} className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-2xl md:rounded-[2rem] border" style={{borderColor:`${data.colors.primary}1A`}}>
+                                                <h3 className="serif text-2xl md:text-4xl mb-6 italic border-b pb-4" style={{color:data.colors.primary,borderColor:`${data.colors.primary}4D`}}>~ {sec.cat} ~</h3>
+                                                {sec.items.map((it,i)=>(
+                                                    <div key={i} className="menu-item-row mb-4 border-b border-dotted pb-2" style={{borderColor:`${data.colors.text_white}1A`}}>
+                                                        <div className="menu-item-info">
+                                                            <span className="serif text-lg md:text-2xl uppercase menu-item-name">{it.n}</span>
+                                                            <span className="font-bold text-base ml-4" style={{color:data.colors.primary}}>{it.p}</span>
+                                                        </div>
+                                                        <button onClick={()=>toggleMenuItem(it.n,it.p)} className={`menu-add-btn ${cart.find(c=>c.name===it.n)?'active':''}`} style={{borderColor:data.colors.primary,color:cart.find(c=>c.name===it.n)?'white':data.colors.primary,backgroundColor:cart.find(c=>c.name===it.n)?data.colors.primary:'transparent'}}>
+                                                            {cart.find(c=>c.name===it.n)?'✕':'+'}
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* About */}
+                            <section id="about" className="py-16 md:py-32 px-4 relative">
+                                <div className="absolute inset-0 tech-grid-bg opacity-30"></div>
+                                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-20 items-center relative z-10">
+                                    <div className="order-2 md:order-1">
+                                        <h2 className="serif text-5xl md:text-8xl mb-6 italic glow-text" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>{data.section_titles?.about || "Our Sanctuary"}</h2>
+                                        <p className="text-lg md:text-2xl serif italic leading-relaxed" style={{color:data.colors.text_regular}}>{data.about.text}</p>
+                                    </div>
+                                    <div className="order-1 md:order-2 flex justify-center">
+                                        <div className="about-arch-frame" style={{'--arch-accent': data.colors.primary, '--arch-glow': data.colors.glow||data.colors.primary}}>
+                                            {/* Decorative dots */}
+                                            <span className="arch-dot arch-dot-tr" style={{color:data.colors.primary}}>✦</span>
+                                            <span className="arch-dot arch-dot-bl" style={{color:data.colors.primary}}>✦</span>
+                                            {/* Arch background */}
+                                            <div className="arch-bg" style={{background:`linear-gradient(160deg, rgba(30,20,50,0.9) 0%, rgba(15,10,25,0.95) 100%)`,border:`1.5px solid ${data.colors.primary}33`}}></div>
+                                            {/* Image inside arch */}
+                                            <img
+                                                src={data.about.image}
+                                                className="arch-img"
+                                                style={{boxShadow:`0 20px 50px ${data.colors.glow||data.colors.primary}30`}}
+                                                alt="About"
+                                            />
+                                            {/* Brand badge */}
+                                            <div className="arch-badge" style={{border:`2px solid ${data.colors.primary}`,background:'rgba(13,13,13,0.9)',boxShadow:`0 0 15px ${data.colors.glow||data.colors.primary}60`}}>
+                                                <span className="arch-badge-text serif italic" style={{color:data.colors.primary}}>{data.brand_name}</span>
+                                            </div>
+                                            {/* Corner accent lines */}
+                                            <div className="arch-line-tl" style={{borderColor:data.colors.primary}}></div>
+                                            <div className="arch-line-br" style={{borderColor:data.colors.primary}}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Gallery */}
+                            <section id="gallery" className="py-16 md:py-32 px-4 tech-grid-bg relative">
+                                <div className="relative z-10">
+                                    <h2 className="serif text-5xl md:text-8xl text-center mb-12 md:mb-24 italic glow-text" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>{data.section_titles?.gallery || "Visual Sanctuary"}</h2>
+                                    <div className="max-w-7xl mx-auto masonry">
+                                        {data.gallery.map((img,i)=>(
+                                            <div key={i} className="break-inside-avoid overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl border-2 transition-all" style={{borderColor:`${data.colors.primary}33`}}>
+                                                <img src={img} className="w-full h-auto hover:scale-110 transition duration-1000" alt={`Gallery ${i}`} loading="lazy"/>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Reviews */}
+                            <section id="reviews" className="py-16 md:py-24 px-4 relative overflow-hidden">
+                                <div className="absolute inset-0 tech-grid-bg opacity-50"></div>
+                                <div className="max-w-6xl mx-auto relative z-10">
+                                    <h2 className="serif text-4xl md:text-6xl text-center mb-8 md:mb-16 italic glow-text" style={{color:data.colors.text_white,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>{data.section_titles?.reviews || "Words of Luxe"}</h2>
+                                    <div className="grid md:grid-cols-3 gap-4 md:gap-8">
+                                        {data.reviews.map((r,i)=>(
+                                            <div key={i} className="bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border text-center" style={{borderColor:`${data.colors.primary}33`}}>
+                                                <StarRating rating={r.rating||5}/>
+                                                <p className="serif text-base md:text-lg mb-4 italic" style={{color:data.colors.text_regular}}>"{r.text}"</p>
+                                                <h5 className="font-bold text-[10px] uppercase tracking-widest" style={{color:data.colors.primary}}>— {r.name}</h5>
+                                                {r.links?.length > 0 && (
+                                                    <div className="review-links-container">
+                                                        {r.links.map((link,idx)=>(
+                                                            <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="review-link-btn" style={{color:data.colors.primary}}>{link.name}</a>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Footer */}
+                            <footer className="pt-16 md:pt-24 pb-8 px-4 md:px-10 border-t" style={{backgroundColor:'#050505',borderColor:`${data.colors.primary}33`}}>
+                                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-b border-white/5 pb-12 md:pb-20">
+                                    <div className="col-span-2">
+                                        <h4 className="serif text-4xl md:text-6xl italic font-bold mb-4 glow-text" style={{color:data.colors.primary,textShadow:`0 0 20px ${data.colors.glow||data.colors.primary}80`}}>{data.brand_name}</h4>
+                                        <h5 className="uppercase text-[10px] mb-2 tracking-widest font-bold" style={{color:data.colors.primary}}>Address</h5>
+                                        <p onClick={openGoogleMaps} className="text-xs md:text-sm italic max-w-sm mb-4 address-link underline decoration-dotted" style={{color:data.colors.text_regular}} title="Click to open in Google Maps">{data.footer.address} ↗</p>
+                                    </div>
+                                    <div>
+                                        <h5 className="uppercase text-[10px] mb-3 tracking-widest font-bold" style={{color:data.colors.primary}}>Timing</h5>
+                                        <p className="text-xs serif italic" style={{color:data.colors.text_regular}}>{data.footer.hours}</p>
+                                    </div>
+                                    <div>
+                                        <h5 className="uppercase text-[10px] mb-3 tracking-widest font-bold" style={{color:data.colors.primary}}>Contact</h5>
+                                        <a href={`https://wa.me/${data.footer.whatsapp?.replace(/\D/g,'')}`} target="_blank" className="text-xs serif italic underline block break-all" style={{color:data.colors.text_regular}}>{data.footer.whatsapp}</a>
+                                    </div>
+                                </div>
+                                <div className="max-w-7xl mx-auto mt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                                    <p className="text-[10px] uppercase tracking-[0.3em] order-2 md:order-1" style={{color:`${data.colors.text_white}4D`}}>{data.footer.copyright}</p>
+                                    <div className="flex items-center gap-4 order-1 md:order-2">
+                                        <span className="text-xs uppercase tracking-widest font-bold mr-2" style={{color:data.colors.primary}}>Follow:</span>
+                                        {data.footer.social_links.map((link,idx)=>(
+                                            <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="social-icon" style={{borderColor:data.colors.primary}} title={link.name}>
+                                                {link.icon_url ? <img src={link.icon_url} alt={link.name}/> : <span style={{color:data.colors.primary,fontSize:'14px'}}>?</span>}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            </footer>
+
+                            {/* AI Chat Widget */}
+                            
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+
+    <!-- GTM Body Script placeholder (inject after body tag) -->
+    <div id="gtm-body-scripts"></div>
+</body>
+</html>
