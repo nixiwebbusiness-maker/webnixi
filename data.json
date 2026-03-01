@@ -31,23 +31,9 @@
     "buttons": [
       {
         "id": 1772338690234,
-        "label": "services ",
+        "label": "our services ",
         "link": "#experience",
         "position": "center",
-        "style": "filled"
-      },
-      {
-        "id": 1772338771234,
-        "label": "New Buttons",
-        "link": "#experience",
-        "position": "bottom-right",
-        "style": "filled"
-      },
-      {
-        "id": 1772338771689,
-        "label": "New Buttona",
-        "link": "#experience",
-        "position": "bottom-left",
         "style": "filled"
       }
     ]
