@@ -14,6 +14,33 @@
     "location": "Los Angeles, CA"
   },
   "header_scripts": "",
+  "payment_options": {
+    "enabled": true,
+    "note": "Please complete payment before your appointment.",
+    "methods": [
+      {
+        "id": 1,
+        "name": "Cash",
+        "icon": "💵",
+        "detail": "Pay in person at the salon",
+        "enabled": true
+      },
+      {
+        "id": 2,
+        "name": "Card",
+        "icon": "💳",
+        "detail": "Visa / Mastercard accepted",
+        "enabled": true
+      },
+      {
+        "id": 3,
+        "name": "Bank Transfer",
+        "icon": "🏦",
+        "detail": "Account details sent via WhatsApp",
+        "enabled": false
+      }
+    ]
+  },
   "cart_icon": "",
   "colors": {
     "primary": "#FF007F",
@@ -25,7 +52,7 @@
     "brand_name": "#ffffff"
   },
   "hero": {
-    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770920621/rxmr1pj0jbcrh3zioj91.png",
+    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1772820897/unkzntca2rlspr6k8tld.jpg",
     "subtitle": "WELCOME TO WEBNIXI",
     "title": "WEBNIXI",
     "buttons": [
@@ -349,6 +376,14 @@
         "icon_url": "https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
       }
     ]
+  },
+  "location_info": {
+    "enabled": true,
+    "title": "Location Info",
+    "description": "Visit us for expert beauty services in a clean, modern, and welcoming environment. We can't wait to see you!",
+    "address": "123 Beauty Lane, City",
+    "hours": "Mon-Sat 9am",
+    "map_query": "123 Beauty Lane, Beverly Hills, CA"
   },
   "section_titles": {
     "experience": "The services ",
