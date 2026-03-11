@@ -5,9 +5,7 @@ export default async function handler(req, res) {
 
     const { content, sha } = req.body;
     const GITHUB_TOKEN = process.env.GH_TOKEN;
-    
-    // Exact Repo Path from your screenshot
-    const REPO_PATH = 'nixiwebbusiness-maker/LUMINA-_LUXE'; 
+    const REPO_PATH = 'nixiwebbusiness-maker/ukd';
 
     try {
         const response = await fetch(`https://api.github.com/repos/${REPO_PATH}/contents/data.json`, {
