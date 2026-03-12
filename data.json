@@ -1,12 +1,12 @@
 {
-  "brand_name": "WEBNIXI",
-  "favicon": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770648342/vynfrkyvg8ggypxjxxi2.png",
-  "logo": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770728889/g0ugfpbbxicrqh73inb3.png",
+  "brand_name": "saryo",
+  "favicon": "https://res.cloudinary.com/dgoc9andq/image/upload/v1773290968/zppu2jtki3ota8vegskp.png",
+  "logo": "",
   "announcement": {
     "enabled": true,
     "text": "🎉 SALE — Use code SAVE10OFF for 10% off all bookings!",
-    "bg_color": "#FF007F",
-    "text_color": "#F7A1B5"
+    "bg_color": "#cc73f8",
+    "text_color": "#ffffff"
   },
   "seo": {
     "description": "webnixi – Premium Spa & Salon in Los Angeles. Book luxury hair, massage, facial treatments.",
@@ -43,337 +43,221 @@
   },
   "cart_icon": "",
   "colors": {
-    "primary": "#FF007F",
-    "text_white": "#FFFFFF",
-    "text_regular": "#F7A1B5",
-    "shadow": "#E0E5E9",
-    "nav": "#F7A1B5",
-    "glow": "#F7A1B5",
+    "primary": "#cc73f8",
+    "text_white": "#ffffff",
+    "text_regular": "#ffffff60",
+    "shadow": "#cc73f8",
+    "nav": "#cc73f8",
+    "glow": "#cc73f8",
     "brand_name": "#ffffff"
   },
   "hero": {
-    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1772821120/jh2th32rupx8bbgvxm7l.webp",
-    "subtitle": "WELCOME TO WEBNIXI",
-    "title": "WEBNIXI",
+    "title": "",
+    "subtitle": "Experience Ultimate Luxury",
+    "images": [
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&h=1080&fit=crop",
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920&h=1080&fit=crop",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1920&h=1080&fit=crop",
+      "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=1920&h=1080&fit=crop"
+    ],
     "buttons": [
       {
-        "id": 1772338690234,
-        "label": "our services ",
-        "link": "#experience",
+        "id": 1,
+        "label": "Order Now",
+        "link": "#deals",
         "position": "center",
         "style": "filled"
+      },
+      {
+        "id": 2,
+        "label": "Our Menu",
+        "link": "#menu",
+        "position": "bottom-right",
+        "style": "outline"
+      },
+      {
+        "id": 3,
+        "label": "Contact Us",
+        "link": "#footer",
+        "position": "bottom-left",
+        "style": "outline"
       }
     ]
   },
   "about": {
-    "text": "My name is faysal.I'm website designer/developer.",
-    "image": "https://res.cloudinary.com/dgoc9andq/image/upload/v1770473043/wagnzv28guaxynsgowwq.webp"
+    "text": "Welcome to our sanctuary, where luxury meets tranquility. Our sanctuary offers premium services designed to rejuvenate your mind, body, and soul.",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=1000&fit=crop",
+    "stats": [
+      {
+        "value": "150+",
+        "label": "Client Satisfaction"
+      },
+      {
+        "value": "15",
+        "label": "Expert Team"
+      },
+      {
+        "value": "5★",
+        "label": "Avg Rating"
+      }
+    ]
   },
   "services": {
-    "NAILS": [
+    "Spa": [
       {
-        "name": "Regular Manicure",
-        "price": "$60",
-        "desc": "Classic nail care, shaping, and polish.",
-        "img": "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600"
+        "name": "Royal Massage",
+        "price": "$150",
+        "desc": "Full body relaxation massage",
+        "img": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=600&fit=crop"
       },
       {
-        "name": "Gel Manicure",
+        "name": "Facial Treatment",
+        "price": "$120",
+        "desc": "Premium skincare treatment",
+        "img": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=600&fit=crop"
+      }
+    ],
+    "Salon": [
+      {
+        "name": "Hair Styling",
         "price": "$80",
-        "desc": "Long-lasting gel polish cured under UV.",
-        "img": "https://res.cloudinary.com/dgoc9andq/image/upload/v1771222928/wjza7pmdyr9ydnuq4jyd.png"
+        "desc": "Professional hair styling",
+        "img": "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=600&fit=crop"
       },
       {
-        "name": "Acrylic Powder Extension",
-        "price": "$140",
-        "desc": "Full set extensions for length and strength.",
-        "img": "https://res.cloudinary.com/dgoc9andq/image/upload/v1771222945/nkt7smxd09rapadzjq1g.png"
-      }
-    ],
-    "RUSSIAN STYLE": [
-      {
-        "name": "Russian E-File Manicure",
-        "price": "$90",
-        "desc": "Precision cuticle work using electric file for a clean look.",
-        "img": "https://res.cloudinary.com/dgoc9andq/image/upload/v1771222952/lt9poxmzesfv4dsyxddp.png"
-      },
-      {
-        "name": "New Ritual",
-        "price": "$0.00",
-        "desc": "Experience details...",
-        "img": "https://res.cloudinary.com/dgoc9andq/image/upload/v1771222970/f8a6yvqubxmpm9xh2cap.jpg"
-      }
-    ],
-    "Pedicures": [
-      {
-        "name": "Regular Pedicure",
-        "price": "$110",
-        "desc": "Description here !",
-        "img": "https://res.cloudinary.com/dgoc9andq/image/upload/v1771223057/oekeengiq7cksiwwmnzx.png"
-      },
-      {
-        "name": "New Service",
-        "price": "$0",
-        "desc": "Description here",
-        "img": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop"
-      }
-    ],
-    "BROWS": [
-      {
-        "name": "New Service",
-        "price": "$0",
-        "desc": "Description here",
-        "img": "https://res.cloudinary.com/dgoc9andq/image/upload/v1771223102/zsf8sox2xs2qxmlm89xa.png"
+        "name": "Manicure",
+        "price": "$50",
+        "desc": "Luxury nail care",
+        "img": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=600&fit=crop"
       }
     ]
   },
   "full_menu": [
     {
-      "cat": "Nails",
+      "cat": "Pizzas",
       "items": [
         {
-          "n": "Regular Manicure",
-          "p": "$60"
+          "n": "Margherita Pizza",
+          "p": "Rs. 850"
         },
         {
-          "n": "Gel Manicure",
-          "p": "$80"
+          "n": "BBQ Chicken Pizza",
+          "p": "Rs. 1100"
         },
         {
-          "n": "Acrylic Powder Extension (starts)",
-          "p": "$140"
+          "n": "Pepperoni Pizza",
+          "p": "Rs. 1200"
         },
         {
-          "n": "Hard Gel Full Set (starts)",
-          "p": "$130"
-        },
-        {
-          "n": "Hard Gel Fill (starts) Removal Extra $10",
-          "p": "$110"
-        },
-        {
-          "n": "Gel X (ANY LENGTH)",
-          "p": "$130"
+          "n": "Veggie Supreme",
+          "p": "Rs. 950"
         }
       ]
     },
     {
-      "cat": "Pedicures",
+      "cat": "Burgers",
       "items": [
         {
-          "n": "Regular Pedicure",
-          "p": "$80",
-          "d": "*Callus removal included"
+          "n": "Classic Beef Burger",
+          "p": "Rs. 650"
         },
         {
-          "n": "Gel Pedicure",
-          "p": "$95"
+          "n": "Zinger Burger",
+          "p": "Rs. 700"
         },
         {
-          "n": "24k Gold SPA Pedicure",
-          "p": "$120"
-        },
-        {
-          "n": "RUSSIAN STYLE GEL PEDICURE",
-          "p": "$95"
+          "n": "Double Smash Burger",
+          "p": "Rs. 900"
         }
       ]
     },
     {
-      "cat": "RUSSIAN STYLE ",
+      "cat": "Sides & Drinks",
       "items": [
         {
-          "n": "Regular Manicure",
-          "p": "$60"
+          "n": "French Fries",
+          "p": "Rs. 300"
         },
         {
-          "n": "Gel Manicure",
-          "p": "$80"
+          "n": "Garlic Bread",
+          "p": "Rs. 250"
         },
         {
-          "n": "Acrylic Powder Extension (starts)",
-          "p": "$140"
+          "n": "Soft Drink",
+          "p": "Rs. 150"
         },
         {
-          "n": "Hard Gel Full Set (starts)",
-          "p": "$130"
-        },
-        {
-          "n": "Hard Gel Fill (starts) Removal Extra $10",
-          "p": "$110"
-        },
-        {
-          "n": "Gel X (ANY LENGTH)",
-          "p": "$130"
-        }
-      ]
-    },
-    {
-      "cat": "ADD ON",
-      "items": [
-        {
-          "n": "Gel Removal",
-          "p": "$10"
-        },
-        {
-          "n": "French / Chrome / Design",
-          "p": "$20"
-        },
-        {
-          "n": "Hard Gel/Extension Removal",
-          "p": "$20"
-        }
-      ]
-    },
-    {
-      "cat": "WAX",
-      "items": [
-        {
-          "n": "Brazilian deep bikini",
-          "p": "$80"
-        },
-        {
-          "n": "full legs",
-          "p": "$70"
-        },
-        {
-          "n": "full hands",
-          "p": "$60"
-        },
-        {
-          "n": "half legs",
-          "p": "$40"
-        },
-        {
-          "n": "half hands",
-          "p": "$35"
-        },
-        {
-          "n": "underarm",
-          "p": "$30"
-        },
-        {
-          "n": "face (any zone)",
-          "p": "$30"
-        },
-        {
-          "n": "full body",
-          "p": "$190"
-        }
-      ]
-    },
-    {
-      "cat": "LASHES",
-      "items": [
-        {
-          "n": "Lash Extension Classic",
-          "p": "$120"
-        },
-        {
-          "n": "Lash Extension 1.5D",
-          "p": "$140"
-        },
-        {
-          "n": "Lash Extension 2D",
-          "p": "$160"
-        },
-        {
-          "n": "Lash Extension 3D",
-          "p": "$180"
-        },
-        {
-          "n": "Lash Extension 4D",
-          "p": "$190"
-        },
-        {
-          "n": "Lash Extension 5D",
-          "p": "$220"
-        },
-        {
-          "n": "Lash Lift",
-          "p": "$99"
-        }
-      ]
-    },
-    {
-      "cat": "BROWS",
-      "items": [
-        {
-          "n": "Brow Lamination",
-          "p": "$99"
-        },
-        {
-          "n": "brow design full set",
-          "p": "$120"
-        },
-        {
-          "n": "Brow Tint",
-          "p": "$30"
-        },
-        {
-          "n": "brow architecture (henna)",
-          "p": "$80"
+          "n": "Milkshake",
+          "p": "Rs. 450"
         }
       ]
     }
   ],
   "reviews": [
     {
-      "name": "Emily R.",
-      "text": "The best Russian manicure in Santa Monica! Highly recommended.",
-      "links": [],
-      "rating": 5
+      "name": "Sarah Johnson",
+      "text": "Absolutely amazing experience! The staff was so professional.",
+      "rating": 5,
+      "links": [
+        {
+          "name": "Google Maps",
+          "url": "https://maps.google.com"
+        },
+        {
+          "name": "Yelp",
+          "url": "https://yelp.com"
+        }
+      ]
     },
     {
-      "name": "Sarah M.",
-      "text": "Sasha's attention to detail is unmatched. Luxury experience.",
+      "name": "Emily Davis",
+      "text": "Best spa day I've ever had. Highly recommend!",
+      "rating": 5,
       "links": []
     },
     {
-      "name": "faysal",
-      "text": "solan service is next level.",
-      "links": []
+      "name": "Michael Brown",
+      "text": "Luxurious atmosphere and top-notch service.",
+      "rating": 4,
+      "links": [
+        {
+          "name": "Google Maps",
+          "url": "https://maps.google.com"
+        }
+      ]
     }
   ],
   "gallery": [
-    "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600",
-    "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600",
-    "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907080/e9zedruhbfxu9fkkq99e.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907103/b21ydzagattdmxhuaoh3.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907109/nl7jy7vnro1yqbbhsrvd.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907116/uavpsziw7yq4uqwrri3u.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907122/grxzupexgk7h6gukhjkz.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907128/t5tmjrtp23wo6sq1uz7m.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907134/dufzvrdt5j8snaugmy5p.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907140/wwhza6hhu1c9u6xub4ii.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907149/ynexnhymafwoy5011ckk.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907155/eekdj1nzupsv5vsmrzjs.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907185/odf7esirdkc5ksntyskz.png",
-    "https://res.cloudinary.com/dgoc9andq/image/upload/v1770907193/ec2do94hk0kyuqbmofxj.png"
+    "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
+    "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=600&fit=crop",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
   ],
   "footer": {
-    "whatsapp": "03038679051",
-    "hours": "MONDAY=FRIDAY  10:00AM / 10:00PM",
-    "address": "350 S Gaffey St, San Pedro, CA 90731, United States",
-    "copyright": "2026",
+    "whatsapp": "+1234567890",
+    "hours": "Mon-Sun: 9AM - 9PM",
+    "address": "123 Luxury Lane, Beverly Hills, CA 90210",
+    "copyright": "© 2024 webnixi. All rights reserved.",
     "social_links": [
       {
         "name": "Yelp",
         "url": "https://yelp.com",
-        "icon": "Yelp",
         "icon_url": "https://cdn-icons-png.flaticon.com/512/174/174882.png"
       },
       {
         "name": "Instagram",
         "url": "https://instagram.com",
-        "icon": "📷",
         "icon_url": "https://cdn-icons-png.flaticon.com/512/174/174855.png"
       },
       {
-        "name": "New Link",
+        "name": "TikTok",
         "url": "https://tiktok.com",
         "icon_url": "https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
+      },
+      {
+        "name": "X",
+        "url": "https://x.com",
+        "icon_url": "https://cdn-icons-png.flaticon.com/512/5968/5968830.png"
       }
     ]
   },
@@ -381,21 +265,25 @@
     "enabled": true,
     "title": "Location Info",
     "description": "Visit us for expert beauty services in a clean, modern, and welcoming environment. We can't wait to see you!",
-    "address": "123 Beauty Lane, City",
+    "address": "attock city",
     "hours": "Mon-Sat 9am",
-    "map_query": "123 Beauty Lane, Beverly Hills, CA"
+    "map_query": "attock"
   },
   "section_titles": {
-    "experience": "The services ",
     "menu": "The Menu",
-    "reviews": "Words of Luxe",
-    "gallery": "gallery ",
-    "about": "Our Sanctuary"
+    "deals": "Deals"
   },
+  "delivery_cities": [
+    "Karachi",
+    "Lahore",
+    "Islamabad",
+    "Rawalpindi",
+    "Faisalabad"
+  ],
   "nav_items": [
     {
       "id": "experience",
-      "label": "services ",
+      "label": "Experience",
       "section": "experience"
     },
     {
@@ -412,12 +300,61 @@
       "id": "gallery",
       "label": "Gallery",
       "section": "gallery"
-    },
-    {
-      "id": "nav_1771044613505",
-      "label": "reviews",
-      "section": "reviews"
     }
   ],
-  "about_text": "Hi, I’m Sasha. I founded Lumina in Santa Monica to bring the best of Russian beauty techniques to California. With over 15 years of experience, we focus on precision, health, and high-end aesthetics."
+  "deals_sections": [
+    {
+      "id": 1,
+      "title": "RAMZAN",
+      "subtitle": "DEALS",
+      "bannerBg": "#1a1400",
+      "titleColor": "#c8a200",
+      "subtitleBg": "#2a2200",
+      "subtitleColor": "#c8a200",
+      "bannerImage": "",
+      "bannerEmoji": "🍽️",
+      "deals": [
+        {
+          "id": 1,
+          "name": "Double Pizza Roll",
+          "subtitle": "2X Pizza Roll",
+          "icon": "🍕",
+          "image": "",
+          "originalPrice": 4299,
+          "discountedPrice": 798,
+          "cardColor": "#c88000"
+        },
+        {
+          "id": 2,
+          "name": "Double Large",
+          "subtitle": "2 X 12\" Deep Pan",
+          "icon": "🍕",
+          "image": "",
+          "originalPrice": 3499,
+          "discountedPrice": 2499,
+          "cardColor": "#c88000"
+        },
+        {
+          "id": 3,
+          "name": "Double Medium",
+          "subtitle": "2 X 9\" Deep Pan",
+          "icon": "🍕",
+          "image": "",
+          "originalPrice": 2999,
+          "discountedPrice": 1699,
+          "cardColor": "#c88000"
+        },
+        {
+          "id": 4,
+          "name": "Ramzan Deal 1",
+          "subtitle": "21 Slice",
+          "icon": "🍕",
+          "image": "",
+          "originalPrice": 749,
+          "discountedPrice": 649,
+          "cardColor": "#9a1010"
+        }
+      ]
+    }
+  ]
 }
