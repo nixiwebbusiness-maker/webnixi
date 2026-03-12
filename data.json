@@ -1,6 +1,6 @@
 {
   "brand_name": "saryo",
-  "favicon": "https://res.cloudinary.com/dgoc9andq/image/upload/v1773290968/zppu2jtki3ota8vegskp.png",
+  "favicon": "",
   "logo": "",
   "announcement": {
     "enabled": true,
@@ -265,9 +265,9 @@
     "enabled": true,
     "title": "Location Info",
     "description": "Visit us for expert beauty services in a clean, modern, and welcoming environment. We can't wait to see you!",
-    "address": "attock city",
+    "address": "123 Beauty Lane, City",
     "hours": "Mon-Sat 9am",
-    "map_query": "attock"
+    "map_query": "123 Beauty Lane, Beverly Hills, CA"
   },
   "section_titles": {
     "menu": "The Menu",
